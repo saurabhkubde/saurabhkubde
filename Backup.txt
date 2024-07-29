@@ -1,0 +1,168 @@
+ToAddress: ctds.feedback@ct.gov; CTDS Feedback
+
+MYCT_PreScreenerFlowController
+
+notranslate acn-background-color-white
+
+--------------------------------
+What is the use of topic
+
+one liner= best
+
+const te = this.template.queryselector('c-test');
+te.methodname();
+te.variable;
+
+this.options.foreach((Item) => {
+if(){
+
+}
+
+});
+
+testimperativecall({ firstname: this.first,lastanme: lsy}).then((result) => {
+
+}).catch((error) => {
+
+});
+
+testoptions.find((item) => item==='test')) = true or false
+
+-------------------------------------
+apictgov_qa/hhs-oec-dss-benefits-exp-api-qa/api/v1/dss-authlinkprogram
+
+----------------------------------------------------------------------
+delete link benefits data
+List<MYCT_AgencyProgramConstituent__c> agencyProgramConstituentRecords = [SELECT Id,name,OwnerId  FROM MYCT_AgencyProgramConstituent__c WHERE Code__c <> NULL and OwnerId='0053R000002vzUUQAY']; 
+delete agencyProgramConstituentRecords; 
+List<MYCT_Link__c> aclRecords = [SELECT Id,name,CreatedById FROM MYCT_Link__c where CreatedById='0053R000002vzUUQAY' ]; 
+delete aclRecords; 
+List<User> usersToUpdate = [SELECT Id,name, MYCT_HasLinkedBenefits__c FROM User WHERE MYCT_IsMYCTPortalUser__c = true  and id='0053R000002vzUUQAY']; 
+for (User aRecord: usersToUpdate) { 
+    aRecord.MYCT_HasLinkedBenefits__c = false; 
+} 
+update usersToUpdate;
+---------------------------------------------------------------------
+
+
+As  a member of team I have worked on my as well as my team member’s assigned task with all my efforts and have tried to lower down the work pressure of my team members without seeking any credit.
+---------------------------------------------------------------------
+Help Text:
+1) Check field help text on field details
+2) MYCT_DynamicSupportFormProvider check code 
+3) MYCT_DynamicSupportForm check html file code
+4) then check child code like ACN_DynamicFormInput
+5) 
+----------------------------------------------------------------------------
+SH-2960
+
+
+----------------------------
+BAckup :- Logout URL
+---
+https://dev.login.ct.gov/openam/IDPSloInit?metaAlias=/BOSCitizens/devidp&binding=urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST&RelayState=https://health-sit.service.ct.gov/myctportal/s/dashboard
+https://dev.login.ct.gov/openam/IDPSloInit?metaAlias=/BOSCitizens/devidp&binding=urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST&RelayState=https://health-sit.service.ct.gov/myctportal/s/dashboard
+
+------------------------------------------------------
+https://devc.login.ct.gov/ctidentity/login?goto=https://health-sit2.service.ct.gov/myctportal/s/dashboard
+
+------------------------------------------------
+MYCT_WICValidationLabel6
+
+-----------------------------------------------------
+SCHHS-2797
+Apex Class:
+MYCT_DynamicLinkFormCX
+MYCT_DynamicLinkFormCXTest
+MYCT_LinkBenefitsDynamicFormProvider
+MYCT_LinkBenefitsDynamicFormProviderTest
+
+Aura component:
+MYCT_DynamicLinkBenefitForm
+
+
+checkDSSValidationStatus method
+MYCT_Dynamic linked benfit form js file
+
+https://ctdss--schhsdev02.sandbox.my.site.com/modeloffice/apex/MYCT_DynamicCustomLabelHelp?searchFunc=linkProgram&searchParameter=OEC
+
+---------------------------
+MYCT_DSSIntegrationProviderTest
+MYCT_OECIntegrationProviderTest
+MYCT_WICIntegrationProviderTest
+MYCT_EMailServiceProviderTest
+MYCT_ReCaptchaControllerTest
+MYCT_LinkBenefitsDynamicFormProviderTest
+MYCT_ScreenerDynamicFormProviderTest
+MYCT_DynamicSupportFormProviderTest
+MYCT_restUtilitiesTest
+
+--------------------------------------------------
+(Are you pregnant ? = Yes OR 
+Do you live with pregnant household = Yes OR
+WhatAreYourChildrensAges__c  = 0-5)
+
+AND
+
+User Comes under income limit
+
+
+if (obj_AgencyProgram.SkipIncomeCheck__c == true &&  objMYCT_Questionnaire.HaveSomeIncomeConditionPassed__c == true)  {
+                        //check for asset limit
+                        if (obj_AgencyProgram.IncludeAssetLimit__c == true && objMYCT_Questionnaire.TotalAssetsForYourHousehold__c != null && objIncomeLimit.AssetLimitMarried__c != null) {
+                            if (objMYCT_Questionnaire.TotalAssetsForYourHousehold__c <= objIncomeLimit.AssetLimitMarried__c) {
+                                set_EligibleProgramsForCurrentQuestionnaire.add(obj_AgencyProgram.Program__c); 
+                                continue;
+                            }
+                        } else {
+                            set_EligibleProgramsForCurrentQuestionnaire.add(obj_AgencyProgram.Program__c);
+                            continue;
+                        } 
+                    }
+---------------------------------------------------------------
+Decimal dec_UserHouseHoldSize = Decimal.valueOf(str_UserHouseHoldSize);
+                    //For HUSKY A - Pregnant Women and HUSKY B Prenatal Care, add one to HH size to account for the unborn child.
+                    if (obj_AgencyProgram.IncludeUnbornChild__c  == true) {
+                        if (objMYCT_Questionnaire.NoOfChildrenYouExpectDuringPregnancy__c != null) {
+                            dec_UserHouseHoldSize += Decimal.valueOf(objMYCT_Questionnaire.NoOfChildrenYouExpectDuringPregnancy__c);
+                        } 
+                        if (objMYCT_Questionnaire.ExpectedNoOfChildrenPregntHousehold__c != null) {
+                            dec_UserHouseHoldSize += Decimal.valueOf(objMYCT_Questionnaire.ExpectedNoOfChildrenPregntHousehold__c);
+                        } 
+                    }
+                    dec_UserIncome -= (dec_UserIncome * Decimal.valueOf(Label.MYCT_IncomeCutoffPercentage)) / 100;
+
+Include:
+IsPregnantOrChildrenConditionPassed__c==false
+ True == False
+False
+
+exlcude
+IsPregnantOrChildrenConditionPassed__c=false
+False == False
+True
+----------------------------------------------------------------------------
+1. In which objects you atore analystics data in salesforce
+2. How to identity only MYCT portal analystocs data not other store.
+3. Did you created any report in salesforce already for google analystics?
+4. How do I identify the activity record is created for authenticated or unauthenticated user.
+5. How to differ analytics records as per authenticated or unauthenticated user.
+6. Did we store all analytics events of MYCt portal
+7. where we are storing these events?
+8. In which MYCT org you are storing all analystics events
+9. 
+
+language = ApexPages.currentPage().getParameters().get('lang');
+        if (language == null) {
+            language = 'en'; // Default language
+        }
+
+
+--------------------------------------------------------------------------------
+data_admin_ck4@ct.gov.ctdss.uat1
+
+
+SCHHS-3369
+report type name: users with Questionnaire
+report name : Myct - Screener Abandonment Rate
+link: https://ctdss--schhsqa02.sandbox.lightning.force.com/lightning/r/Report/00O3S000000kMIAUA2/view?queryScope=userFolders

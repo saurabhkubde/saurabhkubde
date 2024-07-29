@@ -1,0 +1,86 @@
+select Id, OwnerId, IsDeleted, Name, CreatedDate, CreatedById, LastModifiedDate, LastModifiedById, SystemModstamp, LastViewedDate, LastReferencedDate, Additional_Error_Information__c, Application_Type__c, Application__c, Browser__c, Class_Method__c, Class_Name__c, Component_Method__c, Component_Name__c, Device__c, End_Point_URL__c, Error_Message__c, Flow_Element_Name__c, Integration_Call__c, Integration_Name__c, Integration_Transaction_Id__c, Integration_Type__c, Object_Name__c, Operation__c, Record_Id__c, Request_Data_Packet__c, Response_Data_Packet__c, Result__c, Screen_Name__c, Severity__c, Source_of_error__c, Stack_Trace__c, Status_Code__c, User_Info__c,User_Info__r.Name from Error_Log__c order by CreatedDate  desc
+
+
+https://www.linkedin.com/in/saurabh-kubde-25393b1b0/
+
+List<Contact> contactList = [SELECT Id, MYCT_FailedWICLinkAttempts__c, MYCT_WICLinkedTimeStamp__c,MYCT_IsWaitingForIntegration__c,MYCT_FailedDSSLinkAttempts__c, MYCT_FailedOECLinkAttempts__c,MYCT_DSSLinkedTimeStamp__c, MYCT_OECLinkedTimeStamp__c
+                               from Contact];
+List<Contact> updateContactList = new List<Contact>();
+for(contact c: contactList){
+    c.MYCT_FailedDSSLinkAttempts__c = null;
+	c.MYCT_FailedOECLinkAttempts__c = null;
+    c.MYCT_DSSLinkedTimeStamp__c = null;
+    c.MYCT_OECLinkedTimeStamp__c = null;
+    c.MYCT_FailedWICLinkAttempts__c = null;
+    c.MYCT_WICLinkedTimeStamp__c = null;
+    updateContactList.add(c);
+}
+
+update updateContactList;
+--------------------------------------------------------------------------------------
+Ticket - 3094
+Apex Class:
+resetLinkedBenefitAndFailedAttempt
+LWC COomponent:
+ResetLinkedBenefitFailedAttempt
+
+Custom Label:
+Reset_Failed_Attempt_Success_Message
+Reset_Failed_Attempt_Error_Message
+
+----------------------------------------------------------------------------------------------
+MYCT_DynamicEligibilityScrennerForm
+isDisableRadioButton
+line 271 helper class
+
+--------------------------------------------------------------------------
+Accenture - Data Capture Flow Step
+
+
+
+list<object> 
+-----------------------------------------------------------------------
+lwc({}).then((result)=>{
+for(const [key,value] of result){
+cols
+}
+
+newmap = new map(object.entries(result));
+
+for(let x in newmap.keyset()){
+
+}
+
+for(let x in values()){
+
+}
+
+
+}).catch((error)=>{
+
+});
+
+-------------------------------------------
+
+opportunity reord a b c(pric3bookif)
+
+price a b c
+
+map(pricename,id);
+
+
+for( a trigger.new){
+
+ a.pricbookid  = map.get(a.recordtype.name);
+}
+
+-------------------------------------
+
+SCHHS-3370
+report type name: MYCT_Identify_Users
+report name : MYCT - New CT.gov Account Signups with %
+link: https://ctdss--schhsqa02.sandbox.lightning.force.com/lightning/r/Report/00O3S000000kV5TUAU/view?queryScope=userFolders
+
+
+----------------------------------
+https://stg.login.ct.gov/ctidentity/profile?spEntityID=https://dss--uat1.service.ct.gov/idp/health&RelayState=https://health-uat.service.ct.gov/myctportal/s/dashboard
