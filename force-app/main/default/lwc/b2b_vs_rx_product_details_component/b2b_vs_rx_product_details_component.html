@@ -1,0 +1,58 @@
+<template>
+    <lightning-spinner
+        if:true={isLoading}
+        alternative-text="Loading product information..."
+        size="medium"
+        variant="brand"
+        class="slds-is-absolute slds-align_absolute-center"
+    >
+    </lightning-spinner>
+
+    <!--BS-709-->
+    <div if:true={displayableProduct}>
+        <template if:true={_additionalAttributeFieldAndLabelList}>
+            <c-b2b_vs_rx_product-details-display
+                cart-locked={_isCartLocked}
+                page-source={pageReference}
+                category-path={displayableProduct.categoryPath}
+                custom-fields={displayableProduct.customFields}
+                description={displayableProduct.description}
+                image={displayableProduct.image}
+                images={displayableProduct.images}
+                brand={displayableProduct.brand}
+                name={displayableProduct.name}
+                model={displayableProduct.model}
+                price={displayableProduct.price}
+                sku={displayableProduct.sku}
+                onaddtocart={addToCart}
+                oncreateandaddtolist={createAndAddToList}
+                variations={displayableProduct.variations}
+                has-variations={hasVariations}
+                product-data={displayableProduct}
+                delivery-time={displayableProduct.deliveryTimeJSON}
+                delivery-status-j={displayableProduct.deliveryStatusJSON}
+                disable-product={displayableProduct.disableProduct}
+                display-demo-button={displayDemoButton}
+                effective-account-id={effectiveAccountId}
+                product-id={recordId}
+                config={config}
+                card-content-mapping={cardContentMapping}
+                onloadingproduct={loadingProducts}
+                hide-prices-from-tile={hidePricesFromTile}
+                product-description={productDescription}
+                product-fields={product.data.fields}
+                frame-color-description={displayableProduct.frameColorDescription}
+                collection-design-family={displayableProduct.collectionDesignFamily}
+                sparepart-type={displayableProduct.sparepartType}
+                onrecordidchange={handleRecordIdValueChange}
+                additional-attribute-field-and-label-list={_additionalAttributeFieldAndLabelList}
+                order-type={orderType}
+                order-information-summary-collection={orderInformationSummaryCollection}
+                lens-configurator-collection={lensConfiguratorCollection}
+                model-name-number={displayableProduct.modelNameNumber}
+            >
+                <!-- BS-1701 : Added model-name-number={displayableProduct.modelNameNumber} -->
+            </c-b2b_vs_rx_product-details-display>
+        </template>
+    </div>
+</template>

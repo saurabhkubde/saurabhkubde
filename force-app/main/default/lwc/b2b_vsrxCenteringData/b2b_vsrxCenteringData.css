@@ -1,0 +1,175 @@
+.centering-data-container {
+    font-size: 14px;
+}
+
+.centering-data-container .centering-table {
+    max-width: 400px;
+}
+.centering-data-container .centering-table tr td:first-child {
+    text-align: left;
+    width: 150px;
+    min-width: 85px; /*BS-726 : Handled Mobile and Tablet view*/
+}
+.centering-data-container .centering-table tr td {
+    max-width: 200px;
+    padding: 15px 10px;
+    text-align: center;
+    vertical-align: top;
+}
+.centering-data-container .centering-table td h5 {
+    font-size: 16px;
+    font-weight: 500;
+    word-wrap: break-word;
+}
+
+/*BS-726 : Handled Mobile and Tablet view*/
+.centering-data-container .centering-table-secondary {
+    max-width: 400px;
+}
+.centering-data-container .centering-table-secondary tr td:first-child {
+    text-align: left;
+    width: 150px;
+    min-width: 85px;
+}
+.centering-data-container .centering-table-secondary tr td {
+    max-width: 200px;
+    padding: 15px 10px;
+    text-align: center;
+    vertical-align: top;
+}
+.centering-data-container .centering-table-secondary td h5 {
+    font-size: 16px;
+    font-weight: 500;
+    word-wrap: break-word;
+}
+/*BS-726 : Handled Mobile and Tablet view*/
+
+.centering-data-container .border-input {
+    width: 100px;
+    text-align: center;
+}
+
+.centering-data-container .slds-input {
+    padding: 6px !important;
+    text-align: center;
+    border: solid 1px #ddd;
+}
+
+.infoicon {
+    width: 15px !important;
+    transition: transform 0.2s;
+    cursor: pointer;
+}
+
+.centering-data-container .prescriptionValue {
+    border-collapse: separate;
+    border-spacing: 2px;
+}
+
+.centering-data-container .th-heading {
+    text-align: center;
+    width: 50px;
+    background-color: #d4d4d4;
+    padding: 5px;
+}
+
+.text-heading {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.text-value {
+    font-size: 14px;
+    font-weight: 300;
+}
+
+.section-title {
+    float: left;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+input[type='radio'] {
+    accent-color: #000;
+    display: inline;
+    margin: 8px;
+    vertical-align: middl;
+}
+
+.validationStyling {
+    justify-content: center;
+    border: 1px solid #ea001e;
+    width: 95%;
+    height: 33px;
+    align-items: center;
+    display: flex;
+    font-size: 14px;
+    color: #ea001e;
+    font-weight: 400;
+}
+
+/*BS-726 : Handled Mobile and Tablet view*/
+@media only screen and (max-width: 330px) {
+    .centering-data-container .centering-table-secondary tr td {
+        max-width: 150px !important;
+        padding: 9px 3px;
+    }
+
+    .centering-data-container .centering-table tr td {
+        max-width: 50px;
+        padding: 9px 3px;
+    }
+}
+
+/* Start BS-1055*/
+.orderInformationIcon {
+    float: right;
+    cursor: pointer;
+}
+.data-block {
+    display: none !important;
+}
+/* End BS-1055*/
+
+/* BS-1065 */
+.imgPad {
+    padding: 42px;
+}
+
+.termsConditionCheckbox {
+    font-size: 14px;
+    color: red;
+    padding: 12px 0px;
+}
+
+.checkboxPos {
+    float: left;
+    padding: 17px 0px 39px 10px;
+    margin-top: -4px;
+}
+
+/*BS-1249 : Start*/
+.backgroundCheckbox {
+    background-color: rgb(255 0 0 / 15%);
+    color: #f00;
+    margin: 24px 45px 7px 29px;
+}
+
+.error-background {
+    background-color: rgb(255 0 0 / 15%);
+    padding: 20px;
+    margin: 20px;
+    font-size: 15px;
+    font-weight: 500;
+    color: #f00;
+}
+/*BS-1249 : End*/
+
+.errorValidationStyling {
+    width: 95%;
+    height: 33px;
+    font-size: 14px;
+    color: #ea001e;
+    font-weight: 400;
+    padding-left: 29px;
+}

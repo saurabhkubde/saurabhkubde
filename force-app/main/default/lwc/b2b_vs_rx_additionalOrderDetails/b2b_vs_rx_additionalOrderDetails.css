@@ -1,0 +1,54 @@
+.prescription-value {
+    overflow: auto !important;
+}
+
+/*Updated as part of BS-2343 */
+.prescription-value table {
+    overflow-x: auto;
+    overflow-y: hidden;
+    max-width: 740px;
+}
+
+.prescription-value table td {
+    padding: 5px;
+    font-size: 14px;
+    font-weight: 300;
+    max-width: 150px;
+}
+
+/*Updated as part of BS-2343 */
+.prescription-value table th {
+    border-bottom: solid 1px #ddd;
+    min-width: 55px;
+    font-size: 14px;
+    font-weight: 500;
+    max-width: 150px;
+    padding: 5px 0px;
+    background-color: #f9f9f9;
+}
+.prescription-value table td:first-child {
+    padding-left: 0px !important;
+    width: 120px;
+}
+
+/*Added as part of BS-2343 */
+.section-title-prescription {
+    float: left;
+    font-size: 16px !important;
+    font-weight: 500 !important;
+    width: 100%;
+}
+
+.centering-data table {
+    max-width: 420px !important;
+    min-width: 400px !important;
+}
+
+.fnt14-bold {
+    font-weight: 500 !important;
+}
+
+.title {
+    font-size: 16px;
+    font-weight: 500;
+}

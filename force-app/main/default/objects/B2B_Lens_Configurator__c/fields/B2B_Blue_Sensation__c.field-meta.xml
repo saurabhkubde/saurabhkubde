@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>B2B_Blue_Sensation__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>This field will store value of blue sensation product related to lens product.</description>
+    <externalId>false</externalId>
+    <label>Blue Sensation</label>
+    <referenceTo>Product2</referenceTo>
+    <relationshipLabel>B2B Lens Configurator (Blue Sensation)</relationshipLabel>
+    <relationshipName>B2B_Lens_Configurator2</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

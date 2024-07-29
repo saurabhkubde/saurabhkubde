@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>B2B_Visual_Preference__c</fullName>
+    <externalId>false</externalId>
+    <label>Visual Preference</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Long-distance</fullName>
+                <default>false</default>
+                <label>Long-distance</label>
+            </value>
+            <value>
+                <fullName>long-distance balanced</fullName>
+                <default>false</default>
+                <label>long-distance balanced</label>
+            </value>
+            <value>
+                <fullName>middle-distance</fullName>
+                <default>false</default>
+                <label>middle-distance</label>
+            </value>
+            <value>
+                <fullName>close-range</fullName>
+                <default>false</default>
+                <label>close-range</label>
+            </value>
+            <value>
+                <fullName>custom</fullName>
+                <default>false</default>
+                <label>custom</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

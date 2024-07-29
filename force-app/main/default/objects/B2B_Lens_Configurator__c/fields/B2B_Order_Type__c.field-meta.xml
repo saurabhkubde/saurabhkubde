@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>B2B_Order_Type__c</fullName>
+    <description>order type selected by the user</description>
+    <externalId>false</externalId>
+    <label>Order Type</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Complete Eyewear</fullName>
+                <default>false</default>
+                <label>Complete Eyewear</label>
+            </value>
+            <value>
+                <fullName>Lens Only</fullName>
+                <default>false</default>
+                <label>Lens Only</label>
+            </value>
+            <value>
+                <fullName>Lens Only + frame provided</fullName>
+                <default>false</default>
+                <label>Lens Only + frame provided</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

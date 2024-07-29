@@ -1,0 +1,138 @@
+.cart-container {
+    padding: 0rem 1rem 0rem 1rem;
+    margin: 17px 15px 15px 15px;
+}
+
+.product-card {
+    width: 300px;
+    margin: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+}
+
+.product-details {
+    flex: 1;
+    padding-bottom: 10px;
+}
+
+.product-image {
+    text-align: center;
+}
+
+img {
+    max-width: 100%;
+    max-height: 200px;
+}
+
+.spinner-styling {
+    background-color: rgba(255, 255, 255, 0.75) !important;
+}
+
+.empty-cart-container {
+    width: 400px;
+    height: 250px !important;
+    background: #f9f9f9 !important;
+}
+
+.vmiddle {
+    vertical-align: super;
+}
+
+.font-24 {
+    font-size: 24px;
+}
+
+.font-14 {
+    font-size: 14px;
+}
+
+/* NBD2C-78 : Styling for empty cart section - Start */
+.empty-cart-container-styling {
+    width: 450px;
+    text-align: center;
+    margin: auto;
+    background: #f7f7f8;
+    padding: 40px 20px;
+    margin-top: 3%;
+}
+
+.cart-logo-styling {
+    width: 40px;
+}
+
+.empty-cart-message-styling {
+    font-size: 22px;
+    margin: 16px;
+    text-transform: uppercase;
+    font-family: 'SweetSansProLight' !important;
+}
+
+.navigational-button-styling {
+    padding: 10px;
+    border: solid 1px #000;
+    width: 80%;
+    padding: 12px 15px;
+    background: none;
+    font-size: 16px;
+    margin-top: 10px;
+    font-family: 'Adobe Caslon Pro' !important;
+}
+
+.navigational-button-styling:hover {
+    border: solid 1px #000;
+    color: #fff;
+    background-color: #000;
+}
+
+@media (max-width: 768px) {
+    .product-card {
+        width: 100%;
+    }
+
+    .cart-container {
+        padding: 0rem;
+        margin: 0px;
+    }
+
+    .empty-cart-container {
+        width: 350px !important;
+    }
+}
+
+@media (max-width: 350px) {
+    .empty-cart-container-styling {
+        width: 240px !important;
+        text-align: center;
+    }
+}
+
+@media (max-width: 550px) {
+    .empty-cart-container-styling {
+        width: 300px;
+        text-align: center;
+        margin: auto;
+        background: #f7f7f8;
+        padding: 40px 20px;
+        margin-top: 5%;
+    }
+
+    .navigational-button-styling {
+        font-size: 14px;
+    }
+
+    .empty-cart-message-styling {
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 768px) {
+    .empty-cart-container-styling {
+        margin-top: 5%;
+    }
+}
+/* NBD2C-78 : Styling for empty cart section - End */

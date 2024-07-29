@@ -1,0 +1,24 @@
+.modal-max-width {
+    max-width: 300px !important;
+    font-size: 14px;
+    font-weight: 300;
+}
+
+.close-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+.close-button:focus {
+    outline: none !important;
+    box-shadow: unset !important;
+    border: none !important;
+}
+
+.text-align-center {
+    text-align: center !important;
+}
+
+.accountLockSection {
+    margin: auto !important;
+}

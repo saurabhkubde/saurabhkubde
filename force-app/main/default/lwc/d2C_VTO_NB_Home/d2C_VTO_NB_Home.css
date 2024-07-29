@@ -1,0 +1,180 @@
+/* 
+ * DVM20-15: Creation of home page for VTO/POS for SH and NB Store : Start
+ * @desc  This CSS is used to style the home page for the VTO/POS application, providing a responsive layout
+ *        that adapts to desktop, tablet, and mobile screens. It includes styling for the container, background
+ *        image, overlay box, logo, content, horizontal and vertical lines, and buttons.
+ */
+.overlay-container {
+    max-width: 600px;
+    background: #fff;
+    margin: auto;
+}
+.overlay-container .logo {
+    text-align: center;
+    margin: auto;
+    border-bottom: solid 1px #ddd;
+}
+.overlay-container .logo img {
+    max-width: 200px;
+    margin: 27px auto;
+}
+
+.login-wrap {
+    display: flex;
+    justify-content: space-around;
+    min-height: 200px;
+    padding: 20px 0px;
+    align-items: center;
+}
+
+.login-wrap .qr-code {
+    width: 40%;
+    text-align: center;
+}
+.login-wrap .verticalLine {
+    width: 10%;
+    text-align: center;
+}
+.login-wrap .button-container {
+    width: 40%;
+    text-align: left;
+}
+.qrcode2 {
+    width: 150px;
+    height: auto;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.line {
+    border-left: 1.5px solid #000;
+    height: 165px;
+    position: relative;
+    width: 60px;
+    margin-left: 30px;
+}
+.or {
+    background: #fff;
+    position: relative;
+    top: 40%;
+    left: -30px;
+    padding: 6px;
+    text-align: center;
+    width: 60px;
+    font-size: 18px;
+    font-family: 'SweetSansProLight' !important;
+}
+
+.continue-button {
+    font-family: 'Adobe Caslon Pro';
+    padding: 9px 16px;
+    background-color: #fff;
+    color: #000;
+    border: 1.5px solid #000;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.continue-button:hover {
+    background-color: #000000;
+    color: #ffffff;
+}
+
+.scan-text {
+    font-size: 20px;
+    font-family: 'SweetSansProLight' !important;
+}
+
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: portrait) {
+    .overlay-container {
+        margin-top: 55%;
+    }
+}
+
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: landscape) {
+    .overlay-container {
+        margin-top: 20%;
+    }
+}
+
+@media only screen and (min-device-width: 1024px) and (max-device-width: 1366px) and (orientation: portrait) {
+    .overlay-container {
+        margin-top: 50%;
+    }
+}
+@media only screen and (min-device-width: 1024px) and (max-device-width: 1366px) and (orientation: landscape) {
+    .overlay-container {
+        margin-top: 20%;
+    }
+}
+
+@media only screen and (min-device-width: 1080px) and (max-device-width: 1920px) and (orientation: portrait) {
+    .overlay-container {
+        margin-top: 126%;
+    }
+}
+@media only screen and (min-device-width: 1080px) and (max-device-width: 1920px) and (orientation: landscape) {
+    .overlay-container {
+        margin-top: 20%;
+    }
+}
+
+@media only screen and (min-device-width: 767px) and (orientation: landscape) {
+    .overlay-container {
+        margin-top: 17%;
+    }
+}
+
+@media only screen and (max-device-width: 480px) {
+    .login-wrap {
+        flex-wrap: wrap;
+    }
+    .login-wrap .qr-code {
+        width: 100%;
+    }
+    .login-wrap .verticalLine {
+        width: 100%;
+    }
+    .login-wrap .button-container {
+        width: 100%;
+    }
+
+    .line {
+        border-bottom: 1.5px solid #000;
+        height: 20px;
+        position: relative;
+        width: 100%;
+        margin-bottom: 30px;
+        margin-left: 0px;
+        border-left: 0px;
+    }
+    .or {
+        background: #fff;
+        position: relative;
+        top: 0%;
+        left: 41%;
+    }
+    .login-wrap .button-container {
+        text-align: center;
+    }
+}
+
+@media only screen and (max-device-width: 480px) and (orientation: portrait) {
+    .overlay-container {
+        margin-top: 50%;
+    }
+}
+
+@media only screen and (max-device-width: 480px) and (orientation: landscape) {
+    .overlay-container {
+        margin-top: 100px;
+    }
+}
+@media only screen and (max-device-width: 380px) {
+    .overlay-container {
+        margin-top: 100px;
+    }
+}
+
+/* DVM20-15: Creation of home page for VTO/POS for SH and NB Store : End */

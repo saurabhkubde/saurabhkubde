@@ -1,0 +1,105 @@
+<template>
+    <!-- NBD2C-98 : Order Summary Container Start -->
+    <div if:true={_showData} class="order-summary-container">
+        <table class="order-summary-table">
+            <!-- NBD2C-98 : Order Summary Header Section - Start -->
+            <tr class="header-row">
+                <th class="order-summary-header">
+                    <span if:true={labels.orderSummaryHeaderLabel}>{labels.orderSummaryHeaderLabel}</span>
+                    <span if:true={_orderItemsCount}>{_orderItemsCount}</span>
+                </th>
+            </tr>
+            <!-- NBD2C-98 : Order Summary Header Section - End -->
+
+            <!-- NBD2C-98 : Order Summary Information Section - Start -->
+            <template for:each={_orderSummaryData} for:item="orderItem">
+                <div key={orderItem.sku} class="order-summary-body">
+                    <!-- NBD2C-98 : Order Item Name Section - Start -->
+                    <div if:true={orderItem.modelName} class="order-item-name-number-section">
+                        <div if:true={orderItem.name} class="item-name">{orderItem.name}</div>
+                        <div if:true={orderItem.modelName} class="model-name">{orderItem.modelName}</div>
+                    </div>
+                    <!-- NBD2C-98 : Order Item Name Section - End -->
+
+                    <!-- NBD2C-98 : Order Item Image and Additional Information Section - Start -->
+                    <div class="slds-grid slds-wrap product-information-container">
+                        <!-- NBD2C-98 : Order Item Image Section - Start -->
+                        <div
+                            if:true={orderItem.pictureLink}
+                            class="order-item-image-container slds-col slds-small-size_12-of-12 slds-medium-size_4-of-12 slds-large-size_4-of-12"
+                        >
+                            <img class="order-image" src={orderItem.pictureLink} alt="ProductImage" />
+                        </div>
+                        <!-- NBD2C-98 : Order Item Image Section - End -->
+
+                        <!-- NBD2C-98 : Order Item Additional Details Section - Start -->
+                        <div class="order-item-information-section slds-col slds-small-size_12-of-12 slds-medium-size_8-of-12 slds-large-size_8-of-12">
+                            <!-- NBD2C-98 : Order Item Frame Color Section - Start -->
+                            <div if:true={orderItem.frameColorDescription} class="item-boundry slds-grid slds-wrap">
+                                <div class="label-span slds-size_5-of-12 slds-medium-size_5-of-12 slds-large-size_4-of-12">{labels.frameColorFieldLabel}</div>
+                                <div class="value-span slds-size_7-of-12 slds-medium-size_7-of-12 slds-large-size_8-of-12">
+                                    {orderItem.frameColorDescription}
+                                </div>
+                            </div>
+                            <!-- NBD2C-98 : Order Item Frame Color Section - End -->
+
+                            <!-- NBD2C-98 : Order Item Quantity Section - Start -->
+                            <div if:true={orderItem.quantity} class="item-boundry slds-grid slds-wrap">
+                                <div class="label-span slds-size_5-of-12 slds-medium-size_5-of-12 slds-large-size_4-of-12">{labels.quantityFieldLabel}</div>
+                                <div class="value-span slds-size_7-of-12 slds-medium-size_7-of-12 slds-large-size_8-of-12">{orderItem.quantity}</div>
+                            </div>
+                            <!-- NBD2C-98 : Order Item Quantity Section - End -->
+
+                            <!-- NBD2C-98 : Order Item Pricing Section - Start -->
+                            <div if:true={orderItem.totalPrice} class="item-boundry slds-grid slds-wrap">
+                                <div class="label-span slds-size_5-of-12 slds-medium-size_5-of-12 slds-large-size_4-of-12">{labels.priceFieldLabel}</div>
+                                <div class="value-span slds-size_7-of-12 slds-medium-size_7-of-12 slds-large-size_8-of-12">
+                                    <div class="">
+                                        <lightning-formatted-number
+                                            class="pricing-details"
+                                            value={orderItem.totalPrice}
+                                            format-style="currency"
+                                            currency-code={orderItem.currencyIsoCode}
+                                            currency-display-as="code"
+                                        ></lightning-formatted-number>
+                                    </div>
+                                    <div if:true={labels.priceHelpTextLabel} class="pricing-information">{labels.priceHelpTextLabel}</div>
+                                </div>
+                            </div>
+                            <!-- NBD2C-98 : Order Item Pricing Section - End -->
+                        </div>
+                        <!-- NBD2C-98 : Order Item Additional Details Section - End -->
+                    </div>
+                    <!-- NBD2C-98 : Order Item Image and Additional Information Section - End -->
+                </div>
+            </template>
+            <!-- NBD2C-98 : Order Summary Information Section - End -->
+
+            <!-- NBD2C-98 : Order Summary Total Pricing Section - Start -->
+            <tr class="header-row">
+                <td class="order-summary-footer">
+                    <div class="item-color slds-grid slds-wrap">
+                        <div class="slds-size_0-of-12 slds-medium-size_4-of-12 slds-large-size_4-of-12"></div>
+                        <div class="order-total-price-container slds-size_12-of-12 slds-medium-size_8-of-12 slds-large-size_8-of-12">
+                            <div if:true={_totalPrice} class="item-boundry slds-grid slds-wrap">
+                                <div class="total-price-label slds-size_5-of-12 slds-medium-size_5-of-12 slds-large-size_4-of-12">{labels.totalPriceLabel}</div>
+                                <div class="total-price-value-container slds-size_7-of-12 slds-medium-size_7-of-12 slds-large-size_8-of-12">
+                                    <lightning-formatted-number
+                                        class="pricing-details total-price-value"
+                                        value={_totalPrice}
+                                        format-style="currency"
+                                        currency-code={_currencyISOCode}
+                                        currency-display-as="code"
+                                    >
+                                    </lightning-formatted-number>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <!-- NBD2C-98 : Order Summary Total Pricing Section - End -->
+        </table>
+    </div>
+    <!-- NBD2C-98 : Order Summary Container Start -->
+</template>

@@ -1,0 +1,91 @@
+<template lwc:render-mode="light">
+    <div if:false={value.showIcon} class="facet-item font-adobe-pro">
+        <span
+            if:true={value.showColor}
+            class={value.dotClass}
+            style={value.colorBubble}
+            onclick={handleFacetValueToggle}
+            onkeyup={handleKeyPress}
+            data-id={value.id}
+            data-checked={value.checked}
+            data-displayname="{value.name"
+        ></span>
+        <span
+            if:true={value.checked}
+            class="custom-checkbox-label-checked"
+            onclick={handleFacetValueToggle}
+            onkeyup={handleKeyPress}
+            data-id={value.id}
+            data-checked={value.checked}
+            data-displayname={value.name}
+            >{value.name}</span
+        >
+        <span
+            if:false={value.checked}
+            class="custom-checkbox-label"
+            onclick={handleFacetValueToggle}
+            onkeyup={handleKeyPress}
+            data-id={value.id}
+            data-checked={value.checked}
+            data-displayname={value.name}
+            >{value.name}</span
+        >
+    </div>
+    <div if:true={value.showIcon}>
+        <div if:false={_isMobileDevice} class="facet-item font-adobe-pro slds-grid">
+            <div
+                if:true={value.checked}
+                onclick={handleFacetValueToggle}
+                onkeyup={handleKeyPress}
+                data-id={value.id}
+                data-checked={value.checked}
+                class="custom-checkbox-label-checked slds-col slds-size_9-of-12 slds-medium-size_6-of-12 slds-large-size_6-of-12"
+                data-displayname={value.name}
+            >
+                {value.name}
+            </div>
+            <div
+                if:false={value.checked}
+                onclick={handleFacetValueToggle}
+                onkeyup={handleKeyPress}
+                data-id={value.id}
+                data-checked={value.checked}
+                class="custom-checkbox-label slds-col slds-size_9-of-12 slds-medium-size_6-of-12 slds-large-size_6-of-12"
+                data-displayname={value.name}
+            >
+                {value.name}
+            </div>
+            <div class="slds-col slds-size_3-of-12 slds-medium-size_5-of-12 slds-large-size_5-of-12">
+                <img if:true={value.showIcon} class="shape-icon" src={value.urlValue} />
+            </div>
+        </div>
+
+        <div if:true={_isMobileDevice} class="facet-item font-adobe-pro">
+            <span
+                if:true={value.checked}
+                onclick={handleFacetValueToggle}
+                onkeyup={handleKeyPress}
+                data-id={value.id}
+                data-checked={value.checked}
+                class="custom-checkbox-label-checked"
+                data-displayname={value.name}
+            >
+                {value.name}
+            </span>
+            <span
+                if:false={value.checked}
+                onclick={handleFacetValueToggle}
+                onkeyup={handleKeyPress}
+                data-id={value.id}
+                data-checked={value.checked}
+                class="custom-checkbox-label"
+                data-displayname={value.name}
+            >
+                {value.name}
+            </span>
+            <span class="icon-span">
+                <img if:true={value.showIcon} class="shape-icon" src={value.urlValue} />
+            </span>
+        </div>
+    </div>
+</template>

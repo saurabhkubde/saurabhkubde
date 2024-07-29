@@ -1,0 +1,16 @@
+<template>
+    <!-- NBD2C-65 : Component Loading Section - Start -->
+    <lightning-spinner
+        if:false={_isLoadingComplete}
+        alternative-text="Loading retailer search map"
+        class="slds-is-fixed slds-align_absolute-center spinnerStyling"
+        id="lightningSpinner"
+        size="large"
+    ></lightning-spinner>
+    <!-- NBD2C-65 : Component Loading Section - End -->
+    <!-- NBD2C-65 : VF page containing the retailer search map - Start -->
+    <div if:true={_isReady}>
+        <iframe src={_retailerSearchPageSRC} class="map" allow="geolocation"></iframe>
+    </div>
+    <!-- NBD2C-65 : VF page containing the retailer search map - End -->
+</template>

@@ -1,0 +1,11 @@
+@media screen and (max-width: 767px) {
+    .no-result {
+        font-size: 24px !important;
+    }
+}
+
+.no-result {
+    text-transform: uppercase;
+    font-family: 'SweetSansProLight';
+    font-size: 50px;
+}

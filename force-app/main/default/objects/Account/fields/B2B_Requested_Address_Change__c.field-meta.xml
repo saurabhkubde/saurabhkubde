@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>B2B_Requested_Address_Change__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Marks the Account for a current address change request.</description>
+    <externalId>false</externalId>
+    <label>B2B Requested Address Change</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

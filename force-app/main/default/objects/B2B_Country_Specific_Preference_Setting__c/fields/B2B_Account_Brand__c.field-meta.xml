@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>B2B_Account_Brand__c</fullName>
+    <description>This field stores the brand for which the country specific preference is applicable.</description>
+    <externalId>false</externalId>
+    <label>B2B Account Brand</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Silhouette,evil eye</fullName>
+                <default>false</default>
+                <label>Silhouette,evil eye</label>
+            </value>
+            <value>
+                <fullName>NEUBAU</fullName>
+                <default>false</default>
+                <label>NEUBAU</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

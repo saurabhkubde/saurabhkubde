@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>B2B_Blocked_for_Partner_Portal__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description
+    >This field is synced from the CSS flag “NOPPACCESS”, that is maintained by centrally by HQ. If the checkbox is marked, the account is blocked from access to the Partner Portal and the registration fails.</description>
+    <externalId>false</externalId>
+    <inlineHelpText
+    >This field is synced from the CSS flag “NOPPACCESS”, that is maintained by centrally by HQ. If the checkbox is marked, the account is blocked from access to the Partner Portal and the registration fails.</inlineHelpText>
+    <label>Blocked for Partner Portal</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

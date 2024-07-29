@@ -1,0 +1,41 @@
+.card-value-div-img {
+    max-width: 30px; /* BS-1326 */
+    max-height: 18px; /* BS-1326 */
+}
+.pdp-value-div-img {
+    width: 50%;
+    vertical-align: middle;
+    max-width: 48px; /* BS-1326 */
+    margin-top: 3px; /* BS-1326 */
+    float: left !important;
+    margin-right: 10px;
+}
+.pdp-value-div-img :last-child {
+    width: 50%;
+    vertical-align: middle;
+    padding-left: 4px;
+    max-width: 48px; /* BS-1326 */
+    float: left !important;
+}
+.iterator:first-child {
+    padding-left: 0px !important;
+    padding-right: 4px;
+}
+.iterator:last-child {
+    border: none;
+    padding-left: 10px;
+}
+
+.borderClass {
+    border-right: 1px solid lightgrey;
+}
+
+.fieldsetContainer {
+    font-size: 16px;
+    max-width: 100%;
+    margin: 12px auto;
+}
+
+.vertical-align-middle {
+    vertical-align: middle;
+}

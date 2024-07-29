@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>B2B_Remove_Drills__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>This field will hold the remove drills value of the lens configurator.</description>
+    <externalId>false</externalId>
+    <label>Remove Drills</label>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

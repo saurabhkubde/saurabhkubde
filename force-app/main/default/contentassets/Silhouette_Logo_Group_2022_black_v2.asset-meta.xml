@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ContentAsset xmlns="http://soap.sforce.com/2006/04/metadata">
+    <isVisibleByExternalUsers>false</isVisibleByExternalUsers>
+    <language>de</language>
+    <masterLabel>Silhouette_Logo_Group_2022_black_v2</masterLabel>
+    <originNetwork>Silhouette B2B Store</originNetwork>
+    <relationships>
+        <network>
+            <access>VIEWER</access>
+            <name>Silhouette B2B Store</name>
+        </network>
+        <workspace>
+            <access>INFERRED</access>
+            <isManagingWorkspace>true</isManagingWorkspace>
+            <name>sfdc_asset_company_assets</name>
+        </workspace>
+    </relationships>
+    <versions>
+        <version>
+            <number>1</number>
+            <pathOnClient>Silhouette_Logo_Group_2022_black_v2.jpg</pathOnClient>
+        </version>
+    </versions>
+</ContentAsset>

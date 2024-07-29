@@ -1,0 +1,219 @@
+.newsletterContainer {
+    max-width: 1300px;
+    margin: auto !important;
+}
+.slds-m-around_medium {
+    margin: 1rem;
+}
+
+.slds-form-element {
+    margin-bottom: 1rem;
+}
+
+.slds-text-color_error {
+    color: #e4002b;
+    margin-top: 0.5rem;
+}
+
+.slds-checkbox_faux {
+    margin-bottom: 7px;
+    border-radius: 20% !important;
+}
+
+.button-style {
+    font-weight: 500;
+    font-size: 18px;
+    background-color: #000;
+    color: #fff;
+    padding: 7px 24px 3px 24px;
+    border: none;
+    cursor: pointer;
+    font-family: 'Adobe Caslon Pro';
+    margin: 32px 8px 0px 0px;
+}
+
+.sh-button-style {
+    font-weight: 500;
+    font-size: 18px;
+    background-color: #000;
+    color: #fff;
+    padding: 7px 24px 7px 24px;
+    border: none;
+    cursor: pointer;
+    font-family: 'lato';
+    margin: 32px 8px 0px 0px;
+}
+
+.button-style:hover {
+    background-color: #fff;
+    color: #000;
+    border: 1px solid black;
+    cursor: pointer;
+}
+
+.sh-button-style:hover {
+    background-color: #fff;
+    color: #000;
+    border: 1px solid black;
+    cursor: pointer;
+}
+
+.text-style {
+    font-family: 'Adobe Caslon Pro';
+    font-size: 18px !important;
+    display: inline;
+    padding-left: 10px;
+}
+
+.sh-text-style {
+    font-family: 'lato';
+    font-size: 18px !important;
+    display: inline;
+    padding-left: 10px;
+}
+
+.sh-text {
+    font-family: 'lato';
+    font-size: 18px !important;
+    display: block;
+}
+
+.linkout-text {
+    color: #000 !important;
+    text-decoration: underline !important;
+}
+
+.newsletter-heading {
+    font-size: 60px;
+    font-weight: 500;
+    font-family: 'SweetSansProLight' !important;
+    margin-bottom: 40px;
+}
+
+.sh-newsletter-heading {
+    font-size: 60px;
+    font-weight: 500;
+    font-family: 'lato' !important;
+    margin-bottom: 40px;
+}
+
+.field-name {
+    color: #8c8c8c !important;
+    font-family: 'Adobe Caslon Pro';
+    font-weight: 500;
+    font-size: 18px;
+}
+
+.sh-field-name {
+    color: #8c8c8c !important;
+    font-family: 'lato' !important;
+    font-weight: 500;
+    font-size: 18px;
+    position: unset !important;
+}
+
+input[type='radio'] {
+    accent-color: #000 !important;
+}
+
+.input {
+    font-family: 'Adobe Caslon Pro';
+    color: #000;
+    font-size: 16px;
+    padding: 4px 0px 0px 5px;
+    max-width: 40% !important;
+    border-radius: 0px !important;
+    padding: 12px;
+    height: 50px;
+}
+
+.sh-input {
+    font-family: 'lato' !important;
+    color: #000;
+    font-size: 16px;
+    padding: 4px 0px 0px 5px;
+    max-width: 40% !important;
+    border-radius: 0px !important;
+    padding: 12px;
+    height: 50px;
+}
+
+.select-option {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-image: var(--background-image-url);
+    background-color: #fff;
+    background-size: 16px;
+    background-position-x: 97%;
+    background-position-y: 50%;
+    background-repeat: no-repeat;
+    color: #8c8c8c !important;
+    font-family: 'Adobe Caslon Pro';
+    font-weight: 500;
+    font-size: 18px;
+}
+
+@media only screen and (max-width: 767px) {
+    .input {
+        max-width: 100% !important;
+    }
+
+    .sh-input {
+        max-width: 100% !important;
+    }
+
+    .newsletter-heading {
+        font-size: 30px;
+        margin-bottom: 20px;
+    }
+
+    .sh-newsletter-heading {
+        font-size: 30px;
+        margin-bottom: 20px;
+    }
+
+    .text-style {
+        font-size: 16px !important;
+        padding-left: 7px;
+    }
+
+    .sh-text-style {
+        font-size: 16px !important;
+        padding-left: 7px;
+    }
+
+    .button-style {
+        font-weight: 500;
+        font-size: 18px;
+        background-color: #000;
+        color: #fff;
+        padding: 7px 24px 3px 24px;
+        border: none;
+        cursor: pointer;
+        font-family: 'Adobe Caslon Pro';
+        margin: 32px 8px 0px 0px;
+        width: 100% !important;
+    }
+
+    .sh-button-style {
+        font-weight: 500;
+        font-size: 18px;
+        background-color: #000;
+        color: #fff;
+        padding: 7px 24px 7px 24px;
+        border: none;
+        cursor: pointer;
+        font-family: 'lato';
+        margin: 32px 8px 0px 0px;
+        width: 100% !important;
+    }
+}
+
+input[type='checkbox'] {
+    position: unset !important;
+}
+
+.spinner-styling {
+    background-color: rgba(255, 255, 255, 0.75) !important;
+}

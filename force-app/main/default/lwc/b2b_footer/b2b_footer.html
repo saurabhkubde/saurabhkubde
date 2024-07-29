@@ -1,0 +1,237 @@
+<template>
+    <!--back to top button BS-867-->
+
+    <template if:true={isTopButtonVisible}>
+        <div class="bottomToTop-btn" title={label.sil_BackToTop}>
+            <img src={topArrowImg} onclick={handleTopScroll} alt={label.sil_BackToTop} />
+        </div>
+    </template>
+
+    <!--back to top button -->
+    <template if:true={isSilhouetteFooter}>
+        <template if:true={_showSHEEFooter}>
+            <!--SHfooter-->
+            <div if:false={_isEvilEyeProductFooter}>
+                <div class="SH-footer-wrap slds-p-vertical_small slds-border_top">
+                    <div class="slds-grid slds-wrap slds-p-vertical_medium">
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_4-of-12 slds-text-align_center">
+                            <!-- Start : BS-1278-->
+                            <div class="slds-p-vertical_xx-small fntweight500">{_countrySpecificFooterContent.companyName}</div>
+                            <div class="slds-p-vertical_xx-small">
+                                <span>{label.sil_companyphone} &nbsp;</span>
+                                <span>{_countrySpecificFooterContent.telephoneNumber}</span>
+                            </div>
+                            <div class="slds-p-vertical_xx-small">{_countrySpecificFooterContent.companyOpening}</div>
+                            <!-- End : BS-1278-->
+                        </div>
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_4-of-12 slds-text-align_center">
+                            <div class="slds-p-vertical_xx-small">
+                                <a href={label.sil_homelink} target="_blank">{label.sil_home}</a>
+                            </div>
+                            <div class="slds-p-vertical_xx-small">
+                                <a href={label.sil_websitelink} target="_blank">{label.sil_website}</a>
+                            </div>
+                            <div class="slds-p-vertical_xx-small">
+                                <a href={label.sil_evileyelink} target="_blank">{label.sil_evileye}</a>
+                            </div>
+                            <div class="slds-p-vertical_xx-small">
+                                <a href={label.sil_certificateslink} target="_blank">{label.sil_certificates}</a>
+                            </div>
+                        </div>
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_12-of-12 slds-large-size_4-of-12 slds-text-align_center">
+                            <div class="slds-p-vertical_xx-small">
+                                <a href={_countrySpecificFooterContent.termsAndCondition} target="_blank">{label.sil_terms}</a>
+                            </div>
+                            <div class="slds-p-vertical_xx-small">
+                                <a href={label.sil_imprintlink} target="_blank">{label.sil_imprint}</a>
+                            </div>
+                            <div class="slds-p-vertical_xx-small">
+                                <a href={label.sil_dataprotectionlink} target="_blank">{label.sil_dataprotection}</a>
+                            </div>
+                            <div class="slds-p-vertical_xx-small">
+                                <a a onclick={navigateToPortalGuideSH}>{label.sil_explore}</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="SH-footer-wrap slds-p-vertical_small slds-border_top">
+                    <div class="slds-align_absolute-center slds-grid slds-wrap">
+                        <div class="fnt16 slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_4-of-12 slds-text-align_center">
+                            <a onclick={navigateToContactForm}>{label.sil_contactsupport}</a>
+                        </div>
+                        <div class="fnt16 slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_4-of-12 slds-text-align_center">
+                            {label.sil_international}
+                        </div>
+                        <div class="fnt16 language-switcher slds-col slds-size_1-of-1 slds-medium-size_12-of-12 slds-large-size_4-of-12">
+                            <c-b2b_language-switcher is-footer-located={isFooterLocated}></c-b2b_language-switcher>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--SHfooter-->
+            <!--EEfooter-->
+            <div if:true={_isEvilEyeProductFooter} class="EE-footer-wrap">
+                <div class="EE-background-color">
+                    <div class="slds-grid slds-wrap slds-p-vertical_medium">
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_4-of-12 slds-text-align_center">
+                            <!-- Start : BS-1278-->
+                            <div class="slds-p-vertical_xx-small fntweight500">{_countrySpecificFooterContent.companyName}</div>
+                            <div class="slds-p-vertical_xx-small">
+                                <span>{label.sil_companyphone} &nbsp;</span>
+                                <span>{_countrySpecificFooterContent.telephoneNumber}</span>
+                            </div>
+                            <div class="slds-p-vertical_xx-small">{_countrySpecificFooterContent.companyOpening}</div>
+                            <!-- End : BS-1278-->
+                        </div>
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_4-of-12 slds-text-align_center">
+                            <div class="slds-p-vertical_xx-small">
+                                <a href={label.sil_homelink} target="_blank">{label.sil_home}</a>
+                            </div>
+                            <div class="slds-p-vertical_xx-small">
+                                <a href={label.sil_websitelink} target="_blank">{label.sil_website}</a>
+                            </div>
+                            <div class="slds-p-vertical_xx-small">
+                                <a href={label.sil_evileyelink} target="_blank">{label.sil_evileye}</a>
+                            </div>
+                            <div class="slds-p-vertical_xx-small">
+                                <a href={label.sil_certificateslink} target="_blank">{label.sil_certificates}</a>
+                            </div>
+                        </div>
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_12-of-12 slds-large-size_4-of-12 slds-text-align_center">
+                            <div class="slds-p-vertical_xx-small">
+                                <a href={_countrySpecificFooterContent.termsAndCondition} target="_blank">{label.sil_terms}</a>
+                            </div>
+                            <div class="slds-p-vertical_xx-small">
+                                <a href={label.sil_imprintlink} target="_blank">{label.sil_imprint}</a>
+                            </div>
+                            <div class="slds-p-vertical_xx-small">
+                                <a href={label.sil_dataprotectionlink} target="_blank">{label.sil_dataprotection}</a>
+                            </div>
+                            <div class="slds-p-vertical_xx-small">
+                                <a onclick={navigateToPortalGuideSH}>{label.sil_explore}</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slds-border_top">
+                        <div class="slds-align_absolute-center slds-border_bottom slds-grid slds-wrap slds-p-vertical_medium color">
+                            <div
+                                class="fnt16 slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_4-of-12 slds-text-align_center slds-p-vertical_x-small"
+                            >
+                                <a onclick={navigateToContactForm}>{label.sil_contactsupport}</a>
+                            </div>
+                            <div
+                                class="fnt16 slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_4-of-12 slds-text-align_center slds-p-vertical_x-small"
+                            >
+                                {label.sil_international}
+                            </div>
+                            <div class="fnt16 language-switcher slds-col slds-size_1-of-1 slds-medium-size_12-of-12 slds-large-size_4-of-12">
+                                <c-b2b_language-switcher is-footer-located={isFooterLocated}></c-b2b_language-switcher>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--EEfooter-->
+        </template>
+    </template>
+    <!--NBfooter-->
+    <template if:false={isSilhouetteFooter}>
+        <div class="NBfooter-container-fluid">
+            <div class="NBfooter-container">
+                <div class="slds-grid slds-wrap slds-p-vertical_xx-large">
+                    <div class="slds-col slds-size_1-of-1 slds-text-align_center">
+                        <h3>{label.nb_headline}</h3>
+                    </div>
+                </div>
+
+                <div class="slds-grid slds-wrap slds-p-bottom_large">
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_2-of-12"></div>
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_8-of-12 slds-text-align_center">
+                        <h1>{label.NB_FIND_US_LABEL}</h1>
+                        <div class="slds-grid slds-wrap slds-grid_vertical-align-center slds-grid_align-center">
+                            <div class="slds-col slds-p-horizontal_x-large slds-p-vertical_large">
+                                <h4>
+                                    <a href={label.nb_linkedinlink} target="_blank"
+                                        ><span class="slds-text-link slds-col slds-size_1-of-4 slds-small-size_1-of-1 slds-var-p-bottom_xx-small"
+                                            >{label.nb_linkedin}</span
+                                        ></a
+                                    >
+                                </h4>
+                            </div>
+                            <div class="slds-col slds-p-horizontal_x-large slds-p-vertical_large">
+                                <h4>
+                                    <a href={label.nb_instagramlink} target="_blank"
+                                        ><span class="slds-text-link slds-col slds-size_1-of-4 slds-small-size_1-of-1">{label.nb_instagram}</span></a
+                                    >
+                                </h4>
+                            </div>
+                            <div class="slds-col slds-p-horizontal_x-large slds-p-vertical_large">
+                                <h4>
+                                    <a href={label.nb_facebooklink} target="_blank"><span class="slds-text-link">{label.nb_facebook}</span></a>
+                                </h4>
+                            </div>
+                            <div class="slds-col slds-p-horizontal_x-large slds-p-vertical_large">
+                                <h4>
+                                    <a href={label.NB_YOUTUBE_LINK} target="_blank"><span class="slds-text-link">{label.NB_YOUTUBE}</span></a>
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_2-of-12"></div>
+                </div>
+
+                <div class="slds-grid slds-wrap slds-m-bottom_large slds-p-vertical_large slds-p-horizontal_large">
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_3-of-12 mb-footer-align">
+                        <h4 class="slds-m-bottom_x-small">{label.NB_COMPANY_LABEL}</h4>
+                        <div class="slds-size_1-of-1 slds-var-p-bottom_xx-small slds-p-vertical_xx-small"><b>{label.nb_companyname}</b></div>
+                        <div class="slds-hyphenate slds-size_1-of-1 slds-var-p-bottom_xx-small max-width-160">{label.nb_companyaddress}</div>
+                    </div>
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_3-of-12 mb-footer-align">
+                        <h4 class="slds-m-bottom_x-small">{label.nb_information}</h4>
+                        <div class="slds-p-vertical_xx-small">
+                            <a href={label.nb_aboutuslink} target="_blank"><span class="slds-text-link">{label.nb_aboutus}</span></a>
+                        </div>
+                        <div class="slds-p-vertical_xx-small">
+                            <a href={label.nb_sustainabilitylink} target="_blank"><span class="slds-text-link">{label.nb_sustainability}</span></a>
+                        </div>
+                        <div class="slds-p-vertical_xx-small">
+                            <a href={label.nb_faqslink} target="_blank"><span class="slds-text-link">{label.nb_faqs}</span></a>
+                        </div>
+                        <div class="slds-p-vertical_xx-small">
+                            <a href={label.nb_imprintlink} target="_blank"><span class="slds-text-link">{label.nb_imprint}</span></a>
+                        </div>
+                        <div class="slds-p-vertical_xx-small">
+                            <a href={label.nb_privacypolicylink} target="_blank"><span class="slds-text-link">{label.nb_privacypolicy}</span></a>
+                        </div>
+                    </div>
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_3-of-12 mb-footer-align">
+                        <h4 class="slds-m-bottom_x-small">{label.nb_contactus}</h4>
+                        <a onclick={navigateToContactForm}><span class="slds-text-link">{label.nb_contactsupport}</span></a>
+                        <div class="slds-size_1-of-1 slds-p-vertical_xx-small">{label.nb_companyphone}</div>
+                    </div>
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_3-of-12 mb-footer-align">
+                        <h4 class="slds-m-bottom_x-small">{label.NB_LANGUAGE_LABEL}</h4>
+                        <div class="slds-size_1-of-1 slds-p-vertical_xx-small slds-m-bottom_large">
+                            <div class="NB-language">
+                                <c-b2b_language-switcher is-footer-located={isFooterLocated}></c-b2b_language-switcher>
+                            </div>
+                        </div>
+                        <!-- Added as part of BS-827 -->
+                        <div class="slds-size_1-of-1">
+                            <a onclick={navigateToPortalGuideNB}>
+                                <span class="slds-text-link">{label.nb_explore}</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="slds-grid slds-wrap slds-m-top_large slds-p-vertical_large">
+                    <div class="slds-col slds-size_1-of-1 slds-text-align_center">
+                        <div class="slds-p-horizontal_medium">{label.NB_FOOTER_ALL_RIGHTS_LABEL}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+    <!--NBfooter-->
+</template>

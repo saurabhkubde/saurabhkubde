@@ -1,0 +1,20 @@
+<template>
+    <lightning-button-icon
+        disabled={isFirstPage}
+        variant="brand"
+        class="slds-p-around_medium"
+        icon-name="utility:chevronleft"
+        onclick={handlePrevious}
+    ></lightning-button-icon>
+    <p>{totalItemCount} {label.itemString}</p>
+    <template for:each={paginatorButtons} for:item="item">
+        <button onclick={item.onclick} key={item.key} class={item.class}>{item.label}</button>
+    </template>
+    <lightning-button-icon
+        disabled={isLastPage}
+        variant="brand"
+        class="slds-p-around_medium"
+        icon-name="utility:chevronright"
+        onclick={handleNext}
+    ></lightning-button-icon>
+</template>

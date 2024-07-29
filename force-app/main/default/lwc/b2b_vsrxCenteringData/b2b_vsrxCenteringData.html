@@ -1,0 +1,290 @@
+<template>
+    <div class="centering-data-container">
+        <span class="data-block"> {componentRenderingMode} </span>
+        <div class="title slds-border_bottom slds-p-vertical_x-large slds-m-bottom_small">
+            <div class="section-title">
+                <p>{labels.centeringData}</p>
+            </div>
+            <!--Added Edit button BS-1055-->
+            <div if:true={_isReadOnly} class="orderInformationIcon">
+                <img src={editIcon.icon} onclick={handleFrameInformationEdit} width="20" height="20" />
+            </div>
+        </div>
+        <!-- BS-1249 : Show Validation error for fitting height if difference is more than 2mm -->
+        <template if:false={_isReadOnly}>
+            <div if:true={_fittingHeightDifferenceError} class="error-background">
+                <p>{labels.msgForFittingHeightDifference}</p>
+            </div>
+        </template>
+        <!-- BS-1249 : End -->
+
+        <!-- BS-1245 : Showing Validation error for fitting height if it's less than progression length -->
+        <template if:true={_showValidationForFittingHeight}>
+            <div class="error-background">
+                <p>{labels.fittingHeightValidationMessageForMismatch}</p>
+            </div>
+        </template>
+        <!-- BS-1245 : End -->
+        <!--Added to show img for adpter and direct glazing Start BS-1065-->
+        <div if:true={_isAdapter} class="backgroundCheckbox">
+            <table>
+                <tr>
+                    <td valign="top">
+                        <lightning-input
+                            class="checkboxPos"
+                            type="checkbox"
+                            checked={isCheckedAdapterAgreement}
+                            onchange={handleAgreementAdapterCheckbox}
+                            disabled={_isReadOnly}
+                        >
+                        </lightning-input>
+                    </td>
+                    <td><p class="termsConditionCheckbox">{labels.msgForAdapter}</p></td>
+                </tr>
+            </table>
+        </div>
+        <div if:true={_isDirectGlazing} class="backgroundCheckbox slds-m-around_large">
+            <table>
+                <tr>
+                    <td valign="top">
+                        <lightning-input
+                            class="checkboxPos"
+                            type="checkbox"
+                            checked={isCheckedDirectGlazingAgreement}
+                            onchange={handleAgreementDirectGlazingCheckbox}
+                            disabled={_isReadOnly}
+                        >
+                        </lightning-input>
+                    </td>
+                    <td><p class="termsConditionCheckbox">{labels.msgForDirectGlazing}</p></td>
+                </tr>
+            </table>
+        </div>
+        <div if:true={_isCheckBoxChecked}>
+            <div class="errorValidationStyling">{labels.errorMessage}</div>
+        </div>
+        <!--Added to show img for adpter and direct glazing End BS-1065-->
+
+        <div class="slds-grid slds-wrap">
+            <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+                <table class="centering-table">
+                    <tr>
+                        <td></td>
+                        <td><h5 class="text-heading">{labels.rightEye}</h5></td>
+                        <td><h5 class="text-heading">{labels.leftEye}</h5></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <h5 class="text-heading">{labels.pupilDistance}</h5>
+                            <span class="text-value">26 to 40 mm</span>
+                        </td>
+                        <td>
+                            <!-- BS-1443 : onfocusout-->
+                            <lightning-input
+                                type="text"
+                                variant="label-hidden"
+                                class="border-input pupilDistanceRightEye"
+                                name="pupilDistanceRightEye"
+                                onchange={handleInputChange}
+                                value={_pupilDistanceRightEye}
+                                disabled={_hideRightEye}
+                                onfocusout={validatePupilDistanceRightEye}
+                            ></lightning-input>
+                        </td>
+                        <td>
+                            <!-- BS-1443 : onfocusout-->
+                            <lightning-input
+                                type="text"
+                                variant="label-hidden"
+                                class="border-input pupilDistanceLeftEye"
+                                name="pupilDistanceLeftEye"
+                                value={_pupilDistanceLeftEye}
+                                onchange={handleInputChange}
+                                disabled={_hideLeftEye}
+                                onfocusout={validatePupilDistanceLeftEye}
+                            ></lightning-input>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <h5 class="text-heading">{labels.fittingHeight}</h5>
+                            <!-- BS-1548 : Updated Label for Fitting height Length -->
+                            <span class="text-value">{_minimumApplicableFittingHeightLabel}</span>
+                        </td>
+                        <td>
+                            <!-- BS-1443 : onfocusout-->
+                            <lightning-input
+                                type="text"
+                                variant="label-hidden"
+                                class="border-input fittingHeightRightEye"
+                                name="fittingHeightRightEye"
+                                onchange={handleInputChange}
+                                value={_fittingHeightRightEye}
+                                disabled={_hideRightEye}
+                                onfocusout={validateFittingHeightRightEye}
+                            ></lightning-input>
+                        </td>
+                        <td>
+                            <!-- BS-1443 : onfocusout-->
+                            <lightning-input
+                                type="text"
+                                variant="label-hidden"
+                                class="border-input fittingHeightLeftEye"
+                                name="fittingHeightLeftEye"
+                                onchange={handleInputChange}
+                                value={_fittingHeightLeftEye}
+                                disabled={_hideLeftEye}
+                                onfocusout={validateFittingHeightLeftEye}
+                            ></lightning-input>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="slds-col slds-size_1-of-1 slds-medium-size_12-of-12 slds-large-size_6-of-12">
+                <div class="slds-grid slds-wrap">
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+                        <img class="" data-name="boxingSystem" data-value={_boxingSystemValue} onclick={handleRadioButtonChange} src={centeringDataImage} />
+                        <br />
+                        <input
+                            type="radio"
+                            id="boxing_system"
+                            class="prescription-radio-button black-color radio"
+                            name="boxingSystem"
+                            value={labels.boxingSystem}
+                            data-name="boxingSystem"
+                            data-value={_boxingSystemValue}
+                            onclick={handleRadioButtonChange}
+                            checked={_boxingSystem}
+                            disabled={_isReadOnly}
+                        />
+                        <span class="black-color filterValues" title={_boxingSystemLabel}>{_boxingSystemLabel}</span>
+                    </div>
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+                        <img
+                            class=""
+                            src={centeringDataImage2}
+                            data-name="measurementLineSystem"
+                            data-value={_measurementLineSystemValue}
+                            onclick={handleRadioButtonChange}
+                        />
+                        <br />
+                        <input
+                            type="radio"
+                            id="measurment_line_system"
+                            class="prescription-radio-button black-color radio"
+                            name="measurementLineSystem"
+                            value={labels.measurementLineSystem}
+                            data-name="measurementLineSystem"
+                            data-value={_measurementLineSystemValue}
+                            onclick={handleRadioButtonChange}
+                            checked={_measurementLineSystem}
+                            disabled={_isReadOnly}
+                        />
+                        <span class="black-color filterValues" title={_measurementLineSystemLabel}>{_measurementLineSystemLabel}</span>
+                    </div>
+                    <div if:true={_showValidationForMeasurementSystem} class="slds-col slds-size_1-of-1 slds-medium-size_12-of-12 slds-large-size_12-of-12">
+                        <div class="slds-grid slds-wrap">
+                            <div class="validationStyling slds-m-top_small">{labels.errorMessage}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slds-grid slds-wrap">
+            <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+                <table class="centering-table-secondary">
+                    <tr>
+                        <td class="text-value">
+                            {labels.pantascopicTilt}
+                            <img class="infoicon slds-m-left_xx-small" src={infoSVG} title={labels.defaultMeasurementDegree} />
+                        </td>
+                        <td>
+                            <!-- BS-1443 : onfocusout-->
+                            <lightning-input
+                                type="text"
+                                variant="label-hidden"
+                                class="border-input pantascopicTilt"
+                                name="pantascopicTilt"
+                                value={_pantascopicTilt}
+                                onchange={handleInputChange}
+                                disabled={_isReadOnly}
+                                onfocusout={validatePantascopicTilt}
+                            ></lightning-input>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-value">
+                            {labels.bvdWorn}
+                            <img class="infoicon slds-m-left_xx-small" src={infoSVG} title={labels.defaultMeasurementMM} />
+                        </td>
+                        <td>
+                            <!-- BS-1443 : onfocusout-->
+                            <lightning-input
+                                type="text"
+                                variant="label-hidden"
+                                class="border-input bvdWorn"
+                                name="bvdWorn"
+                                value={_bvdWorn}
+                                onchange={handleInputChange}
+                                disabled={_isReadOnly}
+                                onfocusout={bvdWornValidation}
+                            ></lightning-input>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-value">
+                            {labels.bvdReffracted}
+                            <img class="infoicon slds-m-left_xx-small" src={infoSVG} title={labels.defaultMeasurementMM} />
+                        </td>
+                        <td>
+                            <!-- BS-1443 : onfocusout-->
+                            <lightning-input
+                                type="text"
+                                variant="label-hidden"
+                                class="border-input bvdReffracted"
+                                name="bvdReffracted"
+                                value={_bvdReffracted}
+                                onchange={handleInputChange}
+                                disabled={_isReadOnly}
+                                onfocusout={bvdReffractedValidation}
+                            ></lightning-input>
+                        </td>
+                    </tr>
+
+                    <!-- BS-1117 : Working Distance Field Section Start -->
+                    <tr if:true={_isWorkingDistanceFieldApplicable}>
+                        <td class="text-value">
+                            {labels.workingDistanceFieldLabel}
+                            <img class="infoicon slds-m-left_xx-small" src={infoSVG} title={labels.workingDistanceFieldHelpTextLabel} />
+                        </td>
+                        <td>
+                            <!-- BS-1443 : onfocusout-->
+                            <lightning-input
+                                type="text"
+                                variant="label-hidden"
+                                class="border-input workingDistance"
+                                name="workingDistance"
+                                value={_workingDistanceApplicableValue}
+                                onchange={handleInputChange}
+                                disabled={_isWorkingDistanceFieldDisabled}
+                                onfocusout={validateWorkingDistance}
+                            ></lightning-input>
+                        </td>
+                    </tr>
+                    <!-- BS-1117 : Working Distance Field Section End -->
+                </table>
+            </div>
+            <!-- BS-1065 : Showing img for adapter and direct glazing Start-->
+            <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+                <div if:true={_isAdapter} class="imgPad">
+                    <img src={imgForAdapter} />
+                </div>
+                <div if:true={_isDirectGlazing} class="imgPad">
+                    <img src={imgForDirectGlazing} />
+                </div>
+            </div>
+            <!-- BS-1065 : Showing img for adapter and direct glazing End -->
+        </div>
+    </div>
+</template>

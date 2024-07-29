@@ -1,0 +1,20 @@
+.marginDiv {
+    /* margin-top: 54px; */
+    border-top-width: 0px;
+    border-right-width: 0px;
+    border-bottom-width: 0px;
+    border-left-width: 0px;
+}
+
+/* Small form factor: devices smaller than tablet (i.e. the SLDS mqSmall responsive threshold)*/
+@media only screen and (max-width: 47.9375em) {
+    .marginDiv {
+        margin-top: 0px !important ;
+    }
+}
+
+@media screen and (max-width: 767.99px) {
+    .margin-top-30 {
+        margin-top: 30px;
+    }
+}

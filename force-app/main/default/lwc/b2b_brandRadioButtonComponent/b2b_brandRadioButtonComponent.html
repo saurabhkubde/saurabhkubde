@@ -1,0 +1,47 @@
+<template>
+    <template if:true={showBrandButton}>
+        <template if:true={_isSilhouetteStore}>
+            <div class="sh-ee-radioButton">
+                <template for:each={_brandOptions} for:item="brand">
+                    <div class="slds-p-bottom_small" key={brand}>
+                        <!-- Radio Button -->
+                        <input
+                            type="radio"
+                            id={brand.label}
+                            class="radio-custom"
+                            data-name="B2B_Brand__c"
+                            name="B2B_Brand__c"
+                            value={brand.label}
+                            onclick={handleSelection}
+                            checked={brand.checked}
+                            title={brand.label}
+                            onselect={handleSelection}
+                        />
+                        <label for={brand.label} class="black-color filterValues radio-custom-label">{brand.label}</label><br />
+                    </div>
+                </template>
+            </div>
+        </template>
+        <template if:false={_isSilhouetteStore}>
+            <template for:each={_brandOptions} for:item="brand">
+                <div class="slds-p-bottom_small" key={brand}>
+                    <!-- Radio Button -->
+                    <input
+                        type="radio"
+                        class="filterRadioButton"
+                        data-name="B2B_Brand__c"
+                        name="B2B_Brand__c"
+                        value={brand.label}
+                        onclick={handleSelection}
+                        checked={brand.checked}
+                        title={brand.label}
+                        onselect={handleSelection}
+                    />
+                    <span class="slds-radio_faux"></span>
+                    <!-- Filter Label -->
+                    <span class="black-color filterValues" title={brand.label}> {brand.label} </span>
+                </div>
+            </template>
+        </template>
+    </template>
+</template>

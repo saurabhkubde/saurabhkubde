@@ -1,0 +1,29 @@
+<template>
+    <template if:true={displayData}>
+        <lightning-accordion allow-multiple-sections-open onsectiontoggle={handleSectionToggle} active-section-name={activeSections}>
+            <lightning-accordion-section name="color" label={colorLabel}>
+                <template for:each={displayData} for:item="filter">
+                    <template if:true={filter.displayColor}>
+                        <ul key={filter.Name}>
+                            <li class="slds-p-top_medium slds-p-left_large slds-text-title_bold slds-truncate" title={filter.Name}>
+                                <lightning-formatted-rich-text value={filter.Name}></lightning-formatted-rich-text>
+                            </li>
+                            <li class="slds-p-left_large">
+                                <template for:each={filter.colorsList} for:item="style">
+                                    <span
+                                        key={style.colorHex}
+                                        class="dot"
+                                        data-name={filter.apiName}
+                                        data-item={style.colorName}
+                                        style={style.colorStyle}
+                                        onclick={handleColorClick}
+                                    ></span>
+                                </template>
+                            </li>
+                        </ul>
+                    </template>
+                </template>
+            </lightning-accordion-section>
+        </lightning-accordion>
+    </template>
+</template>

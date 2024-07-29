@@ -1,0 +1,59 @@
+:host {
+    grid-template-columns: var(--dxp-g-spacing-medium) auto;
+    grid-column-gap: var(--dxp-g-spacing-small);
+}
+
+.facet-item {
+    padding: 0px;
+    font-family: 'adobe-caslon-pro';
+    font-weight: 400;
+    font-size: 14px;
+}
+
+.hidden-checkbox {
+    display: none;
+}
+
+.custom-checkbox-label {
+    cursor: pointer;
+}
+
+.custom-checkbox-label-checked {
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.dot {
+    height: 12px;
+    width: 12px;
+    border-radius: 50%;
+    cursor: pointer;
+    background-color: #bbb;
+    margin-right: 8px;
+    display: inline-block;
+    border: 2px solid #fff;
+    text-align: center;
+    -webkit-box-shadow: 0px 0px 1px 0px rgba(71, 71, 71, 1) !important;
+    -moz-box-shadow: 0px 0px 1px 0px rgba(71, 71, 71, 1) !important;
+    box-shadow: 0px 0px 1px 0px rgba(71, 71, 71, 1) !important;
+    /* outline: black solid 0.5px; */
+}
+.icon-span {
+    padding-left: 6px;
+}
+
+.shape-icon {
+    width: 30px;
+}
+
+@media screen and (max-width: 764px) {
+    .shape-icon {
+        width: 23px !important;
+    }
+}
+
+@media only screen and (max-width: 48em) {
+    .input-facet-value {
+        padding-top: 1.25rem;
+    }
+}

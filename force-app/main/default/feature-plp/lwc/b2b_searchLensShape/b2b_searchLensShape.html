@@ -1,0 +1,30 @@
+<template>
+    <template if:true={displayData}>
+        <lightning-accordion allow-multiple-sections-open onsectiontoggle={handleSectionToggle} active-section-name={activeSections} class="slds-border_top">
+            <lightning-accordion-section name="lensShape" label={displayData.fieldName}>
+                <div class="slds-form-element__control slds-p-left_large">
+                    <template for:each={displayData.lensData} for:item="filter">
+                        <template if:true={filter.displayShape}>
+                            <span class="slds-radio slds-p-bottom_x-small" key={filter.shapeName}>
+                                <input type="radio" id={filter.shapeName} value="radio-61" name="shapeFilter" checked={filter.shapeChecked} />
+                                <label
+                                    class="slds-radio__label"
+                                    for={filter.shapeName}
+                                    style={filter.shapeStyle}
+                                    data-id={filter.shapeName}
+                                    onclick={handleShapeClick}
+                                >
+                                    <span class="slds-radio_faux"></span>
+                                    <span class="black-color">{filter.shapeName}</span>
+                                    <div class="shape-icon">
+                                        <span class={filter.shapeIcon}></span>
+                                    </div>
+                                </label>
+                            </span>
+                        </template>
+                    </template>
+                </div>
+            </lightning-accordion-section>
+        </lightning-accordion>
+    </template>
+</template>

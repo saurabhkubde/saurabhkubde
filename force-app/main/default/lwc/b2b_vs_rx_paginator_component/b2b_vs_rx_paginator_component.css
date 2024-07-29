@@ -1,0 +1,17 @@
+:host {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pagenumber {
+    font-size: 16px !important;
+    font-weight: 300 !important;
+    margin: 2px 2px;
+    border: none !important;
+    background-color: transparent;
+}
+.current {
+    font-weight: bold !important;
+    text-decoration: underline !important;
+}

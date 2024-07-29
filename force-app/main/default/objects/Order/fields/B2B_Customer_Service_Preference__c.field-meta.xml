@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>B2B_Customer_Service_Preference__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>This field is used to hold the choice selected by that whether should they be contacted by the customer service.</description>
+    <externalId>false</externalId>
+    <label>Customer Service Preference</label>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

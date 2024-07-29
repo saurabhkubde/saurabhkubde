@@ -1,0 +1,158 @@
+.textAreaStyling {
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    border-image: initial;
+    border-bottom: 1px solid lightgrey;
+    width: 100%;
+    outline: none;
+    height: 38px;
+}
+
+.vs_rx_addToCartContainer {
+    font-size: 14px;
+    font-weight: 300;
+}
+
+.headerStyling {
+    font-weight: 500;
+    padding-bottom: 10px;
+    font-size: 16px;
+}
+
+.optionsStyling {
+    margin-top: 30px;
+    margin-left: 10px;
+}
+
+.notesStyling {
+    padding-left: 20px;
+}
+
+@media only screen and (max-width: 767px) {
+    .notesStyling {
+        padding-left: 0px !important;
+        margin-top: 10px;
+    }
+}
+
+.checkbox-custom,
+.radio-custom {
+    opacity: 0;
+    position: absolute;
+}
+
+.checkbox-custom,
+.checkbox-custom-label,
+.radio-custom,
+.radio-custom-label {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 5px;
+    cursor: pointer;
+}
+
+.checkbox-custom-label,
+.radio-custom-label {
+    position: relative;
+}
+
+.checkbox-custom + .checkbox-custom-label:before,
+.radio-custom + .radio-custom-label:before {
+    content: '';
+    background: #fff;
+    border: 2px solid #ddd;
+    display: inline-block;
+    vertical-align: middle;
+    width: 20px;
+    height: 20px;
+    padding: 2px;
+    margin-right: 10px;
+    text-align: center;
+}
+
+.checkbox-custom:checked + .checkbox-custom-label:before {
+    content: '\f00c';
+    font-family: 'FontAwesome';
+    background: #000;
+    color: #fff;
+}
+
+.checkbox-custom:focus + .checkbox-custom-label,
+.radio-custom:focus + .radio-custom-label {
+    outline: none; /* focus style */
+}
+
+.silhouetteText {
+    font-size: 15px;
+    text-align: center;
+    color: black;
+}
+.instructionStyling {
+    margin-top: 30px;
+    margin-left: 10px;
+}
+
+.helpTextStyling {
+    display: none;
+}
+
+.toolTipStyling {
+    width: 14px;
+    margin-left: 5px;
+    margin-top: -2px;
+}
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+}
+
+.tooltip .text {
+    position: absolute;
+    width: 435px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    padding: 4px 4px;
+    z-index: 1;
+    border-radius: 0px;
+    bottom: 110%;
+    left: -20px;
+    margin-left: -188px;
+    opacity: 0;
+    visibility: hidden;
+    font-size: 12px;
+}
+.tooltip .text::after {
+    position: absolute;
+    content: '';
+    border-style: solid;
+    border-width: 5px;
+    border-color: black transparent transparent transparent;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+}
+.tooltip:hover .text {
+    visibility: visible;
+    opacity: 1;
+}
+/*BS-1034*/
+.error-background {
+    background-color: rgb(255 0 0 / 15%);
+    padding: 20px;
+    margin: 20px;
+    font-size: 14px;
+    font-weight: 300;
+    color: #f00;
+}
+
+/*BS-1064*/
+.m-top-20 {
+    margin-top: 21px;
+}
+
+.custom-height {
+    line-height: 32px;
+}

@@ -1,0 +1,14 @@
+<template>
+    <!-- Start: BS-930-->
+    <template if:true={labels}>
+        <div if:true={noProducts}>
+            <div if:false={noSearchResults} class="noProduct">
+                <h1 class="slds-text-heading_medium">{labels.noFilteredProducts}</h1>
+            </div>
+        </div>
+        <div if:true={noSearchResults} class="noSearchResult">
+            <h1 class="slds-text-heading_medium">{labels.noSearchProducts}</h1>
+        </div>
+    </template>
+    <!-- End: BS-930-->
+</template>

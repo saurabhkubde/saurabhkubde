@@ -1,0 +1,983 @@
+<template>
+    <lightning-breadcrumbs if:true={_isEvilEyeProduct} class="breadcrumb-color slds-m-bottom_medium slds-p-around_small">
+        <template for:each={_resolvedCategoryPath} for:item="level">
+            <lightning-breadcrumb key={level.name} label={level.name} href={level.url}> </lightning-breadcrumb>
+        </template>
+    </lightning-breadcrumbs>
+    <lightning-breadcrumbs if:false={_isEvilEyeProduct} class="slds-m-bottom_medium">
+        <template for:each={_resolvedCategoryPath} for:item="level">
+            <lightning-breadcrumb key={level.name} label={level.name} href={level.url}> </lightning-breadcrumb>
+        </template>
+    </lightning-breadcrumbs>
+    <div class="product-information slds-m-right_xxx-small slds-grid slds-wrap">
+        <div class="slds-col image slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_8-of-12 slds-p-bottom_medium">
+            <c-b2b_product-images product-images={images} product-disabled={isProductDisabled}></c-b2b_product-images>
+            <!-- Start BS-1622-->
+            <div if:true={_isSilhouetteStore} class="slds-m-top_small additional-button-container">
+                <div if:true={_seeChassisButton}>
+                    <!-- BS-754 End-->
+                    <button class="button-padding silButton capital" onclick={handleNavigationToChassis}>{cassisButtonLabel}</button>
+                    <!-- This code is commented as this logic is working on availabilityJSON logic (BS-463)-->
+                </div>
+                <div if:true={_isGlazed}>
+                    <!-- BS-1500 Start For SEE CHASSIS-->
+                    <button class="button-padding silButton capital" onclick={handleNavigationToChassisAndDemo}>{cassisButtonLabel}</button>
+                    <!-- BS-1500 END -->
+                </div>
+                <div if:true={_isUnglazed}>
+                    <!-- BS-1500 Start For SEE DEMO-->
+                    <button class="button-padding silButton capital" onclick={handleNavigationToChassisAndDemo}>{seeGlazedButtonLabel}</button>
+                    <!-- BS-1500 END -->
+                </div>
+                <div if:true={sparePartResults}>
+                    <button type="button" class="button-padding silButton capital" onclick={sparePartsModal}>{sparePartsButton}</button>
+                </div>
+                <div class="demo-button" if:true={displayDemoButton}>
+                    <button type="button" if:true={demoResults} class="button-padding silButton capital" onclick={demoModal}>{demoButton}</button>
+                </div>
+                <!-- BS-2249 -->
+                <div if:true={_isShowClipOns}>
+                    <button class="button-padding silButton capital" onclick={handleNavigationToClipOns}>{seeClipOnsLabel}</button>
+                </div>
+            </div>
+        </div>
+        <!-- End BS-1622-->
+
+        <!-- Start : SH/EE Product Information-->
+        <div
+            if:true={_isSilhouetteStore}
+            class="slds-col slds-m-top_xxx-small slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_4-of-12 pdpdetails-container pl-20-medium-size"
+        >
+            <!--BS-656-->
+            <div if:false={_showAdditionalInfoForEvilEye} class="title-container margin-bottom-8">
+                <div class="width-90">
+                    <lightning-formatted-rich-text value={name} class="product-name-sh arial-font"></lightning-formatted-rich-text>
+                </div>
+                <div class="width-10" if:false={hidePurchasePriceField}>
+                    <c-b2b_hide-prices
+                        set-hide-price={hidePrice}
+                        onhidepricesection={handleHidePriceSection}
+                        onshowpricesection={handleShowPriceSection}
+                    ></c-b2b_hide-prices>
+                </div>
+            </div>
+            <div>
+                <span class="margin-bottom-8 attribute-display">
+                    <div if:false={_showAdditionalInfoForEvilEye}>
+                        <h2 class="text-medium-light model">{model}</h2>
+                    </div>
+                    <div if:true={isTempleProduct}>
+                        <h2 class="text-medium-light model display-collection-design">{collectionDesignFamily}</h2>
+                    </div>
+                </span>
+                <!--BS-740-->
+                <div if:true={_isLenses}>
+                    <div if:true={_showAdditionalInfoForEvilEye}>
+                        <div key={info.productName} class="slds-text-heading_medium model">
+                            <table>
+                                <tr>
+                                    <td>
+                                        <lightning-formatted-text class="text-medium-light" value={model}></lightning-formatted-text>
+                                    </td>
+                                    <td>
+                                        <c-b2b_hide-prices
+                                            if:false={hidePurchasePriceField}
+                                            set-hide-price={hidePrice}
+                                            onhidepricesection={handleHidePriceSection}
+                                            onshowpricesection={handleShowPriceSection}
+                                        ></c-b2b_hide-prices>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div key={info.productName} class="product-name">
+                            <lightning-formatted-rich-text value={name}></lightning-formatted-rich-text>
+                        </div>
+                        <div key={info.productName} class="slds-text-heading_medium model">
+                            <lightning-formatted-text value={frameColorDescription}></lightning-formatted-text>
+                        </div>
+                        <div key={info.productName} class="designFamily">
+                            <lightning-formatted-text value={collectionDesignFamily}></lightning-formatted-text>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="margin-bottom-8">
+                    <div class="skulabel">{skuLabel}: {sku}</div>
+                </div>
+                <div class="margin-bottom-8" if:true={productDescriptionValue}>
+                    <div style="position: relative">
+                        <div if:true={_isSilhouetteStore} class={_productDescriptionClass}>
+                            <span class="description-container">{productDescriptionValue}</span>
+                        </div>
+                        <div if:false={_isSilhouetteStore} class={_productDescriptionClass}>
+                            <lightning-formatted-rich-text value={productDescriptionValue}></lightning-formatted-rich-text>
+                        </div>
+                        <div if:true={_showMoreButton}>
+                            <button if:false={_showLessButton} class={_readButtonClass} onclick={showCompleteDescription}>{_readMore}</button>
+                            <button if:true={_showLessButton} class={_readButtonClass} onclick={hideDescription}>{_readLess}</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div if:false={hideSuggestedRetailPriceField}>
+                <!-- RRP -->
+                <div if:true={isToggleClicked} class={rrpPriceClass}>
+                    <!-- BS-1301 : Hide RRP price unavailable -->
+                    <!--BS-1951-->
+                    <span>{_recommendedPrice}</span>
+                    <!--BS-2002-->
+                    <span if:true={hasPrice}>
+                        <!--BS-1951-->
+                        <span if:false={hasRecommendedRetailPrice} class="slds-text-heading_small slds-p-top_xx-small slds-p-bottom_xx-small black-color">
+                            <div class="tooltip">
+                                <span class="text">{priceUnavailableTitle}</span>
+                                <span>{priceLabel}</span>
+                            </div>
+                        </span>
+                    </span>
+                    <span if:false={hasPrice} class="slds-text-heading_small slds-p-top_xx-small slds-p-bottom_xx-small black-color">
+                        <div class="tooltip">
+                            <span class="text">{articalOnlyTitle}</span>
+                            <span class="slds-text-heading_small slds-p-top_xx-small slds-p-bottom_xx-small black-color">{articalOnly}</span>
+                        </div>
+                    </span>
+                    <lightning-formatted-number
+                        if:true={hasRecommendedRetailPrice}
+                        currency-code={price.currency}
+                        format-style="currency"
+                        value={price.recommendedRetailPrice}
+                    >
+                    </lightning-formatted-number>
+                </div>
+                <!-- RRP -->
+            </div>
+            <div>
+                <!--Start : BS-2032 : Added aditional details to be sent-->
+                <!--Added disableAddToCart BS-2197-->
+                <c-b2b_product-details-variations
+                    if:true={hasVariations}
+                    product-data={productData}
+                    product-fields={productFields}
+                    effective-account-id={effectiveAccountId}
+                    category-path={categoryPath}
+                    country-code={countryCode}
+                    onspecialproductselection={disableAddToCart}
+                ></c-b2b_product-details-variations>
+                <!-- End : BS-2032-->
+            </div>
+
+            <!---BS-567 Start -->
+            <div if:true={_isSilhouetteStore}>
+                <div if:true={_seeFrameColor} class="slds-col slds-size_1-of-1 slds-m-top_x-small">
+                    <div class="slds-m-bottom_xx-small framecolor-container colorLabel text-tiny">{_frameColorLabel}</div>
+                    <div class="frameContainer framecolorbubble-container slds-p-bottom_xx-small">
+                        <div class="product-color-bubble slds-m-top_xxx-small slds-m-right_x-small">
+                            <span class="product-color-bubble__lower pdpdetails-container" style={_backgroundColorLower} title={_frameColorDescription}></span>
+                            <span class="product-color-bubble__upper pdpdetails-container" style={_backgroundColorUpper} title={_frameColorDescription}></span>
+                        </div>
+                        <div>
+                            <span title={_frameColor} class="slds-m-right_xxx-small pdpdetails-container">{_frameColor}</span>
+                            <span title={_frameColorDescription} class="pdpdetails-container">{_frameColorDescription}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!---BS-567 End-->
+            <div class="sizeContainer">
+                <!--BS-1326-->
+                <div>
+                    <!-- BS-787 : added line: onsendselectedproductsizedata={setProductSizes} -->
+                    <c-b2b_attribute-field-set-component
+                        display-data={productId}
+                        page-source-product-details-page={pageSourcePDP}
+                        onsendselectedproductsizedata={setProductSizes}
+                    ></c-b2b_attribute-field-set-component>
+                </div>
+            </div>
+
+            <div class="priceContainer">
+                <div if:false={hidePurchasePriceField}>
+                    <div if:false={_hideSilhouettePricesFromTile}>
+                        <div if:true={_isSilhouetteStore} class="pdf-price slds-m-right_medium">
+                            <!--BS-2002-->
+                            <span if:true={hasPrice}>
+                                <span if:true={isPriceZero}>
+                                    <div class="tooltip">
+                                        <span class="text">{priceUnavailableTitle}</span>
+                                        <span>{priceLabel}</span>
+                                    </div>
+                                </span>
+                                <span if:true={isProductFree}>
+                                    <div class="tooltip">
+                                        <span class="text">{freeOfChargeLabel}</span>
+                                        <span>{freeOfChargeLabel}</span>
+                                    </div>
+                                </span>
+                            </span>
+                            <span if:false={hasPrice}>
+                                <div class="tooltip">
+                                    <span class="text">{articalOnlyTitle}</span>
+                                    <span>{articalOnly}</span>
+                                </div>
+                            </span>
+                            <lightning-formatted-number
+                                if:true={isPriceNotZeroOrFree}
+                                currency-code={price.currency}
+                                format-style="currency"
+                                value={price.negotiated}
+                            >
+                            </lightning-formatted-number>
+                        </div>
+                        <div if:false={_isSilhouetteStore} class="pdf-price-nb slds-m-right_medium">
+                            <!--BS-2002-->
+                            <span if:true={hasPrice}>
+                                <span if:true={isPriceZero}>
+                                    <div class="tooltip">
+                                        <span class="text">{priceUnavailableTitle}</span>
+                                        <span>{priceLabel}</span>
+                                    </div>
+                                </span>
+                                <span if:true={isProductFree}>
+                                    <div class="tooltip">
+                                        <span class="text">{freeOfChargeLabel}</span>
+                                        <span>{freeOfChargeLabel}</span>
+                                    </div>
+                                </span>
+                            </span>
+                            <span if:false={hasPrice}>
+                                <div class="tooltip">
+                                    <span class="text">{articalOnlyTitle}</span>
+                                    <span>{articalOnly}</span>
+                                </div>
+                            </span>
+                            <lightning-formatted-number
+                                if:true={isPriceNotZeroOrFree}
+                                currency-code={price.currency}
+                                format-style="currency"
+                                value={price.negotiated}
+                            >
+                            </lightning-formatted-number>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="slds-m-right_medium input-group slds-text-align_center">
+                    <input type="button" value="-" class="button-minus" data-field="quantity" onclick={quantityDecrease} disabled={isProductDisabled} />
+                    <input
+                        type="number"
+                        step="1"
+                        max="9999"
+                        min="1"
+                        value="1"
+                        name="quantity"
+                        class="quantity-field"
+                        onblur={handleQuantityChange}
+                        disabled={isProductDisabled}
+                    />
+                    <input type="button" value="+" class="button-plus" data-field="quantity" onclick={quantityIncrease} disabled={isProductDisabled} />
+                </div>
+            </div>
+            <!--BS-644- START -->
+            <div if:true={deliveryTimeJSON}>
+                <div if:true={deliveryInformationCollection.styling} class="slds-p-bottom_xx-small">
+                    <div class="stock-div">
+                        <img class="stockIcon" src={deliveryInformationCollection.styling} />
+                    </div>
+                    <div class="delivery-div">
+                        <lightning-formatted-text value={deliveryInformationCollection.status}></lightning-formatted-text>
+                    </div>
+                </div>
+            </div>
+            <!--BS-644- END-->
+            <!--Update Start for BS-1085 -->
+            <div class="cart-button-container">
+                <div class="slds-m-bottom_small">
+                    <!--Added dynamic class BS-2197-->
+                    <!-- BS-2279 -->
+                    <button class={_addToCartClass} if:false={_isAddToCartDisabled} onclick={notifyAddToCart}>{cartButtonLabel}</button>
+                </div>
+                <!--Update End for BS-1085 -->
+
+                <!-- BS-787 : RX GLAZING Section Start -->
+                <div if:true={_eligibleForRX} class="butttonStylingForVSRX tooltip">
+                    <button class="toolTipStyling silButtonInverse capital" onclick={handleVSRXButtonClick}>{_buttonForVSRXLabel}</button>
+                    <span class="text">{_buttonInformationForVSRXLabel}</span>
+                </div>
+                <!-- BS-787 : RX GLAZING Section End -->
+
+                <!--BS-1125 start-->
+                <div if:true={_eligibleForVS} class="butttonStylingForVSRX tooltip">
+                    <!-- BS-2279 -->
+                    <button class="toolTipStyling silButtonInverse capital" onclick={handleVSRXButtonClick}>{_silhouetteVSButton}</button>
+                    <span class="text">{_buttonInformationForVSRXLabel}</span>
+                </div>
+                <!--BS-1125 end-->
+            </div>
+            <!-- BS-754 Start -->
+            <div if:true={_noChassisAvailable} class="noChassisStyling">{_noChassisAvailableMessageLabel}</div>
+        </div>
+        <!-- End : SH/EE Product Information -->
+
+        <!-- Start : NB Product Information -->
+        <div
+            if:false={_isSilhouetteStore}
+            class="slds-col slds-m-top_xxx-small slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_4-of-12 pdpdetails-container pl-20-medium-size"
+        >
+            <!--BS-656-->
+            <div if:false={_showAdditionalInfoForEvilEye} class="title-container">
+                <div class="width-90">
+                    <lightning-formatted-rich-text
+                        if:false={_isSilhouetteStore}
+                        value={name}
+                        class="product-name-nb arial-font"
+                    ></lightning-formatted-rich-text>
+                </div>
+                <div class="width-10" if:false={hidePurchasePriceField}>
+                    <c-b2b_hide-prices
+                        set-hide-price={hidePrice}
+                        onhidepricesection={handleHidePriceSection}
+                        onshowpricesection={handleShowPriceSection}
+                    ></c-b2b_hide-prices>
+                </div>
+            </div>
+            <div>
+                <span class="attribute-display">
+                    <div if:false={_showAdditionalInfoForEvilEye}>
+                        <h2 class="text-medium-light model">{model}</h2>
+                    </div>
+                    <div if:true={isTempleProduct}>
+                        <h2 class="text-medium-light model display-collection-design">{collectionDesignFamily}</h2>
+                    </div>
+                </span>
+                <!--BS-740-->
+                <div if:true={_isLenses}>
+                    <div if:true={_showAdditionalInfoForEvilEye}>
+                        <div key={info.productName} class="slds-text-heading_medium model">
+                            <table>
+                                <tr>
+                                    <td>
+                                        <lightning-formatted-text class="text-medium-light" value={model}></lightning-formatted-text>
+                                    </td>
+                                    <td>
+                                        <c-b2b_hide-prices
+                                            if:false={hidePurchasePriceField}
+                                            set-hide-price={hidePrice}
+                                            onhidepricesection={handleHidePriceSection}
+                                            onshowpricesection={handleShowPriceSection}
+                                        ></c-b2b_hide-prices>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div key={info.productName} class="product-name">
+                            <lightning-formatted-rich-text value={name}></lightning-formatted-rich-text>
+                        </div>
+                        <div key={info.productName} class="slds-text-heading_medium model">
+                            <lightning-formatted-text value={frameColorDescription}></lightning-formatted-text>
+                        </div>
+                        <div key={info.productName} class="designFamily">
+                            <lightning-formatted-text value={collectionDesignFamily}></lightning-formatted-text>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="margin-bottom-8">
+                    <div class="skulabel">{skuLabel}: {sku}</div>
+                </div>
+                <div class="margin-bottom-8" if:true={productDescriptionValue}>
+                    <div style="position: relative">
+                        <div if:true={_isSilhouetteStore} class={_productDescriptionClass}>
+                            <span class="framecolorbubble-container">{productDescriptionValue}</span>
+                        </div>
+                        <div if:false={_isSilhouetteStore} class={_productDescriptionClass}>
+                            <lightning-formatted-rich-text value={productDescriptionValue}></lightning-formatted-rich-text>
+                        </div>
+                        <div if:true={_showMoreButton}>
+                            <button if:false={_showLessButton} class={_readButtonClass} onclick={showCompleteDescription}>{_readMore}</button>
+                            <button if:true={_showLessButton} class={_readButtonClass} onclick={hideDescription}>{_readLess}</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div if:false={hideSuggestedRetailPriceField}>
+                <!-- RRP -->
+                <div if:true={isToggleClicked} class={rrpPriceClass}>
+                    <!-- BS-1301 : Hide RRP price unavailable -->
+                    <span if:true={price.recommendedRetailPrice}>{_recommendedPrice}</span>
+                    <lightning-formatted-number
+                        if:true={price.recommendedRetailPrice}
+                        currency-code={price.currency}
+                        format-style="currency"
+                        value={price.recommendedRetailPrice}
+                    >
+                    </lightning-formatted-number>
+                </div>
+                <!-- RRP -->
+            </div>
+            <div>
+                <c-b2b_product-details-variations if:true={hasVariations} product-data={productData}></c-b2b_product-details-variations>
+            </div>
+
+            <!---BS-567 End-->
+            <div class="sizeContainer">
+                <!--BS-1326-->
+                <div>
+                    <!-- BS-787 : added line: onsendselectedproductsizedata={setProductSizes} -->
+                    <c-b2b_attribute-field-set-component
+                        display-data={productId}
+                        page-source-product-details-page={pageSourcePDP}
+                        onsendselectedproductsizedata={setProductSizes}
+                    ></c-b2b_attribute-field-set-component>
+                </div>
+            </div>
+
+            <div class="priceContainer">
+                <div if:false={_hideSilhouettePricesFromTile}>
+                    <div if:false={hidePurchasePriceField}>
+                        <div if:true={_isSilhouetteStore} class="pdf-price slds-m-right_medium">
+                            <!--BS-2002-->
+                            <span if:true={hasPrice}>
+                                <!--BS-1951-->
+                                <span if:true={isPriceZero}>
+                                    <div class="tooltip">
+                                        <span class="text">{priceUnavailableTitle}</span>
+                                        <span>{priceLabel}</span>
+                                    </div>
+                                </span>
+                                <span if:true={isProductFree}>
+                                    <div class="tooltip">
+                                        <span class="text">{freeOfChargeLabel}</span>
+                                        <span>{freeOfChargeLabel}</span>
+                                    </div>
+                                </span>
+                            </span>
+                            <span if:false={hasPrice}>
+                                <div class="tooltip">
+                                    <span class="text">{articalOnlyTitle}</span>
+                                    <span>{articalOnly}</span>
+                                </div>
+                            </span>
+                            <lightning-formatted-number
+                                if:true={isPriceNotZeroOrFree}
+                                currency-code={price.currency}
+                                format-style="currency"
+                                value={price.negotiated}
+                            >
+                            </lightning-formatted-number>
+                        </div>
+                        <div if:false={_isSilhouetteStore} class="pdf-price-nb slds-m-right_medium">
+                            <span if:true={hasPrice}>
+                                <!--BS-1951-->
+                                <span if:true={isPriceZero}>
+                                    <div class="tooltip">
+                                        <span class="text">{priceUnavailableTitle}</span>
+                                        <span>{priceLabel}</span>
+                                    </div>
+                                </span>
+                                <span if:true={isProductFree}>
+                                    <div class="tooltip">
+                                        <span class="text">{freeOfChargeLabel}</span>
+                                        <span>{freeOfChargeLabel}</span>
+                                    </div>
+                                </span>
+                            </span>
+                            <span if:false={hasPrice}>
+                                <div class="tooltip">
+                                    <span class="text">{articalOnlyTitle}</span>
+                                    <span>{articalOnly}</span>
+                                </div>
+                            </span>
+                            <lightning-formatted-number
+                                if:true={isPriceNotZeroOrFree}
+                                currency-code={price.currency}
+                                format-style="currency"
+                                value={price.negotiated}
+                            >
+                            </lightning-formatted-number>
+                        </div>
+                    </div>
+                </div>
+                <div class="slds-m-right_medium input-group slds-text-align_center">
+                    <input type="button" value="-" class="button-minus" data-field="quantity" onclick={quantityDecrease} disabled={isProductDisabled} />
+                    <input
+                        type="number"
+                        step="1"
+                        max="9999"
+                        min="1"
+                        value="1"
+                        name="quantity"
+                        class="quantity-field"
+                        onblur={handleQuantityChange}
+                        disabled={isProductDisabled}
+                    />
+                    <input type="button" value="+" class="button-plus" data-field="quantity" onclick={quantityIncrease} disabled={isProductDisabled} />
+                </div>
+            </div>
+            <!--BS-644- START -->
+            <div if:true={deliveryTimeJSON}>
+                <div if:true={deliveryInformationCollection.styling} class="slds-p-bottom_small">
+                    <div class="stock-div">
+                        <img class="stockIcon" src={deliveryInformationCollection.styling} />
+                    </div>
+                    <div class="delivery-div">
+                        <lightning-formatted-text value={deliveryInformationCollection.status}></lightning-formatted-text>
+                    </div>
+                </div>
+            </div>
+            <!--BS-644- END-->
+            <!--Update Start for BS-1085 -->
+            <div class="cart-button-container slds-m-bottom_small">
+                <div class="slds-m-bottom_small">
+                    <!-- BS-2279 -->
+                    <button class="silButton capital" if:false={_isAddToCartDisabled} onclick={notifyAddToCart}>{cartButtonLabel}</button>
+                </div>
+                <!--Update End for BS-1085 -->
+            </div>
+            <!-- BS-754 Start -->
+        </div>
+        <!-- End : NB Product Information -->
+    </div>
+    <!-- BS-1622 Tabs Section Start -->
+    <div if:true={_isSilhouetteStore} class="sh-ee-tabs slds-m-top_medium slds-tabs_default">
+        <ul class="slds-tabs_default__nav tab-container" role="tablist">
+            <li
+                id={_detailsHeader}
+                name={_detailsHeader}
+                class="slds-text-align_center slds-tabs_default__item slds-is-active show-shadow"
+                title={_detailsHeader}
+                role="presentation"
+                onclick={handleDetailTabChange}
+                data-name={_detailsHeader}
+                value={_detailsHeader}
+            >
+                {_detailsHeader}
+            </li>
+            <li
+                if:true={productMedias}
+                id={furtherInfoHeader}
+                name={furtherInfoHeader}
+                class="slds-text-align_center slds-tabs_default__item remove-shadow"
+                title={furtherInfoHeader}
+                role="presentation"
+                onclick={handleDetailTabChange}
+                data-name={furtherInfoHeader}
+                value={furtherInfoHeader}
+            >
+                {furtherInfoHeader}
+            </li>
+        </ul>
+        <div data-id={_detailsHeader} class="slds-tabs_default__content slds-show" role="tabpanel" aria-labelledby="tab-default-1__item">
+            <div class="slds-grid slds-wrap additional-attribute slds-p-around_medium">
+                <template for:each={_additionalAttributeObjectList} for:item="field">
+                    <div
+                        if:false={field.icon}
+                        class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12 slds-p-around_x-small"
+                        key={field}
+                    >
+                        <div class="slds-m-around_xxx-small slds-p-left_small text-tiny-strong">
+                            {field.label}
+                            <span if:true={field.icon}>
+                                <img if:true={field.icon} src={field.icon} class="slds-size_xxx-small slds-m-around_xxx-small slds-p-left_small" />
+                            </span>
+                        </div>
+                        <div if:false={field.isColorField}>
+                            <div if:true={field.containsMultipleValues} for:each={field.dataValue} for:item="value" key={value}>
+                                <div class="slds-var-m-around_xx-small slds-p-left_small">{value}</div>
+                            </div>
+                            <div if:false={field.containsMultipleValues}>
+                                <div class="slds-m-around_xxx-small slds-p-left_small">{field.dataValue}</div>
+                            </div>
+                        </div>
+
+                        <table>
+                            <tr>
+                                <td vlaign="top">
+                                    <div if:true={field.isColorField}>
+                                        <div
+                                            if:false={field.isFrameColorDescriptionValue}
+                                            title={field.colorName}
+                                            class="bubble slds-m-left_medium slds-p-left_medium"
+                                            style={field.bubbleColor}
+                                        ></div>
+                                        <div if:true={field.isFrameColorDescriptionValue} class="slds-m-left_x-small slds-p-left_x-small">
+                                            <div class="product-color-bubble">
+                                                <span title={field.colorName} class="product-color-bubble__upper" style={field.backgroundColorUpper}></span>
+                                                <span title={field.colorName} class="product-color-bubble__lower" style={field.backgroundColorLower}></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div
+                        if:true={field.icon}
+                        class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12 slds-p-around_x-small"
+                        key={field}
+                    >
+                        <table class="width-auto">
+                            <tr>
+                                <td>
+                                    <div class="slds-m-around_xxx-small slds-p-left_small text-tiny-strong">{field.label}</div>
+                                </td>
+                                <td if:true={field.icon} rowspan="2" valign="top">
+                                    <img if:true={field.icon} src={field.icon} class="show-more-icons" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="slds-m-around_xxx-small slds-p-left_small">{field.dataValue}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </template>
+            </div>
+        </div>
+        <div
+            if:true={productMedias}
+            data-id={furtherInfoHeader}
+            id="tab-default-2"
+            class="additional-attribute slds-tabs_default__content slds-hide slds-p-around_large"
+            role="tabpanel"
+            aria-labelledby="tab-default-2__item"
+        >
+            <div if:true={productMedias} class="slds-m-top-small slds-p-vertical_medium slds-border_top">
+                <div class="slds-p-top_x-small">
+                    <template for:each={productMedias} for:item="media">
+                        <ul key={media.mediaName}>
+                            <!--BS-1398-->
+                            <a target="_blank" rel="noopener noreferrer" href={media.mediaUrl}>
+                                <img class="variation-externalLink-img" src={externalLinkIcon} /> {media.mediaType}
+                            </a>
+                        </ul>
+                    </template>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- BS-1622 Tabs Section End -->
+
+    <!-- Added as part of BS-357 -->
+    <div if:false={_isSilhouetteStore} class="slds-grid">
+        <!-- Start BS-1175 : Removed the check for silhouette store-->
+        <div class="slds-col show-more-box-width slds-size_3-of-12 slds-medium-size_2-of-12 slds-large-size_2-of-12">
+            <button class="dropbutton slds-m-bottom_xx-small" onclick={updateShowMore}>
+                <!-- End BS-1175-->
+                {_additionalAttributeLabel}
+                <lightning-icon
+                    class="slds-p-around_xx-small"
+                    size="x-small"
+                    icon-name="utility:chevrondown"
+                    alternative-text="Utility image"
+                    title="Image"
+                ></lightning-icon>
+            </button>
+        </div>
+        <div if:false={_isSilhouetteStore} class="slds-col slds-size_4-of-12 slds-medium-size_3-of-12 slds-large-size_2-of-12">
+            <button type="button" if:true={sparePartResults} class="slds-m-left_xxx-small link-out-button-nb" onclick={sparePartsModal}>
+                {sparePartsButton}
+            </button>
+        </div>
+        <div if:false={_isSilhouetteStore} class="slds-col slds-size_4-of-12 slds-medium-size_5-of-12 slds-large-size_3-of-12">
+            <template if:true={displayDemoButton}>
+                <button type="button" if:true={demoResults} class="slds-m-left_x-small link-out-button-nb" onclick={demoModal}>{demoButton}</button>
+            </template>
+        </div>
+    </div>
+    <!-- Start BS-1175 : Removed the check for silhouette store-->
+    <div if:false={_isSilhouetteStore}>
+        <!-- End BS-1175-->
+        <div if:true={_showMoreBoolean} class="slds-m-vertical_medium slds-p-around_small slds-grid slds-wrap additional-attribute">
+            <template if:true={_showMoreBoolean} for:each={_additionalAttributeObjectList} for:item="field">
+                <div if:false={field.icon} class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12 slds-p-around_x-small" key={field}>
+                    <div class="slds-m-around_xxx-small slds-p-left_small text-tiny-strong">
+                        {field.label}
+                        <span if:true={field.icon}>
+                            <img if:true={field.icon} src={field.icon} class="slds-size_xxx-small slds-m-around_xxx-small slds-p-left_small" />
+                        </span>
+                    </div>
+                    <div if:false={field.isColorField}>
+                        <div if:true={field.containsMultipleValues} for:each={field.dataValue} for:item="value" key={value}>
+                            <div class="slds-var-m-around_xx-small slds-p-left_small">{value}</div>
+                        </div>
+                        <div if:false={field.containsMultipleValues}>
+                            <div class="slds-m-around_xxx-small slds-p-left_small">{field.dataValue}</div>
+                        </div>
+                    </div>
+
+                    <table>
+                        <tr>
+                            <td vlaign="top">
+                                <div if:true={field.isColorField}>
+                                    <div
+                                        if:false={field.isFrameColorDescriptionValue}
+                                        title={field.colorName}
+                                        class="bubble slds-m-left_medium slds-p-left_medium"
+                                        style={field.bubbleColor}
+                                    ></div>
+                                    <div if:true={field.isFrameColorDescriptionValue} class="slds-m-left_x-small slds-p-left_x-small">
+                                        <div class="product-color-bubble">
+                                            <span title={field.colorName} class="product-color-bubble__upper" style={field.backgroundColorUpper}></span>
+                                            <span title={field.colorName} class="product-color-bubble__lower" style={field.backgroundColorLower}></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div if:true={field.icon} class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12 slds-p-around_x-small" key={field}>
+                    <table class="width-auto">
+                        <tr>
+                            <td>
+                                <div class="slds-m-around_xxx-small slds-p-left_small text-tiny-strong">{field.label}</div>
+                            </td>
+                            <td if:true={field.icon} rowspan="2" valign="top">
+                                <img if:true={field.icon} src={field.icon} class="show-more-icons" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="slds-m-around_xxx-small slds-p-left_small">{field.dataValue}</td>
+                        </tr>
+                    </table>
+                </div>
+            </template>
+        </div>
+    </div>
+    <!--updated as part of BS-579-->
+    <div if:true={normalizedResultsData} class="slds-p-top_xx-large">
+        <h2 class="slds-text-heading_medium slds-align_absolute-center">{sectionHeader}</h2>
+        <div class={shadesContainerClass}>
+            <template if:true={displayArrows}>
+                <lightning-icon
+                    if:true={_showLeftArrow}
+                    class={leftArrowClass}
+                    icon-name="utility:chevronleft"
+                    size="medium"
+                    alternative-text="left"
+                    onclick={leftArrowClick}
+                ></lightning-icon>
+            </template>
+            <div class="grid-container">
+                <!--BS-1245 Added applicable-currency-code={_applicableCurrencyCodeForStyleShades} -->
+                <c-b2b_search-layout
+                    display-data={normalizedResultsData.layoutData}
+                    config={config.layoutConfig}
+                    oncalltoaction={notifyAddToCartShades}
+                    onshowdetail={handleShowDetail}
+                    effective-account-id={effectiveAccountId}
+                    clip-on-layout={_isClipOnLayout}
+                    hide-prices-from-tiles={_hidePriceStatus}
+                    applicable-currency-code={_applicableCurrencyCodeForStyleShades}
+                >
+                </c-b2b_search-layout>
+            </div>
+            <template if:true={displayArrows}>
+                <lightning-icon
+                    if:true={_showRightArrow}
+                    class={rightArrowClass}
+                    icon-name="utility:chevronright"
+                    size="medium"
+                    alternative-text="right"
+                    onclick={rightArrowClick}
+                ></lightning-icon>
+            </template>
+        </div>
+    </div>
+    <template if:false={_isSilhouetteStore}>
+        <div if:true={productMedias} class="slds-m-top-small slds-p-vertical_medium slds-border_top">
+            <h2 class="slds-text-heading_medium arial-font black-color">{furtherInfoHeader}</h2>
+            <div class="slds-p-top_x-small">
+                <template for:each={productMedias} for:item="media">
+                    <ul key={media.mediaName}>
+                        <!--BS-1398-->
+                        <a target="_blank" rel="noopener noreferrer" href={media.mediaUrl}>
+                            <img class="variation-externalLink-img" src={externalLinkIcon} /> {media.mediaType}
+                        </a>
+                    </ul>
+                </template>
+            </div>
+        </div>
+    </template>
+    <c-b2b_modal header={modalHeader} onclosedialog={handleResetPage}>
+        <div role="dialog" class="slds-modal__content slds-p-around_medium">
+            <div class="slds-p-around_small clip-on">
+                <!--BS-1245 Added applicable-currency-code={applicableCurrencyCode} -->
+                <c-b2b_search-layout
+                    display-data={displayData.layoutData}
+                    config={config.layoutConfig}
+                    oncalltoaction={notifyAddToCartModal}
+                    onshowdetail={handleShowDetail}
+                    effective-account-id={effectiveAccountId}
+                    hide-prices-from-tiles={_hidePriceStatus}
+                    applicable-currency-code={_applicableCurrencyCodeForSpareParts}
+                >
+                </c-b2b_search-layout>
+                <c-b2b_search-paginator
+                    if:true={sparePartResults}
+                    page-number={pageNumber}
+                    page-size={pageSizeForPopUp}
+                    total-item-count={totalProducts}
+                    onprevious={handlePreviousPage}
+                    onnext={handleNextPage}
+                >
+                </c-b2b_search-paginator>
+            </div>
+        </div>
+    </c-b2b_modal>
+    <c-b2b_add-to-cart-modal></c-b2b_add-to-cart-modal>
+
+    <!-- BS-787 : Order Information Seletion Popup Section Start-->
+    <template if:true={_showPopUpForOrderInformation}>
+        <section role="dialog" tabindex="-1" aria-modal="true" aria-label="Meaningful description of the modal content" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <div class="slds-modal__content slds-p-around_large slds-modal__content slds-is-relative">
+                    <div>
+                        <div class="closeIcon">
+                            <lightning-button-icon icon-name="utility:close" onclick={closePopup}></lightning-button-icon>
+                        </div>
+                        <!-- Edit Mode Section Start-->
+                        <div class="slds-p-bottom_small">
+                            <!-- Input type Text fields for customer input Section Start-->
+                            <div class="slds-grid slds-wrap">
+                                <div class="title slds-border_bottom slds-p-vertical_medium slds-m-bottom_small">
+                                    <div class="orderInformationTitle">{_customerInformationHeaderLabel}</div>
+                                </div>
+
+                                <!--Fields for Customer Input Section-->
+                                <template for:each={_customerInformationSummaryCollection} for:item="field" for:index="index">
+                                    <div
+                                        key={field}
+                                        if:true={field.isCustomerInput}
+                                        class="slds-col slds-size_1-of-1 slds-medium-size_12-of-12 slds-large-size_6-of-12"
+                                    >
+                                        <div if:false={field.isTitle} class="input_wrap slds-m-top_medium tooltip">
+                                            <input
+                                                type="text"
+                                                class={field.applicableStyling}
+                                                data-field={field.label}
+                                                title={field.label}
+                                                onchange={handleUserInput}
+                                                value={field.value}
+                                                maxlength={_characterLimit}
+                                                required
+                                            />
+                                            <label
+                                                >{field.label}
+                                                <span>
+                                                    <img class="infoicon slds-m-left_xx-small" src={_infoSVG} />
+                                                    <span if:true={index} class="remarkStyle">{_orderRemarkHelpText}</span>
+                                                    <span if:false={index} class="clerkStyle">{__consumerReferenceHelpText}</span>
+                                                </span>
+                                            </label>
+
+                                            <!--If the field does not pass validity check then validation error is dispalyed along with following message-->
+                                            <div if:true={field.isInvalid}>
+                                                <div class="validation" if:true={field.isInvalid}>{_errorInstructionToEnterValue}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </template>
+                            </div>
+                            <!-- Input type Text fields for customer input Section Start-->
+
+                            <!-- Input type Radio Buttons values for Order Type field Selection Section Start-->
+                            <div class="slds-grid slds-wrap slds-m-top_small">
+                                <div if:false={_isOrderTypeInValid} class="title slds-border_bottom slds-p-vertical_medium slds-m-bottom_small">
+                                    {_orderTypeHeaderLabel}
+                                </div>
+
+                                <!--If the Order Type field does not pass validity check then validation error is dispalyed along with following message-->
+                                <div if:true={_isOrderTypeInValid} class="fullWidth">
+                                    <div if:true={_isOrderTypeInValid} class="validation title slds-border_bottom slds-p-vertical_medium slds-m-bottom_small">
+                                        {_errorInstructionToEnterValue}
+                                    </div>
+                                </div>
+
+                                <template for:each={_customerInformationSummaryCollection} for:item="field">
+                                    <div
+                                        key={field}
+                                        if:true={field.isOrderType}
+                                        class="slds-col slds-size_1-of-1 slds-medium-size_12-of-12 slds-large-size_4-of-12 customRadioButtonStyling"
+                                    >
+                                        <div>
+                                            <!-- Radio Button -->
+                                            <input
+                                                type="radio"
+                                                id={field.label}
+                                                class="filterRadioButton"
+                                                name="order"
+                                                data-field={_orderTypeHeaderLabel}
+                                                value={field.label}
+                                                onclick={handleSelection}
+                                                title={field.label}
+                                                checked={field.isChecked}
+                                                onselect={handleSelection}
+                                            />
+                                            <!-- Label -->
+                                            <span class="black-color filterValues" title={field.label}> {field.label} </span>
+                                        </div>
+                                    </div>
+                                </template>
+                            </div>
+                            <!-- Input type Radio Buttons values for Order Type field Selection Section End-->
+
+                            <!-- Input type Radio Buttons values for Frame Type field Selection Section Start-->
+                            <div if:false={_isSilhouetteStore} class="slds-grid slds-wrap slds-m-top_small">
+                                <div if:false={_isFrameTypeInValid} class="title slds-border_bottom slds-p-vertical_medium slds-m-bottom_small">
+                                    {_frameTypeHeaderLabel}
+                                </div>
+
+                                <!--If the Order Type field does not pass validity check then validation error is dispalyed along with following message-->
+                                <div if:true={_isFrameTypeInValid} class="fullWidth">
+                                    <div if:true={_isFrameTypeInValid} class="validation title slds-border_bottom slds-p-vertical_medium slds-m-bottom_small">
+                                        {_errorInstructionToEnterValue}
+                                    </div>
+                                </div>
+
+                                <template for:each={_customerInformationSummaryCollection} for:item="field">
+                                    <div
+                                        key={field}
+                                        if:true={field.issFrameType}
+                                        class="slds-col slds-size_1-of-1 slds-medium-size_12-of-12 slds-large-size_4-of-12 customRadioButtonStyling"
+                                    >
+                                        <div>
+                                            <!-- Radio Button -->
+                                            <input
+                                                type="radio"
+                                                id={field.label}
+                                                class="filterRadioButton"
+                                                data-field={_frameTypeHeaderLabel}
+                                                name="frame"
+                                                value={field.label}
+                                                onclick={handleSelection}
+                                                title={field.label}
+                                                checked={field.isChecked}
+                                                onselect={handleSelection}
+                                            />
+                                            <!-- Label -->
+                                            <span class="black-color filterValues" title={field.label}> {field.label} </span>
+                                        </div>
+                                    </div>
+                                </template>
+                            </div>
+                            <!-- Input type Radio Buttons values for Frame Type field Selection Section End-->
+                        </div>
+                        <!-- Edit Mode Section End -->
+                    </div>
+
+                    <div class="buttonContainerStyling slds-m-top_small slds-grid slds-wrap">
+                        <span class="slds-col slds-size_1-of-1">
+                            <button class="commerce-button buttonStyling" onclick={closePopup} title={_cancelButtonLabel}>{_cancelButtonLabel}</button>
+                            <button class="commerce-button buttonStyling" onclick={handleSaveAndNextEvent} title={_saveAndNextButtonLabel}>
+                                {_saveAndNextButtonLabel}
+                            </button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
+    </template>
+    <!-- BS-787 : Order Information Seletion Popup Section End-->
+</template>

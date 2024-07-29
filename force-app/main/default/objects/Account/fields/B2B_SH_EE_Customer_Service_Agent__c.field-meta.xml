@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>B2B_SH_EE_Customer_Service_Agent__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <externalId>false</externalId>
+    <inlineHelpText>Responsible person to handle Customer Service requests coming from the B2B Commerce</inlineHelpText>
+    <label>SH/EE Customer Service Agent</label>
+    <referenceTo>User</referenceTo>
+    <relationshipName>Accounts9</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Lookup</type>
+</CustomField>

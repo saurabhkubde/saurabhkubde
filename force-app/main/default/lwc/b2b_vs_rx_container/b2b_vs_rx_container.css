@@ -1,0 +1,95 @@
+.nextButton {
+    float: right;
+}
+
+.saveButton {
+    margin-right: 20px;
+}
+
+.previousSpan {
+    float: left;
+}
+
+.container {
+    height: 130px;
+}
+
+.cancel {
+    margin-right: 10px;
+}
+
+.img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.stepWrap {
+    width: fit-content;
+    margin: auto;
+}
+
+.leftMarginStyling {
+    margin-left: 10px;
+}
+
+@media only screen and (max-width: 940px) {
+    .commerce-button {
+        margin-top: 10px;
+        margin-bottom: 10px;
+        width: 100% !important;
+    }
+    .previousSpan {
+        float: none !important;
+    }
+    .nextButton {
+        float: none !important;
+    }
+    .leftMarginStyling {
+        margin-left: 0px;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    .progressBar {
+        padding-right: 1%;
+    }
+
+    .mainBody {
+        padding-left: 1%;
+    }
+}
+
+.popupOnClearCart {
+    margin: auto;
+    align-items: center;
+    padding-bottom: 4%;
+    padding-top: 2%;
+    width: 60%;
+    background-color: white;
+    min-width: 315px;
+}
+
+.delete-icon {
+    width: 40px;
+}
+
+.closeIcon {
+    float: right;
+    margin-right: 5px;
+}
+
+.buttonStyling {
+    width: 280px !important;
+    margin: 12px auto !important;
+}
+
+.font-24-500 {
+    font-size: 22px !important;
+    font-weight: 500 !important;
+}
+
+.disabledStyling {
+    opacity: 0.3;
+    cursor: not-allowed;
+}

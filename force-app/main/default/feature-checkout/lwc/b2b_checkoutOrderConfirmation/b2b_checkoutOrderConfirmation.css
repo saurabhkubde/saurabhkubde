@@ -1,0 +1,22 @@
+/* BS-2207 */
+.order-success {
+    width: 460px !important;
+    height: 280px !important;
+    background: #f9f9f9 !important;
+    margin: auto;
+    margin-top: 40px;
+    margin-bottom: 60px;
+}
+
+.close-icon-dememsions {
+    width: 40px !important;
+}
+
+.font-size-24 {
+    font-size: 24px !important;
+    font-weight: 500 !important;
+}
+/* BS-2207 */
+.min-width {
+    min-width: 300px;
+}

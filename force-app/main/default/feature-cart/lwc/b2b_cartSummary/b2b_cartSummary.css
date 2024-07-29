@@ -1,0 +1,216 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.checkbox {
+    zoom: 1.5;
+}
+input[type='checkbox'] {
+    accent-color: #000;
+}
+input[type='checkbox']:checked {
+    accent-color: #000;
+}
+input[type='checkbox']:focus {
+    outline: 0 none;
+    box-shadow: none;
+}
+
+.cartSummary {
+    height: 164px;
+}
+
+.pricingSection {
+    height: 100px;
+}
+
+.summary-header {
+    padding-top: 1.25rem;
+    font-weight: 500;
+    font-size: 28px;
+}
+
+.original-price {
+    text-decoration: line-through;
+    font-size: 1rem;
+    align-self: flex-end;
+}
+
+.termsAndConditionsSection {
+    padding-top: 15px;
+}
+.checkbox-text {
+    padding-left: 10px;
+    font-size: 16px;
+    font-weight: 300;
+    vertical-align: super;
+}
+
+.proceed-to-checkout {
+    padding-top: 15px;
+}
+
+.proceed-to-checkout-button {
+    background: #000;
+    color: #fff;
+    padding: 10px 30px !important;
+    width: 80%;
+}
+
+.silButtonInverse {
+    background: #000;
+    border: 1px solid #000;
+    color: #fff;
+    font-weight: 500;
+    letter-spacing: 1px;
+    padding: 10px 30px;
+    font-size: 14px;
+}
+
+.silButtonInverse:hover {
+    background: #333;
+    border: 1px solid #000;
+    color: #fff;
+}
+
+.width-80 {
+    width: 80% !important;
+}
+
+.cart-summary-background {
+    background: #f4f4f4 !important;
+}
+
+.font-24-500 {
+    font-size: 24px !important;
+    font-weight: 500 !important;
+}
+
+.font-32-500 {
+    font-size: 32px !important;
+    font-weight: 500 !important;
+}
+
+.font-22-500 {
+    font-size: 22px !important;
+    font-weight: 500 !important;
+}
+
+.silButtonFull:disabled {
+    background-color: #c9c7c5;
+    border: 1px solid #c9c7c5;
+    color: #fff;
+}
+
+/* Added as part of BS-918 */
+/* @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait) {
+    .termAndConditions {
+        margin-top: 48px;
+    }
+} */
+
+.f16 {
+    font-size: 16px;
+    font-weight: 500;
+}
+.f18 {
+    font-size: 18px;
+    font-weight: 500;
+}
+.f14 {
+    font-size: 14px;
+    font-weight: 300;
+}
+.fs-14 {
+    font-size: 14px;
+    font-weight: 300;
+}
+.fs-16 {
+    font-size: 16px;
+    font-weight: 500;
+}
+.fs-20 {
+    font-size: 20px;
+    font-weight: 500;
+}
+.fs-22 {
+    font-size: 22px;
+    font-weight: 500;
+}
+.fs-24 {
+    font-size: 24px;
+    font-weight: 500;
+}
+
+/* Start: BS-1663 */
+.modal-max-width {
+    max-width: 300px !important;
+    font-size: 14px;
+    font-weight: 300;
+}
+
+.close-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+.close-button:focus {
+    outline: none !important;
+    box-shadow: unset !important;
+    border: none !important;
+}
+
+.text-align-center {
+    text-align: center !important;
+}
+/* End: BS-1663 */
+
+.cart-button-container {
+    margin-bottom: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 15px;
+    justify-content: right;
+}
+.cart-button-container div {
+    margin: 0px;
+}
+
+@media only screen and (max-width: 64em) {
+    .cart-button-container {
+        display: flex;
+        flex-wrap: nowrap;
+        column-gap: 15px;
+        justify-content: right;
+    }
+    .cart-button-container div {
+        margin: 0px;
+    }
+    .silButtonInverse {
+        padding: 10px 25px;
+    }
+}
+
+@media only screen and (max-width: 47.9375em) {
+    .cart-button-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: unset;
+    }
+    .cart-button-container div {
+        margin: 10px 0px;
+    }
+}
+
+.termAndConditions-container {
+    float: right;
+}
+
+@media only screen and (max-width: 767px) {
+    .termAndConditions-container {
+        float: left;
+        margin-top: 15px;
+    }
+}

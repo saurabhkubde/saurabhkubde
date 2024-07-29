@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Order_Source__c</fullName>
+    <externalId>false</externalId>
+    <label>Order Source</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Partner Portal</fullName>
+                <default>false</default>
+                <label>Partner Portal</label>
+            </value>
+            <value>
+                <fullName>B2B-Shop (Old)</fullName>
+                <default>false</default>
+                <label>B2B-Shop (Old)</label>
+            </value>
+            <value>
+                <fullName>Customer Service</fullName>
+                <default>false</default>
+                <label>Customer Service</label>
+            </value>
+            <value>
+                <fullName>Account Executive</fullName>
+                <default>false</default>
+                <label>Account Executive</label>
+            </value>
+            <value>
+                <fullName>Click &amp; Collect</fullName>
+                <default>false</default>
+                <label>Click &amp; Collect</label>
+            </value>
+            <value>
+                <fullName>Online EDI</fullName>
+                <default>false</default>
+                <label>Online EDI</label>
+            </value>
+            <value>
+                <fullName>B2C Online Shop</fullName>
+                <default>false</default>
+                <label>B2C Online Shop</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

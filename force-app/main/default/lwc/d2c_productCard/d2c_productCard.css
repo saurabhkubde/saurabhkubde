@@ -1,0 +1,255 @@
+.text-section {
+    position: absolute;
+    color: #f2f2f2;
+    width: 100%;
+}
+
+.headerStyling {
+    display: block;
+    float: left;
+    max-width: 300px;
+    padding-top: 15px;
+    padding-left: 20px;
+    overflow: hidden;
+    text-wrap: ellipsis;
+}
+
+.wishlistStyling {
+    float: right;
+    padding: 25px 20px 0px 0px;
+}
+
+.color-bubbles {
+    padding-left: 20px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.product-container {
+    height: 315px;
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+}
+
+.product-image-container:hover .model-Image-container {
+    display: flex;
+}
+
+.product-image-container:hover .product-image-container {
+    display: none;
+}
+
+.model-Image-container {
+    display: none;
+    position: relative;
+}
+
+.product-image-container:hover .title-image {
+    display: none;
+}
+
+.product-image-container:hover + .product-color {
+    display: none;
+}
+
+.product-image {
+    object-fit: cover;
+    max-height: 275px;
+    max-width: 300px;
+    margin: 0;
+}
+
+.collectionFlag {
+    min-height: 30px;
+}
+
+.wishlist-icon {
+    height: 18px;
+}
+
+.product-name {
+    min-height: 50px;
+}
+
+.dot {
+    height: 18px;
+    width: 18px;
+    border-radius: 50%;
+    cursor: pointer;
+    background-color: #bbb;
+    margin: 0.5px 12px 6px 0px;
+    display: inline-block;
+}
+
+.active,
+.dot:hover {
+    background-color: #717171;
+    border: 2px solid #fff !important;
+    outline: #000 solid 1.5px;
+    height: 20px !important;
+    width: 20px !important;
+    margin-top: 0px !important;
+    transition: all 0.6s cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+.fade {
+    animation-name: fade;
+    animation-duration: 1.5s;
+}
+
+.background-image {
+    width: 100%;
+    height: 442px;
+    object-fit: cover;
+}
+
+.button-container {
+    position: absolute;
+    width: 100%;
+    bottom: 25px;
+}
+
+.button-container-overlay {
+    position: absolute;
+    width: 100%;
+    bottom: -23px;
+}
+
+.bottom-center-button {
+    background-color: transparent;
+    border: 1px solid white;
+    color: white;
+    padding: 10px 20px;
+    font-weight: 400;
+    cursor: pointer;
+    justify-self: center;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.bottom-center-button:hover {
+    background-color: black;
+    border: 1px solid black;
+    color: white;
+}
+
+.pricing-component {
+    float: right;
+    margin-right: 20px;
+}
+
+.title-container {
+    width: 100%;
+}
+
+.bottom-center-button-overlay:hover {
+    background-color: black;
+    border: 1px solid black;
+    color: white;
+}
+
+.bottom-center-button-overlay {
+    background-color: transparent;
+    border: 1px solid black;
+    color: black;
+    padding: 10px 20px;
+    font-weight: 400;
+    cursor: pointer;
+    justify-self: center;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.previous,
+.next {
+    color: black;
+    width: auto;
+    cursor: pointer;
+    width: 10px;
+}
+
+.previous {
+    margin-left: 5px;
+}
+
+.next {
+    margin-right: 5px;
+}
+
+.header-font-size {
+    font-size: 24px;
+    text-transform: uppercase !important;
+}
+
+.normal-font-size {
+    font-size: 16px;
+}
+
+.button-font-style {
+    font-size: 16px;
+    font-family: Adobe Caslon Pro !important;
+}
+
+@media screen and (max-width: 1100px) and (min-width: 1001px) {
+    .product-image {
+        max-width: 215px;
+    }
+}
+
+@media screen and (max-width: 1000px) and (min-width: 765px) {
+    .header-font-size {
+        font-size: 20px !important;
+    }
+
+    .headerStyling {
+        max-width: 250px;
+    }
+
+    .product-image {
+        max-width: 250px;
+        max-height: 275px;
+    }
+
+    .product-container {
+        height: 275px !important;
+    }
+
+    .normal-font-size {
+        font-size: 12px !important;
+    }
+
+    .button-font-style {
+        font-size: 12px;
+        font-family: Adobe Caslon Pro !important;
+    }
+}
+
+@media screen and (max-width: 764px) {
+    .header-font-size {
+        font-size: 20px !important;
+    }
+
+    .headerStyling {
+        max-width: 250px;
+    }
+
+    .normal-font-size {
+        font-size: 12px !important;
+    }
+
+    .button-font-style {
+        font-size: 12px;
+        font-family: Adobe Caslon Pro !important;
+    }
+
+    .product-image {
+        max-width: 240px;
+        max-height: 240px;
+    }
+
+    .product-container {
+        height: 240px !important;
+    }
+}

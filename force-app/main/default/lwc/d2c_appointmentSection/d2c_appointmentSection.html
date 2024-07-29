@@ -1,0 +1,101 @@
+<template>
+    <!-- NBD2C-96 : Component Loader section - Start -->
+    <lightning-spinner
+        if:false={_isLoadingComplete}
+        alternative-text={_loadingLabel}
+        class="slds-is-fixed slds-align_absolute-center spinnerStyling"
+        id="lightningSpinner"
+        size="large"
+    ></lightning-spinner>
+    <!-- NBD2C-96 : Component Loader section - End -->
+
+    <!-- NBD2C-96 : Appointment Section - Start -->
+    <div class="appointmentMainContainer">
+        <!-- NBD2C-96 : Appointment Section Title - Start -->
+        <div class="appointmentTitle">{_appointmentTitle}</div>
+        <!-- NBD2C-96 : Appointment Section Title - End -->
+
+        <!-- NBD2C-96 : Appointment Section Container - Start -->
+        <div class="subContainer">
+            <!-- NBD2C-96 : Calendar Component Container - Start -->
+            <div class="calendarContainer">
+                <c-d2c_calendar-component onselecteddate={handleSelectedDate} selected-date-from-parent={selectedDateTimeFromParent}></c-d2c_calendar-component>
+            </div>
+            <!-- NBD2C-96 : Calendar Component Container - End -->
+
+            <!-- NBD2C-96 : Retailer Details Container - Start -->
+            <div class="retailerDetailsContainer">
+                <!-- NBD2C-96 : Opening Hours Container - Start -->
+                <div class="openingHoursContainer minimize">
+                    <!-- NBD2C-96 : Opening Hours Title Section - Start -->
+                    <div class="openingHoursTitle" onclick={openingHoursClicked}>{_openingHoursTitle}</div>
+                    <!-- NBD2C-96 : Opening Hours Title Section - End -->
+
+                    <!-- NBD2C-96 : Opening Hours Data Section - Start -->
+                    <div class="openingHoursData" onclick={openingHoursClicked}></div>
+                    <!-- NBD2C-96 : Opening Hours Data Section - End -->
+                </div>
+                <!-- NBD2C-96 : Opening Hours Container - End -->
+
+                <!-- NBD2C-96 : Time Slot Container - Start -->
+                <div class="timeSlotContainer">
+                    <!-- NBD2C-96 : Time Slot Data Section - Start -->
+                    <div class="timeSlotData">
+                        <!-- NBD2C-96 : Time Slots Display Section - Start -->
+                        <div class="slds-form-element">
+                            <!-- NBD2C-96 : Time Slot Section Title - Start -->
+                            <label class="slds-form-element__label timeSlotTitle" for="selectedRetailerTimeSlots">{_timeSlotTitle}</label>
+                            <!-- NBD2C-96 : Time Slot Section Title - End -->
+
+                            <!-- NBD2C-96 : Time Slots Options Section - Start -->
+                            <div class="slds-form-element__control">
+                                <!-- NBD2C-96 : Select Section - Start -->
+                                <select
+                                    id="selectedRetailerTimeSlots"
+                                    name="selectedRetailerTimeSlots"
+                                    value={_selectedTimeSlot}
+                                    onchange={handleTimeSelection}
+                                    class="timeSlotComponent slds-select input select-option"
+                                    required
+                                >
+                                    <!-- NBD2C-96 : Display Retailer Time Slots Section - Start -->
+                                    <!-- NBD2C-96 : Placeholder as an option -->
+                                    <option class="timeSlotOption" value={_timeSlotPlaceHolder} disabled selected>{_timeSlotPlaceHolder}</option>
+
+                                    <template for:each={timeSlots} for:item="time">
+                                        <option class="timeSlotOption" key={time.value} value={time.value} selected={time.selected}>{time.label}</option>
+                                    </template>
+                                    <!-- NBD2C-96 : Display Retailer Time Slots Section - End -->
+                                </select>
+                                <!-- NBD2C-96 : Select Section - End -->
+                            </div>
+                            <!-- NBD2C-96 : Time Slots Options Section - End -->
+                        </div>
+                        <!-- NBD2C-96 : Time Slots Display Section - End -->
+                    </div>
+                    <!-- NBD2C-96 : Time Slot Data Section - End -->
+                </div>
+                <!-- NBD2C-96 : Time Slot Container - End -->
+
+                <!-- NBD2C-96 : Appointment Date Container - Start -->
+                <div class="appointmentDateContainer">
+                    <div class="appointmentDateTitle">{_appointmentDateTitle}</div>
+                    <div class="selectedDateTime">
+                        <table>
+                            <tr>
+                                <td class="calendarIconCell">
+                                    <img src={_calendarIcon} />
+                                </td>
+                                <td class="selectedDateAndTimeCell">{_selectedDateTimeValue}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <!-- NBD2C-96 : Appointment Date Container - End -->
+            </div>
+            <!-- NBD2C-96 : Retailer Details Container - End -->
+        </div>
+        <!-- NBD2C-96 : Appointment Section Container - End -->
+    </div>
+    <!-- NBD2C-96 : Appointment Section - End -->
+</template>

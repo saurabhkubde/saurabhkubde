@@ -1,0 +1,18 @@
+<template lwc:render-mode="light">
+    <div>
+        <lightning-spinner if:true={_showLoader} class="slds-is-fixed slds-align_absolute-center spinnerStyling" size="large"> </lightning-spinner>
+        <!-- DVM21-32 : Start -->
+        <c-d2c_-v-t-o_-search-results
+            if:true={searchResults}
+            search-results={searchResults}
+            card-content-mapping={normalizedCardContentMapping}
+            current-page={currentPage}
+            onshowproduct={handleNavigateToProductPage}
+            onupdatecurrentpage={handleUpdateCurrentPage}
+            onfacetvalueupdate={handleFacetValueUpdate}
+            onclearallfilters={handleClearAllFiltersEvent}
+            onshowloader={handleShowLoader}
+        ></c-d2c_-v-t-o_-search-results>
+        <!-- DVM21-32 : End -->
+    </div>
+</template>

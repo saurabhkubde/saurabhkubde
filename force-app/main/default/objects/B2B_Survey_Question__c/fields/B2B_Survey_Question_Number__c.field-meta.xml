@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>B2B_Survey_Question_Number__c</fullName>
+    <description>This field holds the order in which the question needs to be asked.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>This field holds the order in which the question needs to be asked.</inlineHelpText>
+    <label>Survey Question Number</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

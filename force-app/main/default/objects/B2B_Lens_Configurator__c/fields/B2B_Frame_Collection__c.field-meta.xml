@@ -1,0 +1,1504 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>B2B_Frame_Collection__c</fullName>
+    <externalId>false</externalId>
+    <label>Frame Collection</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Infinity View</fullName>
+                <default>false</default>
+                <label>Infinity View</label>
+            </value>
+            <value>
+                <fullName>Minimal X</fullName>
+                <default>false</default>
+                <label>Minimal X</label>
+            </value>
+            <value>
+                <fullName>SPX Modern Art</fullName>
+                <default>false</default>
+                <label>SPX Modern Art</label>
+            </value>
+            <value>
+                <fullName>SPX light</fullName>
+                <default>false</default>
+                <label>SPX light</label>
+            </value>
+            <value>
+                <fullName>Vivid Sky FR</fullName>
+                <default>false</default>
+                <label>Vivid Sky FR</label>
+            </value>
+            <value>
+                <fullName>Crystal Diva</fullName>
+                <default>false</default>
+                <label>Crystal Diva</label>
+            </value>
+            <value>
+                <fullName>Mario</fullName>
+                <default>false</default>
+                <label>Mario</label>
+            </value>
+            <value>
+                <fullName>Greta</fullName>
+                <default>false</default>
+                <label>Greta</label>
+            </value>
+            <value>
+                <fullName>Bill</fullName>
+                <default>false</default>
+                <label>Bill</label>
+            </value>
+            <value>
+                <fullName>David</fullName>
+                <default>false</default>
+                <label>David</label>
+            </value>
+            <value>
+                <fullName>Erin</fullName>
+                <default>false</default>
+                <label>Erin</label>
+            </value>
+            <value>
+                <fullName>Anna</fullName>
+                <default>false</default>
+                <label>Anna</label>
+            </value>
+            <value>
+                <fullName>Phil</fullName>
+                <default>false</default>
+                <label>Phil</label>
+            </value>
+            <value>
+                <fullName>Betty</fullName>
+                <default>false</default>
+                <label>Betty</label>
+            </value>
+            <value>
+                <fullName>Gabriel</fullName>
+                <default>false</default>
+                <label>Gabriel</label>
+            </value>
+            <value>
+                <fullName>Nik</fullName>
+                <default>false</default>
+                <label>Nik</label>
+            </value>
+            <value>
+                <fullName>Laura</fullName>
+                <default>false</default>
+                <label>Laura</label>
+            </value>
+            <value>
+                <fullName>Herbert</fullName>
+                <default>false</default>
+                <label>Herbert</label>
+            </value>
+            <value>
+                <fullName>Anton</fullName>
+                <default>false</default>
+                <label>Anton</label>
+            </value>
+            <value>
+                <fullName>OTTO</fullName>
+                <default>false</default>
+                <label>OTTO</label>
+            </value>
+            <value>
+                <fullName>JÖRG</fullName>
+                <default>false</default>
+                <label>JÖRG</label>
+            </value>
+            <value>
+                <fullName>TOBI</fullName>
+                <default>false</default>
+                <label>TOBI</label>
+            </value>
+            <value>
+                <fullName>Paula</fullName>
+                <default>false</default>
+                <label>Paula</label>
+            </value>
+            <value>
+                <fullName>Finn</fullName>
+                <default>false</default>
+                <label>Finn</label>
+            </value>
+            <value>
+                <fullName>Erik</fullName>
+                <default>false</default>
+                <label>Erik</label>
+            </value>
+            <value>
+                <fullName>Kate</fullName>
+                <default>false</default>
+                <label>Kate</label>
+            </value>
+            <value>
+                <fullName>John</fullName>
+                <default>false</default>
+                <label>John</label>
+            </value>
+            <value>
+                <fullName>Jack</fullName>
+                <default>false</default>
+                <label>Jack</label>
+            </value>
+            <value>
+                <fullName>Maxime</fullName>
+                <default>false</default>
+                <label>Maxime</label>
+            </value>
+            <value>
+                <fullName>Ella</fullName>
+                <default>false</default>
+                <label>Ella</label>
+            </value>
+            <value>
+                <fullName>Lea</fullName>
+                <default>false</default>
+                <label>Lea</label>
+            </value>
+            <value>
+                <fullName>Noah</fullName>
+                <default>false</default>
+                <label>Noah</label>
+            </value>
+            <value>
+                <fullName>Phillip</fullName>
+                <default>false</default>
+                <label>Phillip</label>
+            </value>
+            <value>
+                <fullName>Emma</fullName>
+                <default>false</default>
+                <label>Emma</label>
+            </value>
+            <value>
+                <fullName>Charlie</fullName>
+                <default>false</default>
+                <label>Charlie</label>
+            </value>
+            <value>
+                <fullName>Gabi</fullName>
+                <default>false</default>
+                <label>Gabi</label>
+            </value>
+            <value>
+                <fullName>Horst</fullName>
+                <default>false</default>
+                <label>Horst</label>
+            </value>
+            <value>
+                <fullName>Clara</fullName>
+                <default>false</default>
+                <label>Clara</label>
+            </value>
+            <value>
+                <fullName>Nino</fullName>
+                <default>false</default>
+                <label>Nino</label>
+            </value>
+            <value>
+                <fullName>Janis</fullName>
+                <default>false</default>
+                <label>Janis</label>
+            </value>
+            <value>
+                <fullName>Fred</fullName>
+                <default>false</default>
+                <label>Fred</label>
+            </value>
+            <value>
+                <fullName>Siggi</fullName>
+                <default>false</default>
+                <label>Siggi</label>
+            </value>
+            <value>
+                <fullName>Josi</fullName>
+                <default>false</default>
+                <label>Josi</label>
+            </value>
+            <value>
+                <fullName>Leni</fullName>
+                <default>false</default>
+                <label>Leni</label>
+            </value>
+            <value>
+                <fullName>Flo</fullName>
+                <default>false</default>
+                <label>Flo</label>
+            </value>
+            <value>
+                <fullName>Helmut</fullName>
+                <default>false</default>
+                <label>Helmut</label>
+            </value>
+            <value>
+                <fullName>Rupert</fullName>
+                <default>false</default>
+                <label>Rupert</label>
+            </value>
+            <value>
+                <fullName>Gustav</fullName>
+                <default>false</default>
+                <label>Gustav</label>
+            </value>
+            <value>
+                <fullName>Karl</fullName>
+                <default>false</default>
+                <label>Karl</label>
+            </value>
+            <value>
+                <fullName>Alena</fullName>
+                <default>false</default>
+                <label>Alena</label>
+            </value>
+            <value>
+                <fullName>Marlin</fullName>
+                <default>false</default>
+                <label>Marlin</label>
+            </value>
+            <value>
+                <fullName>Jona</fullName>
+                <default>false</default>
+                <label>Jona</label>
+            </value>
+            <value>
+                <fullName>Viktor</fullName>
+                <default>false</default>
+                <label>Viktor</label>
+            </value>
+            <value>
+                <fullName>Katharina</fullName>
+                <default>false</default>
+                <label>Katharina</label>
+            </value>
+            <value>
+                <fullName>Mika</fullName>
+                <default>false</default>
+                <label>Mika</label>
+            </value>
+            <value>
+                <fullName>Michi</fullName>
+                <default>false</default>
+                <label>Michi</label>
+            </value>
+            <value>
+                <fullName>Quinn</fullName>
+                <default>false</default>
+                <label>Quinn</label>
+            </value>
+            <value>
+                <fullName>Freddy</fullName>
+                <default>false</default>
+                <label>Freddy</label>
+            </value>
+            <value>
+                <fullName>Judit</fullName>
+                <default>false</default>
+                <label>Judit</label>
+            </value>
+            <value>
+                <fullName>Johnny</fullName>
+                <default>false</default>
+                <label>Johnny</label>
+            </value>
+            <value>
+                <fullName>Fabio</fullName>
+                <default>false</default>
+                <label>Fabio</label>
+            </value>
+            <value>
+                <fullName>Sigmund &amp; Carl</fullName>
+                <default>false</default>
+                <label>Sigmund &amp; Carl</label>
+            </value>
+            <value>
+                <fullName>Frank</fullName>
+                <default>false</default>
+                <label>Frank</label>
+            </value>
+            <value>
+                <fullName>Walter &amp; Wassily</fullName>
+                <default>false</default>
+                <label>Walter &amp; Wassily</label>
+            </value>
+            <value>
+                <fullName>Romy</fullName>
+                <default>false</default>
+                <label>Romy</label>
+            </value>
+            <value>
+                <fullName>Alain</fullName>
+                <default>false</default>
+                <label>Alain</label>
+            </value>
+            <value>
+                <fullName>Maurice</fullName>
+                <default>false</default>
+                <label>Maurice</label>
+            </value>
+            <value>
+                <fullName>Heidi</fullName>
+                <default>false</default>
+                <label>Heidi</label>
+            </value>
+            <value>
+                <fullName>Franz</fullName>
+                <default>false</default>
+                <label>Franz</label>
+            </value>
+            <value>
+                <fullName>Lotte &amp; Hans</fullName>
+                <default>false</default>
+                <label>Lotte &amp; Hans</label>
+            </value>
+            <value>
+                <fullName>Neon</fullName>
+                <default>false</default>
+                <label>Neon</label>
+            </value>
+            <value>
+                <fullName>Xenon</fullName>
+                <default>false</default>
+                <label>Xenon</label>
+            </value>
+            <value>
+                <fullName>Phaedra</fullName>
+                <default>false</default>
+                <label>Phaedra</label>
+            </value>
+            <value>
+                <fullName>Alexis</fullName>
+                <default>false</default>
+                <label>Alexis</label>
+            </value>
+            <value>
+                <fullName>Gala</fullName>
+                <default>false</default>
+                <label>Gala</label>
+            </value>
+            <value>
+                <fullName>TMA Titan Minimal Art</fullName>
+                <default>false</default>
+                <label>TMA Titan Minimal Art</label>
+            </value>
+            <value>
+                <fullName>Urban NEO</fullName>
+                <default>false</default>
+                <label>Urban NEO</label>
+            </value>
+            <value>
+                <fullName>20 Years TMA</fullName>
+                <default>false</default>
+                <label>20 Years TMA</label>
+            </value>
+            <value>
+                <fullName>Essence</fullName>
+                <default>false</default>
+                <label>Essence</label>
+            </value>
+            <value>
+                <fullName>Sparkling Diva</fullName>
+                <default>false</default>
+                <label>Sparkling Diva</label>
+            </value>
+            <value>
+                <fullName>Crystal Grace</fullName>
+                <default>false</default>
+                <label>Crystal Grace</label>
+            </value>
+            <value>
+                <fullName>Prestige 2018</fullName>
+                <default>false</default>
+                <label>Prestige 2018</label>
+            </value>
+            <value>
+                <fullName>Aperture Accent Rings</fullName>
+                <default>false</default>
+                <label>Aperture Accent Rings</label>
+            </value>
+            <value>
+                <fullName>Sivista</fullName>
+                <default>false</default>
+                <label>Sivista</label>
+            </value>
+            <value>
+                <fullName>Hemma</fullName>
+                <default>false</default>
+                <label>Hemma</label>
+            </value>
+            <value>
+                <fullName>Sam</fullName>
+                <default>false</default>
+                <label>Sam</label>
+            </value>
+            <value>
+                <fullName>Sigmund</fullName>
+                <default>false</default>
+                <label>Sigmund</label>
+            </value>
+            <value>
+                <fullName>Bob</fullName>
+                <default>false</default>
+                <label>Bob</label>
+            </value>
+            <value>
+                <fullName>Valerie</fullName>
+                <default>false</default>
+                <label>Valerie</label>
+            </value>
+            <value>
+                <fullName>Dani</fullName>
+                <default>false</default>
+                <label>Dani</label>
+            </value>
+            <value>
+                <fullName>Viktoria</fullName>
+                <default>false</default>
+                <label>Viktoria</label>
+            </value>
+            <value>
+                <fullName>Eugen</fullName>
+                <default>false</default>
+                <label>Eugen</label>
+            </value>
+            <value>
+                <fullName>Jannis</fullName>
+                <default>false</default>
+                <label>Jannis</label>
+            </value>
+            <value>
+                <fullName>Adam</fullName>
+                <default>false</default>
+                <label>Adam</label>
+            </value>
+            <value>
+                <fullName>Eva</fullName>
+                <default>false</default>
+                <label>Eva</label>
+            </value>
+            <value>
+                <fullName>Nora</fullName>
+                <default>false</default>
+                <label>Nora</label>
+            </value>
+            <value>
+                <fullName>Dominik</fullName>
+                <default>false</default>
+                <label>Dominik</label>
+            </value>
+            <value>
+                <fullName>Tom</fullName>
+                <default>false</default>
+                <label>Tom</label>
+            </value>
+            <value>
+                <fullName>Jan</fullName>
+                <default>false</default>
+                <label>Jan</label>
+            </value>
+            <value>
+                <fullName>Hanna</fullName>
+                <default>false</default>
+                <label>Hanna</label>
+            </value>
+            <value>
+                <fullName>Georg II</fullName>
+                <default>false</default>
+                <label>Georg II</label>
+            </value>
+            <value>
+                <fullName>Barbara</fullName>
+                <default>false</default>
+                <label>Barbara</label>
+            </value>
+            <value>
+                <fullName>Robin</fullName>
+                <default>false</default>
+                <label>Robin</label>
+            </value>
+            <value>
+                <fullName>Tina</fullName>
+                <default>false</default>
+                <label>Tina</label>
+            </value>
+            <value>
+                <fullName>Titan X</fullName>
+                <default>false</default>
+                <label>Titan X</label>
+            </value>
+            <value>
+                <fullName>Legends by Silhouette</fullName>
+                <default>false</default>
+                <label>Legends by Silhouette</label>
+            </value>
+            <value>
+                <fullName>Floral Radiance</fullName>
+                <default>false</default>
+                <label>Floral Radiance</label>
+            </value>
+            <value>
+                <fullName>TMA Pulse</fullName>
+                <default>false</default>
+                <label>TMA Pulse</label>
+            </value>
+            <value>
+                <fullName>Starlight</fullName>
+                <default>false</default>
+                <label>Starlight</label>
+            </value>
+            <value>
+                <fullName>Titan Accent Flora Edition</fullName>
+                <default>false</default>
+                <label>Titan Accent Flora Edition</label>
+            </value>
+            <value>
+                <fullName>Riviera</fullName>
+                <default>false</default>
+                <label>Riviera</label>
+            </value>
+            <value>
+                <fullName>Carbon Refined</fullName>
+                <default>false</default>
+                <label>Carbon Refined</label>
+            </value>
+            <value>
+                <fullName>Leo</fullName>
+                <default>false</default>
+                <label>Leo</label>
+            </value>
+            <value>
+                <fullName>Alex</fullName>
+                <default>false</default>
+                <label>Alex</label>
+            </value>
+            <value>
+                <fullName>Robert</fullName>
+                <default>false</default>
+                <label>Robert</label>
+            </value>
+            <value>
+                <fullName>Toni</fullName>
+                <default>false</default>
+                <label>Toni</label>
+            </value>
+            <value>
+                <fullName>Joseph</fullName>
+                <default>false</default>
+                <label>Joseph</label>
+            </value>
+            <value>
+                <fullName>Peter</fullName>
+                <default>false</default>
+                <label>Peter</label>
+            </value>
+            <value>
+                <fullName>SPX Legends</fullName>
+                <default>false</default>
+                <label>SPX Legends</label>
+            </value>
+            <value>
+                <fullName>Titan One</fullName>
+                <default>false</default>
+                <label>Titan One</label>
+            </value>
+            <value>
+                <fullName>Inspire Lights</fullName>
+                <default>false</default>
+                <label>Inspire Lights</label>
+            </value>
+            <value>
+                <fullName>Titan Dynamics</fullName>
+                <default>false</default>
+                <label>Titan Dynamics</label>
+            </value>
+            <value>
+                <fullName>Trophy</fullName>
+                <default>false</default>
+                <label>Trophy</label>
+            </value>
+            <value>
+                <fullName>Arthur Arbesser</fullName>
+                <default>false</default>
+                <label>Arthur Arbesser</label>
+            </value>
+            <value>
+                <fullName>Perret Schaad</fullName>
+                <default>false</default>
+                <label>Perret Schaad</label>
+            </value>
+            <value>
+                <fullName>Carla</fullName>
+                <default>false</default>
+                <label>Carla</label>
+            </value>
+            <value>
+                <fullName>Sandra</fullName>
+                <default>false</default>
+                <label>Sandra</label>
+            </value>
+            <value>
+                <fullName>SPX Signia</fullName>
+                <default>false</default>
+                <label>SPX Signia</label>
+            </value>
+            <value>
+                <fullName>Ben</fullName>
+                <default>false</default>
+                <label>Ben</label>
+            </value>
+            <value>
+                <fullName>Paul</fullName>
+                <default>false</default>
+                <label>Paul</label>
+            </value>
+            <value>
+                <fullName>Kurt</fullName>
+                <default>false</default>
+                <label>Kurt</label>
+            </value>
+            <value>
+                <fullName>Simon</fullName>
+                <default>false</default>
+                <label>Simon</label>
+            </value>
+            <value>
+                <fullName>Isabella</fullName>
+                <default>false</default>
+                <label>Isabella</label>
+            </value>
+            <value>
+                <fullName>Patrick</fullName>
+                <default>false</default>
+                <label>Patrick</label>
+            </value>
+            <value>
+                <fullName>Lukas</fullName>
+                <default>false</default>
+                <label>Lukas</label>
+            </value>
+            <value>
+                <fullName>Edmund</fullName>
+                <default>false</default>
+                <label>Edmund</label>
+            </value>
+            <value>
+                <fullName>Oskar</fullName>
+                <default>false</default>
+                <label>Oskar</label>
+            </value>
+            <value>
+                <fullName>Frida</fullName>
+                <default>false</default>
+                <label>Frida</label>
+            </value>
+            <value>
+                <fullName>Lotte</fullName>
+                <default>false</default>
+                <label>Lotte</label>
+            </value>
+            <value>
+                <fullName>Rebecca</fullName>
+                <default>false</default>
+                <label>Rebecca</label>
+            </value>
+            <value>
+                <fullName>Pierre</fullName>
+                <default>false</default>
+                <label>Pierre</label>
+            </value>
+            <value>
+                <fullName>Thomas</fullName>
+                <default>false</default>
+                <label>Thomas</label>
+            </value>
+            <value>
+                <fullName>Erwin</fullName>
+                <default>false</default>
+                <label>Erwin</label>
+            </value>
+            <value>
+                <fullName>Infinity Collection</fullName>
+                <default>false</default>
+                <label>Infinity Collection</label>
+            </value>
+            <value>
+                <fullName>TMA Atwire</fullName>
+                <default>false</default>
+                <label>TMA Atwire</label>
+            </value>
+            <value>
+                <fullName>Golden Gate</fullName>
+                <default>false</default>
+                <label>Golden Gate</label>
+            </value>
+            <value>
+                <fullName>TMA Ultra Thin</fullName>
+                <default>false</default>
+                <label>TMA Ultra Thin</label>
+            </value>
+            <value>
+                <fullName>Sarah</fullName>
+                <default>false</default>
+                <label>Sarah</label>
+            </value>
+            <value>
+                <fullName>Felix</fullName>
+                <default>false</default>
+                <label>Felix</label>
+            </value>
+            <value>
+                <fullName>Manu</fullName>
+                <default>false</default>
+                <label>Manu</label>
+            </value>
+            <value>
+                <fullName>Amy</fullName>
+                <default>false</default>
+                <label>Amy</label>
+            </value>
+            <value>
+                <fullName>Rene</fullName>
+                <default>false</default>
+                <label>Rene</label>
+            </value>
+            <value>
+                <fullName>Erwin 3D</fullName>
+                <default>false</default>
+                <label>Erwin 3D</label>
+            </value>
+            <value>
+                <fullName>Sarah 3D</fullName>
+                <default>false</default>
+                <label>Sarah 3D</label>
+            </value>
+            <value>
+                <fullName>Felix 3D</fullName>
+                <default>false</default>
+                <label>Felix 3D</label>
+            </value>
+            <value>
+                <fullName>Manu 3D</fullName>
+                <default>false</default>
+                <label>Manu 3D</label>
+            </value>
+            <value>
+                <fullName>Max</fullName>
+                <default>false</default>
+                <label>Max</label>
+            </value>
+            <value>
+                <fullName>Theo</fullName>
+                <default>false</default>
+                <label>Theo</label>
+            </value>
+            <value>
+                <fullName>Hannes</fullName>
+                <default>false</default>
+                <label>Hannes</label>
+            </value>
+            <value>
+                <fullName>Lisa</fullName>
+                <default>false</default>
+                <label>Lisa</label>
+            </value>
+            <value>
+                <fullName>Martin</fullName>
+                <default>false</default>
+                <label>Martin</label>
+            </value>
+            <value>
+                <fullName>Inge</fullName>
+                <default>false</default>
+                <label>Inge</label>
+            </value>
+            <value>
+                <fullName>Udo</fullName>
+                <default>false</default>
+                <label>Udo</label>
+            </value>
+            <value>
+                <fullName>Mike</fullName>
+                <default>false</default>
+                <label>Mike</label>
+            </value>
+            <value>
+                <fullName>Mia II</fullName>
+                <default>false</default>
+                <label>Mia II</label>
+            </value>
+            <value>
+                <fullName>Sonia</fullName>
+                <default>false</default>
+                <label>Sonia</label>
+            </value>
+            <value>
+                <fullName>Giovanni</fullName>
+                <default>false</default>
+                <label>Giovanni</label>
+            </value>
+            <value>
+                <fullName>Virginia</fullName>
+                <default>false</default>
+                <label>Virginia</label>
+            </value>
+            <value>
+                <fullName>Roland</fullName>
+                <default>false</default>
+                <label>Roland</label>
+            </value>
+            <value>
+                <fullName>Max 3D</fullName>
+                <default>false</default>
+                <label>Max 3D</label>
+            </value>
+            <value>
+                <fullName>Theo 3D</fullName>
+                <default>false</default>
+                <label>Theo 3D</label>
+            </value>
+            <value>
+                <fullName>Romana</fullName>
+                <default>false</default>
+                <label>Romana</label>
+            </value>
+            <value>
+                <fullName>Markus</fullName>
+                <default>false</default>
+                <label>Markus</label>
+            </value>
+            <value>
+                <fullName>Luca</fullName>
+                <default>false</default>
+                <label>Luca</label>
+            </value>
+            <value>
+                <fullName>Ruben</fullName>
+                <default>false</default>
+                <label>Ruben</label>
+            </value>
+            <value>
+                <fullName>Nina</fullName>
+                <default>false</default>
+                <label>Nina</label>
+            </value>
+            <value>
+                <fullName>Mark</fullName>
+                <default>false</default>
+                <label>Mark</label>
+            </value>
+            <value>
+                <fullName>Olivier 3D</fullName>
+                <default>false</default>
+                <label>Olivier 3D</label>
+            </value>
+            <value>
+                <fullName>Virginia 3D</fullName>
+                <default>false</default>
+                <label>Virginia 3D</label>
+            </value>
+            <value>
+                <fullName>Big Erwin</fullName>
+                <default>false</default>
+                <label>Big Erwin</label>
+            </value>
+            <value>
+                <fullName>Urban Sun</fullName>
+                <default>false</default>
+                <label>Urban Sun</label>
+            </value>
+            <value>
+                <fullName>TMA Futura</fullName>
+                <default>false</default>
+                <label>TMA Futura</label>
+            </value>
+            <value>
+                <fullName>TNG Titan Next Generation</fullName>
+                <default>false</default>
+                <label>TNG Titan Next Generation</label>
+            </value>
+            <value>
+                <fullName>Light Attraction</fullName>
+                <default>false</default>
+                <label>Light Attraction</label>
+            </value>
+            <value>
+                <fullName>Caresse</fullName>
+                <default>false</default>
+                <label>Caresse</label>
+            </value>
+            <value>
+                <fullName>Titan Accent</fullName>
+                <default>false</default>
+                <label>Titan Accent</label>
+            </value>
+            <value>
+                <fullName>Fusion</fullName>
+                <default>false</default>
+                <label>Fusion</label>
+            </value>
+            <value>
+                <fullName>Caresse Pearl</fullName>
+                <default>false</default>
+                <label>Caresse Pearl</label>
+            </value>
+            <value>
+                <fullName>Lite Duet</fullName>
+                <default>false</default>
+                <label>Lite Duet</label>
+            </value>
+            <value>
+                <fullName>Titan Contour</fullName>
+                <default>false</default>
+                <label>Titan Contour</label>
+            </value>
+            <value>
+                <fullName>Prestige</fullName>
+                <default>false</default>
+                <label>Prestige</label>
+            </value>
+            <value>
+                <fullName>Charming Diva</fullName>
+                <default>false</default>
+                <label>Charming Diva</label>
+            </value>
+            <value>
+                <fullName>Alpha</fullName>
+                <default>false</default>
+                <label>Alpha</label>
+            </value>
+            <value>
+                <fullName>Titan Harmony</fullName>
+                <default>false</default>
+                <label>Titan Harmony</label>
+            </value>
+            <value>
+                <fullName>Active Adventurer</fullName>
+                <default>false</default>
+                <label>Active Adventurer</label>
+            </value>
+            <value>
+                <fullName>Titan Translucent</fullName>
+                <default>false</default>
+                <label>Titan Translucent</label>
+            </value>
+            <value>
+                <fullName>vizor</fullName>
+                <default>false</default>
+                <label>vizor</label>
+            </value>
+            <value>
+                <fullName>First Class</fullName>
+                <default>false</default>
+                <label>First Class</label>
+            </value>
+            <value>
+                <fullName>Anika</fullName>
+                <default>false</default>
+                <label>Anika</label>
+            </value>
+            <value>
+                <fullName>Eugen II</fullName>
+                <default>false</default>
+                <label>Eugen II</label>
+            </value>
+            <value>
+                <fullName>Fabio II</fullName>
+                <default>false</default>
+                <label>Fabio II</label>
+            </value>
+            <value>
+                <fullName>Tom II</fullName>
+                <default>false</default>
+                <label>Tom II</label>
+            </value>
+            <value>
+                <fullName>Celine</fullName>
+                <default>false</default>
+                <label>Celine</label>
+            </value>
+            <value>
+                <fullName>Pia</fullName>
+                <default>false</default>
+                <label>Pia</label>
+            </value>
+            <value>
+                <fullName>Gabriel II</fullName>
+                <default>false</default>
+                <label>Gabriel II</label>
+            </value>
+            <value>
+                <fullName>TMA - LaLigne</fullName>
+                <default>false</default>
+                <label>TMA - LaLigne</label>
+            </value>
+            <value>
+                <fullName>Allure</fullName>
+                <default>false</default>
+                <label>Allure</label>
+            </value>
+            <value>
+                <fullName>Cosmopolitan</fullName>
+                <default>false</default>
+                <label>Cosmopolitan</label>
+            </value>
+            <value>
+                <fullName>Momentum</fullName>
+                <default>false</default>
+                <label>Momentum</label>
+            </value>
+            <value>
+                <fullName>Illusion Lite</fullName>
+                <default>false</default>
+                <label>Illusion Lite</label>
+            </value>
+            <value>
+                <fullName>Urban Fusion</fullName>
+                <default>false</default>
+                <label>Urban Fusion</label>
+            </value>
+            <value>
+                <fullName>Illusion</fullName>
+                <default>false</default>
+                <label>Illusion</label>
+            </value>
+            <value>
+                <fullName>Lite Arcs</fullName>
+                <default>false</default>
+                <label>Lite Arcs</label>
+            </value>
+            <value>
+                <fullName>Inspire</fullName>
+                <default>false</default>
+                <label>Inspire</label>
+            </value>
+            <value>
+                <fullName>Lite Wave</fullName>
+                <default>false</default>
+                <label>Lite Wave</label>
+            </value>
+            <value>
+                <fullName>n21</fullName>
+                <default>false</default>
+                <label>n21</label>
+            </value>
+            <value>
+                <fullName>n22</fullName>
+                <default>false</default>
+                <label>n22</label>
+            </value>
+            <value>
+                <fullName>n23</fullName>
+                <default>false</default>
+                <label>n23</label>
+            </value>
+            <value>
+                <fullName>n25</fullName>
+                <default>false</default>
+                <label>n25</label>
+            </value>
+            <value>
+                <fullName>n27</fullName>
+                <default>false</default>
+                <label>n27</label>
+            </value>
+            <value>
+                <fullName>n62</fullName>
+                <default>false</default>
+                <label>n62</label>
+            </value>
+            <value>
+                <fullName>n64</fullName>
+                <default>false</default>
+                <label>n64</label>
+            </value>
+            <value>
+                <fullName>n66</fullName>
+                <default>false</default>
+                <label>n66</label>
+            </value>
+            <value>
+                <fullName>n68</fullName>
+                <default>false</default>
+                <label>n68</label>
+            </value>
+            <value>
+                <fullName>n67</fullName>
+                <default>false</default>
+                <label>n67</label>
+            </value>
+            <value>
+                <fullName>n71</fullName>
+                <default>false</default>
+                <label>n71</label>
+            </value>
+            <value>
+                <fullName>n76</fullName>
+                <default>false</default>
+                <label>n76</label>
+            </value>
+            <value>
+                <fullName>n75</fullName>
+                <default>false</default>
+                <label>n75</label>
+            </value>
+            <value>
+                <fullName>n78</fullName>
+                <default>false</default>
+                <label>n78</label>
+            </value>
+            <value>
+                <fullName>n79</fullName>
+                <default>false</default>
+                <label>n79</label>
+            </value>
+            <value>
+                <fullName>n80</fullName>
+                <default>false</default>
+                <label>n80</label>
+            </value>
+            <value>
+                <fullName>n81</fullName>
+                <default>false</default>
+                <label>n81</label>
+            </value>
+            <value>
+                <fullName>n84</fullName>
+                <default>false</default>
+                <label>n84</label>
+            </value>
+            <value>
+                <fullName>n85</fullName>
+                <default>false</default>
+                <label>n85</label>
+            </value>
+            <value>
+                <fullName>n86</fullName>
+                <default>false</default>
+                <label>n86</label>
+            </value>
+            <value>
+                <fullName>trace</fullName>
+                <default>false</default>
+                <label>trace</label>
+            </value>
+            <value>
+                <fullName>zolid</fullName>
+                <default>false</default>
+                <label>zolid</label>
+            </value>
+            <value>
+                <fullName>fusor</fullName>
+                <default>false</default>
+                <label>fusor</label>
+            </value>
+            <value>
+                <fullName>action</fullName>
+                <default>false</default>
+                <label>action</label>
+            </value>
+            <value>
+                <fullName>traileye</fullName>
+                <default>false</default>
+                <label>traileye</label>
+            </value>
+            <value>
+                <fullName>elate</fullName>
+                <default>false</default>
+                <label>elate</label>
+            </value>
+            <value>
+                <fullName>zcale</fullName>
+                <default>false</default>
+                <label>zcale</label>
+            </value>
+            <value>
+                <fullName>SPX Motion</fullName>
+                <default>false</default>
+                <label>SPX Motion</label>
+            </value>
+            <value>
+                <fullName>SPX Konzept</fullName>
+                <default>false</default>
+                <label>SPX Konzept</label>
+            </value>
+            <value>
+                <fullName>Colorama</fullName>
+                <default>false</default>
+                <label>Colorama</label>
+            </value>
+            <value>
+                <fullName>Eos View</fullName>
+                <default>false</default>
+                <label>Eos View</label>
+            </value>
+            <value>
+                <fullName>The Wave</fullName>
+                <default>false</default>
+                <label>The Wave</label>
+            </value>
+            <value>
+                <fullName>Urban LITE</fullName>
+                <default>false</default>
+                <label>Urban LITE</label>
+            </value>
+            <value>
+                <fullName>SPX Illusion</fullName>
+                <default>false</default>
+                <label>SPX Illusion</label>
+            </value>
+            <value>
+                <fullName>sense</fullName>
+                <default>false</default>
+                <label>sense</label>
+            </value>
+            <value>
+                <fullName>n05</fullName>
+                <default>false</default>
+                <label>n05</label>
+            </value>
+            <value>
+                <fullName>n08</fullName>
+                <default>false</default>
+                <label>n08</label>
+            </value>
+            <value>
+                <fullName>n10</fullName>
+                <default>false</default>
+                <label>n10</label>
+            </value>
+            <value>
+                <fullName>n12</fullName>
+                <default>false</default>
+                <label>n12</label>
+            </value>
+            <value>
+                <fullName>n15</fullName>
+                <default>false</default>
+                <label>n15</label>
+            </value>
+            <value>
+                <fullName>n14</fullName>
+                <default>false</default>
+                <label>n14</label>
+            </value>
+            <value>
+                <fullName>n18</fullName>
+                <default>false</default>
+                <label>n18</label>
+            </value>
+            <value>
+                <fullName>n19</fullName>
+                <default>false</default>
+                <label>n19</label>
+            </value>
+            <value>
+                <fullName>Dynamics Colorwave</fullName>
+                <default>false</default>
+                <label>Dynamics Colorwave</label>
+            </value>
+            <value>
+                <fullName>n82</fullName>
+                <default>false</default>
+                <label>n82</label>
+            </value>
+            <value>
+                <fullName>Momentum Aurum</fullName>
+                <default>false</default>
+                <label>Momentum Aurum</label>
+            </value>
+            <value>
+                <fullName>peaksight</fullName>
+                <default>false</default>
+                <label>peaksight</label>
+            </value>
+            <value>
+                <fullName>Inspired</fullName>
+                <default>false</default>
+                <label>Inspired</label>
+            </value>
+            <value>
+                <fullName>Eos Collection</fullName>
+                <default>false</default>
+                <label>Eos Collection</label>
+            </value>
+            <value>
+                <fullName>TMA - The Icon</fullName>
+                <default>false</default>
+                <label>TMA - The Icon</label>
+            </value>
+            <value>
+                <fullName>Venture</fullName>
+                <default>false</default>
+                <label>Venture</label>
+            </value>
+            <value>
+                <fullName>Identity</fullName>
+                <default>false</default>
+                <label>Identity</label>
+            </value>
+            <value>
+                <fullName>Racing Collection</fullName>
+                <default>false</default>
+                <label>Racing Collection</label>
+            </value>
+            <value>
+                <fullName>TNG 2018</fullName>
+                <default>false</default>
+                <label>TNG 2018</label>
+            </value>
+            <value>
+                <fullName>TMA Must Collection 2017</fullName>
+                <default>false</default>
+                <label>TMA Must Collection 2017</label>
+            </value>
+            <value>
+                <fullName>Sun Lite Collection</fullName>
+                <default>false</default>
+                <label>Sun Lite Collection</label>
+            </value>
+            <value>
+                <fullName>Hinge C-2</fullName>
+                <default>false</default>
+                <label>Hinge C-2</label>
+            </value>
+            <value>
+                <fullName>Mosaic</fullName>
+                <default>false</default>
+                <label>Mosaic</label>
+            </value>
+            <value>
+                <fullName>Pure Wave</fullName>
+                <default>false</default>
+                <label>Pure Wave</label>
+            </value>
+            <value>
+                <fullName>Light Facette</fullName>
+                <default>false</default>
+                <label>Light Facette</label>
+            </value>
+            <value>
+                <fullName>TMA The Icon Gold Edition</fullName>
+                <default>false</default>
+                <label>TMA The Icon Gold Edition</label>
+            </value>
+            <value>
+                <fullName>TNG Crystals</fullName>
+                <default>false</default>
+                <label>TNG Crystals</label>
+            </value>
+            <value>
+                <fullName>LaLigne</fullName>
+                <default>false</default>
+                <label>LaLigne</label>
+            </value>
+            <value>
+                <fullName>TMA Collection</fullName>
+                <default>false</default>
+                <label>TMA Collection</label>
+            </value>
+            <value>
+                <fullName>Titan Accent Shades</fullName>
+                <default>false</default>
+                <label>Titan Accent Shades</label>
+            </value>
+            <value>
+                <fullName>Adventurer Collection</fullName>
+                <default>false</default>
+                <label>Adventurer Collection</label>
+            </value>
+            <value>
+                <fullName>Bolschoi Grace</fullName>
+                <default>false</default>
+                <label>Bolschoi Grace</label>
+            </value>
+            <value>
+                <fullName>Rimless Shades</fullName>
+                <default>false</default>
+                <label>Rimless Shades</label>
+            </value>
+            <value>
+                <fullName>New York Sky</fullName>
+                <default>false</default>
+                <label>New York Sky</label>
+            </value>
+            <value>
+                <fullName>Accent Shades</fullName>
+                <default>false</default>
+                <label>Accent Shades</label>
+            </value>
+            <value>
+                <fullName>Sun C-2</fullName>
+                <default>false</default>
+                <label>Sun C-2</label>
+            </value>
+            <value>
+                <fullName>Carbon T1 Collection</fullName>
+                <default>false</default>
+                <label>Carbon T1 Collection</label>
+            </value>
+            <value>
+                <fullName>Croisette Club</fullName>
+                <default>false</default>
+                <label>Croisette Club</label>
+            </value>
+            <value>
+                <fullName>Streamline Collection</fullName>
+                <default>false</default>
+                <label>Streamline Collection</label>
+            </value>
+            <value>
+                <fullName>The Sil. Heritage Collection</fullName>
+                <default>false</default>
+                <label>The Sil. Heritage Collection</label>
+            </value>
+            <value>
+                <fullName>Lite Spirit</fullName>
+                <default>false</default>
+                <label>Lite Spirit</label>
+            </value>
+            <value>
+                <fullName>TMA The Must Collection</fullName>
+                <default>false</default>
+                <label>TMA The Must Collection</label>
+            </value>
+            <value>
+                <fullName>Titan Dynamics Contour</fullName>
+                <default>false</default>
+                <label>Titan Dynamics Contour</label>
+            </value>
+            <value>
+                <fullName>TMA - The Icon II</fullName>
+                <default>false</default>
+                <label>TMA - The Icon II</label>
+            </value>
+            <value>
+                <fullName>Artline</fullName>
+                <default>false</default>
+                <label>Artline</label>
+            </value>
+            <value>
+                <fullName>Blend</fullName>
+                <default>false</default>
+                <label>Blend</label>
+            </value>
+            <value>
+                <fullName>Purist</fullName>
+                <default>false</default>
+                <label>Purist</label>
+            </value>
+            <value>
+                <fullName>Titan Breeze Collection</fullName>
+                <default>false</default>
+                <label>Titan Breeze Collection</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

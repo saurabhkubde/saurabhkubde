@@ -1,0 +1,280 @@
+<template>
+    <lightning-spinner if:true={_isLoading} size="medium" variant="brand" class="slds-is-absolute slds-align_absolute-center"> </lightning-spinner>
+    <template if:false={_isLoading}>
+        <!-- Start : Desktop view -->
+        <template if:true={_isDesktopDevice}>
+            <!-- Overview / image section / virtual try on / wishlist section -->
+            <div class="slds-grid slds-wrap slds-p-around_small">
+                <div class="slds-col slds-size_8-of-12">
+                    <!-- Back to Overview button-->
+                    <div onclick={handleBackToOverview} class="slds-p-bottom_xxx-small back-button">
+                        <span>
+                            <img src={_backButtonArrow} class="back-image" />
+                        </span>
+                        <span class="slds-p-left_small"> {labels.backToOverview} </span>
+                    </div>
+                    <div>
+                        <!--Image Section-->
+                        <c-d2c_vto_product-images product-images={_displayData.images}></c-d2c_vto_product-images>
+                    </div>
+                </div>
+                <!-- Detail Section-->
+                <div class="slds-col slds-size_4-of-12">
+                    <div if:true={_displayData.name} class="product-name">{_displayData.name}</div>
+                    <div if:true={_displayData.sku} class="product-sku">{_displayData.sku}</div>
+                    <div class="margin-bottom-8" if:true={productDescriptionValue}>
+                        <div class="slds-is-relative">
+                            <div class={_productDescriptionClass}>
+                                <span class="description-container">{productDescriptionValue}</span>
+                            </div>
+                            <div if:true={_showMoreButton}>
+                                <button if:false={_showLessButton} class={_readButtonClass} onclick={showCompleteDescription}>{_readMore}</button>
+                                <button if:true={_showLessButton} class={_readButtonClass} onclick={hideDescription}>{_readLess}</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div if:true={_displayData.shapeImageLink}>
+                        <span>
+                            <img src={_displayData.shapeImageLink} class="product-shape-image" />
+                        </span>
+                        <span class="vertical-align-middle font-14-400 slds-p-left_small"> {labels.shape} </span>
+                    </div>
+                    <div if:true={_displayData.frameColorData}>
+                        <span class="dot" style={_displayData.frameColorData.colorStyle}> </span>
+                        <span class="vertical-align-middle font-14-400 slds-p-left_x-small"> {labels.frameColor} </span>
+                    </div>
+                    <div if:true={_displayData.isSunglassProduct}>
+                        <div if:true={_displayData.lensColorData} class="slds-p-left_xxx-small">
+                            <span class="dot" style={_displayData.lensColorData.colorStyle}> </span>
+                            <span class="vertical-align-middle font-14-400 slds-p-left_x-small"> {labels.lensColor} </span>
+                        </div>
+                    </div>
+                    <div class="slds-p-top_small">
+                        <div class="slds-m-top_small">
+                            <button class="silButtonInverse capital" onclick={handleVirtualTryOn}>{labels.virtualTryOn}</button>
+                        </div>
+                        <div class="slds-m-top_small">
+                            <button class="silButton capital" onclick={handleAddToWishlist}>{labels.addToFavoritesLabel}</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Details section -->
+            <div class="details-background slds-m-top_small">
+                <div class="sh-ee-tabs slds-m-top_xx-large slds-tabs_default">
+                    <ul class="slds-tabs_default__nav tab-container" role="tablist">
+                        <li
+                            id={labels.productDetails}
+                            name={labels.productDetails}
+                            class="slds-text-align_center slds-tabs_default__item slds-is-active show-shadow"
+                            title={labels.productDetails}
+                            role="presentation"
+                            data-name={labels.productDetails}
+                            value={labels.productDetails}
+                        >
+                            {labels.productDetails}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </template>
+        <!-- End :  Desktop view -->
+        <!-- Start : Mobile view -->
+        <template if:false={_isDesktopDevice}>
+            <!-- Back to Overview button-->
+            <div onclick={handleBackToOverview} class="slds-p-bottom_xxx-small back-button">
+                <span>
+                    <img src={_backButtonArrow} class="back-image" />
+                </span>
+                <span class="slds-p-left_small"> {labels.backToOverview} </span>
+            </div>
+            <div if:true={_displayData.name} class="slds-align_absolute-center product-name slds-p-top_x-small">{_displayData.name}</div>
+            <div if:true={_displayData.sku} class="slds-align_absolute-center product-sku slds-p-top_x-small">{_displayData.sku}</div>
+            <div>
+                <!--Image Section-->
+                <c-d2c_vto_product-images product-images={_displayData.images}></c-d2c_vto_product-images>
+            </div>
+            <div class="slds-align_absolute-center slds-p-top_small">
+                <span class="virtual-try-on-container slds-border_right slds-p-right_small" onclick={handleVirtualTryOn}>
+                    <span><img src={_virtualTryOnIcon} class="slds-p-right_x-small virtual-try-on-icon-size" /></span>
+                    <span class="vto-text">{labels.virtualTryOn}</span>
+                </span>
+                <span class="slds-p-left_small">
+                    <img src={_wishlistIcon} class="wishlist-icon" onclick={handleAddToWishlist} />
+                </span>
+            </div>
+            <!-- Variation : Start-->
+            <!-- Variation : End-->
+            <div class="margin-bottom-8" if:true={productDescriptionValue}>
+                <div class="slds-is-relative">
+                    <div class={_productDescriptionClass}>
+                        <span class="description-container">{productDescriptionValue}</span>
+                    </div>
+                    <div if:true={_showMoreButton}>
+                        <button if:false={_showLessButton} class={_readButtonClass} onclick={showCompleteDescription}>{_readMore}</button>
+                        <button if:true={_showLessButton} class={_readButtonClass} onclick={hideDescription}>{_readLess}</button>
+                    </div>
+                </div>
+            </div>
+            <div if:true={_displayData.shapeImageLink}>
+                <span>
+                    <img src={_displayData.shapeImageLink} class="product-shape-image" />
+                </span>
+                <span class="vertical-align-middle font-14-400 slds-p-left_small"> {labels.shape} </span>
+            </div>
+            <div if:true={_displayData.frameColorData}>
+                <span class="dot" style={_displayData.frameColorData.colorStyle}> </span>
+                <span class="vertical-align-middle font-14-400 slds-p-left_x-small"> {labels.frameColor} </span>
+            </div>
+            <div if:true={_displayData.isSunglassProduct}>
+                <div if:true={_displayData.lensColorData}>
+                    <span class="dot" style={_displayData.lensColorData.colorStyle}> </span>
+                    <span class="vertical-align-middle font-14-400 slds-p-left_x-small"> {labels.lensColor} </span>
+                </div>
+            </div>
+            <!-- Start : Mobile detail section-->
+            <div class="details-background slds-m-top_small">
+                <div class="sh-ee-tabs slds-m-top_xx-large slds-tabs_default">
+                    <ul class="slds-tabs_default__nav tab-container" role="tablist">
+                        <li
+                            id={labels.productDetails}
+                            name={labels.productDetails}
+                            class="slds-text-align_center slds-tabs_default__item slds-is-active show-shadow"
+                            title={labels.productDetails}
+                            role="presentation"
+                            data-name={labels.productDetails}
+                            value={labels.productDetails}
+                        >
+                            {labels.productDetails}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- End : Mobile detail section-->
+        </template>
+        <!-- End : Mobile view -->
+        <!-- Start : Product Detail Section -->
+        <div class="slds-grid slds-wrap slds-p-around_small details-background marginBottomStyle">
+            <div if:true={_showProductDetailFirstColumn} class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12">
+                <div if:true={_displayData.features} class="slds-grid slds-wrap">
+                    <div class="slds-col slds-size_5-of-12 font-14-400">{labels.featureLabel}</div>
+                    <div class="slds-col slds-size_7-of-12 font-14-300 features-list">
+                        <lightning-formatted-rich-text value={_displayData.features}></lightning-formatted-rich-text>
+                    </div>
+                </div>
+                <div if:true={_displayData.lensTechnology} class="slds-grid slds-wrap">
+                    <div class="slds-col slds-size_5-of-12 font-14-400">{labels.lensLabel}</div>
+                    <div class="slds-col slds-size_7-of-12 font-14-300">
+                        <div for:each={_displayData.lensTechnology} for:item="lensTechnology" key={lensTechnology}>{lensTechnology}</div>
+                    </div>
+                </div>
+            </div>
+            <div
+                if:true={_showProductDetailSecondColumn}
+                class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12 slds-p-left_small second-section"
+            >
+                <div if:true={_displayData.collectionDesignFamily} class="slds-grid slds-wrap">
+                    <div class="slds-col slds-size_5-of-12 font-14-400">{labels.collectionLabel}</div>
+                    <div class="slds-col slds-size_7-of-12 font-14-300">{_displayData.collectionDesignFamily}</div>
+                </div>
+                <div if:true={_displayData.model} class="slds-grid slds-wrap slds-p-top_x-small">
+                    <div class="slds-col slds-size_5-of-12 font-14-400">{labels.modelLabel}</div>
+                    <div class="slds-col slds-size_7-of-12 font-14-300">{_displayData.model}</div>
+                </div>
+                <div if:true={_displayData.shapeSize} class="slds-grid slds-wrap slds-p-top_x-small">
+                    <div class="slds-col slds-size_5-of-12 font-14-400">{labels.shape}</div>
+                    <div class="slds-col slds-size_7-of-12 font-14-300">{_displayData.shapeSize}</div>
+                </div>
+                <div if:true={_displayData.frameColorDescription} class="slds-grid slds-wrap slds-p-top_x-small">
+                    <div class="slds-col slds-size_5-of-12 font-14-400">{labels.frameColor}</div>
+                    <div class="slds-col slds-size_7-of-12 font-14-300">{_displayData.frameColorDescription}</div>
+                </div>
+                <div if:true={_displayData.lensDescription} class="slds-grid slds-wrap slds-p-top_x-small">
+                    <div class="slds-col slds-size_5-of-12 font-14-400">{labels.lensColor}</div>
+                    <div class="slds-col slds-size_7-of-12 font-14-300">{_displayData.lensDescription}</div>
+                </div>
+            </div>
+            <div
+                if:true={_showProductDetailFirstColumn}
+                class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12 slds-p-left_small second-section"
+            >
+                <div if:true={_displayData.material} class="slds-grid slds-wrap">
+                    <div class="slds-col slds-size_5-of-12 font-14-400">{labels.materialLabel}</div>
+                    <div class="slds-col slds-size_7-of-12 font-14-300">
+                        <div for:each={_displayData.material} for:item="material" key={lensTechnology}>{material}</div>
+                    </div>
+                </div>
+                <div if:true={_displayData.shapeSize} class="slds-grid slds-wrap slds-p-top_x-small">
+                    <div class="slds-col slds-size_5-of-12 font-14-400">{labels.sizeLabel}</div>
+                    <div class="slds-col slds-size_7-of-12 font-14-300">
+                        <span>{_displayData.shapeSize} / </span>
+                        <span>{_displayData.bridgeSize} / </span>
+                        <span>{_displayData.templeLength} mm</span>
+                        <span>
+                            <img src={_infoIcon} class="wishlist-icon slds-p-left_x-small" onclick={showSizeModal} />
+                        </span>
+                    </div>
+                </div>
+                <div if:true={_displayData.included} class="slds-grid slds-wrap slds-p-top_x-small">
+                    <div class="slds-col slds-size_5-of-12 font-14-400">{labels.includedLabel}</div>
+                    <div class="slds-col slds-size_7-of-12 font-14-300">
+                        <div for:each={_displayData.included} for:item="included" key={included}>{included}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End : Product Detail Section -->
+    </template>
+    <template if:true={_showSizeInformationModal}>
+        <section role="dialog" tabindex="-1" aria-modal="true" class="size-modal slds-modal slds-is-absolute-desktop slds-fade-in-open">
+            <div class="slds-modal__container">
+                <div class="slds-modal__content slds-p-around_medium slds-modal__content_headless" id="modal-content-id-1">
+                    <button class="slds-p-vertical_medium slds-button_icon slds-modal__close slds-button slds-float_right" onclick={handleDialogClose}>
+                        <img src={_closeIcon} />
+                    </button>
+                    <div class="slds-m-top_large slds-align_absolute-center modal-header-style">{labels.modelHeaderLabel}</div>
+                    <div class="slds-p-top_medium slds-align_absolute-center">
+                        <span class="font-16-400">
+                            <span> {labels.sizeLabel} </span>
+                            <span> {_displayData.shapeSize} </span>
+                        </span>
+                        <span class="slds-p-left_medium font-16-300">
+                            <span>{_displayData.modalSizeData}</span>
+                        </span>
+                    </div>
+                    <div class="slds-m-top_medium font-16-300 slds-align_absolute-center">{labels.modalDetailHeader}</div>
+                    <div class="slds-m-top_medium font-16-300 slds-align_absolute-center">
+                        <div class="flex-container">
+                            <div if:true={_displayData.shapeSize} class="slds-m-horizontal_small">
+                                <div>
+                                    <img src={_sizeIcon} class="modal-image-height" />
+                                </div>
+                                <div class="slds-m-top_small slds-align_absolute-center">
+                                    <span class="slds-border_top slds-text-align_center"> {labels.lensWidthLabel} </span>
+                                </div>
+                            </div>
+                            <div if:true={_displayData.bridgeSize} class="slds-m-horizontal_small">
+                                <div>
+                                    <img src={_bridgeIcon} class="modal-image-height" />
+                                </div>
+                                <div class="slds-m-top_small slds-align_absolute-center">
+                                    <span class="slds-border_top slds-text-align_center"> {labels.bridgeLabel} </span>
+                                </div>
+                            </div>
+                            <div if:true={_displayData.templeLength} class="slds-m-horizontal_small">
+                                <div>
+                                    <img src={_earpieceLengthIcon} class="modal-image-height" />
+                                </div>
+                                <div class="slds-m-top_small slds-align_absolute-center">
+                                    <span class="slds-border_top slds-text-align_center"> {labels.earpieceLengthLabel} </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
+    </template>
+</template>

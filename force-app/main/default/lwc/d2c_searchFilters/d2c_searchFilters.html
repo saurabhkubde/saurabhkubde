@@ -1,0 +1,22 @@
+<template lwc:render-mode="light">
+    <div class="slds-grid filter-container">
+        <div class="category-container slds-col slds-small-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_8-of-12">
+            <div class="category-name">{categoryNameLabel}</div>
+            <div class="category-description font-adobe-pro">{categoryNameDescription}</div>
+        </div>
+        <div class="button-container slds-col slds-small-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_4-of-12">
+            <div if:true={_isDesktopDevice} class="inner-button-container font-adobe-pro">
+                <button if:false={_showFilterButton} class="reset-button first-button" title={_showFiltersButton} onclick={handleClearAll}>
+                    {_resetButton}
+                </button>
+                <button class="filter-button" title={_showFiltersButton} onclick={handleOpenSearchFiltersModal}>{_showFiltersButton}</button>
+            </div>
+            <div if:false={_isDesktopDevice} class="inner-button-container font-adobe-pro">
+                <button class="filter-button first-button" title={_showFiltersButton} onclick={handleOpenSearchFiltersModal}>{_showFiltersButton}</button>
+                <button if:false={_showFilterButton} class="reset-button" title={_showFiltersButton} onclick={handleClearAll}>{_resetButton}</button>
+            </div>
+        </div>
+    </div>
+
+    <c-d2c_search-filters-panel if:false={_showFilterButton} display-data={normalizedSearchFilters} color-metadata={colorMetadata}></c-d2c_search-filters-panel>
+</template>

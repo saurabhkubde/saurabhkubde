@@ -1,0 +1,21 @@
+<template>
+    <div class="slds-grid slds-wrap">
+        <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+            <div class="slds-text-align_center slds-m-vertical_medium">
+                <img src={EEBrandIcon} class="logo" />
+            </div>
+            <div class="slds-text-align_center slds-m-vertical_x-small textStyle">{label.eE1}</div>
+            <div class="slds-text-align_center slds-m-vertical_small textStyle">
+                <lightning-formatted-rich-text value={label.eE2}></lightning-formatted-rich-text>
+            </div>
+            <div class="slds-text-align_center slds-m-vertical_small">
+                <button class="small silButton uppercase" onclick={goBack}>{label.backToPartnerPortal}</button>
+            </div>
+        </div>
+        <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+            <div class="slds-text-align_center">
+                <img src={icon} />
+            </div>
+        </div>
+    </div>
+</template>

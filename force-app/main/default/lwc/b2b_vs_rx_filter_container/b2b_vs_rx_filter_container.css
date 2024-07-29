@@ -1,0 +1,80 @@
+.filtersHeader {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-weight: 500;
+}
+.categoryContainer {
+    border-top: 2px solid #e0e0e0;
+}
+
+.clearAllDiv {
+    border-top: 1px solid #e0e0e0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-weight: 500;
+}
+.clearAllDivPLP {
+    border-top: 1px solid #e0e0e0;
+}
+.clearAllAnchor {
+    display: block;
+    padding: 20px 0px;
+}
+.clearAllAnchor:hover {
+    text-decoration: none;
+}
+.filterHeadingText {
+    font-size: 22px;
+}
+.refreshIconImg {
+    vertical-align: bottom;
+    padding-right: 4px;
+}
+
+.filterBox {
+    border-bottom: 2px solid #e0e0e0;
+}
+.clearAll {
+    align-self: flex-end;
+    padding: 0;
+    border: none;
+    background: none;
+    font-size: 14px;
+    font-weight: 300;
+    color: black;
+    box-shadow: none !important;
+}
+.clearAll :hover {
+    text-decoration: none;
+}
+.filter-title {
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.footer-action {
+    background-color: transparent;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    font-weight: 300;
+}
+
+.slds-is-open > .slds-accordion__summary {
+    padding-bottom: 0px !important;
+}
+
+@media only screen and (max-width: 550px) {
+    .vsrxFilters {
+        margin-top: 12px;
+    }
+}
+
+/* Start BS-841*/
+.filter-icon {
+    width: 20px;
+    cursor: pointer !important;
+}
+/* End BS-841*/

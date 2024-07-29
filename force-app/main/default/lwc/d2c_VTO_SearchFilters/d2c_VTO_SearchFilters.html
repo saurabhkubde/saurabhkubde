@@ -1,0 +1,86 @@
+<template>
+    <!-- DVM21-30 : Start -->
+    <template if:true={_isShowFilters}>
+        <div class="slds-m-bottom_xx-small filtersHeader">
+            <p class="filter-title">
+                <span>{labels.filters}</span><span if:false={_isMobile}><img class="slds-m-left_medium float-right" src={_filterIconForMobile} /> </span>
+                <span if:true={_isMobile}>
+                    <button
+                        class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse float-right slds-m-top_x-small"
+                        onclick={closeFiltersPopup}
+                    >
+                        <lightning-icon icon-name="utility:close" alternative-text="close" size="small"></lightning-icon>
+                    </button>
+                </span>
+            </p>
+        </div>
+
+        <lightning-accordion
+            allow-multiple-sections-open
+            onsectiontoggle={handleSectionToggle}
+            class="slds-border_top accordion-parent"
+            active-section-name={activeSections}
+        >
+            <template for:each={facets} for:item="facet">
+                <lightning-accordion-section name={facet.id} label={facet.displayName} key={facet.id}>
+                    <template if:false={facet.isColorFilter}>
+                        <template for:each={facet.displayValues} for:item="filter">
+                            <li key={filter.id} class="slds-text-body_small slds-truncate" title={filter.displayLabel}>
+                                <!-- radio button -->
+                                <div class="w100 slds-is-relative slds-size_12-of-12 slds-medium-size_11-of-12 slds-large-size_12-of-12">
+                                    <span style="word-wrap: break-word; white-space: break-spaces">
+                                        <input
+                                            type="radio"
+                                            id={filter.id}
+                                            class="radio-custom"
+                                            value={filter.displayLabel}
+                                            data-filter-id={filter.id}
+                                            data-facet-id={facet.id}
+                                            name={filter.displayLabel}
+                                            onclick={handleRadioInputChange}
+                                            checked={filter.checked}
+                                            title={filter.displayLabel}
+                                        />
+
+                                        <label for={filter.id} class="black-color filterValues radio-custom-label">{filter.displayLabel}</label>
+                                    </span>
+                                    <span if:true={filter.showIcon} class="icon-span" key={filter.id}>
+                                        <img class="shape-icon" src={filter.urlValue} />
+                                    </span>
+                                </div>
+                            </li>
+                        </template>
+                        <template if:true={facet.showMoreButton}>
+                            <button class="slds-button show-btn" onclick={showMore}>
+                                {labels.showMore} &nbsp;<lightning-icon icon-name="utility:chevrondown" size="x-small"></lightning-icon>
+                            </button>
+                        </template>
+                        <template if:true={facet.showLessButton}>
+                            <button class="slds-button show-btn" onclick={showLess}>
+                                {labels.showless} &nbsp;<lightning-icon icon-name="utility:chevronup" size="x-small"></lightning-icon>
+                            </button>
+                        </template>
+                    </template>
+                    <template if:true={facet.isColorFilter}>
+                        <c-d2c_-v-t-o_-color-radio-button color-radio-button-data={facet.values} onupdatecolorselection={handleUpdateColorSelection}>
+                        </c-d2c_-v-t-o_-color-radio-button>
+                    </template>
+                </lightning-accordion-section>
+            </template>
+        </lightning-accordion>
+
+        <div onclick={handleClearAll} class="clearAllLink">
+            <img class="slds-m-top_medium" src={_refreshIcon} />
+            <span class="slds-m-top_medium slds-m-left_small"> {labels.resetFilters} </span>
+        </div>
+    </template>
+    <template if:true={_isMobile}>
+        <template if:false={_isShowFilters}>
+            <button onclick={openFiltersPopup} class="border-btn">
+                <span class="filter-title">{labels.filters}</span>
+                <img class="slds-m-left_medium" src={_filterIconForMobile} />
+            </button>
+        </template>
+    </template>
+    <!-- DVM21-30 : End -->
+</template>

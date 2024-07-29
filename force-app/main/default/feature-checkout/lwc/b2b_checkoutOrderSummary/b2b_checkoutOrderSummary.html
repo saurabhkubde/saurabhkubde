@@ -1,0 +1,48 @@
+<template>
+    <template if:true={accountRecord}>
+        <div>
+            <template if:true={accountRecord}>
+                <div if:false={_isSilhouetteStore}>
+                    <c-b2b_cart-contents
+                        effective-account-id={effectiveAccountId}
+                        record-id={recordId}
+                        page-source={pageSource}
+                        com-id={comId}
+                    ></c-b2b_cart-contents>
+                </div>
+                <div if:true={_isSilhouetteStore}>
+                    <c-b2b_vs_rx_cart_contents
+                        effective-account-id={effectiveAccountId}
+                        record-id={recordId}
+                        page-source={pageSource}
+                        com-id={comId}
+                        onfreeproductscount={handleTotalPrice}
+                    ></c-b2b_vs_rx_cart_contents>
+                </div>
+            </template>
+            <div class="slds-text-align_right totalTitle slds-p-top_medium slds-p-bottom_large" if:false={hidePurchasePriceField}>
+                {labels.total}&nbsp;<lightning-formatted-number
+                    class="slds-p-right_medium"
+                    format-style="currency"
+                    currency-code={prices.currencyIsoCode}
+                    currency-display-as="symbol"
+                    maximum-fraction-digits="2"
+                    value={prices.finalPrice}
+                ></lightning-formatted-number>
+            </div>
+        </div>
+    </template>
+
+    <div class="slds-grid slds-wrap">
+        <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12 mb-center">
+            <div class="slds-align_left slds-float_left slds-m-vertical_x-small">
+                <lightning-icon class="button-icon" icon-name="utility:chevronleft" size="x-small" alternative-text="left" onclick={goBack}></lightning-icon>
+                <button type="button" data-id="goBackBtn" class="slds-m-left_xx-small button" onclick={backToCart}>{labels.backButton}</button>
+                <!-- BS-1691 Updated onClick method-->
+            </div>
+        </div>
+        <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12 mb-center">
+            <button class="slds-float_right buttonStyle commerce-button uppercase" onclick={orderConfirmation}>{labels.sendOrder}</button>
+        </div>
+    </div>
+</template>

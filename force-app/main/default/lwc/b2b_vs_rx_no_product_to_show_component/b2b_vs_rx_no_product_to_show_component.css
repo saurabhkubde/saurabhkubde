@@ -1,0 +1,15 @@
+.noProduct {
+    text-align: center;
+    width: 60%;
+}
+.noSearchResult {
+    text-align: center;
+    width: 70%;
+}
+
+/* Phone screens */
+@media only screen and (max-width: 47.9375em) {
+    .noSearchResult {
+        width: 100%;
+    }
+}

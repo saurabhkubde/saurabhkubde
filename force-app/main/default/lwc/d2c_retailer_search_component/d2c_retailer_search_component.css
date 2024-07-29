@@ -1,0 +1,10 @@
+.map {
+    height: 85vh;
+    border: 0px;
+    outline: none;
+    width: 100%;
+}
+
+.spinnerStyling {
+    background-color: rgba(255, 255, 255, 0.75) !important;
+}

@@ -1,0 +1,59 @@
+<template>
+    <template if:true={_showNBAccountClosed}>
+        <section role="dialog" tabindex="-1" aria-modal="true" aria-labelledby="modal-heading-01" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container modal-max-width">
+                <div class="slds-modal__content slds-p-around_small" id="account-lock-modal-content">
+                    <div class="slds-m-vertical_small slds-is-relative">
+                        <button
+                            class="slds-button slds-p-bottom_large slds-button_icon slds-modal__close slds-button_icon-inverse slds-float_right close-button"
+                            title="Close"
+                            onclick={handleCloseModal}
+                        >
+                            <img src={_closeIcon} />
+                        </button>
+                    </div>
+                    <div class="text-align-center slds-m-top_x-large slds-p-around_small">{_showAccountClosedLabel}</div>
+                </div>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+    <!-- BS-1714 : Show only if CCS modal closed-->
+    <div if:false={_showCCSModal}>
+        <div if:false={_showNBAccountClosed}>
+            <template if:true={_showModal}>
+                <template if:true={_showAccountLock}>
+                    <c-b2b_account-lock-popup page-source={pageSource} effective-account-id={effectiveAccountId} ondoshowpopup={handleAccountLockPopup}>
+                    </c-b2b_account-lock-popup>
+                </template>
+                <template if:true={_showSurvey}>
+                    <c-b2b_survey-container page-source={pageSource} effective-account-id={effectiveAccountId}> </c-b2b_survey-container>
+                </template>
+            </template>
+        </div>
+    </div>
+    <!-- BS-1714 : Modal for CCS-->
+    <template if:true={showModalSHEE}>
+        <section role="dialog" tabindex="-1" aria-modal="true" aria-labelledby="modal-heading-01" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container modal-max-width">
+                <div class="slds-modal__content slds-p-around_small" id="SH-account-lock-modal-content">
+                    <div class="slds-m-vertical_small slds-is-relative">
+                        <button
+                            class="slds-button slds-p-bottom_large slds-button_icon slds-modal__close slds-button_icon-inverse slds-float_right close-button"
+                            title="Close"
+                            onclick={handleCloseModal}
+                        >
+                            <img src={_closeIcon} />
+                        </button>
+                    </div>
+                    <div class="text-align-center slds-m-top_x-large slds-p-around_small">{_ccsCloseLabel}</div>
+                    <!--BS-1953-->
+                    <div class="slds-form-element slds-col slds-var-m-top_small slds-p-right_x-large slds-p-bottom_medium">
+                        <lightning-input label={modalHideLabel} class="homeCheckbox" type="checkbox" onchange={handleCheckboxChange}> </lightning-input>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+</template>

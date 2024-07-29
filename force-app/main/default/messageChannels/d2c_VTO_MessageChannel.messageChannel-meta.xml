@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<LightningMessageChannel xmlns="http://soap.sforce.com/2006/04/metadata">
+    <masterLabel>D2C_VTO_MessageChannel</masterLabel>
+    <isExposed>true</isExposed>
+    <description>This Message Channel is to be used in d2c VTO context.</description>
+    <lightningMessageFields>
+        <fieldName>sessionId</fieldName>
+        <description>sessionId of the created session</description>
+    </lightningMessageFields>
+</LightningMessageChannel>

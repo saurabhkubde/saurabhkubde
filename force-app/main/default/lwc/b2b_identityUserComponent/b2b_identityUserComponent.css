@@ -1,0 +1,12 @@
+.required {
+    color: red;
+}
+
+.helpText {
+    position: absolute;
+    top: 5px;
+    padding: 0px 5px;
+}
+.postion-relative {
+    position: relative;
+}

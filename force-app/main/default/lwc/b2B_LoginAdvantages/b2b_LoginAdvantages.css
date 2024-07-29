@@ -1,0 +1,24 @@
+.textStyle {
+    padding-left: 10px;
+}
+
+.silhouetteText {
+    font-size: 15px;
+    text-align: center;
+}
+
+.stockIcon {
+    height: 18px;
+    width: 18px;
+    border-radius: 50%;
+    display: inline-block;
+    margin: 3px;
+    background-repeat: no-repeat !important;
+    background-position: 50% !important;
+    margin-top: 0px;
+}
+
+.stock-div {
+    display: inline-block;
+    vertical-align: middle;
+}

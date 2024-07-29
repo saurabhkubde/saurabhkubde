@@ -1,0 +1,153 @@
+<template>
+    <div class="cart-heading">
+        <img class="cartIcon" src={_cartBlackLogo} />
+        {cartHeading}
+    </div>
+    <template for:each={products} for:item="cartItem">
+        <div key={cartItem} class="slds-grid slds-wrap product-card">
+            <div class="slds-col slds-small-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_4-of-12 margin-auto width-22">
+                <div if:true={_isMobileDevice} class="slds-grid slds-wrap">
+                    <div class="slds-size_8-of-12">
+                        <div class="item-name">{cartItem.name}</div>
+                        <div class="model-name">{cartItem.modelName}</div>
+                    </div>
+
+                    <div class="wishlistStyling slds-size_4-of-12">
+                        <!-- NBD2C-78 : Added data-cart-id={cartItem.Id} onclick={handleRemoveCartItem} -->
+                        <img src={_deleteIcon} alt={_removeLabel} class="delete-icon" data-cart-id={cartItem.Id} onclick={handleRemoveCartItem} />
+                        <img src={_wishlistIconBlack} alt={_wishListLabel} class="wishlist-icon" />
+                    </div>
+                </div>
+                <div class="product-image">
+                    <img src={cartItem.pictureLink} alt="Product Image" />
+                </div>
+            </div>
+            <div class="slds-col slds-small-size_1-of-1 slds-medium-size_7-of-12 slds-large-size_6-of-12 width-56">
+                <div if:false={_isMobileDevice}>
+                    <div class="item-name">{cartItem.name}</div>
+                    <div class="model-name">{cartItem.modelName}</div>
+                </div>
+
+                <div if:true={cartItem.frameColorDescription} class="item-color slds-grid slds-wrap">
+                    <div class="label-span slds-size_5-of-12 slds-medium-size_6-of-12 slds-large-size_5-of-12">{_frameColorLabel}</div>
+                    <div class="value-span slds-size_7-of-12 slds-medium-size_6-of-12 slds-large-size_7-of-12">{cartItem.frameColorDescription}</div>
+                </div>
+                <div if:true={cartItem.size} class="item-size slds-grid slds-wrap">
+                    <div class="label-span slds-size_5-of-12 slds-medium-size_6-of-12 slds-large-size_5-of-12">{_sizeLabel}</div>
+                    <div class="value-span slds-size_7-of-12 slds-medium-size_6-of-12 slds-large-size_7-of-12">{cartItem.size} mm</div>
+                </div>
+
+                <div if:true={_isMobileDevice} class="item-size slds-grid slds-wrap">
+                    <div class="label-span slds-size_5-of-12">{_quantityLabel}</div>
+                    <div class="value-span slds-size_7-of-12">
+                        <table class="quantity-width">
+                            <tr>
+                                <td>
+                                    <div>
+                                        <input
+                                            data-id={cartItem.Id}
+                                            data-product-id={cartItem.productId}
+                                            type="button"
+                                            value="-"
+                                            class="button-minus-class"
+                                            data-field="quantity"
+                                            disabled={cartItem.disableMinusButton}
+                                            data-quantity={cartItem.quantity}
+                                            onclick={manipulateQuantity}
+                                        />
+                                    </div>
+                                </td>
+                                <td class="align-text-align_center quantity-container quantity-field">{cartItem.quantity}</td>
+                                <td>
+                                    <div>
+                                        <input
+                                            type="button"
+                                            value="+"
+                                            class="button-plus"
+                                            data-field="quantity"
+                                            data-id={cartItem.Id}
+                                            data-product-id={cartItem.productId}
+                                            data-quantity={cartItem.quantity}
+                                            onclick={manipulateQuantity}
+                                        />
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="item-price">
+                    <p if:true={isClickAndCollect} class="srp-text">{_SRPLabel}*</p>
+                    <lightning-formatted-number
+                        class="pricing-details"
+                        value={cartItem.totalPrice}
+                        format-style="currency"
+                        currency-code={cartItem.currencyIsoCode}
+                        currency-display-as="code"
+                    ></lightning-formatted-number>
+                </div>
+                <div if:false={_isMobileDevice} class="item-size slds-grid slds-wrap add-remove">
+                    <div class="label-span slds-size_5-of-12 slds-medium-size_6-of-12 slds-large-size_5-of-12">{_wishListLabel}</div>
+                    <!-- NBD2C-78 : Added data-cart-id={cartItem.Id} onclick={handleRemoveCartItem} -->
+                    <div
+                        class="value-span slds-size_7-of-12 slds-medium-size_6-of-12 slds-large-size_7-of-12 remove-button"
+                        data-cart-id={cartItem.Id}
+                        onclick={handleRemoveCartItem}
+                    >
+                        {_removeLabel}
+                    </div>
+                </div>
+            </div>
+            <div if:false={_isMobileDevice} class="slds-col slds-small-size_1-of-1 slds-medium-size_2-of-12 slds-large-size_2-of-12 margin-quantity width-20">
+                <section class="quantity quantity-area align-text-centre">
+                    <div class="slds-text-align_center">
+                        <section class="quantity-label-checkout-mode item-size">{_quantityLabel}</section>
+                        <table class="quantity-width">
+                            <tr>
+                                <td>
+                                    <div>
+                                        <input
+                                            data-id={cartItem.Id}
+                                            data-product-id={cartItem.productId}
+                                            type="button"
+                                            value="-"
+                                            class="button-minus-class"
+                                            data-field="quantity"
+                                            disabled={cartItem.disableMinusButton}
+                                            data-quantity={cartItem.quantity}
+                                            onclick={manipulateQuantity}
+                                        />
+                                    </div>
+                                </td>
+                                <td class="align-text-align_center quantity-container quantity-field">{cartItem.quantity}</td>
+                                <td>
+                                    <div>
+                                        <input
+                                            type="button"
+                                            value="+"
+                                            class="button-plus"
+                                            data-field="quantity"
+                                            data-id={cartItem.Id}
+                                            data-product-id={cartItem.productId}
+                                            data-quantity={cartItem.quantity}
+                                            onclick={manipulateQuantity}
+                                        />
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </template>
+    <div if:true={_showModal}>
+        <c-d2c_common-modal
+            label={_maxproductsLabel}
+            size="small"
+            primary-action-label={_closeButtonLabel}
+            onprimaryactionclick={handleModalCloseAction}
+            onsecondaryactionclick={handleModalCloseAction}
+        ></c-d2c_common-modal>
+    </div>
+</template>

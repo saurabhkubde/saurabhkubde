@@ -1,0 +1,50 @@
+.icon-color {
+    background-color: black;
+}
+
+.icon-alignment {
+    margin-top: auto;
+    margin-bottom: 5px;
+}
+/* Small form factor: devices smaller than tablet (i.e. the SLDS mqSmall responsive threshold)*/
+@media only screen and (max-width: 47.9375em) {
+    .footerPadding {
+        margin-bottom: 8%;
+    }
+}
+
+@media only screen and (max-width: 48em) {
+    .footerPadding {
+        margin-bottom: 8%;
+    }
+    .language-switcher {
+        margin-bottom: 30px;
+    }
+    .customercontact-link {
+        text-align: center !important;
+        margin-bottom: 20px;
+    }
+}
+
+.silhouetteText {
+    font-size: 15px;
+    text-align: center;
+    color: black;
+}
+
+.silhouetteText :hover {
+    color: black;
+}
+
+.login-advantage {
+    background: #f9f9f9 !important;
+}
+
+.login-advantage-text {
+    width: 100%;
+    display: contents;
+    font-size: 15px;
+}
+.customercontact-link {
+    text-align: left;
+}

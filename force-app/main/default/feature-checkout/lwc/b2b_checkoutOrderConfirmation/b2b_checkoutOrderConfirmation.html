@@ -1,0 +1,34 @@
+<template>
+    <lightning-spinner if:true={_showLoader} class="slds-is-fixed slds-align_absolute-center" variant="brand" size="large"> </lightning-spinner>
+    <template if:false={_showModal}>
+        <div class="slds-wrap slds-m-around_medium slds-p-around_medium slds-align_absolute-center order-success">
+            <div class="slds-col slds-m-bottom_medium slds-align_absolute-center slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-1">
+                <img src={_successIcon} class="close-icon-dememsions" />
+            </div>
+            <div
+                class="font-size-24 slds-col slds-m-bottom_medium slds-text-align_center slds-align_absolute-center slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-1"
+            >
+                {labels.thanksForShopping}
+            </div>
+            <!-- BS-2207 -->
+            <div>
+                <button class="slds-m-bottom_medium slds-align_absolute-center silButton capital min-width" onclick={redirectToOrderHistory}>
+                    {labels.goToOrderHistory}
+                </button>
+            </div>
+            <div>
+                <button class="slds-align_absolute-center silButton capital min-width" onclick={redirectToHome}>{labels.continueShopping}</button>
+            </div>
+            <!-- BS-2207 -->
+        </div>
+    </template>
+    <template if:true={_showModal}>
+        <c-b2b_survey-container
+            effective-account-id={effectiveAccountId}
+            page-source={_checkoutPageSource}
+            onsurveyclose={handleSurveyClosing}
+            onsurveyload={handleSurveyLoading}
+        >
+        </c-b2b_survey-container>
+    </template>
+</template>

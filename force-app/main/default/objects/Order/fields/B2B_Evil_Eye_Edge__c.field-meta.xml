@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>B2B_Evil_Eye_Edge__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>This field stores the mapping for selection of evil eye edge from RX configurator.</description>
+    <externalId>false</externalId>
+    <label>Evil Eye Edge</label>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

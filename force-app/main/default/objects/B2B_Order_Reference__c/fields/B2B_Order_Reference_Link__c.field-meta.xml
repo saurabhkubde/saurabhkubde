@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>B2B_Order_Reference_Link__c</fullName>
+    <description>Holds the actual link to any Order related document e.g. tracking link.</description>
+    <externalId>false</externalId>
+    <label>B2B Order Reference Link</label>
+    <required>true</required>
+    <trackTrending>false</trackTrending>
+    <type>Url</type>
+</CustomField>

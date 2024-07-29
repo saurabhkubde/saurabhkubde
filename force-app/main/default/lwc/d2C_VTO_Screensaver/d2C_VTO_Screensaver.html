@@ -1,0 +1,109 @@
+<template>
+    <!-- DVM21-14 : Creation of screen saver page for VTO/POS : Start -->
+    <div>
+        <!-- Conditional rendering for single video playback and logo : Start -->
+        <template if:true={_singleVideoToPlay}>
+            <!-- Render a single video element : Start -->
+            <video
+                full
+                loop
+                autoplay
+                muted
+                playsinline
+                disablepictureinpicture
+                data-link={_currentRedirectionUrl}
+                onclick={handleClick}
+                style={_videoStyleWithoutGreyScaled}
+            >
+                <!-- Source of the video : Start-->
+                <source src={_currentVideoUrl} type={_currentVideoType} />
+                <!-- Source of the video : End -->
+            </video>
+            <!-- Render a single video element : End -->
+            <!-- logo section : Start -->
+            <div style={_logoStyle}>
+                <!-- Inner div with style : Start -->
+                <div style={_imageStyle}>
+                    <!-- Image element with dynamic src : Start -->
+                    <img src={_currentLogo} data-link={_currentRedirectionUrl} onclick={handleClick} class="image-size" />
+                    <!-- Image element with dynamic src : End -->
+                </div>
+                <!-- Inner div with style : End -->
+            </div>
+            <!-- logo section : End -->
+        </template>
+        <!-- Conditional rendering for single video playback and logo: End -->
+
+        <!-- Conditional rendering for multiple videos playback and logos : Start -->
+        <template if:false={_singleVideoToPlay}>
+            <!--Iterate over each video : Start-->
+            <template for:each={_brandUrlAndBrandNameList} for:item="video">
+                <!-- Container for each video : Start -->
+                <div key={video} class="slds-grid slds-wrap">
+                    <!-- SLDS grid for wrapping -->
+                    <div class="slds-col">
+                        <!-- SLDS column for single column layout -->
+                        <!-- Render video if it is playing : Start  -->
+                        <video
+                            if:true={video.isPlaying}
+                            full
+                            autoplay
+                            muted
+                            playsinline
+                            disablepictureinpicture
+                            data-index={video.index}
+                            data-link={video.link}
+                            onended={playNextVideo}
+                            class="slds-size_full"
+                            style={_videoStyleWithoutGreyScaled}
+                            onclick={handleClick}
+                        >
+                            <!-- Source of the video : Start -->
+                            <source src={video.videoUrl} type={video.videoType} />
+                            <!-- Source of the video : End -->
+                        </video>
+                        <!-- Render video if it is playing : End  -->
+                        <!-- Render video if it is not playing : Start -->
+                        <video
+                            if:false={video.isPlaying}
+                            full
+                            muted
+                            playsinline
+                            disablepictureinpicture
+                            data-link={video.link}
+                            onclick={handleClick}
+                            class="slds-size_full"
+                            style={_videoStyleWithGreyScaled}
+                        >
+                            <!-- Source of the video : Start -->
+                            <source src={video.videoUrl} type={video.videoType} />
+                            <!-- Source of the video : End -->
+                        </video>
+                        <!-- Render video if it is not playing : End -->
+                    </div>
+                    <!-- Container for each video : End -->
+                </div>
+
+                <!--Iterate over each video : End-->
+            </template>
+
+            <!-- logos section : Start -->
+            <div style={_logoStyle}>
+                <!-- Iterating over _brandUrlAndBrandNameList : Start -->
+                <template for:each={_brandUrlAndBrandNameList} for:item="logo">
+                    <!-- Inner div for each item, with style : Start -->
+                    <div key={logo} style={_imageStyle}>
+                        <!-- Image element with dynamic src : Start -->
+                        <img src={logo.brandLogo} data-link={logo.link} onclick={handleClick} class="image-size" />
+                        <!-- Image element with dynamic src : End -->
+                    </div>
+                    <!-- Inner div for each item, with style : End -->
+                </template>
+                <!-- Iterating over _brandUrlAndBrandNameList : End -->
+            </div>
+            <!-- logos section : End -->
+        </template>
+        <!-- Conditional rendering for multiple videos playback and logos : End -->
+    </div>
+    <!-- DVM21-14 : Creation of screen saver page for VTO/POS : End -->
+</template>

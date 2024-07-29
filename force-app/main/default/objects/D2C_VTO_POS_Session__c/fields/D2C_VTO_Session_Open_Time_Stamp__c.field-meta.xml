@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>D2C_VTO_Session_Open_Time_Stamp__c</fullName>
+    <description>This field helps to identify at what time the POS Session was created with Open status</description>
+    <externalId>false</externalId>
+    <label>Session Open Time Stamp</label>
+    <required>true</required>
+    <trackTrending>false</trackTrending>
+    <type>DateTime</type>
+</CustomField>

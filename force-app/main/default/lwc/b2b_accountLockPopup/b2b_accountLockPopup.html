@@ -1,0 +1,21 @@
+<template>
+    <template if:true={_accountLockFlag}>
+        <section role="dialog" tabindex="-1" aria-modal="true" aria-labelledby="modal-heading-01" class="slds-modal slds-fade-in-open accountLockSection">
+            <div class="slds-modal__container modal-max-width">
+                <div class="slds-modal__content slds-p-around_small" id="account-lock-modal-content">
+                    <div class="slds-m-vertical_small slds-is-relative">
+                        <button
+                            class="slds-button slds-p-bottom_large slds-button_icon slds-modal__close slds-button_icon-inverse slds-float_right close-button"
+                            title="Close"
+                            onclick={handleDialogClose}
+                        >
+                            <img src={_closeIcon} />
+                        </button>
+                    </div>
+                    <div class="text-align-center slds-m-top_x-large slds-p-around_small">{_errorMessage}</div>
+                </div>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+</template>

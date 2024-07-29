@@ -1,0 +1,17 @@
+<template>
+    <template for:each={labelIcons} for:item="row">
+        <div
+            class="black-color silhouetteText slds-p-left_small slds-p-right_medium slds-p-bottom_small slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12"
+            key={row.Label}
+        >
+            <div class="stock-div">
+                <table>
+                    <tr>
+                        <td valign="top" style="width: 30px"><img class="stockIcon" src={row.icon} style="width: 20px" /></td>
+                        <td valign="top" class="title-small slds-text-align_left">{row.Label}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </template>
+</template>

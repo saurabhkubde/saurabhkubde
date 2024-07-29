@@ -1,0 +1,20 @@
+<template>
+    <!-- NBD2C-24 : Store Logo Section - Start -->
+    <div if:true={_isReady} class="slds-dropdown-trigger slds-dropdown-trigger_click slds-p-left_medium stylingStoreLogo">
+        <!-- NBD2C-24 : Redirection Anchor Section - End -->
+        <a href={homeURL} onclick={handleClick}>
+            <!-- NBD2C-24 : Store Logo - Start -->
+            <img class="storeLogoStyling" src={_siteLogo} />
+            <!-- NBD2C-24 : Store Logo - End -->
+        </a>
+        <!-- NBD2C-24 : Redirection Anchor Section - End -->
+    </div>
+    <!-- NBD2C-24 : Store Logo Section - End -->
+    <!-- DVM21-31 : Hide certain UI aspects from NBD2C Store when opened in VTO/POS mode : Start -->
+    <div if:false={_isReady} class="slds-dropdown-trigger slds-dropdown-trigger_click slds-p-left_medium stylingStoreLogo">
+        <!-- DVM21-31 : Store Logo - Start -->
+        <img class="storeLogoStyling" src={_siteLogo} />
+        <!-- DVM21-31 : Store Logo - End-->
+    </div>
+    <!-- DVM21-31 : Hide certain UI aspects from NBD2C Store when opened in VTO/POS mode : End -->
+</template>

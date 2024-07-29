@@ -1,0 +1,352 @@
+<template>
+    <!-- Component Loading Section Start -->
+    <lightning-spinner if:true={_isLoading} class="slds-is-fixed slds-align_absolute-center" variant="brand" size="medium"> </lightning-spinner>
+    <!-- Component Loading Section End -->
+
+    <div class="calculateLensContainerStyling">
+        <!-- BS-727 : Datatable and Lens Image Section Start-->
+        <div if:true={_initialLoadComplete} class="slds-m-top_xx-large">
+            <!-- Title Section for Edit Mode -->
+            <div if:false={_isReadOnly} class="title slds-border_bottom">
+                <div class="headerStyling slds-p-bottom_small">{_headerLabel}</div>
+            </div>
+            <!-- Title Section for Edit Mode -->
+
+            <!-- Title Section for Read Only Mode -->
+            <div if:true={_isReadOnly} class="slds-grid slds-wrap">
+                <div class="title slds-border_bottom slds-p-vertical_medium slds-m-bottom_small">
+                    <div class="calculateLensTitle">{_headerLabel}</div>
+                    <!-- BS-1244 : In Summary mode, hiding edit icon -->
+                    <div if:false={sourceFromMyVSRX} class="editIcon">
+                        <!-- Passing width and height specifications into HTML attributes instead of passing into CSS class as it's a optimized way -->
+                        <img src={editIcon.icon} onclick={handleEditButton} width="20" height="20" />
+                    </div>
+                </div>
+            </div>
+
+            <!-- BS-1034 : Added Schneider Callout Failure user friendly response message-->
+            <div if:true={schneiderCalloutFailed} class="error-background">
+                <lightning-formatted-rich-text value={responseMessage}></lightning-formatted-rich-text>
+            </div>
+            <!-- BS-1034 : Added Schneider Callout Failure user friendly response message-->
+            <!-- Title Section for Read Only Mode -->
+
+            <!-- BS-1248 : Added  if:true={_firstScreenValidated} -->
+            <div if:true={_firstScreenValidated}>
+                <!--Datatable Section Start-->
+                <div class="table-horizontal-scroll centering-data-table">
+                    <table aria-multiselectable="true" role="grid" aria-label="">
+                        <!-- Columns Section Start -->
+                        <thead class="border-bottom">
+                            <!-- Column Name -->
+                            <tr class="border-bottom slds-line-height_reset">
+                                <th class="emptyColumnStyling" scope="col">
+                                    <span class="columnStyling" tabindex="0"></span>
+                                </th>
+                                <template for:each={_calculateLensFieldsCollection} for:item="instance">
+                                    <th key={instance.name} if:true={instance.isNormalColumn} class="border-bottom" scope="col">
+                                        <span class="columnStyling" tabindex="0" name={instance.name} title={instance.label}>{instance.name}</span>
+                                    </th>
+                                </template>
+                                <template if:false={_isEvilEdgeApplicable} for:each={_calculateLensFieldsCollection} for:item="instance">
+                                    <th key={instance.name} if:true={instance.isAdjustedColumns} class="border-bottom" scope="col">
+                                        <span class="columnStyling" tabindex="0" name={instance.name} title={instance.label}>{instance.name}</span>
+                                    </th>
+                                </template>
+                                <template if:true={_isEvilEdgeApplicable} for:each={_calculateLensFieldsCollection} for:item="instance">
+                                    <th key={instance.name} if:true={instance.isWithEvilEyeEdgeColumns} class="border-bottom" scope="col">
+                                        <span
+                                            if:false={_isEvilEyeEdgePreSelected}
+                                            class="columnStyling"
+                                            tabindex="0"
+                                            name={instance.name}
+                                            title={instance.label}
+                                            >{instance.name}</span
+                                        >
+                                    </th>
+                                </template>
+                            </tr>
+                        </thead>
+                        <!-- Columns Section Start -->
+
+                        <!-- Table Body & Rows Seciton Start -->
+                        <tbody>
+                            <template for:each={_calculateLensFieldsCollection} for:item="data">
+                                <tr key={data} if:true={data.isRow} class="slds-hint-parent bottom-border">
+                                    <td if:false={_isEvilEdgeApplicable} class="emptyColumnStyling" data-label={data.name}>
+                                        <span> {data.name} </span>
+                                    </td>
+
+                                    <td if:true={_isEvilEdgeApplicable} class="emptyColumnStyling" data-label={data.name}>
+                                        <span if:false={data.isThicknessMatchingCalculatorRow}> {data.name} </span>
+                                    </td>
+
+                                    <!-- Thickness Matching Calculator Right Value -->
+                                    <td if:true={data.isUserInputType} class="emptyColumnStyling" data-label={data.name}>
+                                        <div if:false={_isEvilEdgeApplicable}>
+                                            <div if:true={_isRightLensApplicable} class="maxWidth">
+                                                <lightning-input
+                                                    type="text"
+                                                    class="rightLensInput"
+                                                    pattern="^[0-9]*([.,][0-9]*)?$"
+                                                    variant="label-hidden"
+                                                    data-name="rightLens"
+                                                    value={_thicknessMatchingCalculatorRightValue}
+                                                    onchange={handleUserInput}
+                                                    disabled={_isReadOnly}
+                                                ></lightning-input>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <!-- Thickness Matching Calculator Right Value -->
+
+                                    <!-- Thickness Matching Calculator left Value -->
+                                    <td if:true={data.isUserInputType} if:false={_isEvilEdgeApplicable} class="emptyColumnStyling" data-label={data.name}>
+                                        <div if:false={_isEvilEdgeApplicable}>
+                                            <div if:true={_isLeftLensApplicable} class="maxWidth">
+                                                <lightning-input
+                                                    type="text"
+                                                    class="leftLensInput"
+                                                    pattern="^[0-9]*([.,][0-9]*)?$"
+                                                    variant="label-hidden"
+                                                    data-name="leftLens"
+                                                    value={_thicknessMatchingCalculatorLeftValue}
+                                                    onchange={handleUserInput}
+                                                    disabled={_isReadOnly}
+                                                ></lightning-input>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <!-- Thickness Matching Calculator left Value -->
+
+                                    <td if:false={data.isUserInputType} class="emptyColumnStyling" data-label={data.name}>
+                                        <span> {data.rightLensValue} </span>
+                                    </td>
+
+                                    <td if:false={data.isUserInputType} class="emptyColumnStyling" data-label={data.name}>
+                                        <span> {data.leftLensValue} </span>
+                                    </td>
+
+                                    <!-- Adjust Button -->
+                                    <td if:true={data.isButtonType}>
+                                        <div if:true={data.isAdjustButton}>
+                                            <div if:false={_isEvilEdgeApplicable}>
+                                                <button
+                                                    if:false={_isReadOnly}
+                                                    name="adjust"
+                                                    class="slds-align_absolute-center silButtonInverse capital arial-font customButtonStyling"
+                                                    title={data.adjustButtonLabel}
+                                                    onclick={handleButtonClick}
+                                                >
+                                                    {data.adjustButtonLabel}
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </td>
+
+                                    <!-- Reset Button-->
+                                    <td if:true={data.isButtonType}>
+                                        <div if:true={data.isResetButton}>
+                                            <div if:false={_isEvilEdgeApplicable}>
+                                                <button
+                                                    if:false={_isReadOnly}
+                                                    name="reset"
+                                                    class="slds-align_absolute-center silButtonInverse capital arial-font customButtonStyling"
+                                                    title={data.resetButtonLabel}
+                                                    onclick={handleButtonClick}
+                                                >
+                                                    {data.resetButtonLabel}
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </td>
+
+                                    <td if:false={_isEvilEdgeApplicable} class="emptyColumnStyling" data-label={data.name}>
+                                        <span if:false={data.isButtonType}> {data.adjustedRightLensValue} </span>
+                                    </td>
+
+                                    <td if:false={_isEvilEdgeApplicable} class="emptyColumnStyling" data-label={data.name}>
+                                        <span if:false={data.isButtonType}> {data.adjustedLeftLensValue} </span>
+                                    </td>
+
+                                    <td if:true={_isEvilEdgeApplicable} class="emptyColumnStyling" data-label={data.name}>
+                                        <span if:false={data.isButtonType}> {data.evilEyeEdgeRightValue} </span>
+                                    </td>
+
+                                    <td if:true={_isEvilEdgeApplicable} class="emptyColumnStyling" data-label={data.name}>
+                                        <span if:false={data.isButtonType}> {data.evilEyeEdgeLeftValue} </span>
+                                    </td>
+                                </tr>
+                            </template>
+                        </tbody>
+                    </table>
+                    <!-- Table Body & Rows Seciton End -->
+                </div>
+                <!-- Datatable Section End -->
+
+                <!-- BS-572 Start -->
+                <!-- Normal Images Section Start -->
+                <div if:false={_isEvilEdgeApplicable}>
+                    <div class="slds-grid slds-wrap imageSection">
+                        <!-- Right Lens Image Section -->
+                        <div
+                            if:true={_isRightLensApplicable}
+                            class="slds-col slds-small-size_6-of-12 slds-medium-size_6-of-12 slds-large-size_6-of-12 leftImageStyling"
+                        >
+                            <span class="custom-box">
+                                <img src={_rightImageSRC} />
+                            </span>
+                        </div>
+                        <!-- Right Lens Image Section -->
+
+                        <!-- Left Lens Image Section -->
+                        <div
+                            if:true={_isLeftLensApplicable}
+                            class="slds-col slds-small-size_6-of-12 slds-medium-size_6-of-12 slds-large-size_6-of-12 rightImageStyling"
+                        >
+                            <span class="custom-box">
+                                <img src={_leftImageSRC} />
+                            </span>
+                        </div>
+                        <!-- Left Lens Image Section -->
+                    </div>
+                    <!-- Image Instruction and With evil eye Edge button Section Start-->
+                    <div class="slds-m-bottom_large">
+                        <!-- Image Instruction Section -->
+                        <span class="instrcutionStyling">{_imageInstructionLabel}</span>
+
+                        <!-- With Evil Eye Edge Button Section -->
+                        <span if:false={_isReadOnly}>
+                            <!-- Buttons Section Start -->
+                            <div if:false={_isEvilEyeEdgePreSelected} class="evilEyeEdgeButtonPlacement">
+                                <div if:false={_isEvilEdgeApplicable}>
+                                    <button
+                                        if:true={showEvilEyeEdgeButton}
+                                        name="evileyeEdge"
+                                        class="slds-align_absolute-center silButtonInverse arial-font customButtonStyling evileyeEdgeStyling"
+                                        title={_withEvilEyeEdgeButtonLabel}
+                                        onclick={handleButtonClick}
+                                    >
+                                        {_withEvilEyeEdgeButtonLabel}
+                                    </button>
+                                </div>
+                            </div>
+                            <!-- Buttons Section End -->
+                        </span>
+                    </div>
+                    <!-- Image Instruction and With evil eye Edge button Section End-->
+                </div>
+                <!-- Normal Images Section End -->
+
+                <!-- Lens Images Section after evil eye edge selection Section Start -->
+                <div if:true={_isEvilEdgeApplicable}>
+                    <div if:false={_isEvilEyeEdgePreSelected} class="slds-grid slds-wrap imageSectionEvilEyeEdge">
+                        <!-- Normal Images Section Start -->
+                        <div class="slds-col slds-small-size_12-of-12 slds-medium-size_12-of-12 slds-large-size_6-of-12">
+                            <table>
+                                <tr>
+                                    <!-- Right Image Section -->
+                                    <td if:true={_isRightLensApplicable}>
+                                        <span class="custom-box">
+                                            <img src={_rightImageSRC} />
+                                        </span>
+                                    </td>
+
+                                    <!-- Left Image Section -->
+                                    <td if:true={_isLeftLensApplicable}>
+                                        <span class="custom-box">
+                                            <img src={_leftImageSRC} />
+                                        </span>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <!-- Normal Images Section End -->
+
+                        <!-- Evil Eye Images Section Start -->
+                        <div class="slds-col slds-small-size_12-of-12 slds-medium-size_12-of-12 slds-large-size_6-of-12">
+                            <table>
+                                <tr>
+                                    <!-- Right Image Section -->
+                                    <td if:true={_evilEyeEdgeRightImageSRC}>
+                                        <span class="custom-box">
+                                            <img src={_evilEyeEdgeRightImageSRC} />
+                                        </span>
+                                    </td>
+
+                                    <!-- Left Image Section -->
+                                    <td if:true={_evilEyeEdgeLeftImageSRC}>
+                                        <span class="custom-box">
+                                            <img src={_evilEyeEdgeLeftImageSRC} />
+                                        </span>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <!-- Evil Eye Images Section End -->
+                    </div>
+
+                    <div if:true={_isEvilEyeEdgePreSelected} class="slds-grid slds-wrap imageSection">
+                        <!-- Right Lens Image Section -->
+                        <div
+                            if:true={_isRightLensApplicable}
+                            class="slds-col slds-small-size_6-of-12 slds-medium-size_6-of-12 slds-large-size_6-of-12 leftImageStyling"
+                        >
+                            <span class="custom-box">
+                                <img src={_rightImageSRC} />
+                            </span>
+                        </div>
+                        <!-- Right Lens Image Section -->
+
+                        <!-- Left Lens Image Section -->
+                        <div
+                            if:true={_isLeftLensApplicable}
+                            class="slds-col slds-small-size_6-of-12 slds-medium-size_6-of-12 slds-large-size_6-of-12 rightImageStyling"
+                        >
+                            <span class="custom-box">
+                                <img src={_leftImageSRC} />
+                            </span>
+                        </div>
+                        <!-- Left Lens Image Section -->
+                    </div>
+                    <!-- Image Instruction Section -->
+                    <div class="slds-m-bottom_large">
+                        <span class="instrcutionStyling">{_imageInstructionLabel}</span>
+                    </div>
+                </div>
+                <!-- Lens Images Section after evil eye edge selection Section End -->
+
+                <!-- Evil Eye Edge Checkbox Section Start -->
+                <div if:false={_isReadOnly}>
+                    <div if:false={_isEvilEyeEdgePreSelected} if:true={_isReadOnly}>
+                        <div if:true={_isEvilEdgeApplicable} class="slds-col slds-small-size_12-of-12 slds-medium-size_12-of-12 slds-large-size_12-of-12">
+                            <div class="slds-col instructionStyling">
+                                <img src={evilEyeEdgeIcon} />
+                                <div class="form-group">
+                                    <input
+                                        type="checkbox"
+                                        onchange={handleEvilEyeEdgeSelection}
+                                        checked={_isEvilEdgeApplicable}
+                                        id="evileyeEdgeCheckbox"
+                                        data-id="evileyeEdgeCheckbox"
+                                    />
+                                    <label class="slds-checkbox__label evilEyeEdgeLabel" for="evileyeEdgeCheckbox">
+                                        <span class="slds-checkbox_faux"></span>
+                                        <span class="slds-form-element__label">
+                                            <lightning-formatted-rich-text class="black-color silhouetteText text-medium-nb" value={_evilEyeEdgeCheckboxLabel}>
+                                            </lightning-formatted-rich-text>
+                                        </span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Evil Eye Edge Checkbox Section End -->
+                <!-- BS-572 End -->
+            </div>
+        </div>
+    </div>
+</template>

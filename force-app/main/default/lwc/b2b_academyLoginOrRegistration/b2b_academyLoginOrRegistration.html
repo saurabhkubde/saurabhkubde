@@ -1,0 +1,148 @@
+<template>
+    <div class="academy-container">
+        <div if:true={isFirstScreen}>
+            <div class="title-large">{label.academyTitleContentJoin}</div>
+            <div class="title-small slds-m-vertical_small text-fond">{label.academyClickToProceedContent}</div>
+        </div>
+
+        <div if:true={isSecondScreen}>
+            <div class="title-small">{label.academyRegistrationFormHeadline}</div>
+            <div class="title-large slds-m-vertical_small">{label.academyRegistrationFormTitle}</div>
+
+            <div class="slds-grid slds-wrap slds-gutters">
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_2-of-12 slds-m-top_small">
+                    <lightning-combobox
+                        class="validate inputBtn p2"
+                        label={label.academyRegistrationFormSalutation}
+                        name="salutation"
+                        options={salutationOptions}
+                        onchange={handleSalutationChange}
+                        required
+                    >
+                    </lightning-combobox>
+                </div>
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_5-of-12 slds-m-top_small">
+                    <lightning-input
+                        type="text"
+                        class={_firstNameClassList}
+                        onchange={handleFirstNameChange}
+                        onblur={checkValidation}
+                        label={label.academyRegistrationFormFirstName}
+                        required
+                        field-level-help={label.minThreeCharactersRequiredMessage}
+                    ></lightning-input>
+                    <span if:true={_isFirstNameInValid} class="charLimitException">{label.completeThisField}</span>
+                </div>
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_5-of-12 slds-m-top_small">
+                    <lightning-input
+                        type="text"
+                        class={_lastNameClassList}
+                        onchange={handleLastNameChange}
+                        onblur={checkValidation}
+                        label={label.academyRegistrationFormLastName}
+                        required
+                        field-level-help={label.minThreeCharactersRequiredMessage}
+                    ></lightning-input>
+                    <span if:true={_isLastNameInValid} class="charLimitException">{label.completeThisField}</span>
+                </div>
+            </div>
+
+            <div class="slds-grid slds-wrap slds-gutters slds-p-bottom_large">
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_7-of-12 slds-m-top_small">
+                    <lightning-input
+                        type="email"
+                        class="validate"
+                        onchange={handleEmailAddressChange}
+                        label={label.academyRegistrationFormPersonalEmailAddress}
+                        required
+                    ></lightning-input>
+                </div>
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_5-of-12 slds-m-top_small">
+                    <lightning-combobox
+                        class="validate inputBtn"
+                        label={label.academyRegistrationFormFunction}
+                        name="function"
+                        options={functionOptions}
+                        onchange={handleFunctionChange}
+                        required="true"
+                    >
+                    </lightning-combobox>
+                </div>
+            </div>
+        </div>
+
+        <div if:true={proceedButttonShow} class="slds-col slds-var-p-top_small">
+            <button class="silButton small-button silButtonInverse capital" onclick={handleProceed}>{label.academyProceedButton}</button>
+        </div>
+
+        <span if:true={isSecondScreen}><hr /></span>
+        <div if:true={isSecondScreen} class="title-small">
+            <lightning-formatted-rich-text value={label.academyRegistrationFormFooter}> </lightning-formatted-rich-text>
+        </div>
+
+        <template if:true={isThirdScreen}>
+            <div class="title-large">{label.academyRegistrationFormSuccessTitle}</div>
+            <div class="slds-wrap slds-m-around_medium slds-p-around_medium slds-align_absolute-center order-success">
+                <div class="slds-col slds-m-bottom_medium slds-align_absolute-center slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-1">
+                    <img src={_successIcon} class="close-icon-dememsions" />
+                </div>
+                <div
+                    class="font-size-24 slds-col slds-m-bottom_medium slds-text-align_center slds-align_absolute-center slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-1"
+                >
+                    {label.academyRegistrationFormSuccessThank}
+                </div>
+                <div
+                    class="slds-col title-small slds-m-bottom_medium slds-text-align_center slds-align_absolute-center slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-1"
+                >
+                    {label.academyRegistrationFormSuccessMessage}
+                </div>
+            </div>
+        </template>
+        <template if:true={isFourthScreen}>
+            <div class="title-large">{label.academyTitleContentJoin}</div>
+            <div class="slds-wrap slds-m-around_medium slds-p-around_medium slds-align_absolute-center">
+                <div
+                    class="slds-col slds-m-bottom_medium slds-align_absolute-center slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-1 grayedBackground"
+                >
+                    {label.academyRegistrationChooseContactMessage}
+                </div>
+                <div class="slds-col slds-m-bottom_medium slds-align_absolute-center slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-1">
+                    <table class="slds-table slds-align_absolute-center">
+                        <tbody>
+                            <template for:each={contactList} for:item="contact">
+                                <tr key={contact.Id}>
+                                    <td>
+                                        <div class="circle">
+                                            <img src={_contactIcon} alt={Contact} class="contactIcon" />
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <a data-id={contact.Id} data-name={contact.Name} onclick={handleContactClick}>
+                                            <div class="slds-truncate font_14" title="Contact Name">{contact.Name}</div>
+                                        </a>
+                                        <hr class="seperator" />
+                                        <div class="slds-truncate font_14" title="Contact Email">{contact.Email}</div>
+                                    </td>
+                                </tr>
+                            </template>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="slds-col slds-align_absolute-center slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-1 grayedBackground">
+                    <lightning-formatted-rich-text value={label.noContactfoundlabelPart1}> </lightning-formatted-rich-text>
+                </div>
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-1 grayedBackground max_width">
+                    <lightning-formatted-rich-text value={label.noContactfoundlabelPart2}> </lightning-formatted-rich-text>
+                </div>
+            </div>
+
+            <div class="slds-col slds-var-p-top_small">
+                <button class="silButton small-button silButtonInverse capital" onclick={handleProceed}>{label.startJourneyButtonLabel}</button>
+            </div>
+            <span><hr /></span>
+            <div class="title-small">
+                <lightning-formatted-rich-text value={label.academyRegistrationFormFooter}> </lightning-formatted-rich-text>
+            </div>
+        </template>
+    </div>
+</template>

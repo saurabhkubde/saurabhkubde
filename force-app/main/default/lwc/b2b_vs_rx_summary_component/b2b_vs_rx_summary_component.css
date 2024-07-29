@@ -1,0 +1,553 @@
+.heading-styling {
+    font-size: 16px;
+    margin-bottom: 20px;
+    font-weight: 500;
+    border-bottom: solid 1px #c9c9c9;
+    padding: 10px 0px;
+    margin-top: 10px;
+}
+
+.title {
+    width: 100%;
+}
+
+.custom {
+    color: #000000;
+    box-shadow: none;
+    border: none;
+    border-bottom: 1px solid #c9c9c9;
+    width: 90%;
+    padding: 6px 0px;
+    font-size: 14px;
+    font-weight: 500;
+}
+.custom-border-none {
+    border: 0px !important;
+}
+
+.frame-img {
+    max-height: 500px;
+    text-align: center;
+    margin: auto;
+}
+.frame-img img {
+    max-width: 100%;
+    max-height: 500px;
+}
+
+.rxReadOnlyScreen {
+    width: 100% !important;
+    margin-bottom: 20px;
+}
+
+.filterRadioButton {
+    width: 14px;
+}
+
+.filterValues {
+    font-weight: 300;
+}
+
+input[type='radio'] {
+    -webkit-transform: scale(1.5);
+    transform: scale(1.5);
+    margin-right: 5px;
+    vertical-align: middle;
+    accent-color: black;
+}
+
+.linkout {
+    --slds-c-icon-color-foreground-default: #000 !important;
+}
+.link-container {
+    margin: 10px auto !important;
+}
+.linkoutText {
+    color: #5d5d5d !important;
+    font-size: 14px;
+    float: left;
+    margin-bottom: 10px;
+}
+
+.centering-data-container {
+    font-size: 14px;
+}
+
+.centering-data-container .centering-table {
+    max-width: 400px;
+}
+.centering-data-container .centering-table tr td:first-child {
+    text-align: left;
+    width: 150px;
+    min-width: 85px; /*BS-726 : Handled Mobile and Tablet view*/
+}
+.centering-data-container .centering-table tr td {
+    max-width: 200px;
+    padding: 10px 10px;
+    text-align: center;
+    vertical-align: top;
+}
+.centering-data-container .centering-table td h5 {
+    font-size: 16px;
+    font-weight: 500;
+    word-wrap: break-word;
+}
+
+/*BS-726 : Handled Mobile and Tablet view*/
+.centering-data-container .centering-table-secondary {
+    max-width: 400px;
+    margin-top: 30px;
+}
+.centering-data-container .centering-table-secondary tr td:first-child {
+    text-align: left;
+    width: 150px;
+    min-width: 85px;
+}
+.centering-data-container .centering-table-secondary tr td {
+    max-width: 200px;
+    padding: 6px 10px;
+    text-align: center;
+    vertical-align: top;
+}
+.centering-data-container .centering-table-secondary td h5 {
+    font-size: 16px;
+    font-weight: 500;
+    word-wrap: break-word;
+}
+/*BS-726 : Handled Mobile and Tablet view*/
+
+.centering-data-container .border-input {
+    width: 100px;
+    text-align: center;
+}
+
+.centering-data-container .slds-input {
+    padding: 6px !important;
+    text-align: center;
+    border: solid 1px #ddd;
+}
+
+.infoicon {
+    width: 15px !important;
+    transition: transform 0.2s;
+    cursor: pointer;
+}
+
+.centering-data-container .prescriptionValue {
+    border-collapse: separate;
+    border-spacing: 2px;
+}
+
+.centering-data-container .th-heading {
+    text-align: center;
+    width: 50px;
+    background-color: #d4d4d4;
+    padding: 5px;
+}
+
+.text-heading {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.text-value {
+    font-size: 14px;
+    font-weight: 300;
+}
+
+.section-title {
+    float: left;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+input[type='radio'] {
+    accent-color: #000;
+    display: inline;
+    margin: 8px;
+    vertical-align: middl;
+}
+
+.validationStyling {
+    justify-content: center;
+    border: 1px solid #ea001e;
+    width: 95%;
+    height: 33px;
+    align-items: center;
+    display: flex;
+    font-size: 14px;
+    color: #ea001e;
+    font-weight: 400;
+}
+
+/*BS-726 : Handled Mobile and Tablet view*/
+@media only screen and (max-width: 330px) {
+    .centering-data-container .centering-table-secondary tr td {
+        max-width: 150px !important;
+        padding: 9px 3px;
+    }
+
+    .centering-data-container .centering-table tr td {
+        max-width: 50px;
+        padding: 9px 3px;
+    }
+}
+
+/* Start BS-1055*/
+.orderInformationIcon {
+    float: right;
+    cursor: pointer;
+}
+.data-block {
+    display: none !important;
+}
+/* End BS-1055*/
+
+/* BS-1065 */
+.imgPad {
+    padding: 20px;
+    width: 100%;
+}
+.imgPad img {
+    width: 80%;
+    margin: auto;
+    text-align: center;
+    display: block;
+}
+.centeringDataImage {
+    text-align: center;
+}
+.centeringDataImage img {
+    width: 65%;
+    margin: auto;
+    text-align: center;
+    display: block;
+}
+
+.termsConditionCheckbox {
+    font-size: 14px;
+    color: red;
+    padding: 12px 0px;
+}
+
+.checkboxPos {
+    float: left;
+    padding: 17px 0px 39px 10px;
+    margin-top: -4px;
+}
+
+.backgroundCheckbox {
+    background-color: #e6c3c3;
+    margin: 20px;
+}
+
+.errorValidationStyling {
+    width: 95%;
+    height: 33px;
+    font-size: 14px;
+    color: #ea001e;
+    font-weight: 400;
+    padding-left: 29px;
+}
+
+*:focus {
+    outline: none;
+}
+.font-16 {
+    font-size: 16px;
+    font-weight: 500;
+}
+label {
+    font-size: 12px;
+    font-weight: 300;
+    width: 100%;
+    display: block;
+}
+
+.frame-img-container {
+    width: 100%;
+    float: right;
+    box-sizing: border-box;
+}
+.frame-img-container img {
+    max-height: 400px;
+}
+
+.frame-details-container {
+    width: 100%;
+    float: left;
+    box-sizing: border-box;
+    padding: 6px 0px;
+}
+
+.checkbox-wrap {
+    width: 200px;
+    margin: auto;
+}
+
+.form-group input:checked + label:after {
+    top: 10px !important;
+}
+
+.linkout-table img {
+    min-width: 30px;
+}
+.linkout-table {
+    table-layout: auto;
+    display: block;
+}
+
+.title {
+    width: 100%;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.originalShape {
+    width: 14px;
+    height: 14px;
+    background: #cdcdcd;
+    margin-right: 10px;
+}
+.scaledShape {
+    width: 14px;
+    height: 14px;
+    background: #d8c27c;
+    margin-right: 10px;
+}
+.table-auto {
+    width: auto;
+}
+
+@media screen and (max-width: 767.99px) {
+    .table-auto {
+        width: auto;
+        margin: 20px auto;
+    }
+}
+
+/* The container */
+.container {
+    display: initial;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    font-size: 14px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    font-weight: 300;
+}
+
+/* Hide the browser's default checkbox */
+.container input {
+    position: absolute;
+    opacity: 0;
+    height: 0;
+    width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 18px;
+    width: 18px;
+    background-color: #fff;
+    border: solid 1px #848484;
+    margin-top: 2px;
+}
+
+/* On mouse-over, add a grey background color */
+.container:hover input ~ .checkmark {
+    border: solid 1px #848484;
+}
+
+/* When the checkbox is checked, add a blue background */
+.container input:checked ~ .checkmark {
+    background-color: #fff;
+    border: solid 1px #848484;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+    content: '';
+    position: absolute;
+    display: none;
+}
+
+/* Show the checkmark when checked */
+.container input:checked ~ .checkmark:after {
+    display: block;
+}
+
+/* Style the checkmark/indicator */
+.container .checkmark:after {
+    left: 6px;
+    top: 1px;
+    width: 5px;
+    height: 10px;
+    border: solid #000;
+    border-width: 0 1px 1px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+.shapeEditorHeader {
+    font-size: 22px;
+}
+
+.shapeEditorSubHeaderTextStyling {
+    font-size: 16px;
+}
+
+@media only screen and (max-width: 360px) {
+    .container {
+        max-width: 138px !important;
+    }
+}
+
+.customRadioButtonStyling {
+    margin-bottom: 10px !important;
+}
+
+input[type='radio'] {
+    -webkit-transform: scale(1.5);
+    transform: scale(1.5);
+    margin-right: 5px;
+    vertical-align: middle;
+    accent-color: black;
+}
+
+.accentRingImage {
+    max-width: 280px;
+}
+
+.color-bubble {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.accent_rings_label {
+    font-weight: 300;
+    font-size: 14px;
+}
+
+@media only screen and (max-width: 48em) {
+    .accentRingImage {
+        max-width: 280px;
+        margin: auto;
+    }
+}
+
+@media only screen and (max-width: 64em) and (min-width: 48em) {
+    .accentRingImage {
+        margin-left: 10%;
+    }
+}
+
+.orderInformationSummaryFields {
+    margin-top: 15px;
+    border: none;
+    font-weight: 500;
+    font-size: 14px;
+    margin: none;
+    margin-left: -1px;
+    width: 100%;
+}
+
+.orderInformationSummaryFields:focus-visible {
+    outline: none;
+}
+
+.shapeEditor td {
+    border: solid 1px #d8d8d8;
+    padding: 10px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 500;
+}
+.shapeEditor {
+    margin-top: 10px;
+    max-width: 300px;
+}
+
+.shapeEditor .bg {
+    background: #f4f4f4;
+    font-weight: 300;
+    width: 70px;
+}
+
+.tableauto {
+    width: auto;
+    margin-bottom: 15px;
+}
+
+.glassContainer {
+    width: -webkit-fill-available;
+    max-width: 250px;
+    margin: auto;
+    display: block;
+}
+/* Start BS-1584*/
+.selected-value {
+    font-size: 14px !important;
+    font-weight: 500 !important;
+}
+.selected-header {
+    font-size: 13px !important;
+    font-weight: 300 !important;
+}
+
+.lensSelectionSummaryFields {
+    margin-top: 10px;
+    border: none;
+    font-weight: 500;
+    font-size: 14px;
+    margin: none;
+    margin-left: -1px;
+    width: 100%;
+}
+
+.lensDetails {
+    margin-bottom: 0px !important;
+    margin-top: 5px !important;
+}
+
+.labelView {
+    font-size: 14px;
+    font-weight: 300;
+    margin-bottom: 5px;
+}
+
+.facet-cut-container {
+    text-align: center;
+}
+@media screen and (max-width: 48em) {
+    .facet-cut-container {
+        text-align: left;
+    }
+}
+
+.fnt12 {
+    font-size: 12px;
+}
+.facet-cut-img {
+    max-width: 165px;
+    margin: 0px 0px 20px 0px;
+}
+.facet-cut-label {
+    font-size: 12px;
+    font-weight: 500;
+}
+.baseline {
+    vertical-align: baseline;
+}
+.w-100 {
+    width: 100% !important;
+}

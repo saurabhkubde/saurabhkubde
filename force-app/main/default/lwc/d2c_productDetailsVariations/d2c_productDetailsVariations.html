@@ -1,0 +1,12 @@
+<template>
+    <div class="slds-grid slds-wrap dotContainer">
+        <span class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12 display-flex">
+            <div class="colorBubbleContainer">
+                <template for:each={_productVariationsCollection} for:item="item">
+                    <span key={item.Id} class={item.colorBubbleClass} style={item.colorBubble} data-id={item.Id} onclick={handleColorBubbleSelection}></span>
+                </template>
+            </div>
+            <div class="variationColorName">{_selectedColorName}</div>
+        </span>
+    </div>
+</template>

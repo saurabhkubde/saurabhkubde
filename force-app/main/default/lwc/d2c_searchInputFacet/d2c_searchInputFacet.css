@@ -1,0 +1,43 @@
+.filter-wrapper {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 3px;
+}
+
+.filter-wrapper-multiple {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 3px;
+}
+
+@media screen and (max-width: 1200px) and (min-width: 765px) {
+    .filter-wrapper {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 3px;
+        padding-bottom: 20px;
+        padding-top: 7px;
+    }
+    .filter-wrapper-multiple {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 3px;
+        padding-bottom: 20px;
+        padding-top: 7px;
+    }
+}
+
+@media screen and (max-width: 764px) {
+    .filter-wrapper {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 3px;
+        padding-bottom: 20px;
+        padding-top: 7px;
+    }
+    .filter-wrapper-multiple {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 3px;
+        padding-bottom: 20px;
+        padding-top: 7px;
+    }
+}

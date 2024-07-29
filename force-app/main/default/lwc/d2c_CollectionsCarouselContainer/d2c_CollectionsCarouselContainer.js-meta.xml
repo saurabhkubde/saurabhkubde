@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>59.0</apiVersion>
+    <isExposed>true</isExposed>
+    <masterLabel>D2C Collections Carousel Container</masterLabel>
+    <description>This component is used as a container to render the Collections Carousel on the home page</description>
+    <targets>
+		<target>lightning__RecordPage</target>
+		<target>lightning__HomePage</target>
+		<target>lightningCommunity__Page</target>
+		<target>lightningCommunity__Default</target>
+		<target>lightningCommunity__Page_Layout</target>
+		<target>lightningCommunity__Theme_Layout</target>
+	</targets>
+    <targetConfigs>
+        <targetConfig targets="lightningCommunity__Default">
+            <!--NBD2C-31: START: Fetch Carousel Image heading, Image Link, Navigation link and Translations -->
+			<property name="heading1" label="Heading for tile 1" type="String" placeholder="Heading for tile 1" />
+            <property
+                name="heading1Translation"
+                label="Translation for Heading 1"
+                type="String"
+                placeholder="Enter the Translation for Heading 1"
+                description=" Locale Codes(en,de,es,fr etc.) Example:- de=kollektionen;es=colecciones;"
+            />
+            <property name="carouselImageLink1" label="Mediahub link for Carousel Image 1" type="String" placeholder="Link for the Collection image" />
+            <property name="carouselImageNavigationLink1" label="Collection Page Link" type="String" placeholder="Navigation Link to Collection Page" />
+            <property name="heading2" label="Heading for tile 2" type="String" placeholder="Heading for tile 2" />
+            <property
+                name="heading2Translation"
+                label="Translation for Heading 2"
+                type="String"
+                placeholder="Enter the Translation for Heading 2"
+                description=" Locale Codes(en,de,es,fr etc.) Example:- de=kollektionen;es=colecciones;"
+            />
+            <property name="carouselImageLink2" label="Mediahub link for Carousel Image 2" type="String" placeholder="Link for the Collection image" />
+            <property name="carouselImageNavigationLink2" label="Collection Page Link" type="String" placeholder="Navigation Link to Collection Page" />
+            <property name="heading3" label="Heading for tile 3" type="String" placeholder="Heading for tile 3" />
+            <property
+                name="heading3Translation"
+                label="Translation for Heading 3"
+                type="String"
+                placeholder="Enter the Translation for Heading 3"
+                description=" Locale Codes(en,de,es,fr etc.) Example:- de=kollektionen;es=colecciones;"
+            />
+            <property name="carouselImageLink3" label="Mediahub link for Carousel Image 3" type="String" placeholder="Link for the Collection image" />
+            <property name="carouselImageNavigationLink3" label="Collection Page Link" type="String" placeholder="Navigation Link to Collection Page" />
+            <property name="heading4" label="Heading for tile 4" type="String" placeholder="Heading for tile 4" />
+            <property
+                name="heading4Translation"
+                label="Translation for Heading 4"
+                type="String"
+                placeholder="Enter the Translation for Heading 4"
+                description=" Locale Codes(en,de,es,fr etc.) Example:- de=kollektionen;es=colecciones;"
+            />
+            <property name="carouselImageLink4" label="Mediahub link for Carousel Image 4" type="String" placeholder="Link for the Collection image" />
+            <property name="carouselImageNavigationLink4" label="Collection Page Link" type="String" placeholder="Navigation Link to Collection Page" />
+            <property name="heading5" label="Heading for tile 5" type="String" placeholder="Heading for tile 5" />
+            <property
+                name="heading5Translation"
+                label="Translation for Heading 5"
+                type="String"
+                placeholder="Enter the Translation for Heading 5"
+                description=" Locale Codes(en,de,es,fr etc.) Example:- de=kollektionen;es=colecciones;"
+            />
+            <property name="carouselImageLink5" label="Mediahub link for Carousel Image 5" type="String" placeholder="Link for the Collection image" />
+            <property name="carouselImageNavigationLink5" label="Collection Page Link" type="String" placeholder="Navigation Link to Collection Page" />
+			<property name="heading6" label="Heading for tile 6" type="String" placeholder="Heading for tile 6" />
+            <property
+                name="heading6Translation"
+                label="Translation for Heading 6"
+                type="String"
+                placeholder="Enter the Translation for Heading 6"
+                description=" Locale Codes(en,de,es,fr etc.) Example:- de=kollektionen;es=colecciones;"
+            />
+            <property name="carouselImageLink6" label="Mediahub link for Carousel Image 6" type="String" placeholder="Link for the Collection image" />
+            <property name="carouselImageNavigationLink6" label="Collection Page Link" type="String" placeholder="Navigation Link to Collection Page" />
+            <!--NBD2C-31: END-->
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

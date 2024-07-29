@@ -1,0 +1,26 @@
+<template>
+    <template if:true={filters}>
+        <template if:true={filters.colorData.displayColor}>
+            <div class="sil-ee-colorRadioButton">
+                <ul key={filters.availableFilters.fieldName}>
+                    <li class="slds-p-bottom_x-small slds-truncate" title={filters.availableFilters.fieldName}>
+                        <lightning-formatted-rich-text class="filterValues" value={filters.availableFilters.fieldName}></lightning-formatted-rich-text>
+                    </li>
+                    <li>
+                        <template for:each={filters.colorData.colorsList} for:item="style">
+                            <span
+                                key={style.colorHex}
+                                class="dot"
+                                data-name={filters.availableFilters.sourceProductField}
+                                data-item={style.colorName}
+                                style={style.colorStyle}
+                                title={style.colorLabel}
+                                onclick={handleSelection}
+                            ></span>
+                        </template>
+                    </li>
+                </ul>
+            </div>
+        </template>
+    </template>
+</template>

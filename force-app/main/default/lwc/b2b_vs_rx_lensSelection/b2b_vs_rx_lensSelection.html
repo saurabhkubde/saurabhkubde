@@ -1,0 +1,878 @@
+<template>
+    <lightning-spinner if:true={_isLoading} class="slds-is-fixed slds-align_absolute-center" variant="brand" size="medium"> </lightning-spinner>
+    <div if:true={_isReadOnly} class="slds-p-bottom_small">
+        <div class="slds-grid slds-wrap">
+            <div class="title slds-border_bottom slds-p-vertical_medium slds-m-bottom_small">
+                <div class="lensSelectionTitle">{label.lensSelection}</div>
+
+                <div class="editIcon">
+                    <img src={editIcon.icon} onclick={handleLensSelectionEdit} width="20" height="20" />
+                </div>
+            </div>
+        </div>
+        <!--BS-1584 read only screen -->
+        <template if:true={_isVsScreen} class="slds-m-vertical_x-small">
+            <div if:true={_readOnlySetupDone} class="slds-grid slds-wrap">
+                <div
+                    if:true={lensSelectionReadOnlyCollection.glazingValue}
+                    class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_5-of-12 slds-p-bottom_small"
+                >
+                    <div class="slds-p-bottom_xxx-small selected-header">{label.glazing}</div>
+                    <div class="selected-value">
+                        <!-- Radio Button -->
+                        {lensSelectionReadOnlyCollection.glazingValue}
+                    </div>
+                </div>
+                <div
+                    if:true={lensSelectionReadOnlyCollection.lensType}
+                    class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_5-of-12 slds-p-bottom_small"
+                >
+                    <div class="slds-p-bottom_xxx-small selected-header">{label.lensType}</div>
+                    <div class="selected-value">{lensSelectionReadOnlyCollection.lensType}</div>
+                </div>
+                <div
+                    if:true={lensSelectionReadOnlyCollection.progressionLength}
+                    class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_5-of-12 slds-p-bottom_small"
+                >
+                    <div class="slds-p-bottom_xxx-small selected-header">{label.progressionLength}</div>
+                    <div class="selected-value">{lensSelectionReadOnlyCollection.progressionLength}</div>
+                </div>
+                <!--BS-2014-->
+                <div if:true={lensSelectionReadOnlyCollection.isOpticalGlazing} class="slds-grid slds-wrap slds-col slds-size_1-of-1">
+                    <div
+                        if:true={lensSelectionReadOnlyCollection.lensIndex}
+                        class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_5-of-12 slds-p-bottom_small"
+                    >
+                        <div class="slds-p-bottom_xxx-small selected-header">{label.lensIndex}</div>
+                        <div class="selected-value">{lensSelectionReadOnlyCollection.lensIndex}</div>
+                    </div>
+                    <div
+                        if:true={lensSelectionReadOnlyCollection.lensColor}
+                        class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_5-of-12 slds-p-bottom_small"
+                    >
+                        <div class="slds-p-bottom_xxx-small selected-header">{label.lensColor}</div>
+                        <div class="selected-value">{lensSelectionReadOnlyCollection.lensColor}</div>
+                    </div>
+                </div>
+                <div if:false={lensSelectionReadOnlyCollection.isOpticalGlazing} class="slds-grid slds-wrap slds-col slds-size_1-of-1">
+                    <div
+                        if:true={lensSelectionReadOnlyCollection.lensColor}
+                        class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_5-of-12 slds-p-bottom_small"
+                    >
+                        <div class="slds-p-bottom_xxx-small selected-header">{label.lensColor}</div>
+                        <div class="selected-value">{lensSelectionReadOnlyCollection.lensColor}</div>
+                    </div>
+                    <div
+                        if:true={lensSelectionReadOnlyCollection.lensIndex}
+                        class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_5-of-12 slds-p-bottom_small"
+                    >
+                        <div class="slds-p-bottom_xxx-small selected-header">{label.lensIndex}</div>
+                        <div class="selected-value">{lensSelectionReadOnlyCollection.lensIndex}</div>
+                    </div>
+                </div>
+                <div
+                    if:true={lensSelectionReadOnlyCollection.photoSensation}
+                    class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_5-of-12 slds-p-bottom_small"
+                >
+                    <div class="slds-p-bottom_xxx-small selected-header">{label.photoSensation}</div>
+                    <div class="selected-value">{lensSelectionReadOnlyCollection.photoSensation}</div>
+                </div>
+                <div
+                    if:true={lensSelectionReadOnlyCollection.blueSensation}
+                    class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_5-of-12 slds-p-bottom_small"
+                >
+                    <div class="slds-p-bottom_xxx-small selected-header">{label.blueSensation}</div>
+                    <div class="selected-value">{lensSelectionReadOnlyCollection.blueSensation}</div>
+                </div>
+                <div
+                    if:true={lensSelectionReadOnlyCollection.lensDistance}
+                    class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_5-of-12 slds-p-bottom_small"
+                >
+                    <div class="slds-p-bottom_xxx-small selected-header">{label.lensDistance}</div>
+                    <div class="selected-value">{lensSelectionReadOnlyCollection.lensDistance}</div>
+                </div>
+                <div
+                    if:true={lensSelectionReadOnlyCollection.lensEdge}
+                    class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_5-of-12 slds-p-bottom_small"
+                >
+                    <div class="slds-p-bottom_xxx-small selected-header">{label.lensEdge}</div>
+                    <div class="selected-value">{lensSelectionReadOnlyCollection.lensEdge}</div>
+                </div>
+                <div
+                    if:true={lensSelectionReadOnlyCollection.visualPreferences}
+                    class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_5-of-12 slds-p-bottom_small"
+                >
+                    <div class="slds-p-bottom_xxx-small selected-header">{label.visualPreferences}</div>
+                    <div class="selected-value">{lensSelectionReadOnlyCollection.visualPreferencesValue}</div>
+                </div>
+                <div class="slds-col slds-col slds-size_1-of-1 slds-medium-size_12-of-12 slds-large-size_12-of-12 slds-grid slds-wrap">
+                    <div class="slds-col lds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_5-of-12 slds-p-bottom_small">
+                        <div>
+                            <h2 class="title lensDetails">{label.lensDetails}</h2>
+                        </div>
+                        <div>
+                            <div class="labelView">{label.material}</div>
+                            <span class="lensSelectionSummaryFields">{lensSelectionReadOnlyCollection.productMaterial} </span>
+                        </div>
+                        <!-- BS-1918 : Updated Label -->
+                        <div if:true={lensSelectionReadOnlyCollection.antireflectionCoatingValue} class="slds-p-top_small">
+                            <div class="labelView">{label.hardCoatingLabel}</div>
+                            <!--BS-2190-->
+                            <span class="lensSelectionSummaryFields"> {lensSelectionReadOnlyCollection.antireflectionCoatingValue} </span>
+                        </div>
+                    </div>
+                    <!--BS-1796 start-->
+                    <!--BS-1935-->
+                    <div class="slds-col lds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_5-of-12">
+                        <div if:true={isSgraving}>
+                            <div class="facet-cut-container">
+                                <div><img src={_sGraving} class="facet-cut-img" /></div>
+                            </div>
+                            <table style="width: auto">
+                                <tr>
+                                    <td>
+                                        <span>
+                                            <label class={_sGravingStyling}
+                                                ><span class="s-graving-styling">{_sGravingLabel}</span>
+                                                <input type="checkbox" checked={lensSelectionReadOnlyCollection.sGravingValue} disabled={_isReadOnly} />
+                                                <span class="checkmark s-graving-checkmark"></span>
+                                            </label>
+                                        </span>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div if:true={_showFacetCutImage}>
+                            <div class="facet-cut-container">
+                                <div class="facet-cut-label">{_facetCutImageTitle}</div>
+                                <div><img src={_facetCutImage} class="facet-cut-img" /></div>
+                            </div>
+                            <table style="width: auto">
+                                <tr>
+                                    <td>
+                                        <span>
+                                            <label class={_checkBoxStyling}
+                                                >{_facetCutLabel}
+                                                <input type="checkbox" checked={lensSelectionReadOnlyCollection.facetCutValue} disabled={_isReadOnly} />
+                                                <span class="checkmark"></span>
+                                            </label>
+                                        </span>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--BS-1796 end-->
+        </template>
+    </div>
+    <!-- Read Only Mode Section -->
+    <template if:false={_isVsScreen}>
+        <div if:true={_isReadOnly} class="slds-p-bottom_small">
+            <!--BS-1018 Start-->
+            <div class="slds-p-bottom_large">
+                <a href={availablityCheckLensColorDocument} class="linkout" target="_blank">
+                    <table class="linkout-table">
+                        <tr>
+                            <td valign="top"><img src={linkoutImg} class="slds-p-right_x-small" /></td>
+                            <td>{label.lensColorAvailabilityCheck}</td>
+                        </tr>
+                    </table>
+                </a>
+            </div>
+            <!--BS-1018 End-->
+            <div class="slds-grid slds-wrap">
+                <div class="slds-col slds-small-size_12-of-12 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+                    <div class="slds-grid">
+                        <div class="slds-col">
+                            <div if:true={selectedLensType} class="padRight">
+                                <div>
+                                    <label class="lensSelectionSummaryLabels">{label.lensType}</label>
+                                </div>
+                                <div>
+                                    <input type="text" class="lensSelectionSummaryFields" value={selectedLensType} title={selectedLensType} readonly required />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="slds-col">
+                            <div if:true={selectedIndex} class="padRight">
+                                <div>
+                                    <label class="lensSelectionSummaryLabels">{label.lensIndex}</label>
+                                </div>
+                                <div>
+                                    <input type="text" class="lensSelectionSummaryFields" value={selectedIndex} title={selectedIndex} readonly required />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="slds-grid slds-wrap slds-m-top_large">
+                        <div if:true={selectedLensType} class="slds-col slds-small-size_12-of-12 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+                            <div>
+                                <label class="lensSelectionSummaryLabels">{_labelForAntireflectionHardCoating}</label>
+                            </div>
+                            <div>
+                                <input
+                                    type="text"
+                                    class="lensSelectionSummaryFields"
+                                    value={antireflectionCoatingValue}
+                                    title={antireflectionCoatingValue}
+                                    readonly
+                                    required
+                                />
+                            </div>
+                        </div>
+                        <div if:true={showLensColor} class="slds-col slds-small-size_12-of-12 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+                            <div>
+                                <label class="lensSelectionSummaryLabels">{label.lensColor}</label>
+                            </div>
+                            <input type="text" value={selectedColor} class="lensSelectionSummaryFields" title={selectedColor} readonly required />
+                        </div>
+                    </div>
+
+                    <div class="slds-grid slds-wrap slds-m-top_large">
+                        <div if:true={showProgressiveLength} class="slds-col slds-small-size_12-of-12 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+                            <div>
+                                <label class="lensSelectionSummaryLabels">{label.progressionLength}</label>
+                            </div>
+                            <input value={formatProgressiveLength} class="lensSelectionSummaryFields" title={formatProgressiveLength} readonly required />
+                        </div>
+                    </div>
+                </div>
+
+                <!-- evil eye Edge Section Start BS 1019-->
+                <!-- BS-1279:Hide Evil Edge Image and Evil Eye Edge checkbox when Clip-In is Selected -->
+                <template if:false={_isTypeClipIn}>
+                    <div class="slds-col slds-small-size_12-of-12 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+                        <div class="slds-col instructionStyling">
+                            <img src={evilEyeEdgeIcon} />
+                            <div class="form-group evilEyeEdgeStyling">
+                                <input
+                                    type="checkbox"
+                                    onclick={handleEvilEyeEdgeSelection}
+                                    checked={isEvilEyeEdgeSelected}
+                                    id="customerServicePreferenceReadOnly"
+                                    data-id="customerServicePreference"
+                                    disabled
+                                />
+                                <label class="slds-checkbox__label" for="customerServicePreference">
+                                    <span class="slds-checkbox_faux"></span>
+                                    <span class="slds-form-element__label slds-var-p-around_small">
+                                        <lightning-formatted-rich-text
+                                            class="black-color silhouetteText text-medium-nb"
+                                            value={label.evilEyeEdgeLabel}
+                                        ></lightning-formatted-rich-text>
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+                <!-- evil eye Edge Section End BS-1019-->
+            </div>
+
+            <div class="lensInput">
+                <div>
+                    <h2 class="title lensDetails">{label.lensDetails}</h2>
+                </div>
+                <div class="slds-grid">
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_1-of-4">
+                        <div class="labelView">{label.material}</div>
+                        <span class="lensSelectionSummaryFields"> {productMaterial} </span>
+                    </div>
+                    <div if:false={_isVsScreen} class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_1-of-4">
+                        <div class="labelView">{label.hardCoatingLabel}</div>
+                        <span class="lensSelectionSummaryFields"> {label.yes} </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+    <!-- Read Only Mode Section End -->
+
+    <!--Start Edit Screen-->
+    <div if:false={_isReadOnly}>
+        <div class="title slds-border_bottom slds-p-vertical_medium slds-m-bottom_small">
+            <div class="lensSelection">{label.lensSelection}</div>
+        </div>
+
+        <!--BS-1018 Start-->
+        <div if:false={_isVsScreen} class="slds-p-bottom_large">
+            <a href={availablityCheckLensColorDocument} class="linkout" target="_blank">
+                <table class="linkout-table">
+                    <tr>
+                        <td valign="top"><img src={linkoutImg} class="slds-p-right_x-small" /></td>
+                        <td>{label.lensColorAvailabilityCheck}</td>
+                    </tr>
+                </table>
+            </a>
+        </div>
+        <!--BS-1018 End-->
+        <!--BS-1466 Start-->
+        <div if:true={_isVsScreen} class="slds-m-vertical_x-small">
+            <!-- Start : BS-1612-->
+            <template if:true={_showVisionZoneAnalysisSurveyCompletionError}>
+                <div class="error-background">
+                    <p>{_visionZoneError}</p>
+                </div>
+            </template>
+            <!-- End : BS-1612-->
+            <!-- Start : BS-1815-->
+            <template if:true={_showVisionZoneAnalysisCodeInvalidError}>
+                <div class="error-background">
+                    <p>{_visionZoneInvlidCodeError}</p>
+                </div>
+            </template>
+            <template if:true={_showVisionZoneAnalysisCallOutError}>
+                <div class="error-background">
+                    <p>{_visionZoneCallOutError}</p>
+                </div>
+            </template>
+            <!-- End : BS-1815-->
+            <div class="slds-p-bottom_x-small">{label.glazing}</div>
+            <div class="slds-grid slds-wrap">
+                <template for:each={glazingOptions} for:item="option">
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_3-of-12 slds-p-bottom_x-small" key={option.value}>
+                        <!-- Radio Button -->
+                        <input
+                            type="radio"
+                            id={option.value}
+                            class="filterRadioButton"
+                            name="glazing"
+                            checked={option.checked}
+                            value={option.value}
+                            onclick={glazingChange}
+                            title={option.label}
+                            onselect={glazingChange}
+                        />
+                        <span class="slds-radio_faux"></span>
+                        <!-- Filter Label -->
+                        <span class="black-color filterValues" title={option.label}> {option.label}</span>
+                    </div>
+                </template>
+            </div>
+            <div if:true={showErrorMessageGlazing} class="validation">{_errorInstructionToEnterValue}</div>
+        </div>
+
+        <!--BS-1466-->
+        <div if:true={_showLensType} class="slds-m-vertical_x-small">
+            <div class="slds-p-bottom_x-small">{label.lensType}</div>
+            <div class="slds-grid slds-wrap">
+                <template for:each={lensTypeOptions} for:item="option">
+                    <div class="slds-col slds-size_1-of-10 slds-medium-size_1-of-10 slds-p-bottom_x-small" key={option.value}>
+                        <!-- Radio Button -->
+                        <input
+                            type="radio"
+                            id={option.value}
+                            class="filterRadioButton"
+                            name="lens"
+                            checked={option.checked}
+                            value={option.value}
+                            onclick={lensTypeChange}
+                            title={option.label}
+                            onselect={lensTypeChange}
+                        />
+                        <span class="slds-radio_faux"></span>
+                        <!-- Filter Label -->
+                        <span class="black-color filterValues" title={option.label}> {option.label}</span>
+                    </div>
+                </template>
+            </div>
+            <div if:true={showErrorMessageLensType} class="validation">{_errorInstructionToEnterValue}</div>
+        </div>
+        <div if:true={_isVsScreen} class="slds-grid slds-wrap">
+            <div class="slds-col slds-small-size_12-of-12 slds-medium-size_12-of-12 slds-large-size_12-of-12">
+                <div if:true={_isOpticalGlazing}>
+                    <div if:false={_isPanoramaProgressiveOne} class="slds-grid slds-gutters slds-wrap">
+                        <div
+                            if:true={showProgressiveLength}
+                            class="slds-col slds-small-size_12-of-12 slds-medium-size_4-of-12 slds-large-size_4-of-12 slds-p-top_x-small"
+                        >
+                            <!--BS-1637 updated label position and added help text and icon-->
+                            <label class="label-text">
+                                <span> {label.progressionLength} </span>
+                            </label>
+                            <span><img class="infoicon slds-m-left_xx-small" src={_infoSVG} title={label.progressionHelpText} /></span>
+                            <lightning-input
+                                pattern="^[0-9]*([.,][0-9]*)?$"
+                                value={formatProgressiveLength}
+                                variant="label-hidden"
+                                onchange={handleProgressionLengthInputChange}
+                                onfocusout={progressionValidation}
+                            ></lightning-input>
+                            <div if:true={showErrorMessageLensProgLength} class="validation">{_errorInstructionToEnterValue}</div>
+                            <!--BS-1881 to show length error-->
+                            <div if:true={showErrorMessageProgressionLength} class="validation">{label.progressionValidation}</div>
+                        </div>
+                        <div
+                            if:true={showLensIndex}
+                            class="slds-col slds-small-size_12-of-12 slds-medium-size_4-of-12 slds-large-size_4-of-12 slds-p-bottom_x-small"
+                        >
+                            <lightning-combobox
+                                label={label.lensIndex}
+                                options={lensIndexOptions}
+                                value={lensIndex}
+                                onchange={handleIndexOptionsChange}
+                            ></lightning-combobox>
+                            <div if:true={showErrorMessageLensIndex} class="validation">{_errorInstructionToEnterValue}</div>
+                        </div>
+                        <div
+                            if:true={_showLensDistance}
+                            class="slds-col slds-small-size_12-of-12 slds-medium-size_4-of-12 slds-large-size_4-of-12 slds-p-bottom_x-small"
+                        >
+                            <lightning-combobox
+                                label={label.lensDistance}
+                                options={lensDistanceOptions}
+                                value={_lensDistance}
+                                onchange={handleLensDistanceChange}
+                            ></lightning-combobox>
+                            <div if:true={showErrorMessageLensDistance} class="validation">{_errorInstructionToEnterValue}</div>
+                        </div>
+                        <div
+                            if:true={_showRelaxVersion}
+                            class="slds-col slds-small-size_12-of-12 slds-medium-size_4-of-12 slds-large-size_4-of-12 slds-p-bottom_x-small"
+                        >
+                            <lightning-combobox
+                                label={label.relaxVersion}
+                                options={relaxVersionOptions}
+                                value={_selectedRelaxVersion}
+                                onchange={handleRelaxOptionsChange}
+                            ></lightning-combobox>
+                            <div if:true={showErrorMessageRelaxVersion} class="validation">{_errorInstructionToEnterValue}</div>
+                        </div>
+                    </div>
+                    <div if:true={_isPanoramaProgressiveOne}>
+                        <div class="slds-grid slds-gutters slds-wrap">
+                            <div
+                                if:true={showProgressiveLength}
+                                class="slds-col slds-small-size_12-of-12 slds-medium-size_4-of-12 slds-large-size_4-of-12 slds-p-top_x-small"
+                            >
+                                <!--BS-1637 updated label position and added help text and icon-->
+                                <label class="label-text">
+                                    <span> {label.progressionLength} </span>
+                                </label>
+                                <span><img class="infoicon slds-m-left_xx-small" src={_infoSVG} title={label.progressionHelpText} /></span>
+                                <lightning-input
+                                    pattern="^[0-9]*([.,][0-9]*)?$"
+                                    value={formatProgressiveLength}
+                                    variant="label-hidden"
+                                    onchange={handleProgressionLengthInputChange}
+                                    onfocusout={progressionValidation}
+                                ></lightning-input>
+                                <div if:true={showErrorMessageLensProgLength} class="validation">{_errorInstructionToEnterValue}</div>
+                                <!--BS-1881 to show length error-->
+                                <div if:true={showErrorMessageProgressionLength} class="validation">{label.progressionValidation}</div>
+                            </div>
+                        </div>
+
+                        <div if:true={_showVisualPreferences} class="slds-m-vertical_x-small">
+                            <div class="slds-p-bottom_x-small">{label.visualPreferences}</div>
+
+                            <template for:each={visualPreferences} for:item="option">
+                                <div class="slds-p-bottom_x-small radio" key={option.value}>
+                                    <!-- Radio Button -->
+                                    <input
+                                        type="radio"
+                                        id={option.value}
+                                        class="filterRadioButton"
+                                        name="visualPreference"
+                                        checked={option.checked}
+                                        value={option.value}
+                                        onclick={visualPreferencesChange}
+                                        title={option.label}
+                                        onselect={visualPreferencesChange}
+                                    />
+                                    <span class="slds-radio_faux"></span>
+                                    <!-- Filter Label -->
+                                    <span class="black-color filterValues" title={option.lebel}> {option.label}</span>
+                                </div>
+                            </template>
+                            <!-- Start : BS-967 -->
+                            <div class="radio vision-zone">
+                                <table>
+                                    <tr class="vision-zone-button-container">
+                                        <td>
+                                            <lightning-input
+                                                if:true={_showVisionZoneId}
+                                                disabled={_isVisionZoneAnalysisDisabled}
+                                                value={_customValue}
+                                                variant="label-hidden"
+                                                onchange={handleCustomInputValue}
+                                            ></lightning-input>
+                                        </td>
+                                        <td>
+                                            <button
+                                                disabled={_isVisionZoneAnalysisDisabled}
+                                                class="open-link-button"
+                                                if:true={_showVisionZoneId}
+                                                onclick={handleVisionZoneAnalysisNavigation}
+                                            >
+                                                <span><img src={linkoutImg} class="slds-p-right_x-small" /></span>
+                                                <span>{label.open}</span>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr if:true={_showVisionZoneIdError}>
+                                        <td colspan="2">
+                                            <div class="validation">{_errorInstructionToEnterValue}</div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <!-- End : BS-967 -->
+                            <div if:true={showErrorMessageVisualPreference} class="validation">{_errorInstructionToEnterValue}</div>
+                        </div>
+                        <div class="slds-grid slds-gutters slds-wrap">
+                            <div
+                                if:true={showLensIndex}
+                                class="slds-col slds-small-size_12-of-12 slds-medium-size_4-of-12 slds-large-size_4-of-12 slds-p-bottom_x-small"
+                            >
+                                <lightning-combobox
+                                    label={label.lensIndex}
+                                    options={lensIndexOptions}
+                                    value={lensIndex}
+                                    onchange={handleIndexOptionsChange}
+                                ></lightning-combobox>
+                                <div if:true={showErrorMessageLensIndex} class="validation">{_errorInstructionToEnterValue}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div if:false={_isOpticalGlazing} class="slds-grid slds-gutters slds-wrap">
+                    <div
+                        if:true={showProgressiveLength}
+                        class="slds-col slds-small-size_12-of-12 slds-medium-size_4-of-12 slds-large-size_4-of-12 slds-p-top_x-small"
+                    >
+                        <!--BS-1637 updated label position and added help text and icon-->
+                        <label class="label-text">
+                            <span> {label.progressionLength} </span>
+                        </label>
+                        <span><img class="infoicon slds-m-left_xx-small" src={_infoSVG} title={label.progressionHelpText} /></span>
+                        <lightning-input
+                            pattern="^[0-9]*([.,][0-9]*)?$"
+                            value={formatProgressiveLength}
+                            variant="label-hidden"
+                            onchange={handleProgressionLengthInputChange}
+                            onfocusout={progressionValidation}
+                        ></lightning-input>
+                        <div if:true={showErrorMessageLensProgLength} class="validation">{_errorInstructionToEnterValue}</div>
+                        <!--BS-1881 to show length error-->
+                        <div if:true={showErrorMessageProgressionLength} class="validation">{label.progressionValidation}</div>
+                    </div>
+                    <!--BS-2014-->
+                    <div
+                        if:true={_showVsLensColor}
+                        class="slds-col slds-small-size_12-of-12 slds-medium-size_4-of-12 slds-large-size_4-of-12 slds-p-bottom_x-small"
+                    >
+                        <div>
+                            <lightning-combobox
+                                label={label.lensColor}
+                                value={lensColor}
+                                options={sunGlazingLensColorOptions}
+                                onchange={handleColorOptionsChange}
+                            ></lightning-combobox>
+                            <div if:true={showErrorMessageLensColor} class="validation">{_errorInstructionToEnterValue}</div>
+                        </div>
+                    </div>
+                    <div
+                        if:true={showLensIndex}
+                        class="slds-col slds-small-size_12-of-12 slds-medium-size_4-of-12 slds-large-size_4-of-12 slds-p-bottom_x-small"
+                    >
+                        <lightning-combobox
+                            label={label.lensIndex}
+                            options={sunGlazingLensIndexOptionsToShow}
+                            value={lensIndex}
+                            onchange={handleIndexOptionsChange}
+                        ></lightning-combobox>
+                        <div if:true={showErrorMessageLensIndex} class="validation">{_errorInstructionToEnterValue}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--BS-1466 end-->
+        <div if:false={_isVsScreen} class="slds-grid slds-wrap">
+            <div class="slds-col slds-small-size_12-of-12 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+                <div class="slds-grid slds-wrap">
+                    <div class="slds-col slds-small-size_12-of-12 slds-medium-size_6-of-12 slds-large-size_12-of-12">
+                        <div if:true={showLensIndex} class="maxWidth">
+                            <lightning-combobox
+                                label={label.lensIndex}
+                                options={lensIndexOptions}
+                                value={lensIndex}
+                                onchange={handleIndexOptionsChange}
+                            ></lightning-combobox>
+                            <div if:true={showErrorMessageLensIndex} class="validation">{_errorInstructionToEnterValue}</div>
+                        </div>
+                        <div if:true={showProgressiveLength} class="maxWidth">
+                            <lightning-input
+                                pattern="^[0-9]*([.,][0-9]*)?$"
+                                label={label.progressionLength}
+                                value={formatProgressiveLength}
+                                onchange={handleProgressionLengthInputChange}
+                                disabled={isProgressiveLengthDisabled}
+                            ></lightning-input>
+                            <div if:true={showErrorMessageLensProgLength} class="validation">{_errorInstructionToEnterValue}</div>
+                        </div>
+                        <!-- BS-1626 : Moved Lens Color Section-->
+                        <div if:true={showLensColor}>
+                            <lightning-combobox
+                                label={label.lensColor}
+                                value={lensColor}
+                                options={lensColorOptionsToShow}
+                                onchange={handleColorOptionsChange}
+                            ></lightning-combobox>
+                            <div if:true={showErrorMessageLensColor} class="validation">{_errorInstructionToEnterValue}</div>
+                        </div>
+                        <!-- BS-1626 : Moved Lens Color Section-->
+                    </div>
+                </div>
+
+                <div class="slds-grid slds-wrap">
+                    <!-- Antireflection / Hard Coating Section Start BS-1019-->
+                    <div
+                        if:true={_showAntireflectionHardCoatingSelection}
+                        class="slds-m-top_xx-small slds-col slds-small-size_12-of-12 slds-medium-size_6-of-12 slds-large-size_6-of-12 userSelectionStyling"
+                    >
+                        <div class="slds-p-bottom_x-small">{_labelForAntireflectionHardCoating}</div>
+                        <template for:each={userSelectableOptions} for:item="option">
+                            <div class="slds-p-bottom_x-small radio" key={option.label}>
+                                <!-- Radio Button -->
+                                <input
+                                    type="radio"
+                                    disabled={option.disabled}
+                                    id={option.value}
+                                    class="filterRadioButton"
+                                    checked={option.checked}
+                                    value={option.value}
+                                    onclick={handleUserSelection}
+                                    title={option.label}
+                                    onselect={handleUserSelection}
+                                />
+                                <span class="slds-radio_faux"></span>
+                                <!-- Filter Label -->
+                                <span class="black-color filterValues" title={option.label}> {option.label}</span>
+                            </div>
+                        </template>
+                        <div if:true={showErrorMessageForAntireflectionOrHardcoatingOptions} class="validation">{_errorInstructionToEnterValue}</div>
+                    </div>
+                    <!-- Antireflection / Hard Coating Section End BS-1019-->
+                </div>
+            </div>
+
+            <!-- evil eye Edge Section Start BS 1019-->
+            <!-- BS-1279 : Hide Evil Edge Image and Evil Eye Edge checkbox when Clip-In is Selected -->
+            <template if:false={_isVsScreen}>
+                <template if:false={_isTypeClipIn}>
+                    <div class="slds-col slds-small-size_12-of-12 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+                        <div class="slds-grid slds-wrap">
+                            <div class="slds-m-top_xx-small slds-col slds-small-size_12-of-12 slds-medium-size_6-of-12 slds-large-size_12-of-12">
+                                <div class="slds-col instructionStyling">
+                                    <img src={evilEyeEdgeIcon} />
+                                    <div class="form-group evilEyeEdgeStyling">
+                                        <input
+                                            type="checkbox"
+                                            onclick={handleEvilEyeEdgeSelection}
+                                            checked={isEvilEyeEdgeSelected}
+                                            id="customerServicePreference"
+                                            data-id="customerServicePreference"
+                                        />
+                                        <label class="slds-checkbox__label" for="customerServicePreference">
+                                            <span class="slds-checkbox_faux"></span>
+                                            <span class="slds-form-element__label slds-var-p-around_small">
+                                                <lightning-formatted-rich-text
+                                                    class="black-color silhouetteText text-medium-nb"
+                                                    value={label.evilEyeEdgeLabel}
+                                                ></lightning-formatted-rich-text>
+                                            </span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+            </template>
+            <!-- evil eye Edge Section End BS-1019-->
+        </div>
+        <!--BS-1466 Start-->
+        <template if:true={_isVsScreen}>
+            <template if:true={_showAdditionalOptions}>
+                <div class="slds-grid slds-gutters slds-wrap">
+                    <div class="slds-m-top_xx-small slds-col slds-small-size_12-of-12 slds-medium-size_4-of-12 slds-large-size_4-of-12 slds-p-bottom_x-small">
+                        <template for:each={additionalOptions} for:item="option">
+                            <div class="slds-p-bottom_x-small slds-p-top_small radio-vertical" key={option.value}>
+                                <!-- Radio Button -->
+                                <input
+                                    type="radio"
+                                    id={option.value}
+                                    class="filterRadioButton"
+                                    name="extaOptions"
+                                    checked={option.checked}
+                                    value={option.value}
+                                    onclick={additionalOptionChange}
+                                    title={option.label}
+                                    onselect={additionalOptionChange}
+                                />
+                                <span class="slds-radio_faux"></span>
+                                <!-- Filter Label -->
+                                <span class="black-color filterValues" title={option.label}> {option.label}</span>
+                            </div>
+                        </template>
+                    </div>
+                    <div class="slds-m-top_xx-small slds-col slds-small-size_12-of-12 slds-medium-size_4-of-12 slds-large-size_4-of-12 slds-p-bottom_x-small">
+                        <div if:true={_showVsLensColor}>
+                            <div>
+                                <lightning-combobox
+                                    label={label.lensColor}
+                                    value={lensColor}
+                                    options={lensColorOptionsToShow}
+                                    onchange={handleColorOptionsChange}
+                                ></lightning-combobox>
+                                <div if:true={showErrorMessageLensColor} class="validation">{_errorInstructionToEnterValue}</div>
+                            </div>
+                        </div>
+                        <div if:true={_showPhotoSensation}>
+                            <div>
+                                <lightning-combobox
+                                    label={label.photoSensation}
+                                    value={_photoSensation}
+                                    options={_photoSensationOptionsToShow}
+                                    onchange={handlePhotoSensationChange}
+                                ></lightning-combobox>
+                                <div if:true={showErrorMessagePhotoSensation} class="validation">{_errorInstructionToEnterValue}</div>
+                            </div>
+                        </div>
+                        <div if:true={_showBlueSensation}>
+                            <div>
+                                <lightning-combobox
+                                    label={label.blueSensation}
+                                    value={_blueSensation}
+                                    options={_blueSensationOptionsToShow}
+                                    onchange={handleblueSensationChange}
+                                ></lightning-combobox>
+                                <div if:true={showErrorMessageBlueSensation} class="validation">{_errorInstructionToEnterValue}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </template>
+            <template if:true={_showLensEdge}>
+                <div class="slds-grid slds-gutters slds-wrap">
+                    <div class="slds-m-top_xx-small slds-col slds-small-size_12-of-12 slds-medium-size_4-of-12 slds-large-size_4-of-12">
+                        <div>
+                            <lightning-combobox
+                                label={label.lensEdge}
+                                value={_lensEdge}
+                                options={lensEdgeOptions}
+                                onchange={handleLensEdgeChange}
+                            ></lightning-combobox>
+                        </div>
+                    </div>
+                </div>
+            </template>
+        </template>
+        <template if:false={_isVsScreen}>
+            <div class="slds-p-bottom_medium">
+                <div>
+                    <h2 class="title lensDetails">{label.lensDetails}</h2>
+                </div>
+                <div class="slds-grid">
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_1-of-4">
+                        <div class="labelView">{label.material}</div>
+                        <span class="lensSelectionSummaryFields"> {productMaterial} </span>
+                    </div>
+                    <div if:true={productMaterial} class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_1-of-4">
+                        <div class="labelView">{label.hardCoatingLabel}</div>
+                        <span if:true={productMaterial} class="lensSelectionSummaryFields"> {label.yes} </span>
+                    </div>
+                </div>
+            </div>
+        </template>
+        <template if:true={_isVsScreen}>
+            <!--BS-1796 start-->
+            <div class="slds-grid slds-gutters slds-wrap">
+                <div class="slds-m-top_xx-small slds-col slds-small-size_12-of-12 slds-medium-size_8-of-12 slds-large-size_8-of-12 slds-p-bottom_x-small">
+                    <div if:true={_showLensDetails} class="slds-p-bottom_medium">
+                        <div>
+                            <h2 class="title lensDetails">{label.lensDetails}</h2>
+                        </div>
+                        <div>
+                            <div class="labelView">{label.material}</div>
+                            <span class="lensSelectionSummaryFields"> {productMaterial} </span>
+                        </div>
+                        <!-- BS-1918 -->
+                        <div if:true={_vsAntiReflectionOrHardCoating}>
+                            <div class="labelView">{label.hardCoatingLabel}</div>
+                            <!--BS-2190-->
+                            <span class="lensSelectionSummaryFields"> {_vsAntiReflectionOrHardCoating} </span>
+                        </div>
+                    </div>
+                </div>
+                <!--BS-1935-->
+                <div
+                    if:true={isSgraving}
+                    class="slds-m-top_xx-small slds-col slds-small-size_12-of-12 slds-medium-size_4-of-12 slds-large-size_4-of-12 slds-p-bottom_x-small"
+                >
+                    <div class="facet-cut-container">
+                        <div><img src={_sGraving} class="facet-cut-img" /></div>
+                    </div>
+                    <table style="width: auto">
+                        <tr>
+                            <td>
+                                <span>
+                                    <label class={_sGravingStyling}
+                                        ><span class="s-graving-styling">{_sGravingLabel}</span>
+                                        <input type="checkbox" checked={_sGravingChecked} onclick={handleSgravingChange} />
+                                        <span class="checkmark s-graving-checkmark"></span>
+                                    </label>
+                                </span>
+                            </td>
+                            <td class="baseline">
+                                <span class="tooltip-normal">
+                                    <span class="tooltiptext-normal">{_sGravingHelpText}</span>
+                                    <img class="infoicon slds-m-left_xx-small" src={_infoSVG} />
+                                </span>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <!--BS-1796 end-->
+            </div>
+        </template>
+        <!--BS-1466 End-->
+        <!-- BS-793 Start-->
+        <div class="slds-grid slds-gutters slds-wrap slds-m-bottom_small">
+            <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_4-of-12"></div>
+            <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_4-of-12"></div>
+            <div if:true={_showFacetCutImage} class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_4-of-12">
+                <div class="facet-cut-container">
+                    <div class="facet-cut-label">{_facetCutImageTitle}</div>
+                    <div><img src={_facetCutImage} class="facet-cut-img" /></div>
+                </div>
+                <table style="width: auto">
+                    <tr>
+                        <td>
+                            <span>
+                                <label class={_checkBoxStyling}
+                                    >{_facetCutLabel}
+                                    <input type="checkbox" checked={_facetCutChecked} onclick={handleFacetCutChange} disabled={_isFacetCutDisabled} />
+                                    <span class="checkmark"></span>
+                                </label>
+                            </span>
+                        </td>
+                        <td class="baseline">
+                            <span class="tooltip-normal">
+                                <span class="tooltiptext-normal">{_facetCutHelpText}</span>
+                                <img class="infoicon slds-m-left_xx-small" src={_infoSVG} />
+                            </span>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <!-- BS-793 End-->
+    </div>
+    <!--End Edit Screen-->
+</template>

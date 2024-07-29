@@ -1,0 +1,123 @@
+.product-color-bubble {
+    border-radius: 50%;
+    height: 1rem;
+    overflow: hidden;
+    position: relative;
+    width: 1rem;
+    padding-right: 16px;
+}
+
+.product-color-bubble__upper {
+    background-position: 50%;
+    background-size: cover;
+    display: block;
+    height: 50%;
+    width: 100%;
+    position: absolute;
+}
+
+.product-color-bubble__lower {
+    bottom: 0;
+    left: 0;
+    position: absolute;
+}
+
+.product-color-bubble__lower,
+.product-color-bubble__upper {
+    background-position: 50%;
+    background-size: cover;
+    display: block;
+    height: 50%;
+    width: 100%;
+}
+
+.variation-div-img {
+    width: 30px;
+    height: 18px;
+}
+
+.border {
+    border: none;
+    border-bottom: 1px solid lightgrey;
+    border-radius: 0px;
+}
+.border:focus {
+    outline: none;
+    box-shadow: none !important;
+}
+.labelStyling {
+    color: black;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+}
+
+.padding-left-none {
+    padding-left: 0px !important;
+}
+/* BS-1304 */
+.flex-display {
+    display: flex;
+}
+
+/* Start : BS-1622 */
+
+.option-text {
+    font-size: 14px;
+}
+
+.option-label-nb {
+    font-size: 12px !important;
+}
+
+/* End : BS-1622 */
+
+/* Start : BS-2197 */
+.silhouetteText {
+    font-size: 14px;
+    text-align: center;
+    color: black;
+    font-weight: 300;
+}
+
+.toolTipStyling {
+    width: 14px;
+    margin-left: 5px;
+    margin-top: -2px;
+}
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+}
+
+.tooltip .text {
+    position: absolute;
+    width: 400px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    padding: 4px 4px;
+    z-index: 1;
+    border-radius: 0px;
+    bottom: 110%;
+    left: -20px;
+    margin-left: -188px;
+    opacity: 0;
+    visibility: hidden;
+    font-size: 12px;
+}
+.tooltip .text::after {
+    position: absolute;
+    content: '';
+    border-style: solid;
+    border-width: 5px;
+    border-color: black transparent transparent transparent;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+}
+.tooltip:hover .text {
+    visibility: visible;
+    opacity: 1;
+}
+/* end : BS-2197 */

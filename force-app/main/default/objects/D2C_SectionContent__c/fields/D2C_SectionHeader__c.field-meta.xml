@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>D2C_SectionHeader__c</fullName>
+    <description>This field will determine the header of the section.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>ODEEH/NEUBAU</inlineHelpText>
+    <label>Section Header</label>
+    <length>255</length>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

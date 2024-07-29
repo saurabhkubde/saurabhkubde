@@ -1,0 +1,478 @@
+.no-border {
+    border: 0;
+}
+
+.order-detail-icon {
+    margin-right: 9%;
+}
+
+.number-column {
+    width: 3.75rem;
+}
+
+.header-border {
+    border-right: 1px solid black;
+}
+
+.no-border {
+    border-style: 0px !important;
+}
+
+.bottom-border {
+    border-bottom: solid 1px #f4f4f4 !important;
+    font-size: 16px !important;
+    font-weight: 300 !important;
+}
+.slds-th__action {
+    --lwc-tableCellSpacing: 0px;
+    height: 1.5rem;
+    color: #000;
+}
+.no-order-background {
+    width: 400px !important;
+    height: 200px !important;
+    background: #f9f9f9 !important;
+}
+.close-icon-demesions {
+    width: 40px !important;
+}
+
+.fnt16 {
+    font-size: 16px;
+    font-family: Lato, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif;
+}
+
+.fntweight500 {
+    font-weight: 500;
+}
+
+.table-horizontal-scroll {
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+.document-disabled {
+    color: #c9c7c5 !important;
+    opacity: 0.2 !important;
+}
+
+.document-enabled {
+    color: #000 !important;
+}
+.border-bottom {
+    border-bottom: solid 1px #f4f4f4 !important;
+    font-size: 16px !important;
+    font-weight: 500 !important;
+}
+.request-document-enabled {
+    --slds-c-icon-color-foreground-default: #000 !important;
+}
+
+.request-document-disabled {
+    --slds-c-icon-color-foreground-default: #c9c7c5 !important;
+}
+
+.layover-button {
+    width: 33%;
+    background-color: #fff;
+    border: 1px solid #000;
+    color: #000;
+    font-weight: 700;
+    letter-spacing: 1px;
+    font-size: smaller;
+    line-height: 2;
+}
+
+.actionicon {
+    width: 20px !important;
+    transition: transform 0.2s;
+    cursor: pointer;
+}
+
+.actionicon:hover {
+    transform: scale(1.1);
+}
+
+.slds-th__action:focus,
+.slds-th__action:hover {
+    background-color: transparent;
+}
+
+.model-text-24 {
+    font-size: 24px !important;
+    font-weight: 500 !important;
+}
+
+/*BS-1064*/
+.model-text-24-normal {
+    font-size: 24px !important;
+    font-weight: 500 !important;
+    line-height: normal;
+}
+.model-text-18 {
+    font-size: 18px !important;
+    font-weight: 500 !important;
+    text-align: center !important;
+}
+.model-text-16 {
+    font-size: 16px !important;
+    font-weight: 300 !important;
+}
+.model-text-14 {
+    font-size: 14px !important;
+    font-weight: 300 !important;
+}
+
+.model-text-14-font-weight {
+    font-size: 14px !important;
+    font-weight: 600 !important;
+}
+
+.layover-button:hover {
+    width: 33%;
+    background-color: black;
+    border: 1px solid #000;
+    color: #fff;
+    font-weight: 700;
+    letter-spacing: 1px;
+    line-height: 2;
+    font-size: smaller;
+}
+
+.layover-button:disabled {
+    width: 33%;
+    background-color: #c9c7c5;
+    border: 1px solid #c9c7c5;
+    color: #fff;
+    font-weight: 700;
+    letter-spacing: 1px;
+    line-height: 2;
+    font-size: smaller;
+}
+
+.text-align-center {
+    text-align: center !important;
+    letter-spacing: -0.2px; /*BS-1146*/
+}
+
+.buttonWidth {
+    width: 60%;
+}
+
+.slds-modal__header .slds-modal__close {
+    cursor: pointer;
+}
+
+.input_wrap {
+    position: relative;
+}
+
+.input_wrap label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: 0.2s ease all;
+    -moz-transition: 0.2s ease all;
+    -webkit-transition: 0.2s ease all;
+    pointer-events: none;
+    background: #ffffff;
+    font-weight: 300;
+}
+
+.custom {
+    color: #000000;
+    box-shadow: none;
+    border: none;
+    border-bottom: 1px solid #c9c9c9;
+    width: 100%;
+    padding: 6px 0px;
+    font-size: 14px;
+    font-weight: 300;
+}
+
+.custom:focus + label,
+.custom:valid + label {
+    top: -14px;
+    background: #ffffff;
+    font-weight: 300;
+    font-size: 14px;
+}
+
+.custom:focus {
+    outline: none;
+}
+
+/* tablet screens*/
+@media only screen and (max-width: 64em) {
+    .layover-button {
+        width: 60%;
+    }
+
+    .layover-button:hover {
+        width: 60%;
+    }
+
+    .layover-button:disabled {
+        width: 60%;
+    }
+
+    .h4-font-strong {
+        font-weight: 600;
+        font-size: 18px;
+        line-height: 30.8px;
+    }
+    .buttonWidth {
+        width: 80%;
+    }
+}
+
+/* Phone screens */
+@media only screen and (max-width: 47.9375em) {
+    .layover-button {
+        width: 70%;
+    }
+
+    .layover-button:hover {
+        width: 70%;
+    }
+
+    .layover-button:disabled {
+        width: 70%;
+    }
+
+    .h4-font-strong {
+        font-weight: 700;
+        font-size: 14px;
+        line-height: 30.8px;
+    }
+    .buttonWidth {
+        width: 90% !important;
+    }
+}
+
+.buttonWidth {
+    width: 60%;
+}
+
+/* Start BS-704 */
+.clear-button {
+    padding-left: 25px !important;
+    padding-right: 25px !important;
+}
+/* End BS-704 */
+
+.orderHistoryTab {
+}
+
+/*
+    BS-1146 Start
+ */
+.sendinvoice button:disabled {
+    background-color: #7f7f7f;
+    border: none;
+    color: #fff;
+}
+
+.tooltip {
+    position: relative;
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 420px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 1px;
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+    bottom: 100%;
+    left: 34%;
+    margin-left: -150px;
+}
+
+.tooltip .tooltiptext::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: black transparent transparent transparent;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+}
+
+.sendinvoice-btnwrap {
+    margin: auto;
+    width: 60% !important;
+}
+
+.sendinvoice-btnwrap .btn-100 {
+    width: 100% !important;
+}
+
+@media only screen and (max-width: 767.99px) {
+    .sendinvoice-btnwrap {
+        margin: auto;
+        width: 90% !important;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    .tooltip .tooltiptext {
+        width: 300px;
+        left: 50%;
+    }
+}
+
+@media screen and (min-width: 481px) and (max-width: 767.99px) {
+    .tooltip .tooltiptext {
+        width: 380px;
+        left: 39%;
+    }
+}
+
+@media screen and (min-width: 768px) and (max-width: 960px) {
+    .tooltip .tooltiptext {
+        width: 380px;
+        left: 34%;
+    }
+}
+/*
+    BS-1146 End
+*/
+/* Start BS-2088*/
+.no-left-margin {
+    padding-left: 0px;
+}
+
+.order_history table tr th:last-child a {
+    text-align: right;
+    display: block;
+}
+.order_history table tr td:last-child {
+    text-align: right;
+}
+/* End BS-2088*/
+
+/* Start BS-2150 */
+.infoicon {
+    width: 15px !important;
+    min-width: 10px;
+    transition: transform 0.2s;
+    cursor: pointer;
+    padding-left: 2px;
+}
+
+.tooltip-normal {
+    position: relative;
+    display: inline-block;
+}
+.tooltip-normal .tooltiptext-normal {
+    visibility: hidden;
+    width: 238px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    padding: 2px 0;
+    position: absolute;
+    z-index: 9;
+    bottom: 120%;
+    left: -350%;
+    margin-left: -40px;
+    font-size: 12px;
+    font-weight: 300;
+}
+.tooltip-normal .tooltiptext-normal::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: black transparent transparent transparent;
+}
+.tooltip-normal:hover .tooltiptext-normal {
+    visibility: visible;
+}
+
+.customer-service-link a {
+    color: #fff !important;
+    text-decoration: underline;
+}
+
+@media screen and (max-width: 279.99px) {
+    .tooltip-normal .tooltiptext-normal {
+        visibility: hidden;
+        width: 225px;
+        background-color: black;
+        color: #fff;
+        text-align: center;
+        padding: 2px 0;
+        position: absolute;
+        z-index: 9;
+        bottom: 103%;
+        left: -430%;
+        margin-left: -40px;
+        font-size: 12px;
+        font-weight: 300;
+    }
+}
+
+@media only screen and (max-width: 1023px) {
+    .tooltip-normal .tooltiptext-normal {
+        visibility: hidden;
+        width: 238px;
+        background-color: black;
+        color: #fff;
+        padding: 2px 0;
+        position: absolute;
+        z-index: 9;
+        bottom: 120%;
+        left: -350%;
+        margin-left: -40px;
+        font-size: 12px;
+        font-weight: 300;
+    }
+}
+
+@media only screen and (max-width: 360px) {
+    .tooltip-normal .tooltiptext-normal {
+        left: -460% !important;
+    }
+}
+
+.border {
+    border: none;
+    border-bottom: 1px solid lightgrey;
+    border-radius: 0px;
+}
+.border:focus {
+    outline: none;
+    box-shadow: none !important;
+}
+/* End BS-2150 */
+/* BS-2175 */
+.font-size {
+    font-size: 16px;
+    font-weight: 300;
+    cursor: pointer;
+    border: none;
+}
+
+.margin-8 {
+    margin-right: 8px;
+}
+
+.close-button-right {
+    right: 1.5rem !important;
+}
+.orderTableHeader {
+    vertical-align: baseline;
+}

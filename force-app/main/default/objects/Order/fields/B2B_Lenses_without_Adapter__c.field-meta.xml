@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>B2B_Lenses_without_Adapter__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>This field will hold the value of Lenses without Adapter field from lens configurator.</description>
+    <externalId>false</externalId>
+    <label>Lenses without Adapter</label>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

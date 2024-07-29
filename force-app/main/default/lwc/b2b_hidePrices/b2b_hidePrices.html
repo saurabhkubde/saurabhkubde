@@ -1,0 +1,18 @@
+<template>
+    <lightning-spinner
+        if:true={isLoading}
+        class="slds-is-absolute slds-align_absolute-center"
+        alternative-text="Disabling prices..."
+        size="medium"
+        variant="brand"
+    >
+    </lightning-spinner>
+    <template if:true={isPriceHidden}>
+        <div class="hide-price">
+            <img class="hide-price-icon" src={hidePriceIcon} onclick={showPrices} />
+        </div>
+    </template>
+    <template if:false={isPriceHidden}>
+        <div class="hide-price"><img class="hide-price-icon" src={showPriceIcon} onclick={hidePrices} /></div>
+    </template>
+</template>

@@ -1,0 +1,237 @@
+<template>
+    <!--Read Only section Start-->
+    <div if:true={_isReadOnly}>
+        <div class="title slds-border_bottom slds-p-vertical_x-large slds-m-bottom_small">
+            <div class="section-title">
+                <p>{labels.prescriptionValue}</p>
+            </div>
+            <div class="editIcon">
+                <img class="" src={editIcon.icon} onclick={handlePrescriptionValueEdit} width="20" height="20" />
+            </div>
+        </div>
+        <c-b2b_vsrx-prescription-value_read-only
+            labels={labels}
+            selected-base-value={_selectedBaseValueForReadOnly}
+            selected-eye-side-value={_selectedEyeSideValueForReadOnly}
+            prescription-field-data={_prescriptionFieldsData}
+            prescription-data={lensConfiguratorCollection}
+            all-columns-name-list={inputFieldsNameList}
+        ></c-b2b_vsrx-prescription-value_read-only>
+    </div>
+    <!--Read Only section End-->
+    <!--Edit mode section Start-->
+    <div if:false={_isReadOnly}>
+        <div class="title slds-border_bottom slds-p-vertical_x-large slds-m-bottom_small">
+            <div class="section-title">
+                <p>{labels.prescriptionValue}</p>
+            </div>
+        </div>
+        <!--BS-2139-->
+        <template if:true={_showStrongestMaincut}>
+            <div class="error-background">
+                <p if:true={_showRightStrongestMaincut}><span class="center-dot">.</span>{labels.rightStrongestMaincut}</p>
+                <p if:true={_showLeftStrongestMaincut}><span class="center-dot">.</span>{labels.leftStrongestMaincut}</p>
+            </div>
+        </template>
+        <div if:false={_isVsScreen}>
+            <a href={_powerRangeLink} class="linkout" target="_blank">
+                <table class="linkout-table">
+                    <tr>
+                        <td valign="top"><img src={externalLink} class="slds-p-right_x-small" /></td>
+                        <td>{_powerRangeLabel}</td>
+                    </tr>
+                </table>
+            </a>
+        </div>
+        <div class="prescription-radio-button">
+            <div class="slds-grid slds-gutters slds-wrap">
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-1">
+                    <lightning-radio-group
+                        class="validate radio-combo-inline slds-p-top_large black-color"
+                        name="eyeSide"
+                        data-name="eyeSide"
+                        label={labels.eyeSide}
+                        options={eyeSideValues}
+                        value={_selectedEyeSideValue}
+                        onchange={genericOnChange}
+                        disabled={disableEyeSideOptions}
+                        type="radio"
+                    ></lightning-radio-group>
+                </div>
+            </div>
+            <div class="slds-grid slds-gutters slds-wrap">
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-1">
+                    <lightning-radio-group
+                        class="validate radio-combo-inline slds-p-top_large black-color"
+                        name="baseValue"
+                        label={labels.baseValue}
+                        options={baseValues}
+                        data-name="baseValue"
+                        value={_selectedBaseValue}
+                        onchange={genericOnChange}
+                        type="radio"
+                    ></lightning-radio-group>
+                </div>
+            </div>
+        </div>
+        <div class="slds-grid slds-gutters slds-wrap slds-m-vertical_large">
+            <div class="prescription-value-container slds-col slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-1">
+                <div class="table-horizontal-scroll">
+                    <table>
+                        <template for:each={_prescriptionFieldsData} for:item="product">
+                            <tr key={product.Id}>
+                                <th colspan="2"></th>
+                                <th>
+                                    {labels.sphere}
+                                    <div class="tooltip">
+                                        <span class="tooltiptext">{labels.dioptre}</span>
+                                        <img class="infoicon slds-m-left_xx-small" src={infoSVG} />
+                                    </div>
+                                    <br /><span class="lighter-text">{product.B2B_Sphere_Min__c} — {product.B2B_Sphere_Max__c}</span>
+                                </th>
+                                <th>
+                                    {labels.cylinder}
+                                    <div class="tooltip">
+                                        <span class="tooltiptext">{labels.dioptre}</span>
+                                        <img class="infoicon slds-m-left_xx-small" src={infoSVG} />
+                                    </div>
+                                    <br /><span class="lighter-text">{product.B2B_Cylinder_Min__c} — {product.B2B_Cylinder_Max__c}</span>
+                                </th>
+                                <th>
+                                    {labels.axis}
+                                    <div class="tooltip">
+                                        <span class="tooltiptext">{labels.degree}</span>
+                                        <img class="infoicon slds-m-left_xx-small" src={infoSVG} />
+                                    </div>
+                                    <br /><span class="lighter-text">{product.B2B_Axis_Min__c} — {product.B2B_Axis_Max__c}</span>
+                                </th>
+                                <th>
+                                    {labels.addition}
+                                    <div class="tooltip">
+                                        <span class="tooltiptext">{labels.dioptre}</span>
+                                        <img class="infoicon slds-m-left_xx-small" src={infoSVG} />
+                                    </div>
+                                    <br /><span class="lighter-text">{product.B2B_Addition_Min__c} — {product.B2B_Addition_Max__c}</span>
+                                </th>
+                                <th>
+                                    {labels.prism1}
+                                    <div class="tooltip">
+                                        <span class="tooltiptext">cm/m</span>
+                                        <img class="infoicon slds-m-left_xx-small" src={infoSVG} />
+                                    </div>
+                                    <br /><span class="lighter-text">{product.B2B_Prism_1_Min__c} — {product.B2B_Prism_1_Max__c}</span>
+                                </th>
+                                <th class="prism-base-col-width">
+                                    {labels.prismBase1}
+                                    <div class="tooltip">
+                                        <span class="tooltiptext">{labels.degree}</span>
+                                        <img class="infoicon slds-m-left_xx-small" src={infoSVG} />
+                                    </div>
+                                    <!-- BS-1588 : Updated Prism Base 1 Range from min — max -->
+                                    <br /><span class="lighter-text">{product.B2B_Prism_base_1_Min__c} — {product.B2B_Prism_base_1_Max__c}</span>
+                                </th>
+                                <th>
+                                    {labels.prism2}
+                                    <div class="tooltip">
+                                        <span class="tooltiptext">cm/m</span>
+                                        <img class="infoicon slds-m-left_xx-small" src={infoSVG} />
+                                    </div>
+                                    <br /><span class="lighter-text">{product.B2B_Prism_2_Min__c} — {product.B2B_Prism_2_Max__c}</span>
+                                </th>
+                                <th class="prism-base-col-width">
+                                    {labels.prismBase2}
+                                    <div class="tooltip">
+                                        <span class="tooltiptext">{labels.degree}</span>
+                                        <img class="infoicon slds-m-left_xx-small" src={infoSVG} />
+                                    </div>
+                                    <br /><span class="lighter-text">{product.B2B_Prism_base_2_Min__c} — {product.B2B_Prism_base_2_Max__c}</span>
+                                </th>
+                            </tr>
+                        </template>
+                        <tr>
+                            <td colspan="2" class="heading-cell">{labels.rightEye}</td>
+                            <template for:each={_globalSelectionArray} for:item="inputColumns">
+                                <template if:true={inputColumns.isRightEye}>
+                                    <template if:true={inputColumns.isTextType}>
+                                        <td key={inputColumns.name} class={inputColumns.tdClass}>
+                                            <!-- BS-1443 : onfocusout-->
+                                            <lightning-input
+                                                type={inputColumns.type}
+                                                data-type="user-input"
+                                                class={inputColumns.inputClass}
+                                                variant={inputColumns.variant}
+                                                value={inputColumns.value}
+                                                name={inputColumns.name}
+                                                onchange={handleInputChange}
+                                                read-only={inputColumns.readOnly}
+                                                tabindex={inputColumns.tabIndex}
+                                                onfocusout={validateInput}
+                                            ></lightning-input>
+                                        </td>
+                                    </template>
+                                    <template if:true={inputColumns.isRadioType}>
+                                        <td key={inputColumns.name} class={inputColumns.tdClass}>
+                                            <lightning-radio-group
+                                                class={inputColumns.inputClass}
+                                                data-type="user-input"
+                                                variant={inputColumns.variant}
+                                                options={inputColumns.options}
+                                                value={inputColumns.value}
+                                                name={inputColumns.name}
+                                                type={inputColumns.type}
+                                                disabled={inputColumns.disabled}
+                                                onchange={handleInputChange}
+                                                tabindex={inputColumns.tabIndex}
+                                            ></lightning-radio-group>
+                                        </td>
+                                    </template>
+                                </template>
+                            </template>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="heading-cell">{labels.leftEye}</td>
+                            <template for:each={_globalSelectionArray} for:item="inputColumns">
+                                <template if:true={inputColumns.isLeftEye}>
+                                    <template if:true={inputColumns.isTextType}>
+                                        <td key={inputColumns.name} class={inputColumns.tdClass}>
+                                            <!-- BS-1443 : onfocusout-->
+                                            <lightning-input
+                                                type={inputColumns.type}
+                                                data-type="user-input"
+                                                class={inputColumns.inputClass}
+                                                variant={inputColumns.variant}
+                                                value={inputColumns.value}
+                                                name={inputColumns.name}
+                                                onchange={handleInputChange}
+                                                read-only={inputColumns.readOnly}
+                                                tabindex={inputColumns.tabIndex}
+                                                onfocusout={validateInput}
+                                            ></lightning-input>
+                                        </td>
+                                    </template>
+                                    <template if:true={inputColumns.isRadioType}>
+                                        <td key={inputColumns.name} class={inputColumns.tdClass}>
+                                            <lightning-radio-group
+                                                class={inputColumns.inputClass}
+                                                data-type="user-input"
+                                                variant={inputColumns.variant}
+                                                options={inputColumns.options}
+                                                value={inputColumns.value}
+                                                name={inputColumns.name}
+                                                type={inputColumns.type}
+                                                disabled={inputColumns.disabled}
+                                                onchange={handleInputChange}
+                                                tabindex={inputColumns.tabIndex}
+                                            ></lightning-radio-group>
+                                        </td>
+                                    </template>
+                                </template>
+                            </template>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Edit mode section End-->
+</template>

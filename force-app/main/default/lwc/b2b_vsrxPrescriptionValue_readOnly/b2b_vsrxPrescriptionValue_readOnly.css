@@ -1,0 +1,117 @@
+.radioButtonValue {
+    margin-top: 10px;
+    border: none;
+    font-weight: 500;
+    font-size: 14px;
+    margin: none;
+    margin-left: -1px;
+}
+
+.radioButtonLabel {
+    margin-top: 10px;
+    border: none;
+    font-weight: 300;
+    font-size: 14px;
+    margin: none;
+    margin-left: -1px;
+}
+
+.heading-cell {
+    width: 150px;
+    font-weight: 500;
+    font-size: 14px;
+}
+.lighter-text {
+    font-weight: 400;
+}
+
+.prescription-value-container table {
+    border-collapse: separate;
+    border-spacing: 0 5px;
+}
+
+.prescription-value-container table th {
+    text-align: center;
+}
+
+.prescription-value-container .slds-input {
+    text-align: center;
+    border: none !important;
+}
+
+.prescription-value-container .desabled {
+    background-color: #d8d8d8;
+}
+
+.prescription-value-container .slds-radio_faux {
+    -ms-transform: scale(1.5) !important; /* IE 9 */
+    -webkit-transform: scale(1.5) !important; /* Chrome, Safari, Opera */
+    transform: scale(1.5) !important;
+    width: 15px !important;
+    height: 15px !important;
+}
+
+.desabled {
+    background-color: #d8d8d8;
+}
+
+.table-horizontal-scroll {
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+}
+.black-color {
+    color: black;
+}
+
+.read-only-values {
+}
+
+.prescription-valu-table {
+    overflow: auto;
+}
+
+.prescription-valu-table table {
+    min-width: 800px;
+    border-spacing: 0px;
+    padding: 0px !important;
+}
+
+.prescription-valu-table table,
+th {
+    font-size: 14px;
+    font-weight: 500;
+}
+.prescription-valu-table table,
+td {
+    font-size: 14px;
+    font-weight: 300;
+}
+
+.prescription-valu-table table,
+th,
+td {
+    border: 1.5px solid #fff;
+    background-color: #d8d8d8;
+    padding: 8px;
+    text-align: center;
+}
+
+.prescription-valu-table table td:first-child {
+    text-align: left;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+::-webkit-scrollbar {
+    height: 8px;
+}
+
+.font14 {
+    font-size: 14px;
+    font-weight: 300;
+}
+
+.font14bold {
+    font-size: 14px;
+    font-weight: 500;
+}

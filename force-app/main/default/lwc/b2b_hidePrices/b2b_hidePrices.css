@@ -1,0 +1,19 @@
+.strikethrough-hide-price {
+    background: linear-gradient(to left top, transparent 47.75%, currentColor 49.5%, currentColor 50.5%, transparent 52.25%);
+}
+
+.hide-price-icon {
+    cursor: pointer;
+    width: 25px;
+    max-width: 25px;
+}
+
+.hide-price {
+    float: right;
+}
+
+@media only screen and (max-width: 768px) {
+    .hide-price-icon {
+        width: 18px;
+    }
+}

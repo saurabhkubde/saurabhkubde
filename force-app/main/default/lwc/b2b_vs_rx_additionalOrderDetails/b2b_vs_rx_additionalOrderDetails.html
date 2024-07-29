@@ -1,0 +1,181 @@
+<template>
+    <div if:true={orderData} class="slds-p-left_small">
+        <div class="title slds-p-top_small">
+            <p>{label.priscriptionValue}</p>
+        </div>
+        <div class="font-400 prescription-value">
+            <!--priscription value table start-->
+            <table>
+                <tr>
+                    <th></th>
+                    <th>{label.sphere}</th>
+                    <th>{label.cylinder}</th>
+                    <th>{label.axis}</th>
+                    <th>{label.addition}</th>
+                    <th>{label.prism1}</th>
+                    <th>{label.prismBase1}</th>
+                    <th>{label.prism2}</th>
+                    <th>{label.prismBase2}</th>
+                </tr>
+                <tr>
+                    <td class="fnt14-bold">{label.rightEye}</td>
+                    <td>
+                        <div if:true={orderData.B2B_Sphere_Right__c}>{orderData.B2B_Sphere_Right__c}</div>
+                        <div if:false={orderData.B2B_Sphere_Right__c}></div>
+                    </td>
+                    <td>
+                        <div if:true={orderData.B2B_Cylinder_Right__c}>{orderData.B2B_Cylinder_Right__c}</div>
+                        <div if:false={orderData.B2B_Cylinder_Right__c}></div>
+                    </td>
+                    <td>
+                        <div if:true={orderData.B2B_Axis_Right__c}>{orderData.B2B_Axis_Right__c}</div>
+                        <div if:false={orderData.B2B_Axis_Right__c}></div>
+                    </td>
+                    <td>
+                        <div if:true={orderData.B2B_Addition_Right__c}>{orderData.B2B_Addition_Right__c}</div>
+                        <div if:false={orderData.B2B_Addition_Right__c}></div>
+                    </td>
+                    <td>
+                        <div if:true={orderData.B2B_Prism_1_Right__c}>{orderData.B2B_Prism_1_Right__c}</div>
+                        <div if:false={orderData.B2B_Prism_1_Right__c}></div>
+                    </td>
+                    <td>
+                        <div if:true={orderData.B2B_PB1_Right__c}>{orderData.B2B_PB1_Right__c}</div>
+                        <div if:true={orderData.B2B_PB1Placement_Right__c}>{orderData.B2B_PB1Placement_Right__c}</div>
+                        <div if:false={orderData.B2B_PB1_Right__c}></div>
+                    </td>
+                    <td>
+                        <div if:true={orderData.B2B_Prism2_Right__c}>{orderData.B2B_Prism2_Right__c}</div>
+                        <div if:false={orderData.B2B_Prism2_Right__c}></div>
+                    </td>
+                    <td>
+                        <div if:true={orderData.B2B_Prism_base2_Right__c}>{orderData.B2B_Prism_base2_Right__c}</div>
+                        <div if:true={orderData.B2B_PB2Placement_Right__c}>{orderData.B2B_PB2Placement_Right__c}</div>
+                        <div if:false={orderData.B2B_Prism_base2_Right__c}></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="fnt14-bold">{label.leftEye}</td>
+                    <td>
+                        <div if:true={orderData.B2B_Sphere_Left__c}>{orderData.B2B_Sphere_Left__c}</div>
+                        <div if:false={orderData.B2B_Sphere_Left__c}></div>
+                    </td>
+                    <td>
+                        <div if:true={orderData.B2B_Cylinder_Left__c}>{orderData.B2B_Cylinder_Left__c}</div>
+                        <div if:false={orderData.B2B_Cylinder_Left__c}></div>
+                    </td>
+                    <td>
+                        <div if:true={orderData.B2B_Axis_Left__c}>{orderData.B2B_Axis_Left__c}</div>
+                        <div if:false={orderData.B2B_Axis_Left__c}></div>
+                    </td>
+                    <td>
+                        <div if:true={orderData.B2B_Addition_Left__c}>{orderData.B2B_Addition_Left__c}</div>
+                        <div if:false={orderData.B2B_Addition_Left__c}></div>
+                    </td>
+                    <td>
+                        <div if:true={orderData.B2B_Prism_1_Left__c}>{orderData.B2B_Prism_1_Left__c}</div>
+                        <div if:false={orderData.B2B_Prism_1_Left__c}></div>
+                    </td>
+                    <td>
+                        <div if:true={orderData.B2B_PB1_Left__c}>{orderData.B2B_PB1_Left__c}</div>
+                        <div if:true={orderData.B2B_PB1Placement_Left__c}>{orderData.B2B_PB1Placement_Left__c}</div>
+                        <div if:false={orderData.B2B_PB1_Left__c}></div>
+                    </td>
+                    <td>
+                        <div if:true={orderData.B2B_Prism2_Left__c}>{orderData.B2B_Prism2_Left__c}</div>
+                        <div if:false={orderData.B2B_Prism2_Left__c}></div>
+                    </td>
+                    <td>
+                        <div if:true={orderData.B2B_Prism_base2_Left__c}>{orderData.B2B_Prism_base2_Left__c}</div>
+                        <div if:true={orderData.B2B_PB2Placement_Left__c}>{orderData.B2B_PB2Placement_Left__c}</div>
+                        <div if:false={orderData.B2B_Prism_base2_Left__c}></div>
+                    </td>
+                </tr>
+                <!--Added centering data in same table as of prescription BS-2343-->
+                <tr></tr>
+                <tr>
+                    <td colspan="2" class="section-title-prescription slds-m-top_small">{label.centringData}</td>
+                </tr>
+                <tr>
+                    <th></th>
+                    <th colspan="2">{label.pupilDistance}</th>
+                    <th>{label.fittingHeight}</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                <tr>
+                    <td class="fnt14-bold">{label.rightEye}</td>
+                    <td colspan="2">
+                        <div if:true={orderData.B2B_Pupil_Distance_Right_Eye__c}>{orderData.B2B_Pupil_Distance_Right_Eye__c}</div>
+                        <div if:false={orderData.B2B_Pupil_Distance_Right_Eye__c}></div>
+                    </td>
+                    <td>
+                        <div if:true={orderData.B2B_Fitting_height_Right_Eye__c}>{orderData.B2B_Fitting_height_Right_Eye__c}</div>
+                        <div if:false={orderData.B2B_Pupil_Distance_Right_Eye__c}></div>
+                    </td>
+                    <td></td>
+                    <td colspan="2">
+                        <div if:true={orderData.B2B_Pantoscopic_tilt__c}>{label.pantascopicTilt}</div>
+                        <div if:false={orderData.B2B_Pantoscopic_tilt__c}></div>
+                    </td>
+                    <td>
+                        <div if:true={orderData.B2B_Pantoscopic_tilt__c}>{orderData.B2B_Pantoscopic_tilt__c}</div>
+                        <div if:false={orderData.B2B_Pantoscopic_tilt__c}></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="fnt14-bold">{label.leftEye}</td>
+                    <td colspan="2">
+                        <div if:true={orderData.B2B_Pupil_Distance_Left_Eye__c}>{orderData.B2B_Pupil_Distance_Left_Eye__c}</div>
+                        <div if:false={orderData.B2B_Pupil_Distance_Left_Eye__c}></div>
+                    </td>
+                    <td>
+                        <div if:true={orderData.B2B_Fitting_height_Left_Eye__c}>{orderData.B2B_Fitting_height_Left_Eye__c}</div>
+                        <div if:false={orderData.B2B_Fitting_height_Left_Eye__c}></div>
+                    </td>
+                    <td></td>
+                    <td if:true={orderData.B2B_BVD_worn__c} colspan="2">{label.bvdWorn}</td>
+                    <td if:true={orderData.B2B_BVD_worn__c}>{orderData.B2B_BVD_worn__c}</td>
+                </tr>
+                <tr>
+                    <td if:true={orderData.B2B_Measurement_System__c} class="fnt14-bold" colspan="2">{label.measurementSystem}</td>
+                    <td if:true={orderData.B2B_Measurement_System__c} class="fnt14-bold">{orderData.B2B_Measurement_System__c}</td>
+                    <td></td>
+                    <td></td>
+                    <td if:true={orderData.B2B_BVD_refracted__c} colspan="2">{label.bvdReffracted}</td>
+                    <td if:true={orderData.B2B_BVD_refracted__c}>{orderData.B2B_BVD_refracted__c}</td>
+                </tr>
+                <tr if:true={orderData.B2B_Working_Distance__c}>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td colspan="2">{label.workingDistanceFieldLabel}</td>
+                    <td>{orderData.B2B_Working_Distance__c}</td>
+                </tr>
+            </table>
+            <!--prescription value table end-->
+        </div>
+        <div if:true={shapeAdjusted}>
+            <c-b2b_vs_shape_display_component lens-configurator-id={lensConfiguratorId}></c-b2b_vs_shape_display_component>
+        </div>
+        <div if:true={isComment}>
+            <div class="title slds-p-vertical_small">{label.commentLabel}</div>
+            <div class="fs-14 slds-grid slds-wrap">
+                <div if:true={orderData.B2B_Note__c} class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12 w-150">
+                    {label.noteLabel}:{orderData.B2B_Note__c}
+                </div>
+                <div if:true={orderData.B2B_Special_Handling__c} class="slds-col slds-size_1-of-1 slds-medium-size_8-of-12 slds-large-size_8-of-12 w-150">
+                    {orderData.B2B_Special_Handling__c}
+                </div>
+            </div>
+            <div>
+                <div if:true={orderData.B2B_Customer_Service_Preference__c} class="fs-14 slds-m-vertical_medium">{instructionsLabel}</div>
+            </div>
+        </div>
+    </div>
+</template>

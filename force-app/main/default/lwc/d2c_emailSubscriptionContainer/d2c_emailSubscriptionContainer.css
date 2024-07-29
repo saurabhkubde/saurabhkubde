@@ -1,0 +1,64 @@
+.newsletter-text {
+    font-family: 'Adobe Caslon Pro' !important;
+    padding: 7px 0px 0px 5px;
+    font-size: 16px !important;
+}
+
+.newsletter-container {
+    display: flex;
+    flex-direction: row;
+    max-width: 650px;
+    margin: auto;
+}
+
+.error-message {
+    font-family: 'Adobe Caslon Pro' !important;
+    padding-top: 5px;
+}
+.input-wrap {
+    padding: 5px;
+    flex: 480px;
+}
+
+.btn-wrap {
+    padding: 5px;
+    flex: 170px;
+}
+
+.input {
+    padding: 7px 7px 3px 7px;
+    font-family: 'Adobe Caslon Pro';
+    color: #000;
+    font-size: 18px;
+    width: 100%;
+    border: solid 1px #000;
+}
+
+.Subscribe-button {
+    color: white;
+    background-color: #000;
+    font-family: 'Adobe Caslon Pro';
+    font-size: 18px;
+    padding: 10px 0px 10px 5px;
+    width: 100%;
+    border: 0px;
+}
+
+.sh-header {
+    font-size: 30px;
+    font-weight: 400;
+    padding-left: 5px;
+}
+
+@media (max-width: 600px) {
+    .newsletter-container {
+        flex-direction: column;
+    }
+    .input-wrap {
+        flex: 100%;
+    }
+
+    .btn-wrap {
+        flex: 100%;
+    }
+}

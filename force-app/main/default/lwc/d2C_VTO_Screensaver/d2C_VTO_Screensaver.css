@@ -1,0 +1,11 @@
+/* 
+ * DVM21-14: Creation of screen saver page for VTO/POS : Start
+ * @desc    Set image size for logos
+ */
+
+.image-size {
+    width: 300px;
+    height: 55px;
+    cursor: pointer;
+}
+/* DVM21-14: Creation of screen saver page for VTO/POS : End */

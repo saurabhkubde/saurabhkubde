@@ -1,0 +1,199 @@
+<template>
+    <div if:true={isSilhouetteLogin}>
+        <div class="slds-text-align_center slds-m-top_medium slds-m-bottom_x-large">
+            <img src={imageLogo} class="SH-logo" onclick={goBack} />
+        </div>
+    </div>
+    <div if:false={isSilhouetteLogin}>
+        <div class="slds-text-align_center slds-p-bottom_xx-large slds-m-top_xx-large">
+            <img src={imageLogo} class="logoImage imageSize" onclick={goBack} />
+        </div>
+    </div>
+    <template if:true={loading}>
+        <lightning-spinner alternative-text="Loading"></lightning-spinner>
+    </template>
+    <div class="loginflowcontainer">
+        <div if:true={isSilhouetteLogin}>
+            <!-- Start: BS-2005 -->
+            <div>
+                <div class="shHeading">{label.silhouetteHeading}</div>
+                <div class="shDescription slds-p-vertical_x-small">{label.silhouetteDescription1}</div>
+                <div class="shDescription slds-p-vertical_x-small">{label.silhouetteDescription2}</div>
+                <div class="slds-p-vertical_x-small">
+                    <span class="shDescription">{label.silhouetteDescription3}</span>
+                    <a class="customer-service-link slds-p-left_xx-small" href={_contactCustomerServiceRedirectUrl}>{label.contactCustomerServiceLabel}</a>
+                </div>
+            </div>
+            <!-- End: BS-2005 -->
+        </div>
+        <div if:false={isSilhouetteLogin}>
+            <!-- Start: BS-2017 -->
+            <div>
+                <div class="shHeading">{label.silhouetteHeading}</div>
+                <div class="shDescription slds-p-vertical_x-small">{label.neubauDescription1}</div>
+                <div class="shDescription slds-p-vertical_x-small">{label.neubauDescription2}</div>
+                <div class="slds-p-vertical_x-small">
+                    <span class="shDescription">{label.neubauDescription3}</span>
+                    <a class="customer-service-link slds-p-left_xx-small" href={_contactCustomerServiceRedirectUrl}
+                        >{label.neubauContactCustomerServiceLabel}</a
+                    >
+                </div>
+            </div>
+            <!-- End: BS-2017 -->
+        </div>
+
+        <!--left-->
+
+        <div class="slds-grid slds-gutters slds-wrap slds-m-vertical_large">
+            <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12 slds-m-bottom_medium">
+                <!--Start BS-1859-->
+                <table class="table-auto">
+                    <tr>
+                        <td>
+                            <label class="required-label" valign="top">
+                                <span> {labels.accountNumber} </span>
+                            </label>
+                            <span class="slds-p-left_xx-small required-star" title={labels.titleMessageForAccountNumber}> * </span>
+
+                            <div class="tooltip">
+                                <img class="toolTipStyling" src={alertIcon} />
+                                <!-- Start : BS-2097 -->
+                                <template if:true={isSilhouetteLogin}>
+                                    <span class="text">{labels.B2B_Partner_Portal_Username_Input_Field_Helptext}</span>
+                                </template>
+                                <template if:false={isSilhouetteLogin}>
+                                    <span class="text">{label.nbUsernameHelpText}</span>
+                                </template>
+                                <!-- End : BS-2097-->
+                            </div>
+                        </td>
+                        <td class="text-align-right">
+                            <span if:true={isSilhouetteLogin}>
+                                <div class="slds-col_bump-left slds-is-relative">
+                                    <span onclick={toggleTooltip}>
+                                        <img class="globe-icon" src={globeIcon} />
+                                        <span class="required-label text-underline"> {label.SEE_COUNTRY_CODE}</span></span
+                                    >
+                                    <div if:true={showTooltip} class={_popoverClass}>
+                                        <section
+                                            aria-describedby="dialog-body-id-118"
+                                            aria-labelledby="dialog-heading-id-115"
+                                            class="slds-popover slds-nubbin_left slds-popover_large"
+                                            role="dialog"
+                                        >
+                                            <div class="close-icon">
+                                                <lightning-button-icon
+                                                    class="slds-button slds-button_icon slds-button_icon-small slds-float_right slds-popover__close"
+                                                    icon-name="utility:close"
+                                                    onclick={closeTooltip}
+                                                ></lightning-button-icon>
+                                            </div>
+
+                                            <div class="slds-popover__body" id="dialog-body-id-110">
+                                                <div class="slds-media">
+                                                    <div class="slds-media__body">
+                                                        <c-b2b_see-country-code></c-b2b_see-country-code>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </section>
+                                    </div>
+                                </div>
+                            </span>
+                        </td>
+                    </tr>
+                </table>
+                <!-- End BS-1859-->
+
+                <lightning-input
+                    type="text"
+                    class="validate slds-m-top_x-small p-2"
+                    label={labels.accountNumber}
+                    name="accountNumber"
+                    value={accountNumber}
+                    onchange={genericOnChange}
+                    required="true"
+                    variant="label-hidden"
+                    aria-required="true"
+                ></lightning-input>
+            </div>
+
+            <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12 slds-m-bottom_medium">
+                <lightning-input
+                    type="text"
+                    class="validate"
+                    label={labels.accountName}
+                    name="accountName"
+                    value={accountName}
+                    onchange={genericOnChange}
+                    required="true"
+                ></lightning-input>
+            </div>
+
+            <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12 slds-m-bottom_medium">
+                <lightning-input
+                    class="validate"
+                    type="text"
+                    label={labels.zipcode}
+                    name="zipCode"
+                    value={zipCode}
+                    onchange={genericOnChange}
+                    required="true"
+                ></lightning-input>
+            </div>
+
+            <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12 slds-m-bottom_medium">
+                <lightning-input
+                    class="validate"
+                    type="text"
+                    label={labels.city}
+                    name="city"
+                    value={city}
+                    onchange={genericOnChange}
+                    required="true"
+                ></lightning-input>
+            </div>
+
+            <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12 slds-m-bottom_medium">
+                <lightning-combobox
+                    name="countryName"
+                    class="validate"
+                    label={labels.countryName}
+                    options={countryOptions}
+                    onchange={genericOnChange}
+                    required="true"
+                ></lightning-combobox>
+            </div>
+            <div class="slds-grid slds-wrap left-pad">
+                <div class="slds-size_xxx-small">
+                    <lightning-input type="checkbox" class="validate" name="privacyCheckbox" required="true"></lightning-input>
+                </div>
+                <template if:true={isSilhouetteLogin}>
+                    <div class="title-small-auto">
+                        <lightning-formatted-rich-text value={labels.policySHEE} class="color-black"></lightning-formatted-rich-text>
+                    </div>
+                </template>
+                <template if:false={isSilhouetteLogin}>
+                    <div class="title-small-auto">
+                        <lightning-formatted-rich-text value={labels.policyNB}></lightning-formatted-rich-text>
+                    </div>
+                </template>
+            </div>
+            <div class="slds-col slds-size_1-of-1"><hr class="customhr" /></div>
+
+            <div class="slds-col slds-size_1-of-1">
+                <div class="slds-grid slds-grid_vertical-align-center">
+                    <!--BS-2034 Removed back to login button-->
+                    <div class="slds-col slds-float_right slds-p-horizontal_none">
+                        <!-- Updated as part of BS-2005 -->
+                        <button data-id="registerBtn" class="slds-float_right silButton capital" onclick={handleGetAccessButton}>
+                            {label.registerButtonLabel}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Added as part of BS-2005 -->
+        <hr class="custom-hr" />
+    </div>
+</template>

@@ -1,0 +1,218 @@
+<template>
+    <!-- NBD2C-97 : Component Loader section - Start -->
+    <lightning-spinner
+        if:false={_phoneNumberLibraryLoaded}
+        alternative-text={_loadingLabel}
+        class="slds-is-fixed slds-align_absolute-center spinnerStyling"
+        id="lightningSpinner"
+        size="large"
+    ></lightning-spinner>
+    <!-- NBD2C-97 : Component Loader section - End -->
+
+    <!-- NBD2C-97 : Personal Details Section - Start -->
+    <div class="container">
+        <!-- NBD2C-97 : Personal Details Section - Start -->
+        <div class="personalDetailHeader">
+            <h3 class="heading">{_headingValue}</h3>
+        </div>
+        <!-- NBD2C-97 : Personal Details Section - End -->
+
+        <!-- NBD2C-97 : Personal Details Form - Start -->
+        <div class="personalDetailForm">
+            <!-- NBD2C-97 : Form Container Section Section - Start -->
+            <div class="slds-grid slds-wrap slds-gutters">
+                <!-- NBD2C-97 : Salutation Buttons Container - Start -->
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_12-of-12 slds-large-size_12-of-12">
+                    <div class="salutationContainer personalDetailsalutation">
+                        <lightning-radio-group
+                            name="salutation"
+                            label={_salutationLabel}
+                            options={salutationOptions}
+                            onchange={handleSalutationChange}
+                            value={_salutationValue}
+                            class="salutationButtons field-name"
+                            type="radio"
+                        ></lightning-radio-group>
+                    </div>
+                </div>
+                <!-- NBD2C-97 : Salutation Buttons Container - End -->
+
+                <!-- NBD2C-97 : First Name Container - Start -->
+                <div class="slds-m-vertical_x-small slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+                    <label class="slds-form-element__label field-name" for="firstName">{_firstNameLabel}*</label>
+                    <div class="slds-form-element__control">
+                        <input type="text" id="firstName" name="firstName" value={_firstName} oninput={handleInputChange} class="slds-input input" required />
+                    </div>
+                </div>
+                <!-- NBD2C-97 : First Name Container - End -->
+
+                <!-- NBD2C-97 : Last Name Container - Start -->
+                <div class="slds-m-vertical_x-small slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+                    <label class="slds-form-element__label field-name" for="lastName">{_lastNameLabel}*</label>
+                    <div class="slds-form-element__control">
+                        <input type="text" id="lastName" name="lastName" value={_lastName} oninput={handleInputChange} class="slds-input input" required />
+                    </div>
+                </div>
+                <!-- NBD2C-97 : Last Name Container - End -->
+
+                <!-- NBD2C-97 : Email Container - Start -->
+                <div class="slds-m-vertical_x-small slds-col slds-size_1-of-1 slds-medium-size_12-of-12 slds-large-size_12-of-12">
+                    <label class="slds-form-element__label field-name" for="email">{_emailLabel}*</label>
+                    <div class="slds-form-element__control">
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            value={_email}
+                            oninput={handleInputChange}
+                            onfocusout={validateEmail}
+                            class="slds-input input"
+                            required
+                        />
+                    </div>
+                </div>
+                <!-- NBD2C-97 : Email Container - End -->
+
+                <!-- NBD2C-97 : Phone Number Container - Start -->
+                <div class="slds-m-vertical_x-small slds-col slds-size_1-of-1 slds-medium-size_12-of-12 slds-large-size_12-of-12">
+                    <table border="0" class="phone">
+                        <tr>
+                            <td colspan="2">
+                                <label class="slds-form-element__label field-name" for="phoneNumber">{_phoneLabel}*</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <!-- NBD2C-97 : Country Code Options Section - Start -->
+                                <div class="slds-form-element__control">
+                                    <!-- NBD2C-97 : Select Section - Start -->
+                                    <select
+                                        id="selectCountryCode"
+                                        name="selectCountryCode"
+                                        value={_selectedCountryCode}
+                                        onchange={handleCountryChange}
+                                        class="slds-select input countryCodes"
+                                        required
+                                    >
+                                        <!-- NBD2C-97 : Country Code Options Section - Start -->
+                                        <!-- NBD2C-97 : Placeholder as an option -->
+                                        <template for:each={_countryCodes} for:item="code">
+                                            <option class="countryCodeOption" key={code.value} value={code.value} selected={code.selected}>{code.label}</option>
+                                        </template>
+                                        <!-- NBD2C-97 : Country Code Options Section - End -->
+                                    </select>
+                                    <!-- NBD2C-97 : Select Section - End -->
+                                </div>
+                                <!-- NBD2C-97 : Country Code Options Section - End -->
+                            </td>
+                            <td>
+                                <div class="slds-form-element__control">
+                                    <input
+                                        type="tel"
+                                        id="phoneNumber"
+                                        data-id="phone"
+                                        name="phoneNumber"
+                                        value={_phoneNumber}
+                                        onfocusout={validatePhoneNumber}
+                                        oninput={handleInputChange}
+                                        class="slds-input input"
+                                        required
+                                    />
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <!-- NBD2C-97 : Phone Number Container - End -->
+
+                <!-- NBD2C-114 : Street Section - Start -->
+                <div if:true={isOnlinePurchase} class="slds-m-vertical_x-small slds-col slds-size_1-of-1 slds-medium-size_12-of-12 slds-large-size_12-of-12">
+                    <label class="slds-form-element__label field-name" for="street">{_streetLabel}*</label>
+                    <div class="slds-form-element__control">
+                        <input type="text" id="street" name="street" value={_street} oninput={handleInputChange} class="slds-input input" required />
+                    </div>
+                </div>
+                <!-- NBD2C-114 : Street Section - End -->
+
+                <!-- NBD2C-114 :  - Start -->
+                <div if:true={isOnlinePurchase} class="slds-m-vertical_x-small slds-col slds-size_1-of-1 slds-medium-size_12-of-12 slds-large-size_12-of-12">
+                    <label class="slds-form-element__label field-name" for="address">{_addressLabel}</label>
+                    <div class="slds-form-element__control">
+                        <input type="text" id="address" name="address" value={_address} oninput={handleInputChange} class="slds-input input" />
+                    </div>
+                </div>
+                <!-- NBD2C-114 :  - End -->
+
+                <!-- NBD2C-114 : Zip Code - Start -->
+                <div if:true={isOnlinePurchase} class="slds-m-vertical_x-small slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+                    <label class="slds-form-element__label field-name" for="zipCode">{_zipCodeLabel}*</label>
+                    <div class="slds-form-element__control">
+                        <input type="number" id="zipCode" name="zipCode" value={_zipCode} oninput={handleInputChange} class="slds-input input" required />
+                    </div>
+                </div>
+                <!-- NBD2C-114 : Zip Code Section - End -->
+
+                <!-- NBD2C-114 : Town City Section - Start -->
+
+                <div if:true={isOnlinePurchase} class="slds-m-vertical_x-small slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+                    <label class="slds-form-element__label field-name" for="townCity">{_townCityLabel}*</label>
+                    <div class="slds-form-element__control">
+                        <input type="text" id="townCity" name="townCity" value={_townCity} oninput={handleInputChange} class="slds-input input" required />
+                    </div>
+                </div>
+                <!-- NBD2C-114 : Town City Section - End -->
+
+                <!-- NBD2C-114 : Country Section - End -->
+                <div
+                    if:true={isOnlinePurchase}
+                    class="slds-m-vertical_x-small slds-col slds-size_1-of-1 slds-medium-size_12-of-12 slds-large-size_12-of-12 slds-form-element"
+                >
+                    <label class="slds-form-element__label field-name" for="country">{_countryLabel}*</label>
+                    <div class="slds-form-element__control">
+                        <select id="country" name="country" value={_country} onchange={handleInputChange} class="slds-select input select-option" required>
+                            <option value="" disabled selected></option>
+                            <!-- Placeholder option -->
+                            <template for:each={_supportedCountries} for:item="country">
+                                <option key={country.value} value={country.value} selected={country.selected}>{country.label}</option>
+                                <!-- Country options -->
+                            </template>
+                        </select>
+                    </div>
+                </div>
+                <!-- NBD2C-114 : Country Section - End -->
+
+                <!-- NBD2C-97 : Marketing Consent Section - Start -->
+                <div class="marketingConsent">
+                    <!-- Terms and Conditions checkbox -->
+                    <div class="slds-form-element">
+                        <div class="slds-checkbox">
+                            <input
+                                type="checkbox"
+                                id="marketingConsent"
+                                name="marketingConsent"
+                                value={_marketingConsent}
+                                onchange={handleInputChange}
+                                required
+                            />
+                            <label class="slds-checkbox__label marketingConsentLabel" for="marketingConsent">
+                                <span class="slds-checkbox_faux"></span>
+                                <span lwc:dom="manual" class="slds-form-element__label marketingConsentLabelHolder"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <!-- NBD2C-97 : Marketing Consent Section - End -->
+
+                <!-- NBD2C-97 : Terms And Conditions Container - Start -->
+                <div class="termsAndConditions">
+                    <p lwc:dom="manual" class="termsAndConditionsLabelHolder"></p>
+                    <p lwc:dom="manual" class="privacyPolicyLabelHolder"></p>
+                </div>
+                <!-- NBD2C-97 : Terms And Conditions Section - Start -->
+            </div>
+            <!-- NBD2C-97 : Form Container Section Section - End -->
+        </div>
+        <!-- NBD2C-97 : Personal Details Form - End -->
+    </div>
+    <!-- NBD2C-97 : Personal Details Section - End -->
+</template>

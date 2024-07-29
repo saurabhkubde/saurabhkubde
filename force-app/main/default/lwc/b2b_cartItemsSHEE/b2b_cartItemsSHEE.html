@@ -1,0 +1,581 @@
+<!-- Main Component to show list of Cart Items added to the Cart with its details -->
+<template>
+    <div class="cartcontainer">
+        <div class="slds-grid slds-border_bottom cart-subtotal" if:false={hidePurchasePriceField}>
+            <table>
+                <tr>
+                    <td>
+                        <div if:true={showSubtotal}>
+                            <span class="fnt14-bold">{_subtotalLabel}: </span>
+                        </div>
+                    </td>
+                    <td>
+                        <lightning-formatted-number
+                            format-style="currency"
+                            currency-code={currencyCode}
+                            class="black-color slds-truncate slds-p-right_x-small"
+                            currency-display-as="symbol"
+                            maximum-fraction-digits="2"
+                            value={_subtotal}
+                            title={_subtotalLabel}
+                        ></lightning-formatted-number>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <template for:each={_cartInformation} for:item="lineItem">
+            <div key={lineItem.cartItemId} class={lineItem.entitledCSS}>
+                <!--BS-1624 START-->
+                <div class="slds-grid slds-wrap slds-m-top_small">
+                    <div class="slds-col slds-size_1-of-1 slds-text-align_right">
+                        <div if:true={isCartPage} class="iconclass">
+                            <div class="tooltip slds-m-bottom_small">
+                                <img
+                                    src={_deleteIcon}
+                                    class="delete-icon-grey delete-icon"
+                                    onclick={openPopupForDelete}
+                                    data-cartitemid={lineItem.cartItem.cartItemId}
+                                />
+                                <span class="tooltiptext w120">{_removeProductLabel}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="slds-grid slds-wrap slds-m-top_small">
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12">
+                        <!-- First Block -->
+                        <div class="product-details-container">
+                            <div if:true={lineItem.showEvilEyeLensDeatils}>
+                                <div key={lineItem.cartItemId} class="additional-information-for-evil-eye">
+                                    <a
+                                        key={lineItem.cartItemId}
+                                        class="field-item slds-text-link_reset"
+                                        data-productid={lineItem.cartItem.productDetails.productId}
+                                        onclick={handleProductDetailNavigation}
+                                    >
+                                        <div if:true={lineItem.model} key={lineItem.productName}>
+                                            <lightning-formatted-text title={lineItem.model} value={lineItem.model} class="productModel">
+                                            </lightning-formatted-text>
+                                        </div>
+                                        <div if:true={lineItem.displayName} key={lineItem.displayName}>
+                                            <lightning-formatted-text title={lineItem.displayName} value={lineItem.displayName} class="productModel">
+                                            </lightning-formatted-text>
+                                        </div>
+                                        <div if:true={lineItem.frameColorDescription} key={lineItem.productName} class="productModel">
+                                            <lightning-formatted-text
+                                                title={lineItem.frameColorDescription}
+                                                value={lineItem.frameColorDescription}
+                                                class="productModel"
+                                            ></lightning-formatted-text>
+                                        </div>
+                                        <div if:true={lineItem.collectionDesignFamily} key={lineItem.productName} class="slds-align_absolute-left">
+                                            <lightning-formatted-text
+                                                title={lineItem.collectionDesignFamily}
+                                                value={lineItem.collectionDesignFamily}
+                                                class="f14 font-reqular"
+                                            ></lightning-formatted-text>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                            <div if:false={lineItem.showEvilEyeLensDeatils}>
+                                <div class="f18">
+                                    <!-- BS-2024 -->
+                                    <a
+                                        href={lineItem.productId}
+                                        data-productid={lineItem.cartItem.productDetails.productId}
+                                        onclick={handleProductDetailNavigation}
+                                        tabindex="0"
+                                        class="black-color item-name tooltip-productname"
+                                    >
+                                        <lightning-formatted-rich-text
+                                            class="tooltiptext text2"
+                                            value={lineItem.cartItem.productDetails.name}
+                                        ></lightning-formatted-rich-text>
+                                        {lineItem.displayName}
+                                    </a>
+                                </div>
+                                <div>
+                                    <span if:true={lineItem.model} class="f18">{lineItem.model}</span>
+                                    <!-- Added as a part of BS-1246 -->
+                                    <span if:true={lineItem.collectionDesignFamily} class="f18">{lineItem.collectionDesignFamily}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <img
+                                if:true={lineItem.productLink}
+                                src={lineItem.productLink}
+                                alt={lineItem.productLink}
+                                data-productid={lineItem.productId}
+                                title={lineItem.cartItem.productDetails.name}
+                                class="product-img"
+                            />
+                            <img
+                                if:false={lineItem.productLink}
+                                src={lineItem.productImageUrl}
+                                alt={lineItem.productLink}
+                                data-productid={lineItem.productId}
+                                title={lineItem.cartItem.productDetails.name}
+                                class="product-img"
+                            />
+                        </div>
+
+                        <div class="slds-col slds-m-top_x-small">
+                            <div if:true={lineItem.cartItem.productDetails.sku} class="product-details-container">
+                                <span class="f14 slds-m-right_xx-small">{_prodcutSkuLabel} </span>
+                                <span class="f14 font-reqular"> {lineItem.cartItem.productDetails.sku}</span>
+                            </div>
+                        </div>
+
+                        <div class="f14">
+                            <template if:true={lineItem.deliveryTimeJSON}>
+                                <div title={_deliveryTimeLabel}>
+                                    <table class="availability-table">
+                                        <tr class="cart-item-shipping-info">
+                                            <td class="cart-item-shipping-info">
+                                                <span>
+                                                    <img class="icon" src={lineItem.deliveryTimeJSON.styling} />
+                                                </span>
+                                                <span>
+                                                    <lightning-formatted-text
+                                                        class="text-tiny-medium slds-text-align_center"
+                                                        value={lineItem.deliveryTimeJSON.status}
+                                                    ></lightning-formatted-text>
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </template>
+                        </div>
+                    </div>
+
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_5-of-12 slds-large-size_5-of-12">
+                        <!-- Block 2 -->
+                        <div if:false={lineItem.isEvilEyeProduct} class="productdetails-container">
+                            <table>
+                                <tbody>
+                                    <tr if:true={lineItem.backgroundColorUpper}>
+                                        <td>
+                                            <div if:true={lineItem.backgroundColorUpper}>
+                                                <div class="fs-14">{_frameColorLabel}</div>
+                                            </div>
+                                        </td>
+
+                                        <td>
+                                            <div if:true={lineItem.backgroundColorUpper}>
+                                                <div class="product-details">
+                                                    <span class="product-color-bubble slds-m-top_xxx-small slds-m-right_xxx-small color-bubble">
+                                                        <span class="product-color-bubble__upper" style={lineItem.backgroundColorUpper}></span>
+                                                        <span class="product-color-bubble__lower" style={lineItem.backgroundColorLower}></span>
+                                                    </span>
+                                                    <span class="slds-m-horizontal_xx-small slds-m-bottom_small product-details"
+                                                        >{lineItem.frameColorValue}</span
+                                                    >
+                                                    <span class="slds-m-horizontal_xx-small slds-m-bottom_small product-details"
+                                                        >{lineItem.frameColorDescription}</span
+                                                    >
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                    <tr if:true={lineItem.shapeSizeHeight}>
+                                        <td>
+                                            <div if:false={lineItem.isSparePart}>
+                                                <!-- updated as part of BS-1431 -->
+                                                <div if:true={lineItem.shapeSizeHeight}>
+                                                    <div class="fs-14">{_lensShapeLabel}</div>
+                                                </div>
+                                            </div>
+                                        </td>
+
+                                        <td>
+                                            <div if:false={lineItem.isSparePart}>
+                                                <!-- updated as part of BS-1431 -->
+                                                <div if:true={lineItem.shapeSizeHeight}>
+                                                    <div class="product-details fs-14-bold">
+                                                        <img if:true={lineItem.lensSize} class="variation-div-img slds-m-right_x-small" src={lensShape.icon} />
+                                                        {lineItem.shapeSizeHeight}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                    <tr if:true={lineItem.bridgeSize}>
+                                        <td>
+                                            <div if:false={lineItem.isSparePart}>
+                                                <div if:true={lineItem.bridgeSize}>
+                                                    <div class="fs-14">{_bridgeSizeLabel}</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div if:false={lineItem.isSparePart}>
+                                                <div if:true={lineItem.bridgeSize}>
+                                                    <div class="product-details fs-14-bold">
+                                                        <img if:true={lineItem.bridgeSize} class="variation-div-img" src={bridgeSize.icon} />
+                                                        {lineItem.bridgeSize}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                    <tr if:true={lineItem.templeLength}>
+                                        <td>
+                                            <div if:true={lineItem.templeLength}>
+                                                <div class="fs-14">{_templeLengthLabel}</div>
+                                            </div>
+                                        </td>
+
+                                        <td>
+                                            <div if:true={lineItem.templeLength}>
+                                                <div class="product-details fs-14-bold">
+                                                    <img if:true={lineItem.templeLength} class="slds-x-small variation-div-img" src={templeLength.icon} />
+                                                    <span class="fs-14-bold"> {lineItem.templeLength}</span>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div if:true={lineItem.isEvilEyeProduct} class="productdetails-container">
+                            <table>
+                                <tbody>
+                                    <tr if:true={lineItem.backgroundColorUpper}>
+                                        <td>
+                                            <div if:true={lineItem.backgroundColorUpper}>
+                                                <div class="fs-14">{_frameColorLabel}</div>
+                                            </div>
+                                        </td>
+
+                                        <td>
+                                            <div if:true={lineItem.backgroundColorUpper}>
+                                                <div class="product-details">
+                                                    <span class="product-color-bubble slds-m-top_xxx-small slds-m-right_xxx-small color-bubble">
+                                                        <span class="product-color-bubble__upper" style={lineItem.backgroundColorUpper}></span>
+                                                        <span class="product-color-bubble__lower" style={lineItem.backgroundColorLower}></span>
+                                                    </span>
+                                                    <span class="slds-m-horizontal_xx-small slds-m-bottom_small product-details"
+                                                        >{lineItem.frameColorValue}</span
+                                                    >
+                                                    <span class="slds-m-horizontal_xx-small slds-m-bottom_small product-details"
+                                                        >{lineItem.frameColorDescription}</span
+                                                    >
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                    <tr if:true={lineItem.eeSize}>
+                                        <td>
+                                            <div class="w-65">
+                                                <div if:true={lineItem.eeSize}>
+                                                    <div class="fs-14">{productSizeLabelEE}</div>
+                                                </div>
+                                            </div>
+                                        </td>
+
+                                        <td>
+                                            <div class="w-65">
+                                                <div if:true={lineItem.eeSize}>
+                                                    <div class="fs-14-bold">{lineItem.eeSize}</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12">
+                        <!-- Block 3 -->
+                        <div class="slds-grid slds-wrap slds-p-right_x-small">
+                            <!-- Customer Name Label -->
+                            <div class="slds-col slds-size_1-of-1">
+                                <table class="customer-detail-table">
+                                    <tr>
+                                        <td if:true={isCartPage} colspan="1" class="slds-m-top_xx-small tooltip">
+                                            <span class="label"
+                                                >{_customerReferenceLabel}
+                                                <span if:true={_isUSTenant} class="required-field">*</span>
+                                                <img class="infoicon slds-m-left_xx-small" src={_infoSVG} />
+                                                <span class="clerkStyle">{_consumerReferenceHelpText}</span>
+                                            </span>
+                                        </td>
+                                        <td if:false={isCartPage} colspan="1" class="slds-m-top_xx-small tooltip">
+                                            <span class="label"
+                                                >{_customerReferenceLabel}
+                                                <span if:true={_isUSTenant} class="required-field">*</span>
+                                                <img class="infoicon slds-m-left_xx-small" src={_infoSVG} />
+                                                <span class="clerkStyle">{_consumerReferenceHelpText}</span>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="wrap_styling">
+                                            <div if:true={isCartPage} class="inputtype slds-m-top_xx-small">
+                                                <textarea
+                                                    type="text"
+                                                    id={lineItem.cartItem.cartItemId}
+                                                    class={lineItem._endConsumerCSS}
+                                                    data-item-id={lineItem.cartItem.cartItemId}
+                                                    value={lineItem.Customer_Reference__c}
+                                                    onchange={handleOnCustomerReferenceValueChange}
+                                                    title={_customerReferenceLabel}
+                                                    maxlength={_characterLimit}
+                                                >
+    {lineItem.Customer_Reference__c}</textarea
+                                                >
+
+                                                <span if:true={lineItem._isEndConsumerEmpty} class="required-field">{_isRequiredFieldValidationMsg}</span>
+                                            </div>
+                                            <div if:false={isCartPage} class="product-details overflow-hidden slds-m-top_xx-small">
+                                                {lineItem.Customer_Reference__c}
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+
+                            <!-- Clerk Label -->
+                            <div class="slds-col slds-size_1-of-1">
+                                <table if:true={isCheckoutPage} class="border-top">
+                                    <tr>
+                                        <td>
+                                            <hr class="slds-m-vertical_medium slds-m-bottom_none" />
+                                        </td>
+                                    </tr>
+                                </table>
+                                <div class="slds-col slds-size_1-of-1">
+                                    <table class="customer-detail-table">
+                                        <tr>
+                                            <td class="tooltip">
+                                                <span class="label">
+                                                    {_enteredByLabel}
+                                                    <span if:true={_isUSTenant} class="required-field">*</span>
+                                                    <img class="infoicon slds-m-left_xx-small" src={_infoSVG} />
+                                                    <span class="remarkStyle">{_orderRemarkHelpText}</span>
+                                                </span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="wrap_styling">
+                                                <div if:true={isCartPage} class="inputtype">
+                                                    <textarea
+                                                        if:true={isCartPage}
+                                                        type="text"
+                                                        id={lineItem.cartItem.cartItemId}
+                                                        class={lineItem._orderRemarkCSS}
+                                                        data-item-id={lineItem.cartItem.cartItemId}
+                                                        value={lineItem.Entered_By__c}
+                                                        onchange={handleOnEnteredbyValueChange}
+                                                        title={_enteredByLabel}
+                                                        maxlength={_characterLimit}
+                                                    >
+    {lineItem.Entered_By__c}</textarea
+                                                    >
+                                                    <span if:true={lineItem._isOrderRemarkEmpty} class="required-field">{_isRequiredFieldValidationMsg}</span>
+                                                </div>
+                                                <div if:false={isCartPage} class="product-details overflow-hidden">{lineItem.Entered_By__c}</div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <!-- save button -->
+                            <div class="slds-col slds-size_1-of-1">
+                                <button
+                                    if:true={isCartPage}
+                                    data-item-id={lineItem.cartItem.cartItemId}
+                                    onclick={handleSaveCustomerInformation}
+                                    title={_saveButtonLabel}
+                                    class="silButton slds-float_right slds-m-top_x-small"
+                                >
+                                    {_saveButtonLabel}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--Total Price Start-->
+                <div class="slds-grid slds-grid_align-end total-price">
+                    <div class="slds-col slds-m-horizontal_medium">
+                        <span>
+                            <section if:false={isCheckoutPage} class="quantity quantity-area align-text-centre">
+                                <div class="slds-text-align_center margin-auto">
+                                    <table class="quantity-width slds-m-top_x-small">
+                                        <tr>
+                                            <td>
+                                                <div if:true={isCartPage}>
+                                                    <input
+                                                        if:true={isCartPage}
+                                                        name={lineItem.cartItem.cartItemId}
+                                                        data-id={lineItem.quantityInputId}
+                                                        type="button"
+                                                        value="-"
+                                                        class="button-minus-class"
+                                                        data-field="quantity"
+                                                        data-quantity={lineItem.cartItem.quantity}
+                                                        data-item-id={lineItem.cartItem.cartItemId}
+                                                        onclick={manipulateQuantity}
+                                                        disabled={lineItem.disableDecreaseQuantity}
+                                                    />
+                                                </div>
+                                            </td>
+                                            <td class="align-text-centre quantity-container">
+                                                <input
+                                                    if:true={isCartPage}
+                                                    class="slds-text-align_center quantity-field"
+                                                    disabled={isCheckoutPage}
+                                                    id={lineItem.quantityInputId}
+                                                    data-item-id={lineItem.cartItem.cartItemId}
+                                                    max="9999"
+                                                    min="1"
+                                                    type="number"
+                                                    value={lineItem.cartItem.quantity}
+                                                    onblur={handleQuantitySelectorBlur}
+                                                    onchange={handleSelectedQuantitychange}
+                                                    title={_quantityHeaderLabel}
+                                                />
+                                                <span
+                                                    if:true={isCheckoutPage}
+                                                    class="quantity-field-checkout slds-align_absolute-center align-text-centre"
+                                                    title={_quantityHeaderLabel}
+                                                >
+                                                    {lineItem.cartItem.quantity}
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <div if:true={isCartPage}>
+                                                    <input
+                                                        type="button"
+                                                        value="+"
+                                                        class="button-plus"
+                                                        data-field="quantity"
+                                                        data-quantity={lineItem.cartItem.quantity}
+                                                        data-item-id={lineItem.cartItem.cartItemId}
+                                                        onclick={manipulateQuantity}
+                                                        disabled={isCheckoutPage}
+                                                    />
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </section>
+                            <!-- START -->
+                            <section if:true={isCheckoutPage} class="quantity-area align-text-centre">
+                                <div class="slds-text-align_center margin-auto">
+                                    <section if:true={isCheckoutPage} class="quantityLabelCheckoutMode">{_quantityHeaderLabel}</section>
+                                    <span if:true={isCheckoutPage} class="quantity-field-checkout" title={_quantityHeaderLabel}>
+                                        {lineItem.cartItem.quantity}
+                                    </span>
+                                </div>
+                            </section>
+                            <!--END  -->
+                        </span>
+                    </div>
+
+                    <div class="slds-col">
+                        <table if:false={hidePurchasePriceField}>
+                            <tr>
+                                <td>
+                                    <span class="fs-14 slds-p-right_small vertical-align">{_totalPriceLabel} </span>
+                                    <!--BS-1951-->
+                                    <span class="fs-18" if:false={lineItem.priceAvailable}>
+                                        <div class="tooltip">
+                                            <span class="text">{priceUnavailableTitle}</span>
+                                            <span>{_unAvailablePrice}</span>
+                                        </div>
+                                    </span>
+                                    <span class="fs-18">
+                                        <lightning-formatted-number
+                                            format-style="currency"
+                                            if:true={lineItem.priceAvailable}
+                                            currency-code={currencyCode}
+                                            class="black-color slds-truncate"
+                                            currency-display-as="symbol"
+                                            maximum-fraction-digits="2"
+                                            value={lineItem.cartItem.totalPrice}
+                                            title={_totalPriceLabel}
+                                        >
+                                        </lightning-formatted-number>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span class="fs-12 slds-m-right_xx-small"> *{_productPricePerUnitLabel} </span>
+                                    <!--BS-1951-->
+                                    <span class="fs-12" if:false={lineItem.priceAvailable}>
+                                        <div class="tooltip">
+                                            <span class="text">{priceUnavailableTitle}</span>
+                                            <span>{_unAvailablePrice}</span>
+                                        </div>
+                                    </span>
+                                    <lightning-formatted-number
+                                        format-style="currency"
+                                        if:true={lineItem.priceAvailable}
+                                        class="fs-12"
+                                        currency-code={currencyCode}
+                                        currency-display-as="symbol"
+                                        maximum-fraction-digits="2"
+                                        value={lineItem.cartItem.unitAdjustedPrice}
+                                        title={_productPricePerUnitLabel}
+                                    ></lightning-formatted-number>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                <!--Total Price END-->
+
+                <!--BS-1624 END-->
+            </div>
+        </template>
+        <!--Added a modal as a part of BS-1090-->
+        <div class="slds-modal__parent__container slds-backdrop slds-backdrop_open warning-popupmessage" if:true={isEntitlementErrorPopup}>
+            <section role="dialog" tabindex="-1" aria-modal="true" class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container">
+                    <div class="popupOnClearCart">
+                        <div class="modal-button">
+                            <lightning-button-icon
+                                class="slds-modal__close"
+                                title="Close"
+                                icon-name="utility:close"
+                                onclick={handleDialogClose}
+                            ></lightning-button-icon>
+                        </div>
+                        <div class="slds-align_absolute-center slds-m-top_x-large">
+                            <img src={_deleteIconWarning} class="delete-icon-warning slds-m-top_small" />
+                        </div>
+                        <div class="slds-align_absolute-center deleteCartWarningMessage font-18-300 slds-m-top_small">{_warningLabel}</div>
+                        <div class="slds-grid slds-grid_vertical-align-center slds-grid_align-center btn-wrap">
+                            <div class="slds-m-right_x-small warning-btns">
+                                <button class="silButton capital warning-btn" onclick={handleDialogClose}>{_clearCartPopupCancel}</button>
+                            </div>
+                            <div class="slds-m-left_x-small warning-btns">
+                                <button class="silButton capital delete-cart-button warning-btn" onclick={handleDeleteUnentitledProducts}>
+                                    {_removeLabel}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</template>

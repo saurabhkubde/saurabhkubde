@@ -1,0 +1,162 @@
+.container {
+    height: 30rem;
+    width: 100%;
+}
+
+.text-section {
+    position: absolute;
+    color: #f2f2f2;
+    font-size: 15px;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.7);
+    width: 100%;
+    bottom: 0;
+    text-align: left;
+}
+
+.text-section h3 {
+    color: #fff;
+    font-family: 'Adobe Caslon Pro' !important;
+    font-size: 22px;
+    margin: auto;
+    text-align: left;
+}
+
+.disable {
+    opacity: 0.2;
+}
+
+.carousel-container {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    cursor: grab;
+}
+
+.carousel {
+    display: flex;
+    transition: transform 0.3s ease;
+}
+
+.carousel img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+.button {
+    position: absolute;
+    width: 34px;
+    background: transparent !important;
+    margin-top: 14px !important;
+    transition: 1.5s;
+    height: 60px;
+    border: solid 1px #000;
+    top: 35%;
+}
+.button:hover {
+    background-color: #000 !important;
+    color: #fff !important;
+}
+.button--previous {
+    left: 0.1rem;
+}
+
+.button--next {
+    right: 0.1rem;
+}
+
+.list {
+    display: flex;
+    gap: 25px;
+    list-style: none;
+    overflow-x: scroll;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    max-width: 90%;
+    margin: auto;
+}
+
+.list::-webkit-scrollbar {
+    display: none;
+}
+
+.item {
+    flex-shrink: 0;
+    background-color: #fff;
+    scroll-snap-align: center;
+    max-width: 31.8% !important;
+}
+
+.carouselImageStyling {
+    position: relative !important;
+    height: 450px;
+}
+
+.imageStyling {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    user-select: none;
+    cursor: pointer !important;
+}
+
+.list-wrapper {
+    position: relative;
+    cursor: grab;
+}
+
+.control-button-size {
+    height: 80px;
+}
+
+.mouse-pointer {
+    cursor: pointer !important;
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+    .list {
+        gap: 15px !important;
+    }
+
+    .carouselImageStyling {
+        position: relative !important;
+        height: 375px;
+    }
+
+    .text-section h3 {
+        font-size: 21px;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .item {
+        flex-shrink: 0;
+        background-color: #fff;
+        scroll-snap-align: center;
+        max-width: 100% !important;
+    }
+
+    .button {
+        width: 32px;
+        top: 30%;
+    }
+
+    .button--previous {
+        left: -0.9rem;
+    }
+
+    .button--next {
+        right: -0.9rem;
+    }
+
+    .text-section h3 {
+        font-size: 18px;
+    }
+
+    .carouselImageStyling {
+        position: relative !important;
+        height: 375px;
+    }
+}

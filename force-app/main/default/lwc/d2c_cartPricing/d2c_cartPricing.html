@@ -1,0 +1,22 @@
+<template>
+    <div class="cart-total">
+        <div class="slds-p-around_medium">{_cartTotalLabel}</div>
+        <div class="cart-pricing">
+            <div class="price">
+                <lightning-formatted-number
+                    class="pricing-details"
+                    value={totalPrice}
+                    format-style="currency"
+                    currency-code={currencyIsoCode}
+                    currency-display-as="code"
+                ></lightning-formatted-number>
+            </div>
+            <div if:true={isClickAndCollect}>
+                <p class="text-alignment">*{_clickAndCollectPriceConfirmationText}</p>
+            </div>
+            <div class="button-container">
+                <button class="btn-add-to-cart pricing-details-font-style" onclick={handleProcceedToCheckout}>{_checkoutButtonLabel}</button>
+            </div>
+        </div>
+    </div>
+</template>

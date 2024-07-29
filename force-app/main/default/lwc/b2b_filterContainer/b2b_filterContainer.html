@@ -1,0 +1,153 @@
+<!--BS-442: Filter Preference Settings Container Component-->
+<template>
+    <div if:false={doRender} class="filterWrap">
+        <!--Filter Header and Clear all Section-->
+        <div if:false={isPLPPage} class="slds-p-bottom_medium slds-m-top_medium filtersHeader">
+            <span>
+                <p class="slds-truncate black-color filterHeadingText">{labels.filterLabel}</p>
+            </span>
+            <span class="slds-m-top_xxx-small">
+                <img class="filter-icon" src={_filterIcon} title={_filterExpandCollapseLabel} onclick={handleFilterCollapse} />
+            </span>
+        </div>
+        <div if:true={isPLPPage} class="slds-m-bottom_medium slds-m-top_medium filtersHeader">
+            <span>
+                <p class="slds-truncate black-color text-small-strong filter-title arial-font">{labels.filterLabel}</p>
+            </span>
+            <span if:true={isPLPPage}>
+                <img if:true={_filterIcon} class="filter-icon" src={_filterIcon} title={_filterExpandCollapseLabel} onclick={handleFilterCollapse} />
+            </span>
+        </div>
+        <!--Brand Radio Buttons for Reorder Page on Silhouette Store-->
+        <template if:true={renderBrandFilters}>
+            <template if:true={showBrandPicklist}>
+                <div class="slds-p-bottom_small">
+                    <div class="slds-m-bottom_medium slds-m-top_medium filtersHeader">
+                        <p class="slds-truncate black-color text-small-strong filter-title">{labels.brandLabel}</p>
+                    </div>
+                    <c-b2b_brand-radio-button-component
+                        selected-brand-value={reorderPageSelectedBrand}
+                        onfilterselectionbrand={handleSelection}
+                        show-brand-button={renderBrandFilters}
+                        show-silhouette-button={renderSilhouetteBrandFilter}
+                        show-evil-eye-button={renderEvilEyeBrandFilter}
+                    >
+                    </c-b2b_brand-radio-button-component>
+                </div>
+            </template>
+        </template>
+        <div if:true={_isSubcategoryPresent} class="categoryContainer">
+            <c-b2b_category-details
+                class="slds-border_top slds-p-bottom_small"
+                display-data={categoryData}
+                parent-category={parentCategory}
+                oncategoryupdate={handleCategoryExpandAndCollapse}
+            >
+            </c-b2b_category-details>
+        </div>
+        <!--Color Radio Button Facets Section -->
+        <template if:true={_showColorRadioButton}>
+            <lightning-accordion
+                if:true={_showColorRadioButton}
+                allow-multiple-sections-open
+                name="colorradiobutton"
+                active-section-name={activeColorLabel}
+                onsectiontoggle={handleSectionToggle}
+                class="slds-border_top"
+            >
+                <lightning-accordion-section name={colorLabel} label={colorLabel} title={colorLabel}>
+                    <template for:each={_colorFilters} for:item="filter">
+                        <div key={filter.availableFilters.Id}>
+                            <!--Color radio button container Component-->
+                            <div if:true={filter.availableFilters.isColorRadioButtonType}>
+                                <c-b2b_color-radio-button-component
+                                    filters={filter}
+                                    onloading={handleLoadEvent}
+                                    onfilterproductsearch={handleFilterProductSearch}
+                                    onfilterselection={handleSelection}
+                                >
+                                </c-b2b_color-radio-button-component>
+                            </div>
+                        </div>
+                    </template>
+                </lightning-accordion-section>
+            </lightning-accordion>
+        </template>
+        <!-- Start BS-841 -->
+        <template if:true={_showRadioButton}>
+            <lightning-accordion class="slds-border_top" allow-multiple-sections-open name="radiobutton" active-section-name={_showAllAccordionOpen}>
+                <template for:each={_filters} for:item="filter">
+                    <div key={filter.availableFilters.Id}>
+                        <div if:true={filter.availableFilters.isRadioButtonType} key={filter.availableFilters.Id}>
+                            <lightning-accordion-section
+                                name={filter.availableFilters.sourceProductField}
+                                label={filter.availableFilters.fieldName}
+                                title={filter.availableFilters.fieldName}
+                                class="slds-border_bottom"
+                            >
+                                <div class="slds-form-element__control">
+                                    <div if:true={filter.availableFilters.isRadioButtonType}>
+                                        <c-b2b_radio-button-component
+                                            filters={filter}
+                                            global-filters={_globalFilters}
+                                            onloading={handleLoadEvent}
+                                            onfilterproductsearch={handleFilterProductSearch}
+                                            onfilterselection={handleSelection}
+                                            update-filter={updateFilter}
+                                        >
+                                        </c-b2b_radio-button-component>
+                                    </div>
+                                </div>
+                            </lightning-accordion-section>
+                        </div>
+                    </div>
+                </template>
+            </lightning-accordion>
+        </template>
+        <!-- End BS-841 -->
+
+        <!--BS-457: Slider Reusable Component End-->
+
+        <!-- Component Loading Section -->
+        <lightning-spinner if:true={_isLoading} class="slds-is-fixed slds-align_absolute-center" variant="brand" size="medium"> </lightning-spinner>
+
+        <!--BS-457: Slider Reusable Component Start-->
+        <template if:true={_showSliderButton}>
+            <template if:true={_filters}>
+                <template for:each={_filters} for:item="sliderfilter">
+                    <div key={sliderfilter.availableFilters.Id}>
+                        <div if:true={sliderfilter.availableFilters.isSliderType}>
+                            <div class="slds-form-element__control">
+                                <div if:true={sliderfilter.availableFilters.isSliderType}>
+                                    <!--Slider Component-->
+                                    <c-b2b_slider-component
+                                        filters={sliderfilter}
+                                        all-filters={_showAllAccordionOpen}
+                                        field-name={sliderfilter.availableFilters.fieldName}
+                                        onsliderfilterselection={handleSelection}
+                                    >
+                                    </c-b2b_slider-component>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+            </template>
+        </template>
+    </div>
+    <!--BS-457: Slider Reusable Component End-->
+    <div>
+        <div if:false={isPLPPage} class="slds-p-top_medium clearAllDiv">
+            <span class="clearAllLink">
+                <img class="slds-p-bottom_xx-small" src={refreshIcon} />
+                <button class="footer-action" onclick={handleClear}>{labels.clearAllLabel}</button>
+            </span>
+        </div>
+        <div if:true={isPLPPage} class="clearAllDivPLP">
+            <!--BS-696-->
+            <a class="clearAllAnchor black-color" href="" onclick={handleClearAll}
+                ><img class="refreshIconImg" src={refreshIcon} /><span>{labels.clearAllLabel}</span></a
+            >
+        </div>
+    </div>
+</template>

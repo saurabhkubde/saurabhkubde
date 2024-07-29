@@ -1,0 +1,118 @@
+<template>
+    <lightning-modal-body>
+        <template if:true={_isLoading}>
+            <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+        </template>
+        <!-- Selected Contact Details Section Start -->
+        <template if:true={_selectedContactLoaded}>
+            <div class="slds-text-heading_medium slds-m-top_medium slds-text-align_center slds-p-around_medium">
+                <h2>{selectedContactDetailsLabel}</h2>
+            </div>
+            <div>
+                <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_fixed-layout border">
+                    <thead>
+                        <tr class="slds-text-title_caps">
+                            <th scope="col" class="width"></th>
+                            <th scope="col" class="slds-border_right">
+                                <div class="slds-truncate" title="Contact Name">{contactNameLabel}</div>
+                            </th>
+                            <th scope="col">
+                                <div class="slds-truncate" title="Contact Email">{contactEmailLabel}</div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <template for:each={_currentContactList} for:item="contact">
+                            <tr key={contact.Id}>
+                                <td></td>
+                                <td data-label="Contact Name" class="slds-border_right">
+                                    <div class="slds-truncate" title={contact.Name}>{contact.Name}</div>
+                                </td>
+                                <td data-label="Contact Email">
+                                    <div class="slds-truncate" title={contact.Email}>{contact.Email}</div>
+                                </td>
+                            </tr>
+                        </template>
+                    </tbody>
+                </table>
+            </div>
+        </template>
+        <!-- Selected Contact Details Section End -->
+
+        <!-- Related Contact Details Section Start -->
+        <template if:true={_relatedContactsAvailable}>
+            <div class="slds-text-heading_medium slds-m-top_medium slds-text-align_center slds-p-around_medium">
+                <h2>{contactsAvailableForSwapLabel}</h2>
+            </div>
+            <div>
+                <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_fixed-layout border">
+                    <thead>
+                        <tr class="slds-text-title_caps">
+                            <th scope="col" class="width"></th>
+                            <th scope="col" class="slds-border_right">
+                                <div class="slds-truncate" title="Contact Name">{contactNameLabel}</div>
+                            </th>
+                            <th scope="col">
+                                <div class="slds-truncate" title="Contact Email">{contactEmailLabel}</div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <template for:each={_contactList} for:item="contact">
+                            <tr key={contact.Id}>
+                                <td>
+                                    <input
+                                        type="radio"
+                                        name="SelectContact"
+                                        aria-label="Selected Contact"
+                                        data-id={contact.Id}
+                                        tabindex="-1"
+                                        onclick={handleContactSelection}
+                                        disabled={_radioButtonDisabled}
+                                    />
+                                </td>
+                                <td data-label="Contact Name" class="slds-border_right">
+                                    <div class="slds-truncate" title={contact.Name}>{contact.Name}</div>
+                                </td>
+                                <td data-label="Contact Email">
+                                    <div class="slds-truncate" title={contact.Email}>{contact.Email}</div>
+                                </td>
+                            </tr>
+                        </template>
+                    </tbody>
+                </table>
+            </div>
+        </template>
+        <template if:false={_relatedContactsAvailable}>
+            <div class="slds-text-color_error slds-p-around_medium slds-text-align_center">
+                <p>{noContactsForSwapLabel}</p>
+            </div>
+        </template>
+
+        <!-- Related Contact Details Section End  -->
+    </lightning-modal-body>
+    <lightning-modal-footer>
+        <!-- Swap Button Section -->
+        <template if:true={_relatedContactsAvailable}>
+            <lightning-button
+                variant="brand"
+                label={swapContactLabel}
+                onclick={handleSwapClick}
+                class="slds-m-left_x-small slds-m-right_small"
+                disabled={_swapButtonDisabled}
+            >
+            </lightning-button>
+        </template>
+    </lightning-modal-footer>
+
+    <!-- Modal Section -->
+    <template if:true={_showModal}>
+        <section role="dialog" class="slds-modal slds-fade-in-open modal_styling">
+            <div class="slds-modal__content slds-p-around_medium">{confirmSwapLabel}</div>
+            <div class="slds-modal__footer">
+                <button class="slds-button slds-button_neutral" onclick={handleCloseModal}>{cancelLabel}</button>
+                <button class="slds-button slds-button_brand" onclick={handleSaveClick}>{saveLabel}</button>
+            </div>
+        </section>
+    </template>
+</template>

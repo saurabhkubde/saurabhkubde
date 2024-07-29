@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>B2C_Brand_Interest__c</fullName>
+    <externalId>false</externalId>
+    <label>B2C Brand Interest</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Silhouette</fullName>
+                <default>false</default>
+                <label>Silhouette</label>
+            </value>
+            <value>
+                <fullName>evil eye</fullName>
+                <default>false</default>
+                <label>evil eye</label>
+            </value>
+            <value>
+                <fullName>Neubau</fullName>
+                <default>false</default>
+                <label>Neubau</label>
+            </value>
+            <value>
+                <fullName>SVS</fullName>
+                <default>false</default>
+                <label>SVS</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>4</visibleLines>
+</CustomField>

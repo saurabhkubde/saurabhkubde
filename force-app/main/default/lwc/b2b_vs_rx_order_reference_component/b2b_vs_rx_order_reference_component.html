@@ -1,0 +1,348 @@
+<template>
+    <!-- Read Only Mode Section -->
+    <div if:true={_isReadOnly} class="slds-p-bottom_small">
+        <div class="slds-grid slds-wrap">
+            <div if:true={_readOnlyOrderInformation} class="title slds-border_bottom slds-p-vertical_medium slds-m-bottom_small">
+                <div class="orderInformationTitle">{_orderInformationHeaderLabel}</div>
+
+                <div class="orderInformationIcon">
+                    <img class="order-detail-icon request-document-enabled pencil-icon" src={editIcon.icon} onclick={handleOrderInformationInlineEdit} />
+                </div>
+            </div>
+
+            <div if:false={_readOnlyOrderInformation} class="title slds-border_bottom slds-p-vertical_medium slds-m-bottom_small">
+                <div class="orderInformationTitle">{_customerInformationHeaderLabel}</div>
+            </div>
+
+            <!-- Order Information Inline Edit Section Start -->
+            <div if:false={_readOnlyOrderInformation} class="slds-grid slds-wrap fullWidth">
+                <template for:each={_customerInformationSummaryCollection} for:item="field" for:index="index">
+                    <div key={field} if:true={field.isCustomerInput} class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_5-of-12">
+                        <div if:false={field.isTitle} class="input_wrap slds-m-top_medium tooltip">
+                            <input
+                                type="text"
+                                class={field.applicableStyling}
+                                data-field={field.label}
+                                title={field.label}
+                                onchange={handleUserInputInlineChange}
+                                value={field.value}
+                                required
+                                maxlength={_characterLimit}
+                            />
+                            <label
+                                >{field.label}
+                                <span>
+                                    <img class="infoicon slds-m-left_xx-small" src={_infoSVG} />
+                                    <span if:true={index} class="remarkStyleReadOnly">{_orderRemarkHelpText}</span>
+                                    <span if:false={index} class="clerkStyleReadOnly">{_consumerReferenceHelpText}</span>
+                                </span>
+                            </label>
+
+                            <!--If the field does not pass validity check then validation error is dispalyed along with following message-->
+                            <div if:true={field.isInvalid}>
+                                <div class="validation" if:true={field.isInvalid}>{_errorInstructionToEnterValue}</div>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+
+                <!--Inline Edit Buttons Start -->
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_2-of-12 slds-large-size_2-of-12 slds-m-top_small">
+                    <!--Save Button with tooltip -->
+                    <div class="tooltip">
+                        <button class="save-button slds-m-horizontal_x-small">
+                            <lightning-button-icon onclick={handleInlineSaveClick} icon-name="utility:check" variant="container"></lightning-button-icon>
+                        </button>
+                        <span class="tooltiptext">{saveButton}</span>
+                    </div>
+
+                    <!--Cancel Button with tooltip -->
+                    <div class="tooltip">
+                        <button class="save-button slds-m-horizontal_xx-small">
+                            <lightning-button-icon onclick={handleInlineCancelClick} icon-name="utility:close" variant="container"></lightning-button-icon>
+                        </button>
+                        <span class="tooltiptext">{cancelButton}</span>
+                    </div>
+                </div>
+                <!--Inline Edit Buttons End -->
+            </div>
+            <!-- Order Information Inline Edit Section End -->
+
+            <!-- Order Information Read Only Section Start -->
+            <div if:true={_readOnlyOrderInformation} class="slds-grid slds-gutters slds-wrap fullWidth">
+                <template for:each={_customerInformationSummaryCollection} for:item="order">
+                    <div key={order} if:true={order.isCustomerOutput} class="slds-col slds-size_1-of-1 slds-large-size_4-of-12 slds-large-size_6-of-12">
+                        <!-- BS-1761-->
+                        <div if:false={order.isTitle} class="input_wrap slds-m-top_small">
+                            <textarea type="text" class={order.applicableTextboxStyling} title={order.label} readonly required>{order.value}</textarea>
+                            <label class="orderInformationSummaryLabels">{order.label}</label>
+                        </div>
+                        <div if:true={order.showMaxCharError} class="charLimitError">{_orderFieldLevelCharacterLimitErrorMessage}</div>
+                    </div>
+                </template>
+            </div>
+
+            <!-- BS-787 : Order Information Edit mode if user is navigated from other source such as PDP Start -->
+            <div if:true={orderTypeSelectionEditModeForOtherSource} class="slds-grid slds-wrap slds-m-top_small fullWidth">
+                <div if:false={_isOrderTypeInValid} class="title slds-border_bottom slds-p-vertical_medium slds-m-bottom_small">{_orderTypeHeaderLabel}</div>
+
+                <!--If the Order Type field does not pass validity check then validation error is dispalyed along with following message-->
+                <div if:true={_isOrderTypeInValid} class="fullWidth">
+                    <div if:true={_isOrderTypeInValid} class="validation title slds-border_bottom slds-p-vertical_medium slds-m-bottom_small">
+                        {_errorInstructionToEnterValue}
+                    </div>
+                </div>
+
+                <template for:each={_customerInformationSummaryCollection} for:item="field">
+                    <div
+                        key={field}
+                        if:true={field.isOrderType}
+                        class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_3-of-12 customRadioButtonStyling"
+                    >
+                        <div class="">
+                            <!-- Radio Button -->
+                            <input
+                                type="radio"
+                                id={field.label}
+                                class="filterRadioButton"
+                                name="order"
+                                data-field={_orderTypeHeaderLabel}
+                                value={field.label}
+                                onclick={handleSelection}
+                                title={field.label}
+                                checked={field.isChecked}
+                                onselect={handleSelection}
+                            />
+                            <!-- Label -->
+                            <span class="black-color filterValues" title={field.label}> {field.label} </span>
+                        </div>
+                    </div>
+                </template>
+            </div>
+            <!-- BS-787 : Order Information Edit mode if user is navigated from other source such as PDP End -->
+        </div>
+
+        <!-- BS-787 : Order Information Read only mode Start -->
+        <div if:false={orderTypeSelectionEditModeForOtherSource} class="slds-grid slds-wrap">
+            <div class="title slds-border_bottom slds-p-vertical_medium slds-m-bottom_small">
+                <div class="orderInformationTitle">{_orderTypeHeaderLabel}</div>
+
+                <div class="orderInformationIcon">
+                    <img class="order-detail-icon request-document-enabled" src={editIcon.icon} onclick={handleOrderInformationEdit} width="20" height="20" />
+                </div>
+            </div>
+            <!--Updated read only mode for frame type field-->
+            <template for:each={_customerInformationSummaryCollection} for:item="order">
+                <div key={order} if:true={order.isOnFrameDetails} class="slds-col slds-size_1-of-1 slds-large-size_4-of-12 slds-large-size_3-of-12">
+                    <!-- BS-1761-->
+                    <div if:true={order.isVsPage} class="input_wrap slds-m-top_small">
+                        <input type="text" class="orderInformationSummaryFields slds-p-top_small" value={order.value} title={order.label} readonly required />
+                        <label class="orderInformationSummaryLabels">{order.label}</label>
+                    </div>
+                </div>
+            </template>
+        </div>
+        <!-- BS-787 : Order Information Read Only Section End -->
+    </div>
+
+    <!-- Read Only Mode Section End -->
+
+    <!-- Edit Mode Section Start-->
+    <div if:false={_isReadOnly} class="slds-p-bottom_small">
+        <!-- Input type Text fields for customer input Section Start-->
+        <div class="slds-grid slds-wrap">
+            <div class="title slds-border_bottom slds-p-vertical_medium slds-m-bottom_small">
+                <div class="orderInformationTitle">{_customerInformationHeaderLabel}</div>
+            </div>
+
+            <!--Fields for Customer Input Section-->
+            <template for:each={_customerInformationSummaryCollection} for:item="field" for:index="index">
+                <div key={field} if:true={field.isCustomerInput} class="slds-col slds-size_1-of-1 slds-medium-size_5-of-12 slds-large-size_6-of-12">
+                    <div if:false={field.isTitle} class="input_wrap slds-m-top_medium tooltip">
+                        <input
+                            type="text"
+                            class={field.applicableStyling}
+                            data-field={field.label}
+                            title={field.label}
+                            onchange={handleUserInput}
+                            value={field.value}
+                            required
+                            maxlength={_characterLimit}
+                        />
+                        <label
+                            >{field.label}
+                            <span>
+                                <img class="infoicon slds-m-left_xx-small" src={_infoSVG} />
+                                <span if:true={index} class="remarkStyle">{_orderRemarkHelpText}</span>
+                                <span if:false={index} class="clerkStyle">{_consumerReferenceHelpText}</span>
+                            </span>
+                        </label>
+
+                        <!--If the field does not pass validity check then validation error is dispalyed along with following message-->
+                        <div if:true={field.isInvalid}>
+                            <div class="validation" if:true={field.isInvalid}>{_errorInstructionToEnterValue}</div>
+                        </div>
+                    </div>
+                </div>
+            </template>
+        </div>
+        <!-- Input type Text fields for customer input Section Start-->
+
+        <!-- Input type Radio Buttons values for Order Type field Selection Section Start-->
+        <div class="slds-grid slds-wrap slds-m-top_small">
+            <div if:false={_isOrderTypeInValid} class="title slds-border_bottom slds-p-vertical_medium slds-m-bottom_small">{_orderTypeHeaderLabel}</div>
+
+            <!--If the Order Type field does not pass validity check then validation error is dispalyed along with following message-->
+            <div if:true={_isOrderTypeInValid} class="fullWidth">
+                <div if:true={_isOrderTypeInValid} class="validation title slds-border_bottom slds-p-vertical_medium slds-m-bottom_small">
+                    {_errorInstructionToEnterValue}
+                </div>
+            </div>
+
+            <template for:each={_customerInformationSummaryCollection} for:item="field">
+                <div
+                    key={field}
+                    if:true={field.isOrderType}
+                    class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_3-of-12 customRadioButtonStyling"
+                >
+                    <div class="">
+                        <!-- Radio Button -->
+                        <input
+                            type="radio"
+                            id={field.label}
+                            class="filterRadioButton"
+                            name="order"
+                            data-field={_orderTypeHeaderLabel}
+                            value={field.label}
+                            onclick={handleSelection}
+                            title={field.label}
+                            checked={field.isChecked}
+                            onselect={handleSelection}
+                        />
+                        <!-- Label -->
+                        <span class="black-color filterValues" title={field.label}> {field.label} </span>
+                    </div>
+                </div>
+            </template>
+        </div>
+        <!-- Input type Radio Buttons values for Order Type field Selection Section End-->
+
+        <!-- Input type Radio Buttons values for Frame Type field Selection Section Start-->
+        <div if:false={_isSourceRX} class="slds-grid slds-wrap slds-m-top_small">
+            <div if:false={_isFrameTypeInValid} class="title slds-border_bottom slds-p-vertical_medium slds-m-bottom_small">{_frameTypeHeaderLabel}</div>
+
+            <!--If the Order Type field does not pass validity check then validation error is dispalyed along with following message-->
+            <div if:true={_isFrameTypeInValid} class="fullWidth">
+                <div if:true={_isFrameTypeInValid} class="validation title slds-border_bottom slds-p-vertical_medium slds-m-bottom_small">
+                    {_errorInstructionToEnterValue}
+                </div>
+            </div>
+
+            <template for:each={_customerInformationSummaryCollection} for:item="field">
+                <div
+                    key={field}
+                    if:true={field.isFrameType}
+                    class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_2-of-12 customRadioButtonStyling"
+                >
+                    <div class="">
+                        <!-- Radio Button -->
+                        <input
+                            type="radio"
+                            id={field.label}
+                            class="filterRadioButton"
+                            data-field={_frameTypeHeaderLabel}
+                            name="frame"
+                            value={field.label}
+                            onclick={handleSelection}
+                            title={field.label}
+                            checked={field.isChecked}
+                            onselect={handleSelection}
+                        />
+                        <!-- Label -->
+                        <span class="black-color filterValues" title={field.label}> {field.label} </span>
+                    </div>
+                </div>
+            </template>
+        </div>
+        <!-- Input type Radio Buttons values for Frame Type field Selection Section End-->
+    </div>
+    <!-- Edit Mode Section End -->
+    <div if:true={orderTypeSelectionEditModeForOtherSource}>
+        <div
+            if:true={isSourceFromOutsideConfigurator}
+            class="slds-col slds-size_1-of-1 slds-large-size_4-of-12 slds-large-size_3-of-12 slds-grid slds-wrap fullWidth"
+        >
+            <!-- BS-1761-->
+            <template for:each={_customerInformationSummaryCollection} for:item="order">
+                <label key={order} if:true={order.isFrameTypeLabel} class="orderInformationSummaryLabels">{_frameTypeHeaderLabel}</label>
+                <div key={order} if:true={order.isFrameType} class="slds-col slds-size_1-of-1 slds-large-size_4-of-12 slds-large-size_3-of-12 input_wrap">
+                    <!-- BS-1761-->
+                    <input
+                        if:true={order.isChecked}
+                        type="text"
+                        class="orderInformationSummaryFields"
+                        value={order.label}
+                        title={order.label}
+                        readonly
+                        required
+                    />
+                </div>
+            </template>
+        </div>
+    </div>
+    <!-- BS-1213: Popup Screen for cancel confirmation-->
+    <template if:true={openCancelWarningPopup}>
+        <div class="slds-backdrop slds-backdrop_open">
+            <section role="dialog" tabindex="-1" aria-modal="true" class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container">
+                    <div class="popupOnClearCart">
+                        <div>
+                            <lightning-button-icon class="closeIcon" icon-name="utility:close" onclick={closePopup}></lightning-button-icon>
+                        </div>
+
+                        <div class="slds-align_absolute-center slds-m-top_x-large">
+                            <img src={_editIcon} class="delete-icon" />
+                        </div>
+
+                        <div class="slds-align_absolute-center font-24-500 slds-m-top_small">{_warningMessageForDelete}</div>
+
+                        <div class="slds-m-top_x-small slds-m-bottom_medium slds-p-horizontal_x-small">
+                            <p class="deleteCartWarningMessage font-18-300">{_leaveConfigurationMessage}</p>
+                        </div>
+
+                        <div class="slds-grid slds-wrap slds-grid_vertical-align-center slds-grid_align-center">
+                            <div class="slds-m-vertical_small">
+                                <button class="silButton capital customButtons" onclick={closePopup}>{_noButtonLabel}</button>
+                            </div>
+                            <div class="slds-m-around_small">
+                                <button class="silButton capital delete-cart-button customButtons" onclick={handleRedirectionToHomePage}>
+                                    {_yesButtonLabel}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </template>
+    <!-- BS-1213: Popup Screen for cancel confirmation-->
+
+    <!-- BS-1213: Popup Screen for Warning message on order type change -->
+    <template if:true={_lensConfigResetWarningPopup}>
+        <div class="slds-backdrop slds-backdrop_open">
+            <section role="dialog" tabindex="-1" aria-modal="true" class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container">
+                    <div class="lensConfigResetWarningPopup">
+                        <div>
+                            <lightning-button-icon class="closeIcon" icon-name="utility:close" onclick={closePopup}></lightning-button-icon>
+                        </div>
+                        <div class="slds-m-top_x-large slds-m-bottom_medium slds-p-horizontal_small">
+                            <p class="deleteCartWarningMessage font-18-300">{_lensConfigResetWarningMessage}</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </template>
+    <!-- BS-1213: Popup Screen for Warning message on order type change -->
+</template>

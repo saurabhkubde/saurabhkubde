@@ -1,0 +1,850 @@
+/*
+* — Cart Items —
+*/
+.cartcontainer {
+    overflow: hidden;
+    overflow-y: auto;
+    max-height: 550px;
+}
+.stockAvailable {
+    max-width: 100px;
+    margin: auto;
+}
+
+.green {
+    display: block;
+}
+
+.red {
+    display: block;
+    margin: auto;
+}
+
+.icon {
+    width: 15px;
+    height: 15px;
+    margin-right: 5px;
+    vertical-align: text-bottom;
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #555;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #000;
+}
+
+.commerce-button {
+    margin-left: 15px;
+}
+
+.slds-input {
+    padding-top: 0;
+    padding-right: var(--slds-c-input-spacing-horizontal-end, var(--sds-c-input-spacing-horizontal-end, var(--lwc-spacingMedium, 1rem)));
+    padding-bottom: 0;
+    padding-left: var(--slds-c-input-spacing-horizontal-start, var(--sds-c-input-spacing-horizontal-start, var(--lwc-spacingSmall, 0.75rem)));
+    width: 110%;
+    min-height: calc(var(--lwc-heightInput, 1.875rem) + (var(--lwc-borderWidthThin, 1px) * 2));
+    line-height: 39px;
+    border: var(--lwc-borderWidthThin, 1px) solid var(--slds-c-input-color-border, var(--sds-c-input-color-border, var(--lwc-colorBorderInput, #d4d4d4)));
+    background-color: var(--slds-c-input-color-background, var(--sds-c-input-color-background, var(--lwc-colorBackgroundInput, rgb(255, 255, 255))));
+    color: var(--slds-c-input-text-color, var(--sds-c-input-text-color));
+    box-shadow: var(--slds-c-input-shadow, var(--sds-c-input-shadow));
+    transition: border var(--lwc-durationQuickly, 0.1s) linear, background-color var(--lwc-durationQuickly, 0.1s) linear;
+    display: inline-block;
+    margin-left: -27px;
+    margin-top: -9px;
+    border-radius: 0px;
+}
+
+.userInput {
+    width: 190px;
+}
+
+.checkoutModeFields {
+    margin-top: 3px;
+    margin-left: -30px;
+    white-space: normal;
+    width: 74%;
+}
+
+.button-minus:disabled {
+    background-color: #d4d4d4 !important;
+}
+
+.quantityLabelCheckoutMode {
+    margin-right: auto;
+    width: auto;
+    display: inline-flex;
+}
+
+.quantity-fieldCheckout {
+    border: none !important;
+    background-color: transparent !important;
+}
+
+.slds-col {
+    min-width: 50px;
+}
+
+.w120 {
+    width: 120px;
+}
+.w100 {
+    width: 100% !important;
+}
+
+.productDetailsSections {
+    display: contents;
+}
+
+.productSizeArea {
+    padding-bottom: 5px;
+    margin-top: -7px;
+    display: inline-flex;
+}
+
+.stockIcon {
+    margin-right: 3px;
+    height: 17px;
+    margin-left: 15px;
+}
+
+.stockSize {
+    margin-left: auto;
+}
+
+.variation-div-img {
+    margin-right: 5px; /* BS-1326 */
+    max-width: 24px; /* BS-1326 */
+}
+
+.variation-div {
+    height: 21px;
+}
+
+.inputBox {
+    margin-top: 2px;
+    border-radius: 4px;
+}
+
+.product-color-bubble {
+    border-radius: 50%;
+    height: 1rem;
+    overflow: hidden;
+    position: relative;
+    width: 1rem;
+}
+
+.product-color-bubble__upper {
+    background-position: 50%;
+    background-size: cover;
+    display: block;
+    height: 50%;
+    width: 100%;
+}
+
+.product-color-bubble__lower {
+    bottom: 0;
+    left: 0;
+    position: absolute;
+}
+
+.product-color-bubble__lower,
+.product-color-bubble__upper {
+    background-position: 50%;
+    background-size: cover;
+    display: block;
+    height: 50%;
+    width: 100%;
+}
+
+.slds-form-element {
+    position: relative;
+    width: 75%;
+    height: 45px;
+    display: inline-flex;
+}
+.slds-form-element__control {
+    clear: left;
+    position: relative;
+    width: 300px;
+    margin-top: 2px;
+    height: 48px;
+}
+
+.cartFields {
+    margin-top: 3%;
+}
+
+.removeProductSection {
+    margin-top: 1%;
+    margin-left: 0%;
+}
+
+.deliveryField {
+    margin-top: 33px;
+}
+
+.displayFields {
+    height: 25px;
+}
+
+.priceSection {
+    /* height: 112px; */
+    width: 156px;
+    align-items: center;
+    margin-top: -50px;
+}
+
+.quatityLabel {
+    margin-right: 5px;
+    width: auto;
+    display: inline-flex;
+}
+
+/*--*/
+
+.inputtype input {
+    border: none;
+    border-bottom: solid 1px #d8d8d8;
+    width: 100%;
+    padding: 10px;
+    border-radius: 0px !important;
+}
+.inputtype input:focus-visible {
+    outline: none !important;
+    border-radius: 0px !important;
+}
+
+.button-minus-class {
+    height: 35px !important;
+    width: 25px !important;
+    margin-top: 0px !important;
+    border: none !important;
+    background: transparent !important;
+    border-top: 1px solid #d8d8d8 !important;
+    border-left: 1px solid #d8d8d8 !important;
+    border-bottom: 1px solid #d8d8d8 !important;
+    font-size: 20px;
+    border-radius: 0px !important;
+}
+
+.button-minus-class:disabled {
+    background-color: #d4d4d4 !important;
+}
+
+.disable {
+    background: #d4d4d4 !important;
+}
+
+.quantity-field {
+    height: 35px;
+    left: 0 !important;
+    text-align: center;
+    width: 45px;
+    display: inline-block;
+    margin: 0px 0px 0px;
+    resize: vertical;
+    border: none !important;
+    border-top: 1px solid #d8d8d8 !important;
+    border-bottom: 1px solid #d8d8d8 !important;
+    border-radius: 0px !important;
+}
+
+.quantity-container input:focus-visible {
+    outline: none !important;
+    border-radius: 0px !important;
+}
+
+.quantity-field-checkout {
+    height: 35px;
+    text-align: center;
+    display: inline-block;
+    margin: auto !important;
+    resize: vertical;
+    border: none !important;
+}
+.button-plus {
+    height: 35px !important;
+    width: 25px !important;
+    margin-top: 0px !important;
+    border: none !important;
+    background: transparent !important;
+    border-top: 1px solid #d8d8d8 !important;
+    border-right: 1px solid #d8d8d8 !important;
+    border-bottom: 1px solid #d8d8d8 !important;
+    font-size: 20px;
+    border-radius: 0px !important;
+}
+
+.input-group input[type='button'] {
+    width: 25px;
+    transition: all 300ms ease;
+    margin-left: 0px;
+    background: transparent;
+    border: 1px solid black;
+}
+
+.input-group .button-minus,
+.input-group .button-plus {
+    height: 35px;
+    width: 38px;
+    margin-top: 5px;
+}
+
+.input-group .quantity-field {
+    height: 35px;
+    left: -6px;
+    text-align: center;
+    width: 45px;
+    display: inline-block;
+    margin: 0px 0px 0px;
+    resize: vertical;
+    border: 1px solid black;
+}
+
+input[type='number'] {
+    -moz-appearance: textfield;
+    -webkit-appearance: none;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type='number'] {
+    -moz-appearance: textfield;
+}
+.button-plus {
+    left: -13px;
+}
+
+.input-group {
+    position: relative;
+    min-height: 70px;
+}
+
+.quantity-area {
+    display: grid;
+    grid-area: quantity-area;
+}
+
+.priceAndTime {
+    display: grid;
+    grid-area: quantity-area;
+    margin-left: 2%;
+}
+
+.quantity {
+    margin-top: 2%;
+}
+
+.slds-scrollable_y {
+    overflow: hidden;
+    overflow-y: auto;
+    height: auto;
+    max-height: 572px;
+    border-top: 1px solid #c5c3c3;
+    border-bottom: 1px solid #c5c3c3;
+}
+
+.details {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+ul {
+    display: flex;
+    flex-direction: column;
+}
+
+li {
+    display: flex;
+    font-size: 0.875rem;
+    border-bottom: 1px solid #f3f2f2;
+}
+
+figure {
+    cursor: pointer;
+    height: 130px;
+    width: 130px;
+}
+
+figure a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+}
+
+img {
+    flex: 0 0 auto;
+    /* BS-1137 */
+    max-height: 100px;
+    max-width: 99%;
+}
+
+figure + .details {
+    padding-left: var(--lwc-spacingSmall);
+}
+
+.line-item-properties {
+    display: flex;
+    justify-content: stretch;
+    width: 108%;
+}
+
+.product-fields {
+    color: #4f4f4f;
+    display: flex;
+    flex-wrap: wrap;
+    width: 37%;
+    max-height: 60%;
+}
+
+.product-fields dd {
+    width: 55%;
+}
+
+.product-fields dt {
+    width: 45%;
+}
+
+/*
+    Screens larger than a tablet (i.e. the default "desktop" size).
+    These settings are specific to the "desktop" view, i.e. the SLDS mqLarge responsive threshold
+*/
+@media only screen and (min-width: 64.01em) {
+    .product-fields {
+        width: 37%;
+    }
+
+    .quantity-price-remove {
+        width: 60%;
+    }
+}
+
+/* Tablet sized screens or smaller (smaller than the SLDS mqLarge responsive threshold) */
+@media only screen and (max-width: 64em) {
+    .item-name {
+        font-size: 0.875rem;
+    }
+
+    figure {
+        height: 100px;
+        width: 100px;
+    }
+
+    .line-item-properties {
+        flex-direction: column;
+    }
+
+    .quantity-price-remove {
+        padding-top: var(--lwc-spacingMedium);
+    }
+
+    .product-fields {
+        font-size: 0.75rem;
+    }
+
+    .product-fields dt {
+        width: 30%;
+    }
+
+    .product-fields dd {
+        width: 70%;
+    }
+
+    .original-price {
+        font-size: 0.625rem;
+    }
+
+    .negotiated-price {
+        font-size: 1rem;
+        font-weight: var(--lwc-fontWeightBold);
+    }
+
+    .price {
+        align-self: center;
+    }
+
+    .remove {
+        align-self: center;
+    }
+}
+
+/* Small form factor: devices smaller than tablet (i.e. the SLDS mqSmall responsive threshold)*/
+@media only screen and (max-width: 47.9375em) {
+    .quantity-selector {
+        /*
+            A tiny correction when the quantity control shows its "Qty" label so that we stay centered along the box.
+            Fortunately, this actually is a fixed height and we have plenty of padding above us.
+        */
+        margin-top: -0.5rem;
+    }
+
+    figure {
+        width: 50px;
+        height: 50px;
+    }
+}
+
+@media only screen and (max-width: 48em) {
+    /* SLDS token: mqMedium */
+    .quantity-selector {
+        flex-direction: column;
+    }
+    .error-msg {
+        position: static;
+        margin-left: 0;
+    }
+    .selector-label {
+        font-size: 0.5rem;
+    }
+}
+
+.bdr {
+    border: solid 1px #f00;
+}
+
+.cartwrap {
+    border-bottom: solid 1px #d8d8d8;
+    padding: 5px 0px;
+    margin-bottom: 10px;
+}
+
+.cartwrap .f16 {
+    font-size: 16px;
+    font-weight: 500;
+}
+.cartwrap .f14 {
+    font-size: 14px;
+    font-weight: 300;
+}
+
+.cartwrap .productdetails {
+    display: flex;
+    flex-wrap: wrap;
+    border-bottom: solid 1px #d8d8d8;
+    font-size: 14px;
+    font-weight: 300;
+}
+.cartwrap .productdetails .details {
+    border-right: solid 1px #d8d8d8;
+    padding: 0px 6px 0px 6px !important;
+    margin-bottom: 15px;
+    margin-top: 10px;
+}
+
+.bdr-right {
+    border-right: solid 1px #d8d8d8;
+}
+
+.border-none {
+    border-right: 0px !important;
+}
+.cartwrap .productdetails .details:first-child {
+    padding-left: 0px;
+}
+.dot {
+    height: 15px;
+    width: 15px;
+    border-radius: 50%;
+    display: inline-block;
+    background-repeat: no-repeat !important;
+    background-position: 50% !important;
+    filter: drop-shadow(1px 1px 2px #d8d8d8);
+}
+.details img {
+    width: 35px;
+}
+
+.align-text-centre {
+    text-align: center !important;
+}
+
+.product-details {
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    /* BS-1137 */
+    vertical-align: top;
+}
+
+.margin-auto {
+    margin: auto !important;
+}
+
+.no-bottom-border {
+    border-bottom: 0px !important;
+}
+
+.overflow-hidden {
+    overflow: hidden !important;
+}
+
+.top-border {
+    border-top: solid 1px #d8d8d8 !important ;
+}
+
+.quantity-width {
+    width: 95px !important;
+}
+
+.delete-icon {
+    width: 15px !important;
+    cursor: pointer;
+}
+.delete-icon {
+    width: 15px !important;
+}
+.delete-icon:hover {
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+}
+.delete-icon-grey {
+    fill: #d8d8d8 !important;
+}
+@media screen and (max-width: 479px) {
+    .mb-mt-10 {
+        margin-top: 10px;
+    }
+    .customer-detail-table {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 767.99px) {
+    .bdr-right {
+        border-right: none !important;
+    }
+    .slds-border_left {
+        border-left: none !important;
+    }
+}
+@media screen and (max-width: 1023.99px) {
+    .bdr-right {
+        border-right: none !important;
+        padding-right: 2px;
+    }
+}
+/* Tooltip container */
+.tooltip {
+    position: relative;
+    display: inline-block;
+}
+
+/* Tooltip text */
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    top: 6px;
+    right: 20px;
+    font-size: 12px;
+}
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+}
+
+.tooltip .tooltiptext::after {
+    content: ' ';
+    position: absolute;
+    top: 40%;
+    right: -8px;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: black transparent transparent transparent;
+    -webkit-transform: rotate(268deg);
+    -moz-transform: rotate(268deg);
+    -ms-transform: rotate(268deg);
+    -o-transform: rotate(268deg);
+    transform: rotate(268deg);
+}
+.tooltip .clerkStyle {
+    visibility: hidden;
+    width: 190px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    padding: 3px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 85%;
+    left: 60%;
+    margin-left: -40px;
+    font-size: 12px;
+}
+.tooltip:hover .clerkStyle {
+    visibility: visible;
+}
+.tooltip .clerkStyle::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: black transparent transparent transparent;
+}
+.tooltip .remarkStyle {
+    visibility: hidden;
+    width: 300px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    padding: 3px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 85%;
+    left: -23%;
+    margin-left: -40px;
+    font-size: 12px;
+}
+.tooltip:hover .remarkStyle {
+    visibility: visible;
+}
+.tooltip .remarkStyle::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: black transparent transparent transparent;
+}
+
+.cart-item-shipping-info {
+    text-align: center !important;
+}
+
+.product-price {
+    font-size: 18px !important;
+    font-weight: 500 !important;
+}
+
+.customer-detail-table {
+    width: 90%;
+}
+
+/* Added as part of BS-917 */
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: landscape) {
+    .quantity-width {
+        margin-left: -25px !important;
+        margin-top: -5px;
+    }
+}
+
+/* Added as part of BS-917 */
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait) {
+    .quantity-width {
+        margin-left: -25px !important;
+        margin-top: -5px;
+        max-width: 60px !important;
+    }
+    .cartwrap .productdetails .details {
+        width: 100%;
+        border-right: none !important;
+    }
+}
+
+/*Start BS-882*/
+.productModel {
+    font-weight: 500;
+    font-size: 14px !important;
+}
+.font-13-400 {
+    font-weight: 300 !important;
+    font-size: 14px !important;
+}
+/* End 882*/
+
+/* Start BS-755 */
+.attribute-display {
+    display: flex;
+}
+.display-collection-family {
+    padding-left: 10px;
+}
+/*End BS-755*/
+/*BS-1951*/
+.tooltip {
+    position: relative;
+    display: inline-block;
+}
+
+.tooltip .text {
+    position: absolute;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    padding: 4px 4px;
+    z-index: 1;
+    border-radius: 0px;
+    bottom: 110%;
+    left: -20px;
+    opacity: 0;
+    visibility: hidden;
+    font-size: 12px;
+    width: 170px;
+    margin-bottom: 2px;
+}
+.tooltip .text::after {
+    position: absolute;
+    content: '';
+    border-style: solid;
+    border-width: 5px;
+    border-color: black transparent transparent transparent;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+}
+.tooltip:hover .text {
+    visibility: visible;
+    opacity: 1;
+}
+
+.wrap_styling {
+    max-width: 70%;
+    word-wrap: break-word;
+}
+.textarea_styling {
+    width: 285px;
+    height: 65px;
+    border: none;
+}
+
+/* Added as a part of BS-2437 */
+.infoicon {
+    width: 15px !important;
+    min-width: 10px;
+    transition: transform 0.2s;
+    cursor: pointer;
+    padding-left: 2px;
+}

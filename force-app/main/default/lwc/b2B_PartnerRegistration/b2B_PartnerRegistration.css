@@ -1,0 +1,78 @@
+:host {
+    --height: 109px;
+    --width: 251px;
+}
+
+.loginflowcontainer {
+    width: 950px;
+    margin: auto;
+}
+
+.button {
+    background: none !important;
+    border: none;
+    padding: 0 !important;
+    color: black;
+    cursor: pointer;
+    text-align: left;
+}
+
+.button:hover {
+    color: black;
+    text-decoration: underline;
+}
+
+.button-icon {
+    color: black;
+    height: 6px;
+    font-weight: 500 !important;
+    --slds-c-icon-color-foreground-default: #000 !important;
+    opacity: 0.7;
+}
+.requestSpacing {
+    margin-top: 10px;
+    float: right !important;
+}
+
+.goback {
+    white-space: nowrap !important;
+}
+
+div {
+    border-style: none;
+    border-top-width: 0px;
+    border-right-width: 0px;
+    border-bottom-width: 0px;
+    border-left-width: 0px;
+}
+
+.uppercase {
+    text-transform: uppercase;
+}
+
+/* Small form factor: devices smaller than tablet (i.e. the SLDS mqSmall responsive threshold)*/
+@media only screen and (max-width: 47.9375em) {
+    .imageSize {
+        height: var(--height);
+        width: var(--width);
+    }
+    .buttonSpacing {
+        margin-top: inherit;
+        float: initial;
+    }
+
+    .loginflowcontainer {
+        width: 100%;
+    }
+}
+
+@media only screen and (max-width: 64em) {
+    .imageSize {
+        height: var(--height);
+        width: var(--width);
+    }
+
+    .loginflowcontainer {
+        width: 90%;
+    }
+}

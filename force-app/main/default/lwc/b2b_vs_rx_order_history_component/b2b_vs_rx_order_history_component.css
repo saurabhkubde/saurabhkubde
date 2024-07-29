@@ -1,0 +1,466 @@
+.slds-th__action {
+    --lwc-tableCellSpacing: 0px;
+    height: 1.5rem;
+    color: #000;
+}
+.no-order-background {
+    max-width: 400px !important;
+    height: 250px !important;
+    background: #f9f9f9 !important;
+}
+.close-icon-demesions {
+    width: 40px !important;
+}
+
+.table-horizontal-scroll {
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+.document-disabled {
+    color: #c9c7c5 !important;
+    opacity: 0.2 !important;
+}
+
+.document-enabled {
+    color: #000 !important;
+}
+
+.request-document-enabled {
+    --slds-c-icon-color-foreground-default: #000 !important;
+}
+
+.request-document-disabled {
+    --slds-c-icon-color-foreground-default: #c9c7c5 !important;
+}
+
+.layover-button {
+    width: 33%;
+    background-color: #fff;
+    border: 1px solid #000;
+    color: #000;
+    font-weight: 700;
+    letter-spacing: 1px;
+    font-size: smaller;
+    line-height: 2;
+}
+
+.actionicon {
+    width: 20px !important;
+    transition: transform 0.2s;
+    cursor: pointer;
+}
+
+.actionicon:hover {
+    transform: scale(1.1);
+}
+
+.slds-th__action:focus,
+.slds-th__action:hover {
+    background-color: transparent;
+}
+
+.model-text-24 {
+    font-size: 24px !important;
+    font-weight: 500 !important;
+}
+.model-text-18 {
+    font-size: 18px !important;
+    font-weight: 500 !important;
+}
+.model-text-16 {
+    font-size: 16px !important;
+    font-weight: 300 !important;
+}
+.model-text-14 {
+    font-size: 14px !important;
+    font-weight: 300 !important;
+}
+
+.model-text-14-font-weight {
+    font-size: 14px !important;
+    font-weight: 600 !important;
+}
+
+.layover-button:hover {
+    width: 33%;
+    background-color: black;
+    border: 1px solid #000;
+    color: #fff;
+    font-weight: 700;
+    letter-spacing: 1px;
+    line-height: 2;
+    font-size: smaller;
+}
+
+.layover-button:disabled {
+    width: 33%;
+    background-color: #c9c7c5;
+    border: 1px solid #c9c7c5;
+    color: #fff;
+    font-weight: 700;
+    letter-spacing: 1px;
+    line-height: 2;
+    font-size: smaller;
+}
+
+.text-align-center {
+    text-align: center !important;
+}
+
+.buttonWidth {
+    width: 60%;
+}
+
+.slds-modal__header .slds-modal__close {
+    cursor: pointer;
+}
+/* tablet screens*/
+@media only screen and (max-width: 64em) {
+    .layover-button {
+        width: 60%;
+    }
+
+    .layover-button:hover {
+        width: 60%;
+    }
+
+    .layover-button:disabled {
+        width: 60%;
+    }
+
+    .h4-font-strong {
+        font-weight: 600;
+        font-size: 18px;
+        line-height: 30.8px;
+    }
+    .buttonWidth {
+        width: 80%;
+    }
+}
+
+/* Phone screens */
+@media only screen and (max-width: 47.9375em) {
+    .layover-button {
+        width: 70%;
+    }
+
+    .layover-button:hover {
+        width: 70%;
+    }
+
+    .layover-button:disabled {
+        width: 70%;
+    }
+
+    .h4-font-strong {
+        font-weight: 700;
+        font-size: 14px;
+        line-height: 30.8px;
+    }
+    .buttonWidth {
+        width: 90% !important;
+    }
+}
+
+.buttonWidth {
+    width: 60%;
+}
+
+/* Start BS-704 */
+.clear-button {
+    padding-left: 25px !important;
+    padding-right: 25px !important;
+}
+/* End BS-704 */
+
+.tab-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    position: relative;
+}
+
+.tab-list::before {
+    content: '';
+    display: block;
+    height: 1px;
+    width: 33.333%;
+    position: absolute;
+    bottom: 0;
+    background-color: black;
+    transition: 0.3s;
+}
+
+.tab-item {
+    flex: 1;
+    text-align: center;
+    transition: 0.3s;
+    opacity: 0.5;
+}
+
+.tab-toggle {
+    display: none;
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-toggle:nth-child(1):checked ~ .tab-list .tab-item:nth-child(1),
+.tab-toggle:nth-child(2):checked ~ .tab-list .tab-item:nth-child(2),
+.tab-toggle:nth-child(3):checked ~ .tab-list .tab-item:nth-child(3) {
+    opacity: 1;
+}
+
+.tab-toggle:nth-child(2):checked ~ .tab-list::before {
+    transform: translateX(100%);
+}
+
+.tab-toggle:nth-child(3):checked ~ .tab-list::before {
+    transform: translateX(200%);
+}
+
+.tab-toggle:nth-child(1):checked ~ .tab-container .tab-content:nth-child(1),
+.tab-toggle:nth-child(2):checked ~ .tab-container .tab-content:nth-child(2),
+.tab-toggle:nth-child(3):checked ~ .tab-container .tab-content:nth-child(3) {
+    display: block;
+}
+
+.tab-trigger {
+    display: block;
+    padding: 10px 0;
+}
+
+.tab-container {
+    padding: 15px 30px;
+}
+
+.button-solid {
+    border: none;
+    background: transparent;
+    border-bottom: 1px solid;
+    font-size: 24px;
+}
+.button-solid:focus {
+    border: none;
+    outline: none;
+    border-bottom: 1px solid;
+}
+
+.my-vsrx-container .slds-tabs_default__item {
+    padding: 10px 100px !important;
+}
+.my-vsrx-container .slds-is-active {
+    border-bottom: solid 2px #000 !important;
+}
+
+.custom {
+    color: #000000;
+    box-shadow: none;
+    border: none;
+    border-bottom: 1px solid #c9c9c9;
+    width: 100%;
+    padding: 6px 0px;
+    font-size: 14px;
+    font-weight: 300;
+}
+
+.error {
+    color: #000000;
+    box-shadow: none;
+    border: none;
+    border-bottom: 1px solid #d0021b;
+    width: 100%;
+}
+
+.error + label {
+    color: #d0021b !important;
+}
+
+.validation {
+    color: #d0021b;
+    font-weight: 300 !important;
+    font-size: 12px !important;
+    padding-bottom: 10px;
+}
+
+.custom:focus + label,
+.custom:valid + label {
+    top: -14px;
+    background: #ffffff;
+    font-weight: 300;
+    font-size: 10px;
+}
+
+.error:focus + label,
+.error:valid + label {
+    top: -14px;
+    color: #d0021b;
+    background: #ffffff;
+    font-weight: 300;
+    font-size: 10px;
+}
+/* Removed 95% width as a part of BS-2175 */
+.input_wrap {
+    position: relative;
+}
+
+.input_wrap label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: 0.2s ease all;
+    -moz-transition: 0.2s ease all;
+    -webkit-transition: 0.2s ease all;
+    pointer-events: none;
+    background: #ffffff;
+    font-weight: 300;
+}
+
+.filterValues {
+    font-weight: 300;
+}
+
+.custom:focus {
+    outline: none;
+}
+
+.error:focus {
+    outline: none;
+}
+
+.title {
+    width: 100%;
+    font-size: 16px;
+    margin-bottom: 20px;
+    font-weight: 500;
+}
+
+.orderInformationSummaryFields {
+    margin-top: 10px;
+    border: none;
+    font-weight: 500;
+    font-size: 14px;
+    margin: none;
+    margin-left: -1px;
+}
+
+.orderInformationSummaryLabels {
+    border: none;
+    font-weight: 100;
+    font-size: 12px;
+}
+
+.orderInformationTitle {
+    float: left;
+}
+
+.orderInformationIcon {
+    float: right;
+}
+
+.orderInformationSummaryFields:focus-visible {
+    outline: none;
+}
+
+input[type='radio'] {
+    -webkit-transform: scale(1.5);
+    transform: scale(1.5);
+    margin-right: 5px;
+    vertical-align: middle;
+    accent-color: black;
+}
+
+.fullWidth {
+    width: 100%;
+}
+
+.customRadioButtonStyling {
+    margin-bottom: 10px !important;
+}
+
+.bottom-border {
+    border-bottom: solid 1px #f4f4f4 !important;
+    font-size: 14px !important;
+    font-weight: 300 !important;
+}
+
+.border-bottom {
+    border-bottom: solid 1px #f4f4f4 !important;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+}
+
+.popupOnClearCart {
+    margin: auto;
+    align-items: center;
+    padding-bottom: 4%;
+    padding-top: 2%;
+    width: 55%;
+    background-color: white;
+}
+
+.delete-icon {
+    width: 40px;
+}
+
+.font-24-500 {
+    font-size: 24px !important;
+    font-weight: 500 !important;
+}
+
+.font-18-300 {
+    font-size: 18px !important;
+    font-weight: 300 !important;
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.font-14-300 {
+    font-size: 14px !important;
+    font-weight: 300 !important;
+}
+
+.closeIcon {
+    float: right;
+    margin-right: 5px;
+}
+
+.tabStyling {
+    font-size: 16px;
+    font-weight: 300 !important;
+}
+
+@media only screen and (max-width: 375px) {
+    .font-24-500[c-b2b_vs_rx_order_history_component_b2b_vs_rx_order_history_component] {
+        font-size: 16px !important;
+        font-weight: 500 !important;
+    }
+
+    .font-18-300[c-b2b_vs_rx_order_history_component_b2b_vs_rx_order_history_component] {
+        font-size: 14px !important;
+        font-weight: 300 !important;
+        text-align: center;
+        margin-bottom: 0px;
+    }
+}
+
+/*BS-997*/
+@media only screen and (max-width: 375px) {
+    .customButtons {
+        padding: 10px !important;
+    }
+}
+
+/* BS-2175 */
+.font-size {
+    font-size: 16px;
+    font-weight: 300;
+    cursor: pointer;
+    border: none;
+}
+.orderTableHeader > th {
+    vertical-align: baseline !important;
+}

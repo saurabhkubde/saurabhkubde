@@ -1,0 +1,320 @@
+<template>
+    <!-- SH/EE/NB order history template-->
+    <lightning-card class="black-color no-border">
+        <span class="slds-align_absolute-center model-text-24 arial-font">{labels.orderhistory}</span>
+        <template if:true={isLoading}>
+            <lightning-spinner alternative-text="Loading" size="small"></lightning-spinner>
+        </template>
+        <div class="slds-grid slds-gutters slds-wrap slds-m-vertical_medium order-history">
+            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_3-of-12">
+                <lightning-combobox
+                    name="timeframe"
+                    label={labels.timeframe}
+                    value={selectedTimeframe}
+                    options={timeframeOptions}
+                    onchange={handleTimeframeChange}
+                    class="model-text-14"
+                ></lightning-combobox>
+            </div>
+            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_3-of-12">
+                <lightning-combobox
+                    name="status"
+                    label={labels.status}
+                    value={selectedStatus}
+                    placeholder={labels.selectstatus}
+                    options={orderStatuses}
+                    onchange={handleStatusChange}
+                    class="model-text-14"
+                ></lightning-combobox>
+            </div>
+            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_3-of-12">
+                <lightning-combobox
+                    name="source"
+                    label={labels.source}
+                    value={selectedSource}
+                    placeholder={labels.selectsource}
+                    options={orderSources}
+                    onchange={handleSourceChange}
+                    class="model-text-14"
+                ></lightning-combobox>
+            </div>
+        </div>
+        <div class="slds-grid slds-gutters slds-wrap slds-var-m-vertical_medium order-history">
+            <!-- Search textbox Section Start -->
+            <div class="slds-col slds-small-size_6-of-12 slds-medium-size_12-of-12 slds-large-size_6-of-12 slds-var-m-top_medium">
+                <div class="input_wrap slds-var-m-vertical_xlarge">
+                    <input type="text" class="slds-p-top_small search_input" name="search" title={enterKeyword} onkeyup={handleSearch} value={_searchKeyword} />
+                    <label>{enterKeyword}</label>
+                </div>
+            </div>
+            <!-- Search textbox Section End -->
+            <!-- Clear Button Start-->
+            <!-- BS-2175 -->
+            <div id="resetfilters" class="slds-col slds-m-top_medium slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_2-of-12">
+                <a name="resetFilters" class="font-size" onclick={handleResetFilters}>
+                    <span>
+                        <img src={refreshIcon} />
+                    </span>
+                    <span> {labels.orderresetfilters} </span>
+                </a>
+            </div>
+            <!-- Clear Button End-->
+        </div>
+        <lightning-spinner if:true={_isLoading} class="slds-is-fixed slds-align_absolute-center" variant="brand" size="medium"> </lightning-spinner>
+        <template if:true={hasOrders}>
+            <div class="table-horizontal-scroll order_history slds-m-top_large">
+                <table aria-multiselectable="true" class="slds-table slds-table_bordered" role="grid" aria-label="Order History Table">
+                    <thead class="border-bottom">
+                        <tr class="border-bottom slds-line-height_reset">
+                            <th class="border-bottom no-left-margin" scope="col">
+                                <a
+                                    class="slds-th__action slds-text-link_reset arial-font"
+                                    href="javascript:void(0);"
+                                    role="button"
+                                    tabindex="0"
+                                    onclick={onHandleSort}
+                                    name="B2B_ERP_Order_Id__c"
+                                >
+                                    {labels.ordernumber}
+                                    <lightning-icon
+                                        icon-name="utility:arrowup"
+                                        size="x-small"
+                                        if:true={orderNumberAsc}
+                                        name="B2B_ERP_Order_Id__c"
+                                    ></lightning-icon>
+                                    <lightning-icon
+                                        icon-name="utility:arrowdown"
+                                        size="x-small"
+                                        if:true={orderNumberDesc}
+                                        name="B2B_ERP_Order_Id__c"
+                                    ></lightning-icon>
+                                </a>
+                            </th>
+                            <th class="border-bottom arial-font no-left-margin" scope="col">
+                                <a
+                                    class="slds-th__action slds-text-link_reset"
+                                    href="javascript:void(0);"
+                                    role="button"
+                                    tabindex="0"
+                                    onclick={onHandleSort}
+                                    name="OrderedDate"
+                                >
+                                    {labels.orderdate}
+                                    <lightning-icon icon-name="utility:arrowup" size="x-small" if:true={orderDateAsc} name="OrderedDate"></lightning-icon>
+                                    <lightning-icon icon-name="utility:arrowdown" size="x-small" if:true={orderDateDesc} name="OrderedDate"></lightning-icon>
+                                </a>
+                            </th>
+                            <th class="border-bottom no-left-margin" scope="col">
+                                <a
+                                    class="slds-th__action slds-text-link_reset arial-font"
+                                    href="javascript:void(0);"
+                                    role="button"
+                                    tabindex="0"
+                                    onclick={onHandleSort}
+                                    name="Status"
+                                >
+                                    {labels.status}
+                                    <lightning-icon icon-name="utility:arrowup" size="x-small" if:true={statusAsc} name="Status"></lightning-icon>
+                                    <lightning-icon icon-name="utility:arrowdown" size="x-small" if:true={statusDesc} name="Status"></lightning-icon>
+                                </a>
+                            </th>
+                            <th class="border-bottom no-left-margin" scope="col">
+                                <a
+                                    class="slds-th__action slds-text-link_reset arial-font"
+                                    href="javascript:void(0);"
+                                    role="button"
+                                    tabindex="0"
+                                    onclick={onHandleSort}
+                                    name="Order_Source__c"
+                                >
+                                    {labels.source}
+                                    <lightning-icon icon-name="utility:arrowup" size="x-small" if:true={sourceAsc} name="Order_Source__c"></lightning-icon>
+                                    <lightning-icon icon-name="utility:arrowdown" size="x-small" if:true={sourceDesc} name="Order_Source__c"></lightning-icon>
+                                </a>
+                            </th>
+                            <th class="border-bottom no-left-margin" scope="col">
+                                <a class="slds-th__action slds-text-link_reset slds-truncate arial-font" href="#" role="button" tabindex="0">
+                                    {labels.otherAction}
+                                </a>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <template for:each={orderRecords} for:item="order">
+                            <tr class="slds-hint-parent bottom-border" key={order.Id}>
+                                <td class="bottom-border no-left-margin" data-label="Order Number">{order.B2B_ERP_Order_Id__c}</td>
+                                <td class="bottom-border no-left-margin" data-label="Order Date">
+                                    <lightning-formatted-text value={order.displayableOrderedDate}> </lightning-formatted-text>
+                                </td>
+                                <td class="bottom-border no-left-margin" data-label="Status">{order.Status}</td>
+                                <td class="bottom-border no-left-margin" data-label="Source">{order.Order_Source__c}</td>
+                                <td class="bottom-border no-left-margin" data-label="Order Number">
+                                    <div>
+                                        <img
+                                            if:true={order.isFromB2bShop}
+                                            class="actionicon slds-m-right_small request-document-enabled"
+                                            data-record-id={order.Id}
+                                            src={externalLink}
+                                            title={labels.orderDetails}
+                                            onclick={showOrderDetail}
+                                        />
+                                        <img
+                                            data-order-document-request-disabled={order.documentRequestDisabled}
+                                            data-id={order.Id}
+                                            data-erp-order={order.B2B_ERP_Order_Id__c}
+                                            data-status={order.Status}
+                                            src={infoSVG}
+                                            title={labels.requestDocument}
+                                            class={order.documentRequestDisabled}
+                                            onclick={openModal}
+                                        />
+                                        <!--Added as part of BS-523-->
+                                        <img
+                                            if:true={order.isRelatedToB2B}
+                                            name="reorder"
+                                            src={reorderIcon}
+                                            data-record-id={order.Id}
+                                            data-order-number={order.B2B_ERP_Order_Id__c}
+                                            class="actionicon request-document-enabled slds-m-right_small"
+                                            title={labels.reorder}
+                                            onclick={handleRedirection}
+                                        />
+                                        <!--Start of BS-2207 -->
+                                        <img
+                                            name="printOrderDetails"
+                                            src={printSVG}
+                                            data-record-id={order.Id}
+                                            class="actionicon"
+                                            title={printLabel}
+                                            onclick={handlePrintClick}
+                                        />
+                                        <!--End of BS-2207 -->
+                                    </div>
+                                </td>
+                            </tr>
+                        </template>
+                    </tbody>
+                </table>
+            </div>
+        </template>
+        <template if:true={hasOrders}>
+            <c-b2b_search-paginator
+                page-number={pageNumber}
+                page-size={_pageSize}
+                total-item-count={_totalItemCount}
+                onprevious={handlePreviousPage}
+                onnext={handleNextPage}
+                onpagejump={handlePageJump}
+            ></c-b2b_search-paginator>
+        </template>
+        <template if:false={hasOrders}>
+            <div class="slds-wrap slds-p-around_medium slds-align_absolute-center no-order-background">
+                <div class="slds-col slds-m-bottom_medium slds-align_absolute-center slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-1">
+                    <img src={closeIcon} class="close-icon-demesions" />
+                </div>
+                <div class="slds-col slds-m-bottom_medium slds-align_absolute-center slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-1">
+                    <h2 class="h4-font-strong black-color arial-font slds-align_absolute-center slds-text-align_center">{labels.noorders}</h2>
+                </div>
+                <div>
+                    <button name="continueShopping" class="slds-align_absolute-center silButton capital arial-font" onclick={handleRedirectToHome}>
+                        {_continueShoppingButtonLabel}
+                    </button>
+                </div>
+            </div>
+        </template>
+    </lightning-card>
+    <template if:true={showModal}>
+        <section aria-modal="true" class="slds-align_absolute-center slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <h2 class="slds-m-top_medium model-text-24 black-color arial-font">{labels.furtherinfos} {selectedOrderNumber}</h2>
+                    <div class="slds-modal__close general-close" onclick={closeModal}></div>
+                </header>
+                <div class="slds-modal__content slds-var-p-around_small">
+                    <div class="slds-border_bottom">
+                        <template if:true={showTrackingNumber}>
+                            <p class="slds-align_absolute-center slds-m-bottom_x-small model-text-18 black-color">{labels.trackinglinks}</p>
+                            <template if:true={hasTrackingLinks}>
+                                <template for:each={trackingReferences} for:item="trackingReference">
+                                    <div key={trackingReference.id} class="slds-col slds-var-p-vertical_xx-small">
+                                        <div class="slds-m-bottom_x-small slds-align_absolute-center slds-col black-color model-text-16">
+                                            {trackingReference.B2B_Order_Reference_Link__c}
+                                        </div>
+                                    </div>
+                                </template>
+                            </template>
+                            <template if:false={hasTrackingLinks}>
+                                <div class="slds-align_absolute-center model-text-16 slds-m-bottom_x-small slds-col black-color">{labels.nolinks}</div>
+                            </template>
+                        </template>
+                        <template if:true={isOrderConfirmation}>
+                            <p class="slds-align_absolute-center slds-m-bottom_x-small model-text-18 black-color">{labels.orderconfirmationlinks}</p>
+                            <div>
+                                <button
+                                    class="slds-align_absolute-center slds-m-bottom_x-small silButton capital buttonWidth arial-font"
+                                    data-name="Order Confirmation"
+                                    onclick={handleSend}
+                                >
+                                    {labels.sendorderconfirmation}
+                                </button>
+                                <div if:true={isOrderConfirmationSent}>
+                                    <div class="model-text-14 slds-m-bottom_x-small slds-align_absolute-center text-align-center">
+                                        {labels.orderConfirmationMessage}
+                                    </div>
+                                    <div class="model-text-14-font-weight slds-m-bottom_x-small slds-align_absolute-center text-align-center">
+                                        "{accountEmail}"
+                                    </div>
+                                </div>
+                            </div>
+                            <br />
+                        </template>
+                    </div>
+                    <div class="slds-border_bottom">
+                        <template if:true={isDeleveryNote}>
+                            <p class="slds-align_absolute-center slds-m-vertical_small model-text-18 black-color">{labels.deliverylinks}</p>
+                            <div class="slds-col slds-var-p-vertical_xx-small">
+                                <button
+                                    class="slds-align_absolute-center slds-m-bottom_x-small silButton capital buttonWidth arial-font"
+                                    data-name="Delivery Note"
+                                    onclick={handleSend}
+                                >
+                                    {labels.senddelivery}
+                                </button>
+                                <div if:true={isDeleveryNoteSent}>
+                                    <div class="model-text-14 slds-align_absolute-center text-align-center">{labels.deliveryNoteMessage}</div>
+                                    <div class="model-text-14-font-weight slds-m-bottom_x-small slds-align_absolute-center text-align-center">
+                                        "{accountEmail}"
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                    <div>
+                        <template if:true={isOrderInvoice}>
+                            <p class="slds-align_absolute-center slds-m-top_small model-text-18 black-color">{labels.invoicelinks}</p>
+                            <div class="slds-col slds-var-p-vertical_xx-small">
+                                <button
+                                    class="slds-align_absolute-center slds-m-vertical_small silButton capital buttonWidth arial-font arial-font"
+                                    data-name="Invoice"
+                                    onclick={handleSend}
+                                >
+                                    {labels.sendinvoice}
+                                </button>
+                                <div if:true={isOrderInvoiceSent}>
+                                    <div class="model-text-14 slds-align_absolute-center text-align-center">{labels.invoiceMessage}</div>
+                                    <div class="model-text-14-font-weight slds-align_absolute-center text-align-center email-font-weight">"{accountEmail}"</div>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+                <!-- Commented as part of BS-687
+                    <footer class="slds-modal__footer">
+                    <button class="slds-align_absolute-center silButton capital" onclick={closeModal}>{labels.close}</button>
+                    </footer>
+                -->
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+</template>

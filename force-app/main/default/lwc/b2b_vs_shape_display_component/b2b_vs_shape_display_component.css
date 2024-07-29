@@ -1,0 +1,64 @@
+.tableauto {
+    width: auto;
+    margin-bottom: 15px;
+}
+
+.glassContainer {
+    width: -webkit-fill-available;
+    max-width: 250px;
+    margin: auto;
+    display: block;
+}
+
+.shapeEditor td {
+    border: solid 1px #d8d8d8;
+    padding: 10px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 500;
+}
+.shapeEditor {
+    margin-top: 10px;
+    max-width: 300px;
+}
+
+.shapeEditor .bg {
+    background: #f4f4f4;
+    font-weight: 300;
+    width: 70px;
+}
+
+.shapeEditorHeader {
+    font-size: 22px;
+}
+
+.shapeEditorSubHeaderTextStyling {
+    font-size: 16px;
+}
+
+.originalShape {
+    width: 14px;
+    height: 14px;
+    background: #cdcdcd;
+    margin-right: 10px;
+}
+.scaledShape {
+    width: 14px;
+    height: 14px;
+    background: #d8c27c;
+    margin-right: 10px;
+}
+.table-auto {
+    width: auto;
+}
+
+.fnt14-bold {
+    font-weight: 500 !important;
+    font-size: 14px;
+}
+
+.section-title-prescription {
+    font-size: 16px !important;
+    font-weight: 500 !important;
+    width: 100%;
+}

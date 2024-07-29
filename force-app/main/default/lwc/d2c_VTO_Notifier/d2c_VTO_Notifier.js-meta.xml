@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>59.0</apiVersion>
+    <isExposed>true</isExposed>
+    <targets>
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Default</target>
+    </targets>
+    <masterLabel>D2C VTO Notification</masterLabel>
+    <description>Displays remote connectivity notification.</description>
+    <targetConfigs>
+        <targetConfig targets="lightningCommunity__Default">
+            <property
+                name="localStorageMaxChecks"
+                type="Integer"
+                label="Local Storage Max Checks"
+                description="specify max checks to check remote from local storage"
+            />
+            <property
+                name="localStorageChecksInterval"
+                type="Integer"
+                label="Local Storage Checks Interval"
+                description="specify interval in milliseconds to check local storage"
+            />
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

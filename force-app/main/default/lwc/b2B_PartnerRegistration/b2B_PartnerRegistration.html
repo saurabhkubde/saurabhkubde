@@ -1,0 +1,203 @@
+<template>
+    <!--SH Shop-->
+    <template if:true={isSilhouetteLogin}>
+        <div class="slds-text-align_center slds-m-top_medium slds-m-bottom_x-large">
+            <img src={imageLogo} class="SH-logo" onclick={goBack} />
+        </div>
+    </template>
+    <template if:false={isSilhouetteLogin}>
+        <div class="slds-text-align_center slds-m-top_medium slds-m-bottom_x-large">
+            <img src={imageLogo} class="logoImage imageSize" onclick={goBack} />
+        </div>
+    </template>
+    <div class="loginflowcontainer">
+        <div class="title-small header-subtext-nb">{label.titleLabelH2NB}</div>
+        <div class="title-large arial-font text-xx-large-nb black-color">{label.titleLabelH1NB}</div>
+        <template if:true={loading}>
+            <lightning-spinner alternative-text="Loading"></lightning-spinner>
+        </template>
+        <br />
+        <div class="slds-grid slds-gutters slds-wrap">
+            <!--left-->
+            <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+                <div class="slds-grid slds-gutters slds-wrap">
+                    <div class="slds-col slds-size_1-of-1 slds-m-bottom_medium">
+                        <lightning-input
+                            class="validate inputBtn"
+                            type="text"
+                            name="companyName"
+                            label={labels.companyLabel}
+                            onchange={handleAccountInputChange}
+                            required="true"
+                        >
+                        </lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12 slds-m-bottom_medium">
+                        <lightning-combobox
+                            class="validate inputBtn"
+                            label={labels.salutationLabel}
+                            name="salutation"
+                            options={salutationOptions}
+                            onchange={handleContactInputChange}
+                            required="true"
+                        >
+                        </lightning-combobox>
+                    </div>
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12 slds-m-bottom_medium">
+                        <lightning-input
+                            type="text"
+                            name="firstName"
+                            label={labels.firstNameLabel}
+                            onchange={handleContactInputChange}
+                            class="validate"
+                            required="true"
+                        ></lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12 slds-m-bottom_medium">
+                        <lightning-input
+                            type="text"
+                            name="lastName"
+                            class="validate"
+                            label={labels.lastNameLabel}
+                            required="true"
+                            onchange={handleContactInputChange}
+                        >
+                        </lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12 slds-m-bottom_medium">
+                        <lightning-input
+                            type="email"
+                            name="email"
+                            class="validate"
+                            label={labels.emailLabel}
+                            required="true"
+                            onchange={handleAccountInputChange}
+                        >
+                        </lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12 slds-m-bottom_medium">
+                        <lightning-input type="tel" name="phone" class="validate" label={labels.phoneLabel} required="true" onchange={handleAccountInputChange}>
+                        </lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_1-of-1 slds-m-bottom_medium">
+                        <lightning-input type="text" name="website" label={labels.websiteLabel} onchange={handleAccountInputChange}> </lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_1-of-1 slds-m-bottom_medium">
+                        <lightning-dual-listbox
+                            name="function"
+                            label={labels.functionLabel}
+                            class="validate"
+                            source-label={labels.available}
+                            selected-label={labels.chosen}
+                            field-level-help="Select your function"
+                            options={functionOptions}
+                            onchange={handleContactInputChange}
+                            required="true"
+                        >
+                        </lightning-dual-listbox>
+                    </div>
+                </div>
+            </div>
+            <!--end left-->
+            <!--right-->
+            <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+                <div class="slds-grid slds-gutters slds-wrap">
+                    <div class="slds-col slds-size_1-of-1 slds-m-bottom_medium">
+                        <lightning-input
+                            type="text"
+                            name="street"
+                            label={labels.billingStreetLabel}
+                            onchange={handleAccountInputChange}
+                            class="validate"
+                            required="true"
+                        ></lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12 slds-m-bottom_medium">
+                        <lightning-input
+                            name="city"
+                            class="validate"
+                            type="text"
+                            label={labels.billingCityLabel}
+                            required="true"
+                            onchange={handleAccountInputChange}
+                        ></lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12 slds-m-bottom_medium">
+                        <lightning-input
+                            name="province"
+                            class="validate"
+                            type="text"
+                            label={labels.billingStateLabel}
+                            required="true"
+                            onchange={handleAccountInputChange}
+                        ></lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12 slds-m-bottom_medium">
+                        <lightning-input
+                            name="postalCode"
+                            class="validate"
+                            type="text"
+                            label={labels.billingZipLabel}
+                            required="true"
+                            onchange={handleAccountInputChange}
+                        ></lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12 slds-m-bottom_medium">
+                        <lightning-combobox
+                            name="storeCountry"
+                            class="validate"
+                            label={labels.billingCountryLabel}
+                            options={countryOptions}
+                            onchange={handleAccountInputChange}
+                            required="true"
+                        ></lightning-combobox>
+                    </div>
+                    <div class="slds-col slds-size_1-of-1 slds-m-bottom_medium">
+                        <lightning-radio-group
+                            class="validate radio-combo-inline"
+                            name="accountBrand"
+                            label={labels.brandLabel}
+                            options={brandOptions}
+                            required="true"
+                            onchange={handleAccountInputChange}
+                            type="radio"
+                        >
+                        </lightning-radio-group>
+                    </div>
+                    <div class="slds-col slds-size_1-of-1 slds-m-bottom_medium">
+                        <lightning-textarea name="message" label={labels.optionalMessage} onchange={handleAccountInputChange}> </lightning-textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slds-grid slds-wrap">
+            <!--end right-->
+            <!--checkbox-->
+            <div class="slds-size_xxx-small">
+                <lightning-input type="checkbox" class="validate" name="privacyInput" variant="label-hidden" required="true"> </lightning-input>
+            </div>
+            <template if:true={isSilhouetteLogin}>
+                <div class="title-small-auto">
+                    <lightning-formatted-rich-text value={labels.policySHEE}></lightning-formatted-rich-text>
+                </div>
+            </template>
+            <template if:false={isSilhouetteLogin}>
+                <div class="title-small-auto">
+                    <lightning-formatted-rich-text value={labels.policyNB}></lightning-formatted-rich-text>
+                </div>
+            </template>
+            <!--end checkbox-->
+        </div>
+        <hr class="customhr" />
+        <div class="slds-grid slds-grid_vertical-align-center">
+            <!--BS-2034 Removed back to login button-->
+            <div class="slds-col slds-float_right">
+                <button class="small slds-m-bottom_large slds-float_right silButton uppercase" data-id="requestBtn" onclick={handleRequest} slot="footer">
+                    {labels.buttonLabel}
+                </button>
+            </div>
+        </div>
+        <!--</lightning-card>-->
+    </div>
+</template>

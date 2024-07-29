@@ -1,0 +1,44 @@
+<template>
+    <!--Progress Bar Start-->
+    <template for:each={_progressBarStepsCollection} for:item="step">
+        <div class="main" key={step}>
+            <!--Section of Completed Steps of Progress Bar Start-->
+            <div if:true={step.isCompleted} class="step step-active">
+                <div class="complete">
+                    <span title="Complete">
+                        <lightning-icon icon-name="utility:success" size="small"></lightning-icon>
+                    </span>
+                </div>
+                <div>
+                    <div class="title">{step.stepName}</div>
+                </div>
+            </div>
+            <!--Section of Completed Steps of Progress Bar End-->
+
+            <!--Section of Current Active Step of Progress Bar Start-->
+            <div if:true={step.isActive} class="step step-active">
+                <div>
+                    <div class="circle remaining"></div>
+                </div>
+                <div>
+                    <div class="title">{step.stepName}</div>
+                </div>
+            </div>
+            <!--Section of Current Active Step of Progress Bar End-->
+
+            <!--Section of Completed Steps of Progress Bar Start-->
+            <div if:false={step.isCompleted}>
+                <div if:false={step.isActive} class="step">
+                    <div>
+                        <div class="circle remaining"></div>
+                    </div>
+                    <div>
+                        <div class="title">{step.stepName}</div>
+                    </div>
+                </div>
+            </div>
+            <!--Section of Completed Steps of Progress Bar End-->
+        </div>
+    </template>
+    <!--Progress Bar End-->
+</template>

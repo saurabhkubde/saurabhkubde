@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>59.0</apiVersion>
+    <isExposed>false</isExposed>
+    <description>This is a child component of d2c_VTO_SearchFilters LWC component which is used to show color radio buttons.</description>
+</LightningComponentBundle>

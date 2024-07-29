@@ -1,0 +1,39 @@
+<template>
+    <template if:true={_isNBBrand}>
+        <div class="newsletter-container">
+            <!-- Email input field -->
+            <div class="input-wrap">
+                <input value={_email} onchange={handleInputChange} type="text" placeholder={_emailAddressPlaceholder} class="input" variant="label-hidden" />
+                <!-- Error message -->
+                <div if:true={_showError} class="slds-text-color_error error-message">{_validationMessage}</div>
+            </div>
+            <!-- Subscribe button -->
+            <div class="btn-wrap">
+                <button type="button" onclick={handleSubscribe} class="Subscribe-button">{_subscribeButton}</button>
+            </div>
+        </div>
+        <!-- Subscription message -->
+        <div class="newsletter-container">
+            <p class="newsletter-text">{_subscriptionMessageLabel}</p>
+        </div>
+    </template>
+    <template if:true={_isSHBrand}>
+        <div class="newsletter-container">
+            <div class="slds-p-vertical_medium slds-align_absolute-center sh-header">{_shNewsLetterHeadline}</div>
+            <!-- Email input field -->
+            <div class="input-wrap">
+                <input value={_email} onchange={handleInputChange} type="text" placeholder={_emailAddressPlaceholder} class="input" variant="label-hidden" />
+                <!-- Error message -->
+                <div if:true={_showError} class="slds-text-color_error error-message">{_validationMessage}</div>
+            </div>
+            <!-- Subscribe button -->
+            <div class="btn-wrap">
+                <button type="button" onclick={handleSubscribe} class="Subscribe-button">{_shSubscribeButton}</button>
+            </div>
+        </div>
+        <!-- Subscription message -->
+        <div class="newsletter-container">
+            <p class="newsletter-text">{_subscriptionMessageLabel}</p>
+        </div>
+    </template>
+</template>

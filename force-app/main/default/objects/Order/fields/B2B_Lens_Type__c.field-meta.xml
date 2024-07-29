@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>B2B_Lens_Type__c</fullName>
+    <description>This field is used to store the lens type of lens product</description>
+    <externalId>false</externalId>
+    <label>Lens Type</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Panorama Single Vision</fullName>
+                <default>false</default>
+                <label>Panorama Single Vision</label>
+            </value>
+            <value>
+                <fullName>Panorama Progressive</fullName>
+                <default>false</default>
+                <label>Panorama Progressive</label>
+            </value>
+            <value>
+                <fullName>Panorama Progressiv ONE</fullName>
+                <default>false</default>
+                <label>Panorama Progressive ONE</label>
+            </value>
+            <value>
+                <fullName>Panorama Office Room / Desk</fullName>
+                <default>false</default>
+                <label>Panorama Office Room / Desk</label>
+            </value>
+            <value>
+                <fullName>Panorama Relax</fullName>
+                <default>false</default>
+                <label>Panorama Relax</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

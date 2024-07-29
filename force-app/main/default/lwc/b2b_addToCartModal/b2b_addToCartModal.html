@@ -1,0 +1,66 @@
+<template>
+    <c-b2b_modal header={modalHeader} applicable-styling={applicableStyling} onclosedialog={handleSave}>
+        <!--START OF BS-1315-->
+        <div role="dialog" if:true={hasErrors} class="ErrorMessage">
+            <p if:true={_showAddCartErrorMessage}>{label.itemCartError}</p>
+            <p if:false={_showAddCartErrorMessage}>{label.error}</p>
+            <!--END OF BS-1315 -->
+        </div>
+
+        <!--START OF BS-1315-->
+        <!--Fields for Customer Input Section-->
+        <template if:true={cartItemId}>
+            <div class="slds-is-relative">
+                <!-- Component Loading Section -->
+                <lightning-spinner if:true={_isLoading} class="slds-is-absolute" variant="brand" size="medium"> </lightning-spinner>
+                <div if:true={_showInputFields} class="slds-grid slds-wrap slds-var-p-around_small slds-p-top_large" aria-labelledby="modal-headding-01">
+                    <template for:each={_customerInputFields} for:item="field">
+                        <div key={field} class="slds-col slds-size_1-of-1 slds-medium-size_12-of-12 slds-large-size_12-of-12">
+                            <div class="input_wrap slds-m-around_small">
+                                <div class="label-helptext">
+                                    <label>{field.label}</label>
+                                    <span if:true={field.isOrderRemarkField} class="tooltip-normal">
+                                        <span class="tooltiptext-normal">{label.ORDER_REMARK_FIELD_HELPTEXT}</span>
+                                        <img class="infoicon slds-m-left_xx-small" src={_infoSVG} />
+                                    </span>
+                                    <span if:false={field.isOrderRemarkField} class="tooltip-normal">
+                                        <span class="tooltiptext-normal">{label.CONSUMER_REFERENCE_FIELD_HELPTEXT}</span>
+                                        <img class="infoicon slds-m-left_xx-small" src={_infoSVG} />
+                                    </span>
+                                </div>
+                                <input
+                                    type="text"
+                                    class="custom slds-p-top_small"
+                                    data-field={field.label}
+                                    title={field.label}
+                                    onchange={handleUserInput}
+                                    value={field.value}
+                                    required
+                                    maxlength={_characterLimit}
+                                />
+                            </div>
+                        </div>
+                    </template>
+                </div>
+                <div class="footer-background slds-modal__footer slds-grid slds-wrap slds-p-top_large" aria-labelledby="modal-headding-01">
+                    <div class="slds-col slds-p-around_small slds-size_1-of-1 slds-large-size_1-of-1">
+                        <button onclick={handleViewCart} tabindex="0" class="silButton silButtonFull">{label.viewCart}</button>
+                    </div>
+                    <div class="slds-col slds-p-around_small slds-size_1-of-1 slds-large-size_1-of-1">
+                        <button onclick={handleCloseModal} class="silButtonInverse silButtonFull">{label.continueShopping}</button>
+                    </div>
+                </div>
+            </div>
+        </template>
+        <template if:false={cartItemId}>
+            <div class="slds-grid slds-wrap slds-p-top_large" aria-labelledby="modal-headding-01">
+                <div class="slds-col slds-p-around_small slds-size_1-of-1 slds-large-size_1-of-1">
+                    <button onclick={handleViewCart} tabindex="0" class="silButton silButtonFull">{label.viewCart}</button>
+                </div>
+                <div class="slds-col slds-p-around_small slds-size_1-of-1 slds-large-size_1-of-1">
+                    <button onclick={handleCloseModal} class="silButtonInverse silButtonFull">{label.continueShopping}</button>
+                </div>
+            </div>
+        </template>
+    </c-b2b_modal>
+</template>

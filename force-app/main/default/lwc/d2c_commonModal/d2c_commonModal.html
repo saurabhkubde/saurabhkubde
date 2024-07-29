@@ -1,0 +1,17 @@
+<template>
+    <div class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick={handlePrimaryAction}>&times;</span>
+            <!-- NBD2C-74 : Added style={headerTextStyling} attribute to apply additional styling -->
+            <p style={headerTextStyling} class="header-text">{label}</p>
+            <div class="modal-footer slds-grid slds-wrap">
+                <button if:true={primaryActionLabel} class="button-styling slds-col slds-m-horizontal_xx-small" onclick={handlePrimaryAction}>
+                    {primaryActionLabel}
+                </button>
+                <button if:true={hasSecondaryAction} class="button-styling slds-col slds-m-horizontal_xx-small" onclick={handleSecondaryAction}>
+                    {secondaryActionLabel}
+                </button>
+            </div>
+        </div>
+    </div>
+</template>

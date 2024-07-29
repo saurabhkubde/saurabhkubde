@@ -1,0 +1,38 @@
+<template>
+    <c-b2b_checkout-breadcrumbs checkout-steps-list={checkoutSteps}></c-b2b_checkout-breadcrumbs>
+    <template if:true={isPaymentAndShipping}>
+        <c-b2b_checkout-shipping-and-payment
+            onload={loadBreadcrumbs}
+            onloadordersummary={loadStep}
+            effective-account-id={effectiveAccountId}
+            address-input-type={selectedAddress}
+            po-number={poNumber}
+            updated-total-price={_updatedTotalPrice}
+            oncartsummaryloaded={handleCartSummaryUpdate}
+        ></c-b2b_checkout-shipping-and-payment>
+        <!-- BS-1245 Added oncartsummaryloaded={handleCartSummaryUpdate} -->
+        <c-b2b_checkout-order-summary
+            onload={loadBreadcrumbs}
+            onloadorderconfirmation={loadStep}
+            effective-account-id={effectiveAccountId}
+            account-record={accountRecord}
+            selected-address={selectedAddress}
+            selected-address-label={selectedAddressLabel}
+            onback={loadShippingAndPayment}
+            onhandleadressnotselected={handleaAdressNotSelected}
+            record-id={recordId}
+            prices={prices}
+            po-number={poNumber}
+            cart-summary={cartSummary}
+        ></c-b2b_checkout-order-summary>
+        <!-- BS-1245 Added cart-summary={cartSummary} -->
+        <!-- BS-1691 Added onhandleadressnotselected={handleaAdressNotSelected} -->
+    </template>
+    <template if:true={isOrderConfirmation}>
+        <c-b2b_checkout-order-confirmation
+            onload={loadBreadcrumbs}
+            onloadorderconfirmation={loadStep}
+            effective-account-id={effectiveAccountId}
+        ></c-b2b_checkout-order-confirmation>
+    </template>
+</template>

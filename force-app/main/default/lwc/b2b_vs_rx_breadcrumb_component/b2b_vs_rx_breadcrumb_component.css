@@ -1,0 +1,20 @@
+button {
+    background: none !important;
+    border: none;
+    padding: 0 !important;
+    /*input has OS specific font-family*/
+    color: #2574a9;
+    cursor: pointer;
+}
+
+.backButton {
+    width: 40px;
+    white-space: nowrap;
+    padding-right: 2px;
+    vertical-align: top;
+}
+
+.breadcrumb-color {
+    background-color: #000 !important;
+    color: #fff !important;
+}

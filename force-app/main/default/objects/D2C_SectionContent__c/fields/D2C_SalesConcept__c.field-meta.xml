@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>D2C_SalesConcept__c</fullName>
+    <description>Will be used to filter the content based on Sales Concept along with Model</description>
+    <externalId>false</externalId>
+    <label>Sales Concept</label>
+    <required>true</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Titanium Family</fullName>
+                <default>false</default>
+                <label>Titanium Family</label>
+            </value>
+            <value>
+                <fullName>Adam Family</fullName>
+                <default>false</default>
+                <label>Adam Family</label>
+            </value>
+            <value>
+                <fullName>Acetate Titanium Family</fullName>
+                <default>false</default>
+                <label>Acetate Titanium Family</label>
+            </value>
+            <value>
+                <fullName>Lite-Fit Family</fullName>
+                <default>false</default>
+                <label>Lite-Fit Family</label>
+            </value>
+            <value>
+                <fullName>3D Family</fullName>
+                <default>false</default>
+                <label>3D Family</label>
+            </value>
+            <value>
+                <fullName>Eugen Family</fullName>
+                <default>false</default>
+                <label>Eugen Family</label>
+            </value>
+            <value>
+                <fullName>Wire 3D Family</fullName>
+                <default>false</default>
+                <label>Wire 3D Family</label>
+            </value>
+            <value>
+                <fullName>Anton Family</fullName>
+                <default>false</default>
+                <label>Anton Family</label>
+            </value>
+            <value>
+                <fullName>Sphere Family</fullName>
+                <default>false</default>
+                <label>Sphere Family</label>
+            </value>
+            <value>
+                <fullName>Flat-Wire Family</fullName>
+                <default>false</default>
+                <label>Flat-Wire Family</label>
+            </value>
+            <value>
+                <fullName>Sigmund &amp; Carl Family</fullName>
+                <default>false</default>
+                <label>Sigmund &amp; Carl Family</label>
+            </value>
+            <value>
+                <fullName>Sam Family</fullName>
+                <default>false</default>
+                <label>Sam Family</label>
+            </value>
+            <value>
+                <fullName>Walter &amp; Wassily Family</fullName>
+                <default>false</default>
+                <label>Walter &amp; Wassily Family</label>
+            </value>
+            <value>
+                <fullName>Wire Family</fullName>
+                <default>false</default>
+                <label>Wire Family</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>4</visibleLines>
+</CustomField>

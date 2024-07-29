@@ -1,0 +1,13 @@
+<template>
+    <!-- NBD2C-34 : Banner Section - Start -->
+    <template if:true={_initialLoadComplete}>
+        <!-- NBD2C-34 : Show Image as Banner - Start -->
+        <img if:true={_showMediaAsImage} class="bannerContent" src={_bannerMultiMediaResource} alt="MediaImage" />
+        <!-- NBD2C-34 : Show Image as Banner - End -->
+
+        <!-- NBD2C-34 : Show Video as Banner - Start -->
+        <video if:false={_showMediaAsImage} class="bannerContent" src={_bannerMultiMediaResource} autoplay="" loop="" muted="" playsinline=""></video>
+        <!-- NBD2C-34 : Show Video as Banner - End -->
+    </template>
+    <!-- NBD2C-34 : Banner Section - End -->
+</template>

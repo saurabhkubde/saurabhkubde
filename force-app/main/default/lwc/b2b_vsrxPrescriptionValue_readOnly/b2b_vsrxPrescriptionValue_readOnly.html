@@ -1,0 +1,104 @@
+<template>
+    <!--Eye Side and Base Value Section Start-->
+    <div class="font14">{labels.eyeSide}</div>
+
+    <div class="font14bold">{selectedEyeSideValue}</div>
+
+    <div class="font14 slds-m-top_medium">{labels.baseValue}</div>
+
+    <div class="font14bold">{selectedBaseValue}</div>
+    <!--Eye Side and Base Value Section Start-->
+
+    <!--Prescription Value Read Only Table Start-->
+    <div class="prescription-value-container slds-col slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-1">
+        <div class="prescription-valu-table slds-m-top_medium">
+            <table>
+                <template for:each={prescriptionFieldData} for:item="product">
+                    <tr key={product.Id}>
+                        <th colspan="2"></th>
+                        <th>{labels.sphere}</th>
+                        <th>{labels.cylinder}</th>
+                        <th>{labels.axis}</th>
+                        <th>{labels.addition}</th>
+                        <th>{labels.prism1}</th>
+                        <th>{labels.prismBase1}</th>
+                        <th>{labels.prism2}</th>
+                        <th>{labels.prismBase2}</th>
+                    </tr>
+                    <tr key={product.Id}>
+                        <th colspan="2"></th>
+                        <th>
+                            <span>{product.B2B_Sphere_Min__c} - {product.B2B_Sphere_Max__c}</span>
+                        </th>
+                        <th>
+                            <span>{product.B2B_Cylinder_Min__c} - {product.B2B_Cylinder_Max__c}</span>
+                        </th>
+                        <th>
+                            <span>{product.B2B_Axis_Min__c} - {product.B2B_Axis_Max__c}</span>
+                        </th>
+                        <th>
+                            <span>{product.B2B_Addition_Min__c} - {product.B2B_Addition_Max__c}</span>
+                        </th>
+                        <th>
+                            <span>{product.B2B_Prism_1_Min__c} - {product.B2B_Prism_1_Max__c}</span>
+                        </th>
+                        <th>
+                            <!-- BS-1588 : Updated Range for Label for Prism Base 1 -->
+                            <span>{product.B2B_Prism_base_1_Min__c} - {product.B2B_Prism_base_1_Max__c}</span>
+                        </th>
+                        <th>
+                            <span>{product.B2B_Prism_2_Min__c} - {product.B2B_Prism_2_Max__c}</span>
+                        </th>
+                        <th>
+                            <span>{product.B2B_Prism_base_2_Min__c} - {product.B2B_Prism_base_2_Max__c}</span>
+                        </th>
+                    </tr>
+                </template>
+
+                <tr>
+                    <td colspan="2" class="heading-cell">{labels.rightEye}</td>
+                    <td>{prescriptionFieldReadOnlyDataClone.rightsphere}</td>
+                    <td>{prescriptionFieldReadOnlyDataClone.rightcylinder}</td>
+                    <td>{prescriptionFieldReadOnlyDataClone.rightaxis}</td>
+                    <td>{prescriptionFieldReadOnlyDataClone.rightaddition}</td>
+                    <td>{prescriptionFieldReadOnlyDataClone.rightprism1}</td>
+                    <template if:true={prescriptionFieldReadOnlyData.showRightPrismBase1Value}>
+                        <td>{prescriptionFieldReadOnlyDataClone.rightprismbase1}</td>
+                    </template>
+                    <template if:false={prescriptionFieldReadOnlyData.showRightPrismBase1Value}>
+                        <td>{prescriptionFieldReadOnlyDataClone.rightprismbase1radio}</td>
+                    </template>
+                    <td>{prescriptionFieldReadOnlyDataClone.rightprism2}</td>
+                    <template if:true={prescriptionFieldReadOnlyData.showRightPrismBse2Value}>
+                        <td>{prescriptionFieldReadOnlyDataClone.rightprismbase2}</td>
+                    </template>
+                    <template if:false={prescriptionFieldReadOnlyData.showRightPrismBse2Value}>
+                        <td>{prescriptionFieldReadOnlyDataClone.rightprismbase2radio}</td>
+                    </template>
+                </tr>
+                <tr>
+                    <td colspan="2" class="heading-cell">{labels.leftEye}</td>
+                    <td>{prescriptionFieldReadOnlyDataClone.leftsphere}</td>
+                    <td>{prescriptionFieldReadOnlyDataClone.leftcylinder}</td>
+                    <td>{prescriptionFieldReadOnlyDataClone.leftaxis}</td>
+                    <td>{prescriptionFieldReadOnlyDataClone.leftaddition}</td>
+                    <td>{prescriptionFieldReadOnlyDataClone.leftprism1}</td>
+                    <template if:true={prescriptionFieldReadOnlyData.showLeftPrismBase1Value}>
+                        <td>{prescriptionFieldReadOnlyDataClone.leftprismbase1}</td>
+                    </template>
+                    <template if:false={prescriptionFieldReadOnlyData.showLeftPrismBase1Value}>
+                        <td>{prescriptionFieldReadOnlyDataClone.leftprismbase1radio}</td>
+                    </template>
+                    <td>{prescriptionFieldReadOnlyDataClone.leftprism2}</td>
+                    <template if:true={prescriptionFieldReadOnlyData.showLeftPrismBase2Value}>
+                        <td>{prescriptionFieldReadOnlyDataClone.leftprismbase2}</td>
+                    </template>
+                    <template if:false={prescriptionFieldReadOnlyData.showLeftPrismBase2Value}>
+                        <td>{prescriptionFieldReadOnlyDataClone.leftprismbase2radio}</td>
+                    </template>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <!--Prescription Value Read Only Table End-->
+</template>

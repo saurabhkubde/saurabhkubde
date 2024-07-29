@@ -1,0 +1,11 @@
+.linkout {
+    --slds-c-icon-color-foreground-default: #000 !important;
+}
+.link-container {
+    margin: auto !important;
+}
+.linkoutText {
+    color: #5d5d5d !important;
+    padding: 10px;
+    font-size: 14px;
+}

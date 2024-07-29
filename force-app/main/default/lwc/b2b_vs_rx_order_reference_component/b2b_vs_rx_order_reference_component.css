@@ -1,0 +1,351 @@
+.custom {
+    color: #000000;
+    box-shadow: none;
+    border: none;
+    border-bottom: 1px solid #c9c9c9;
+    width: 100%;
+    padding: 6px 0px;
+    font-size: 14px;
+    font-weight: 300;
+}
+
+.error {
+    color: #000000;
+    box-shadow: none;
+    border: none;
+    border-bottom: 1px solid #d0021b;
+    width: 100%;
+}
+
+.error + label {
+    color: #d0021b !important;
+}
+
+.validation {
+    color: #d0021b;
+    font-weight: 300 !important;
+    font-size: 12px !important;
+    padding-bottom: 10px;
+}
+
+.custom:focus + label,
+.custom:valid + label {
+    top: -14px;
+    /* top: -14px; */
+    background: #ffffff;
+    font-weight: 300;
+    font-size: 10px;
+}
+
+.error:focus + label,
+.error:valid + label {
+    top: -14px;
+    color: #d0021b;
+    /* top: -14px; */
+    background: #ffffff;
+    font-weight: 300;
+    font-size: 10px;
+}
+
+.input_wrap {
+    width: 95%;
+    position: relative;
+}
+
+.input_wrap label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: 0.2s ease all;
+    -moz-transition: 0.2s ease all;
+    -webkit-transition: 0.2s ease all;
+    pointer-events: none;
+    background: #ffffff;
+    font-weight: 300;
+}
+
+.filterValues {
+    font-weight: 300;
+}
+
+.custom:focus {
+    outline: none;
+}
+
+.error:focus {
+    outline: none;
+}
+
+.title {
+    width: 100%;
+    font-size: 16px;
+    margin-bottom: 20px;
+    font-weight: 500;
+}
+
+.orderInformationSummaryFields {
+    margin-top: 10px;
+    border: none;
+    font-weight: 500;
+    font-size: 14px;
+    margin: none;
+    margin-left: -1px;
+    width: 105%;
+}
+
+.orderInformationSummaryLabels {
+    border: none;
+    font-weight: 300;
+    font-size: 12px;
+}
+
+.orderInformationTitle {
+    float: left;
+}
+
+.orderInformationIcon {
+    float: right;
+    cursor: pointer;
+}
+
+.orderInformationSummaryFields:focus-visible {
+    outline: none;
+}
+
+input[type='radio'] {
+    -webkit-transform: scale(1.5);
+    transform: scale(1.5);
+    margin-right: 5px;
+    vertical-align: middle;
+    accent-color: black;
+}
+
+.fullWidth {
+    width: 100%;
+}
+
+.customRadioButtonStyling {
+    margin-bottom: 10px !important;
+}
+
+.save-button {
+    background: #fff;
+    border: 1px solid #000;
+    color: #000;
+    font-weight: 700;
+    letter-spacing: 1px;
+    padding: 0px !important;
+}
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 80px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 120%;
+    left: 50%;
+    margin-left: -40px;
+}
+
+.tooltip .tooltiptext::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: black transparent transparent transparent;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+}
+.tooltip .clerkStyle {
+    visibility: hidden;
+    width: 190px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    padding: 3px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 120%;
+    left: 47%;
+    margin-left: -40px;
+    font-size: 12px;
+}
+.tooltip:hover .clerkStyle {
+    visibility: visible;
+}
+.tooltip .clerkStyle::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: black transparent transparent transparent;
+}
+
+.tooltip .remarkStyle {
+    visibility: hidden;
+    width: 320px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    padding: 3px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 120%;
+    left: -55%;
+    margin-left: -40px;
+    font-size: 12px;
+}
+.tooltip:hover .remarkStyle {
+    visibility: visible;
+}
+.tooltip .remarkStyle::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: black transparent transparent transparent;
+}
+.tooltip .remarkStyleReadOnly {
+    visibility: hidden;
+    width: 345px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    padding: 3px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 130%;
+    left: -78%;
+    margin-left: -40px;
+    font-size: 12px;
+}
+.tooltip:hover .remarkStyleReadOnly {
+    visibility: visible;
+}
+.tooltip .remarkStyleReadOnly::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: black transparent transparent transparent;
+}
+.tooltip .clerkStyleReadOnly {
+    visibility: hidden;
+    width: 196px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    padding: 3px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 130%;
+    left: 50%;
+    margin-left: -40px;
+    font-size: 12px;
+}
+.tooltip:hover .clerkStyleReadOnly {
+    visibility: visible;
+}
+.tooltip .clerkStyleReadOnly::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: black transparent transparent transparent;
+}
+
+.pencil-icon {
+    width: 20px;
+    height: 20px;
+}
+
+.popupOnClearCart {
+    margin: auto;
+    align-items: center;
+    padding-bottom: 4%;
+    padding-top: 2%;
+    width: 55%;
+    background-color: white;
+}
+
+.closeIcon {
+    float: right;
+    margin-right: 5px;
+}
+
+.delete-icon {
+    width: 40px;
+}
+
+.font-18-300 {
+    font-size: 18px !important;
+    font-weight: 300 !important;
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.font-24-500 {
+    font-size: 24px !important;
+    font-weight: 500 !important;
+    text-align: center !important;
+}
+
+.lensConfigResetWarningPopup {
+    margin: auto;
+    align-items: center;
+    padding-bottom: 4%;
+    padding-top: 2%;
+    width: 70%;
+    background-color: white;
+}
+
+/* Added as a part of BS-2339 */
+.textarea_styling {
+    overflow: hidden;
+    margin-top: 20px;
+    max-width: 100%;
+    min-width: 100%;
+    max-height: 50px;
+    min-height: 50px;
+}
+
+.redBorder {
+    border: 1px solid #f00;
+}
+.charLimitError {
+    color: #f00;
+}
+/* Added as a part of BS-2437 */
+.infoicon {
+    width: 15px !important;
+    min-width: 10px;
+    transition: transform 0.2s;
+    cursor: pointer;
+    padding-left: 2px;
+}

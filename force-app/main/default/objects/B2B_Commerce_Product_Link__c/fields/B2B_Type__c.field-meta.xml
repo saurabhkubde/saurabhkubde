@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>B2B_Type__c</fullName>
+    <description>Type to define what kind of relation two entities have. This is further used to filter/display only specific relation types</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Type to define what kind of relation two entities have. This is further used to filter/display only specific relation types</inlineHelpText>
+    <label>Relation Type</label>
+    <required>true</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Accessory</fullName>
+                <default>false</default>
+                <label>Accessory</label>
+            </value>
+            <value>
+                <fullName>Cross Sell</fullName>
+                <default>false</default>
+                <label>Cross Sell</label>
+            </value>
+            <value>
+                <fullName>Related</fullName>
+                <default>false</default>
+                <label>Related</label>
+            </value>
+            <value>
+                <fullName>Spare Part</fullName>
+                <default>false</default>
+                <label>Spare Part</label>
+            </value>
+            <value>
+                <fullName>Demo</fullName>
+                <default>false</default>
+                <label>Demo</label>
+            </value>
+            <value>
+                <fullName>Style Shades</fullName>
+                <default>false</default>
+                <label>Style Shades</label>
+            </value>
+            <value>
+                <fullName>Demo to Chassis</fullName>
+                <default>false</default>
+                <label>Demo to Chassis</label>
+            </value>
+            <value>
+                <fullName>Lenses</fullName>
+                <default>false</default>
+                <label>Lenses</label>
+            </value>
+            <value>
+                <fullName>Clip-in</fullName>
+                <default>false</default>
+                <label>Clip-in</label>
+            </value>
+            <value>
+                <fullName>Adapter</fullName>
+                <default>false</default>
+                <label>Adapter</label>
+            </value>
+            <value>
+                <fullName>Direct Glazing</fullName>
+                <default>false</default>
+                <label>Direct Glazing</label>
+            </value>
+            <value>
+                <fullName>Special Variation Parent</fullName>
+                <default>false</default>
+                <label>Special Variation Parent</label>
+            </value>
+            <value>
+                <fullName>Lens Color</fullName>
+                <default>false</default>
+                <label>Lens Color</label>
+            </value>
+            <value>
+                <fullName>Photo Sensation</fullName>
+                <default>false</default>
+                <label>Photo Sensation</label>
+            </value>
+            <value>
+                <fullName>Blue Sensation</fullName>
+                <default>false</default>
+                <label>Blue Sensation</label>
+            </value>
+            <value>
+                <fullName>Anti Reflection</fullName>
+                <default>false</default>
+                <label>Anti Reflection</label>
+            </value>
+            <value>
+                <fullName>Hard Coating</fullName>
+                <default>false</default>
+                <label>Hard Coating</label>
+            </value>
+            <value>
+                <fullName>glazed to unglazed</fullName>
+                <default>false</default>
+                <label>glazed to unglazed</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

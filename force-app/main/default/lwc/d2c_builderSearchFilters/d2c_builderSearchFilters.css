@@ -1,0 +1,15 @@
+.filterContainer {
+    padding: 0rem 1rem 0rem 1rem;
+    margin: 0px 15px 15px 15px;
+}
+
+@media screen and (max-width: 767px) {
+    .filterContainer {
+        padding: 0rem 1rem 0rem 1rem;
+        margin: 0px;
+    }
+}
+
+.spinnerStyling {
+    background-color: rgba(255, 255, 255, 0.75) !important;
+}

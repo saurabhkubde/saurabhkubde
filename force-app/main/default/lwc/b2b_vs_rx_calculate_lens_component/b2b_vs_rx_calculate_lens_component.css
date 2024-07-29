@@ -1,0 +1,138 @@
+.emptyColumnStyling {
+    width: 20% !important;
+}
+
+.title {
+    width: 100%;
+    font-size: 16px;
+    margin-bottom: 20px;
+    font-weight: 500;
+}
+
+.centering-data-table {
+    border: 1px #f00;
+    overflow: auto;
+}
+.centering-data-table table {
+    width: 100%;
+    min-width: 600px;
+    border-bottom: 0px !important;
+}
+.centering-data-table table th:first-child {
+    min-width: 250px !important;
+    text-align: left;
+}
+.centering-data-table table td:first-child {
+    width: 200px;
+    text-align: left;
+    font-weight: 500 !important;
+}
+
+.centering-data-table table th {
+    padding: 10px;
+    width: 100px;
+    text-align: center;
+    font-weight: 500 !important;
+}
+
+.centering-data-table table td {
+    padding: 10px;
+    text-align: center;
+    font-weight: 300;
+}
+
+.inputTypeTextbox {
+    border: 1px solid black;
+    border-radius: 0px;
+    text-align: center;
+    padding: 10px 0px;
+    width: 80px;
+}
+
+.tableButton {
+    max-width: 40px !important;
+}
+
+.leftImageStyling {
+    width: 50%;
+    padding: 10px;
+    text-align: center;
+}
+
+.rightImageStyling {
+    width: 50%;
+    padding: 10px;
+    text-align: center;
+}
+
+.instrcutionStyling {
+    color: red;
+    font-weight: 300px;
+}
+
+.customButtonStyling {
+    padding: 8px 14px !important;
+}
+
+.maxWidth {
+    max-width: 85px;
+    margin: auto;
+}
+
+.customHead {
+    border: 1px solid red;
+}
+
+.editIcon {
+    float: right;
+    cursor: pointer;
+}
+
+.calculateLensTitle {
+    float: left;
+}
+
+/*BS-1034*/
+.error-background {
+    background-color: rgb(255 0 0 / 15%);
+    padding: 20px;
+    margin: 20px;
+    font-size: 14px;
+    font-weight: 300;
+    color: #f00;
+}
+
+/*BS-572 Start*/
+.form-group {
+    text-align: center;
+}
+
+.evileyeEdgeStyling {
+    background-color: #f56c4e;
+    margin-right: 0px;
+}
+
+@media only screen and (min-width: 768px) {
+    .imageSection {
+        max-width: 75%;
+        margin: auto;
+    }
+    .imageSectionEvilEyeEdge {
+        max-width: 100%;
+        margin: auto;
+    }
+}
+
+.instructionStyling {
+    max-width: 65%;
+    margin: auto;
+}
+
+.evilEyeEdgeLabel {
+    padding: 1px !important;
+}
+
+.evilEyeEdgeButtonPlacement {
+    float: right;
+}
+/*BS-572 End*/

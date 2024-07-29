@@ -1,0 +1,194 @@
+<template>
+    <div class="slds-grid slds-gutters slds-wrap product_details">
+        <div class="slds-col slds-size_1-of-1 slds-medium-size_8-of-12 slds-large-size_8-of-12 slds-order_2 slds-large-medium_1 slds-large-order_1">
+            <lightning-accordion active-section-name={_activeSections} class="product-details-head">
+                <lightning-accordion-section name="productDetails" label={_productDetailsLabel}>
+                    <div class="product-details-container">
+                        <div if:true={displayData.size} class="alignment-right top-alignment">
+                            <span class="product-details-label">
+                                {_sizeLabel}
+                                <img src={_questionIcon} onclick={handleSizeOpenModal} class="questionIcon-image-size slds-m-horizontal_x-small" />
+                            </span>
+                            <div class="product-details-values">{displayData.size} {_mmLabel}</div>
+                        </div>
+                        <div if:true={displayData.material} class="alignment-right">
+                            <div class="product-details-label">{_materialLabel}</div>
+                            <div class="product-details-values">{displayData.material}</div>
+                        </div>
+                        <div if:true={displayData.colorNameWithFrameColorValue} class="alignment-right">
+                            <div class="product-details-label">{_colorLabel}</div>
+                            <div class="product-details-values">{displayData.colorNameWithFrameColorValue}</div>
+                        </div>
+                        <div if:true={displayData.modelName} class="alignment-right">
+                            <div class="product-details-label">{_modelLabel}</div>
+                            <div class="product-details-values">{displayData.modelName}</div>
+                        </div>
+                        <div class="alignment-right top-alignment">
+                            <span class="product-details-label">
+                                {_includedLabel}
+                                <img src={_questionIcon} class="questionIcon-image-size slds-m-horizontal_x-small" onclick={handlePackagingModalOpen} />
+                            </span>
+                            <div class="product-details-values">
+                                <p>{_packagingValues}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slds-modal__parent__container slds-backdrop slds-backdrop_open size-popupmessage" if:true={_showModal} key={displayData.id}>
+                        <section role="dialog" tabindex="-1" aria-modal="true" class="slds-modal slds-fade-in-open">
+                            <div class="slds-modal__container">
+                                <div class="popUpOnSizeIcon">
+                                    <div class="modal-button">
+                                        <lightning-button-icon
+                                            class="slds-modal__close border-none"
+                                            title="Close"
+                                            icon-name="utility:close"
+                                            onclick={handleSizeCloseModal}
+                                        ></lightning-button-icon>
+                                    </div>
+                                    <div class="slds-text-align_center font-24 slds-m-top_small">{_whatDoTheseNumbersMeanLabel}</div>
+                                    <div class="slds-text-align_center">
+                                        <span class="display-flex pricing-details-font-style">
+                                            <p class="slds-text-title_bold inline-flex font-18">{_sizeLabel} {displayData.shapeSize}:</p>
+                                            <p class="font-18">{displayData.size} {_mmLabel}</p>
+                                        </span>
+                                        <div>
+                                            <p class="pop-up-text">{_glassWidthBridgeTempleLengthLabel}</p>
+                                        </div>
+                                        <div class="margin-alignment slds-grid">
+                                            <div class="slds-small-size_4-of-12">
+                                                <div><img src={_glassWidthIcon} class="pop-up-glass-width-icon-size" /></div>
+                                                <div class="icon-sub-text">{_glassWidthLabel}</div>
+                                            </div>
+                                            <div class="slds-small-size_4-of-12">
+                                                <div><img src={_bridgeIcon} class="pop-up-bridge-icon-size" /></div>
+                                                <div class="icon-sub-text">{_bridgeLabel}</div>
+                                            </div>
+                                            <div class="slds-small-size_4-of-12">
+                                                <div><img src={_templeLengthIcon} class="pop-up-temple-length-icon-size" /></div>
+                                                <div class="icon-sub-text">{_templeLengthLabel}</div>
+                                            </div>
+                                        </div>
+                                        <p class="fitting-guide" onclick={handleFittingGuideNavigation}>{_fittingHeightGuideLabel}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                    <div
+                        class="slds-modal__parent__container slds-backdrop slds-backdrop_open size-popupmessage"
+                        if:true={_isPackagingModalOpen}
+                        key={displayData.id}
+                    >
+                        <section role="dialog" tabindex="-1" aria-modal="true" class="slds-modal slds-fade-in-open">
+                            <div class="slds-modal__container align-container">
+                                <div class="popUpOnIncludedIcon">
+                                    <div class="modal-button">
+                                        <lightning-button-icon
+                                            class="slds-modal__close border-none"
+                                            icon-name="utility:close"
+                                            onclick={handlePackagingModalClose}
+                                        ></lightning-button-icon>
+                                    </div>
+                                    <div class="slds-text-align_center image-alignment">
+                                        <template if:true={_packagingImageURL}>
+                                            <img src={_packagingImageURL} />
+                                        </template>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </lightning-accordion-section>
+
+                <lightning-accordion-section name="features" label={_featuresLabel} class="feature-alignment">
+                    <div class="features-content-style">
+                        <lightning-formatted-rich-text value={_productFeatures}></lightning-formatted-rich-text>
+                    </div>
+                </lightning-accordion-section>
+
+                <lightning-accordion-section name="lens" label={_lensLabel} if:true={_showLens}>
+                    <template for:each={_productLensDetailsList} for:item="item">
+                        <div key={item} class="lens-content-style">- {item}</div>
+                    </template>
+                </lightning-accordion-section>
+            </lightning-accordion>
+        </div>
+
+        <div
+            class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12 slds-order_1 slds-medium-order_2 slds-large-order_2"
+            style={_detailVisibility}
+        >
+            <span>
+                <lightning-formatted-number
+                    class="pricing-details"
+                    value={_suggestedRetailPrice}
+                    format-style="currency"
+                    currency-code={_currencyISOCode}
+                    currency-display-as="code"
+                ></lightning-formatted-number>
+            </span>
+            <p class="pricing-details-font-style mobile-alignment-center align-button-margin">{_opticalGlazingAndAssociatedCostLabel}</p>
+
+            <!-- NBD2C-74 : Add To Cart Button Section - Start -->
+            <div if:true={_showAddToCartButton}>
+                <button
+                    if:false={_addtoCartDisabled}
+                    class="btn-add-to-cart pricing-details-font-style"
+                    onclick={handleAddToCart}
+                    onmousedown={handleAddToCart}
+                >
+                    {_addToCartButtonLabel}
+                </button>
+                <button if:true={_addtoCartDisabled} class="btn-add-to-cart pricing-details-font-style disabled-button" disabled>
+                    {_addToCartButtonLabel}
+                </button>
+            </div>
+            <!-- NBD2C-74 : Add To Cart Button Section - End -->
+
+            <!-- NBD2C-74 : Try on at your optician Button Section - Start -->
+            <div if:true={_showTryOnAtYourOptician}>
+                <button if:false={_addtoCartDisabled} class="btn-try-on pricing-details-font-style" disabled={_addtoCartDisabled} onclick={handleAddToCart}>
+                    {_tryOnButtonLabel}
+                </button>
+                <button if:true={_addtoCartDisabled} class="btn-try-on pricing-details-font-style disabled-button" disabled>{_tryOnButtonLabel}</button>
+            </div>
+            <!-- NBD2C-74 : Try on at your optician Button Section - End -->
+
+            <span class="display-deliver-free-info text-below-button-alignment" if:false={displayData.showLensDetails}>
+                <div>
+                    <img src={_deliverFreeIcon} class="deliver-free-icon" />
+                </div>
+                <p class="pricing-details-font-style align-margin-right">
+                    {_deliveryFreeOfChargeTextLabel}<br />
+                    <a href="#" class="text-style">{_learnMoreLabel}</a>
+                </p>
+            </span>
+            <div if:true={displayData.showLensDetails}>
+                <p class="pricing-details-font-style text-below-button-alignment">{_freeDeliveryAndReturnsLabel}</p>
+            </div>
+        </div>
+    </div>
+    <div if:true={_showModalMaxItems}>
+        <c-d2c_common-modal
+            label={_maxproductsLabel}
+            size="small"
+            primary-action-label={_closeButtonLabel}
+            onprimaryactionclick={handleModalCloseAction}
+            onsecondaryactionclick={handleModalCloseAction}
+        ></c-d2c_common-modal>
+    </div>
+
+    <!-- NBD2C-74 : Mix cart prevention popup section - Start -->
+    <div if:true={_showInfoPopupForClickAndCollectOrder}>
+        <c-d2c_common-modal
+            label={_infoMessageForClickAndCollectOrder}
+            size="small"
+            header-text-styling={_headerTextStylingForPopup}
+            primary-action-label={_cancelButtonLabel}
+            secondary-action-label={_approvedButtonLabel}
+            onprimaryactionclick={handleCloseMixedCartPopup}
+            onsecondaryactionclick={handleUpdateMixCart}
+        ></c-d2c_common-modal>
+    </div>
+    <!-- NBD2C-74 : Mix cart prevention popup section - End -->
+</template>

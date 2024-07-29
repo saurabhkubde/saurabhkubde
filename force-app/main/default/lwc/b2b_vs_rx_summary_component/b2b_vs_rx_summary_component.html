@@ -1,0 +1,700 @@
+<template>
+    <!-- Component Loading Section Start -->
+    <lightning-spinner if:true={_isLoading} class="slds-is-fixed slds-align_absolute-center" variant="brand" size="medium"> </lightning-spinner>
+    <!-- Component Loading Section End -->
+    <template if:true={_initialLoadComplete} for:each={_allStepsDataCollection} for:item="currentStep">
+        <!--Frame Information Start-->
+        <div if:true={currentStep.isFrameInformationStep} key={steps}>
+            <div key={currentStep.header} class="heading-styling">{currentStep.header}</div>
+        </div>
+        <div key={steps} class="slds-grid slds-wrap">
+            <div key={steps} class="slds-medium-size_6-of-12 slds-large-size_6-of-12">
+                <template if:true={currentStep.isFrameInformationStep} for:each={currentStep.currentStepAllFields} for:item="field">
+                    <template if:true={currentStep.isFrameInformationStep}>
+                        <div if:true={field.isInputField} key={field.label} class={field.applicableStyling}>
+                            <label>{field.label}</label>
+                            <input type="text" class={currentStep.inputStyling} data-field={field.label} title={field.label} value={field.value} readonly />
+                        </div>
+                    </template>
+                </template>
+            </div>
+            <div if:true={currentStep.isFrameInformationStep} key={steps} class="slds-medium-size_6-of-12 slds-large-size_6-of-12">
+                <div key={field.label} class="frame-img-container">
+                    <img src={_frameInformationImage} alt="frame image" />
+                </div>
+            </div>
+        </div>
+        <!--Frame Information END-->
+        <div if:false={currentStep.isFrameInformationStep} key={steps}>
+            <div key={currentStep.header} class="heading-styling">{currentStep.header}</div>
+        </div>
+
+        <div if:false={currentStep.isFrameInformationStep} key={steps} class={currentStep.parentStyling}>
+            <template if:true={currentStep.isShapeSelectionScreen}>
+                <div class="title slds-p-top_medium">{_glassLabel}</div>
+                <div if:true={_shapeSelectionCollection} class="w-100">
+                    <div class="slds-grid slds-wrap slds-gutters">
+                        <div class="slds-form-element slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+                            <div class="slds-grid slds-wrap slds-gutters">
+                                <!-- Lens Shape Section - Start -->
+                                <div class="slds-form-element slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12 slds-var-m-top_small">
+                                    <label class="accent_rings_label">{_lensShapeLabel}</label>
+                                    <input
+                                        type="text"
+                                        class="orderInformationSummaryFields"
+                                        value={_shapeSelectionCollection.lensShape}
+                                        title={_lensShapeLabel}
+                                        readonly
+                                    />
+                                </div>
+                                <!-- Lens Shape Section - End -->
+                                <!-- Lens Size Section - Start -->
+                                <div class="slds-form-element slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12 slds-var-m-top_small">
+                                    <label class="accent_rings_label">{_lensSizeLabel}</label>
+                                    <input
+                                        type="text"
+                                        class="orderInformationSummaryFields"
+                                        value={_shapeSelectionCollection.lensSize}
+                                        title={_lensSizeLabel}
+                                        readonly
+                                    />
+                                </div>
+
+                                <div class="slds-col slds-size_1-of-1 slds-m-vertical_medium">
+                                    <label class="container"
+                                        >{_showAllShapesLabel}
+                                        <input type="checkbox" checked={_shapeSelectionCollection.showAllShapes} onclick={handleLensShapeFiltering} disabled />
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div
+                            class="slds-form-element slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12 slds-var-m-top_small"
+                            if:true={_shapeSelectionCollection.showWithAccentRing}
+                        >
+                            <div class="slds-p-bottom_medium accent_rings_label">{_withAccentRingLabel}</div>
+                            <div class="customRadioButtonStyling">
+                                <!-- Radio Button -->
+                                <input
+                                    type="radio"
+                                    class="filterRadioButton accent_rings_label"
+                                    name="withAccentRing"
+                                    data-field="withAccentRing"
+                                    checked
+                                    readonly
+                                />
+                                <!-- Label -->
+                                <span if:true={_shapeSelectionCollection.withAccentRingValue} class="black-color filterValues accent_rings_label">
+                                    {_yesLabel}
+                                </span>
+                                <span if:false={_shapeSelectionCollection.withAccentRingValue} class="black-color filterValues accent_rings_label">
+                                    {_noLabel}
+                                </span>
+                            </div>
+                            <div if:true={_shapeSelectionCollection.withAccentRingValue} class="slds-p-bottom_medium accent_rings_label">
+                                {_accentRingColorLabel}
+                            </div>
+                            <div if:true={_shapeSelectionCollection.withAccentRingValue}>
+                                <table class="tableauto">
+                                    <tr>
+                                        <td>
+                                            <div class="color-bubble accent_rings_label" style={_shapeSelectionCollection.accentRingColorStyling}></div>
+                                        </td>
+                                        <td>
+                                            <span if:true={_shapeSelectionCollection.withAccentRingValue}>
+                                                {_shapeSelectionCollection.accentRingColorLabel}</span
+                                            >
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div if:false={_shapeSelectionCollection.withAccentRingValue} class="slds-p-bottom_medium accent_rings_label">
+                                {_removeGrooveLabel}
+                            </div>
+                            <div if:false={_shapeSelectionCollection.withAccentRingValue}>
+                                <div class="customRadioButtonStyling">
+                                    <!-- Radio Button -->
+                                    <input
+                                        type="radio"
+                                        class="filterRadioButton accent_rings_label"
+                                        name="removeGroove"
+                                        data-field="removeGroove"
+                                        checked
+                                        readonly
+                                    />
+                                    <!-- Label -->
+                                    <span if:true={_shapeSelectionCollection.removeGrooveValue} class="black-color filterValues accent_rings_label">
+                                        {_yesLabel}
+                                    </span>
+                                    <span if:false={_shapeSelectionCollection.removeGrooveValue} class="black-color filterValues accent_rings_label">
+                                        {_noLabel}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div
+                            class="slds-form-element slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12 slds-var-m-top_small"
+                            if:true={_shapeSelectionCollection.showWithColorGroove}
+                        >
+                            <div class="slds-p-bottom_medium accent_rings_label">{_withColorGrooveLabel}</div>
+
+                            <div class="customRadioButtonStyling">
+                                <!-- Radio Button -->
+                                <input
+                                    type="radio"
+                                    class="filterRadioButton accent_rings_label"
+                                    name="withColorGroove"
+                                    data-field="withColorGroove"
+                                    checked
+                                    readonly
+                                />
+                                <!-- Label -->
+                                <span if:true={_shapeSelectionCollection.withColorGrooveValue} class="black-color filterValues accent_rings_label">
+                                    {_yesLabel}
+                                </span>
+                                <span if:false={_shapeSelectionCollection.withColorGrooveValue} class="black-color filterValues accent_rings_label">
+                                    {_noLabel}
+                                </span>
+                            </div>
+
+                            <div if:true={_shapeSelectionCollection.showColorGrooveColor} class="slds-p-bottom_medium accent_rings_label">
+                                {_colorGrooveColorLabel}
+                            </div>
+                            <div if:true={_shapeSelectionCollection.showColorGrooveColor}>
+                                <table class="tableauto">
+                                    <tr>
+                                        <td>
+                                            <div class="color-bubble accent_rings_label" style={_shapeSelectionCollection.colorGrooveColorStyling}></div>
+                                        </td>
+                                        <td>
+                                            <span if:true={_shapeSelectionCollection.showColorGrooveColor}>
+                                                {_shapeSelectionCollection.colorGrooveColorLabel}</span
+                                            >
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div
+                            if:true={_shapeSelectionCollection.showRemoveDrill}
+                            class="slds-form-element slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12 slds-var-m-top_small"
+                        >
+                            <div class="slds-p-bottom_medium accent_rings_label">{_removeDrillsLabel}</div>
+                            <div class="customRadioButtonStyling">
+                                <!-- Radio Button -->
+                                <input type="radio" class="filterRadioButton accent_rings_label" name="removeDrill" data-field="removeDrill" checked readonly />
+                                <!-- Label -->
+                                <span if:true={_shapeSelectionCollection.removeDrills} class="black-color filterValues accent_rings_label"> {_yesLabel} </span>
+                                <span if:false={_shapeSelectionCollection.removeDrills} class="black-color filterValues accent_rings_label"> {_noLabel} </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="slds-grid slds-wrap">
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12 slds-text-align_left">
+                            <div class="slds-grid slds-wrap">
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+                                    <canvas class="glassContainer" lwc:dom="manual" data-id="c"></canvas>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-p-left_medium slds-medium-size_6-of-12 slds-large-size_6-of-12">
+                                    <div class="slds-m-top_large">
+                                        <table class="table-auto">
+                                            <tr>
+                                                <td><div class="originalShape"></div></td>
+                                                <td>{_originalShapeLabel}</td>
+                                            </tr>
+                                            <tr>
+                                                <td><div class="scaledShape"></div></td>
+                                                <td>{_scaledShapeLabel}</td>
+                                            </tr>
+                                        </table>
+
+                                        <table class="slds-m-vertical_small table-auto">
+                                            <tr>
+                                                <td>{_heightLabel}</td>
+                                                <td>: {_shapeSelectionCollection.height} {_measurementUnitLabel}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>{_widthLabel}</td>
+                                                <td>: {_shapeSelectionCollection.width} {_measurementUnitLabel}</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12 slds-text-align_left">
+                            <div if:false={_shapeSelectionCollection.showWithAccentRing} class="shapeEditorHeader">{_shapeEditorHeader}</div>
+                            <div if:false={_shapeSelectionCollection.showWithAccentRing} class="black-color silhouetteText shapeEditorSubHeaderTextStyling">
+                                {_shapeEditorSubHeader}
+                            </div>
+
+                            <table class="shapeEditor" if:false={_shapeSelectionCollection.showWithAccentRing}>
+                                <tr>
+                                    <td class="bg">{_aLabel}</td>
+                                    <td>{_shapeSelectionCollection.a}</td>
+                                    <td class="bg">{_b1Label}</td>
+                                    <td>{_shapeSelectionCollection.b1}</td>
+                                </tr>
+                                <tr>
+                                    <td class="bg">{_bLabel}</td>
+                                    <td>{_shapeSelectionCollection.b}</td>
+                                    <td class="bg">{_b2Label}</td>
+                                    <td>{_shapeSelectionCollection.b2}</td>
+                                </tr>
+                                <tr>
+                                    <td class="bg">{_sfLabel}</td>
+                                    <td>{_shapeSelectionCollection.sf}</td>
+                                    <td class="bg">{_dhpLabel}</td>
+                                    <td>{_shapeSelectionCollection.blp}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="slds-grid slds-wrap slds-gutters">
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+                            <div if:true={_shapeSelectionCollection.showAccentRingImage} class="accentRingImage slds-text-align_center">
+                                <img class="slds-m-left_xx-small" src={_shapeSelectionCollection.accentRingImage} />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </template>
+            <template if:true={currentStep.isVsLensSelectionScreen}>
+                <div if:true={_readOnlySetupDone} class="slds-grid slds-wrap">
+                    <div
+                        if:true={lensSelectionReadOnlyCollection.glazingValue}
+                        class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_5-of-12 slds-p-bottom_small"
+                    >
+                        <div class="slds-p-bottom_xxx-small selected-header">{label.glazing}</div>
+                        <div class="selected-value">
+                            <!-- Radio Button -->
+                            {lensSelectionReadOnlyCollection.glazingValue}
+                        </div>
+                    </div>
+                    <div
+                        if:true={lensSelectionReadOnlyCollection.lensType}
+                        class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_5-of-12 slds-p-bottom_small"
+                    >
+                        <div class="slds-p-bottom_xxx-small selected-header">{label.lensType}</div>
+                        <div class="selected-value">{lensSelectionReadOnlyCollection.lensType}</div>
+                    </div>
+                    <div
+                        if:true={lensSelectionReadOnlyCollection.progressionLength}
+                        class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_5-of-12 slds-p-bottom_small"
+                    >
+                        <div class="slds-p-bottom_xxx-small selected-header">{label.progressionLength}</div>
+                        <div class="selected-value">{lensSelectionReadOnlyCollection.progressionLength}</div>
+                    </div>
+                    <!--BS-2014-->
+                    <div if:true={lensSelectionReadOnlyCollection.isOpticalGlazing} class="slds-grid slds-wrap slds-col slds-size_1-of-1">
+                        <div
+                            if:true={lensSelectionReadOnlyCollection.lensIndex}
+                            class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_5-of-12 slds-p-bottom_small"
+                        >
+                            <div class="slds-p-bottom_xxx-small selected-header">{label.lensIndex}</div>
+                            <div class="selected-value">{lensSelectionReadOnlyCollection.lensIndex}</div>
+                        </div>
+                        <div
+                            if:true={lensSelectionReadOnlyCollection.lensColor}
+                            class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_5-of-12 slds-p-bottom_small"
+                        >
+                            <div class="slds-p-bottom_xxx-small selected-header">{label.lensColor}</div>
+                            <div class="selected-value">{lensSelectionReadOnlyCollection.lensColor}</div>
+                        </div>
+                    </div>
+                    <div if:false={lensSelectionReadOnlyCollection.isOpticalGlazing} class="slds-grid slds-wrap slds-col slds-size_1-of-1">
+                        <div
+                            if:true={lensSelectionReadOnlyCollection.lensColor}
+                            class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_5-of-12 slds-p-bottom_small"
+                        >
+                            <div class="slds-p-bottom_xxx-small selected-header">{label.lensColor}</div>
+                            <div class="selected-value">{lensSelectionReadOnlyCollection.lensColor}</div>
+                        </div>
+                        <div
+                            if:true={lensSelectionReadOnlyCollection.lensIndex}
+                            class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_5-of-12 slds-p-bottom_small"
+                        >
+                            <div class="slds-p-bottom_xxx-small selected-header">{label.lensIndex}</div>
+                            <div class="selected-value">{lensSelectionReadOnlyCollection.lensIndex}</div>
+                        </div>
+                    </div>
+                    <div
+                        if:true={lensSelectionReadOnlyCollection.photoSensation}
+                        class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_5-of-12 slds-p-bottom_small"
+                    >
+                        <div class="slds-p-bottom_xxx-small selected-header">{label.photoSensation}</div>
+                        <div class="selected-value">{lensSelectionReadOnlyCollection.photoSensation}</div>
+                    </div>
+                    <div
+                        if:true={lensSelectionReadOnlyCollection.blueSensation}
+                        class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_5-of-12 slds-p-bottom_small"
+                    >
+                        <div class="slds-p-bottom_xxx-small selected-header">{label.blueSensation}</div>
+                        <div class="selected-value">{lensSelectionReadOnlyCollection.blueSensation}</div>
+                    </div>
+                    <div
+                        if:true={lensSelectionReadOnlyCollection.lensDistance}
+                        class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_5-of-12 slds-p-bottom_small"
+                    >
+                        <div class="slds-p-bottom_xxx-small selected-header">{label.lensDistance}</div>
+                        <div class="selected-value">{lensSelectionReadOnlyCollection.lensDistance}</div>
+                    </div>
+                    <div
+                        if:true={lensSelectionReadOnlyCollection.lensEdge}
+                        class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_5-of-12 slds-p-bottom_small"
+                    >
+                        <div class="slds-p-bottom_xxx-small selected-header">{label.lensEdge}</div>
+                        <div class="selected-value">{lensSelectionReadOnlyCollection.lensEdge}</div>
+                    </div>
+                    <div
+                        if:true={lensSelectionReadOnlyCollection.visualPreferences}
+                        class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_5-of-12 slds-p-bottom_small"
+                    >
+                        <div class="slds-p-bottom_xxx-small selected-header">{label.visualPreferences}</div>
+                        <div class="selected-value">{lensSelectionReadOnlyCollection.visualPreferencesValue}</div>
+                    </div>
+                    <div class="slds-col slds-col slds-size_1-of-1 slds-medium-size_12-of-12 slds-large-size_12-of-12 slds-grid slds-wrap">
+                        <div class="slds-col lds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_5-of-12 slds-p-bottom_small">
+                            <div>
+                                <h2 class="title lensDetails">{label.lensDetails}</h2>
+                            </div>
+                            <div>
+                                <div class="labelView">{label.material}</div>
+                                <span class="lensSelectionSummaryFields">{lensSelectionReadOnlyCollection.productMaterial} </span>
+                            </div>
+                            <div if:true={lensSelectionReadOnlyCollection.antireflectionCoatingValue} class="slds-p-top_small">
+                                <div class="labelView">{_headerLabelForAntireflectionAndHardCoatingSelection}</div>
+                                <span class="lensSelectionSummaryFields"> {lensSelectionReadOnlyCollection.antireflectionCoatingValue} </span>
+                            </div>
+                        </div>
+                        <!--BS-1796 start-->
+                        <div class="slds-col lds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_5-of-12">
+                            <div if:true={_showSgravingImage}>
+                                <div class="facet-cut-container">
+                                    <div><img src={_sGraving} class="facet-cut-img" /></div>
+                                </div>
+                                <table style="width: auto">
+                                    <tr>
+                                        <td>
+                                            <span>
+                                                <label class="container"
+                                                    >{_sGravingLabel}
+                                                    <input type="checkbox" checked={lensSelectionReadOnlyCollection.sGravingValue} disabled={_isReadOnly} />
+                                                    <span class="checkmark"></span>
+                                                </label>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div if:true={_showFacetCutImage}>
+                                <div class="facet-cut-container">
+                                    <div class="facet-cut-label">{_facetCutImageTitle}</div>
+                                    <div><img src={_facetCutImage} class="facet-cut-img" /></div>
+                                </div>
+                                <table style="width: auto">
+                                    <tr>
+                                        <td>
+                                            <span>
+                                                <label class="container"
+                                                    >{_facetCutLabel}
+                                                    <input type="checkbox" checked={lensSelectionReadOnlyCollection.facetCutValue} disabled={_isReadOnly} />
+                                                    <span class="checkmark"></span>
+                                                </label>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <!--BS-1796 end-->
+                        </div>
+                    </div>
+                </div>
+            </template>
+            <template if:false={currentStep.isFrameInformationStep} for:each={currentStep.currentStepAllFields} for:item="field">
+                <template if:false={currentStep.isFrameInformationStep}>
+                    <div if:true={field.isInputField} key={field.label} class={field.applicableStyling}>
+                        <label>{field.label}</label>
+                        <input type="text" class={currentStep.inputStyling} data-field={field.label} title={field.label} value={field.value} readonly />
+                    </div>
+                </template>
+                <div class="slds-col slds-size_1-of-1 slds-p-vertical_medium font-16" key={field.label} if:true={field.showLensDetail}>{field.label}</div>
+                <div if:true={field.isRadioButton} class="rxReadOnlyScreen slds-col slds-size_1-of-1" key={field.label}>
+                    <!-- Radio Button -->
+                    <input type="radio" class="filterRadioButton" name="Rx-Solution" value={field.label} title={_selectedRXSolution} checked readonly />
+                    <!-- RX Solution Label -->
+                    <span class="black-color filterValues" title={_selectedRXSolutionValue}> {field.value}</span>
+                </div>
+                <div if:true={field.showLinkOut} class="link-container slds-col slds-size_1-of-1" key={field.label}>
+                    <div key={field.label}>
+                        <a href={availablityCheckLensColorDocument} class="linkoutText" target="_blank">
+                            <table class="linkout-table">
+                                <tr>
+                                    <td valign="top">
+                                        <img src={field.linkoutImage} class="slds-p-right_small" />
+                                    </td>
+                                    <td>{field.linkLabel}</td>
+                                </tr>
+                            </table>
+                        </a>
+                    </div>
+                </div>
+                <!-- evil eye Edge Section Start BS 1019-->
+                <div
+                    if:true={field.showEvilEyeEdge}
+                    key={field.showEvilEyeEdge}
+                    class="slds-col slds-small-size_12-of-12 slds-medium-size_6-of-12 slds-large-size_6-of-12"
+                >
+                    <div class="slds-grid slds-wrap">
+                        <div
+                            key={field.showEvilEyeEdge}
+                            class="slds-m-top_xx-small slds-col slds-small-size_12-of-12 slds-medium-size_12-of-12 slds-large-size_12-of-12"
+                        >
+                            <div key={currentStep.showEvilEyeEdge} class="slds-col instructionStyling">
+                                <img src={evilEyeEdgeIcon} />
+                                <div key={field.showEvilEyeEdge} class="form-group evilEyeEdgeStyling checkbox-wrap">
+                                    <input
+                                        type="checkbox"
+                                        checked={_isEvilEyeEdgeSelected}
+                                        id="customerServicePreference"
+                                        data-id="customerServicePreference"
+                                        readonly={_isReadOnly}
+                                        disabled
+                                    />
+                                    <label key={field.showEvilEyeEdge} class="slds-checkbox__label" for="customerServicePreference">
+                                        <span key={field.showEvilEyeEdge} class="slds-checkbox_faux"></span>
+                                        <span key={field.showEvilEyeEdge} class="slds-form-element__label">
+                                            <lightning-formatted-rich-text
+                                                key={field.showEvilEyeEdge}
+                                                class="black-color silhouetteText text-medium-nb"
+                                                value={labels.evilEyeEdgeLabel}
+                                            ></lightning-formatted-rich-text>
+                                        </span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- evil eye Edge Section End BS-1019-->
+            </template>
+        </div>
+
+        <template if:true={currentStep.isPrescriptionValueStep} key={currentStep.isPrescriptionValueStep}>
+            <c-b2b_vsrx-prescription-value_read-only
+                key={currentStep.isPrescriptionValueStep}
+                labels={labels}
+                selected-base-value={_selectedBaseValue}
+                selected-eye-side-value={_selectedEyeSideValue}
+                prescription-field-data={_prescriptionFieldsData}
+                prescription-data={_prescriptionValueCollection}
+                all-columns-name-list={inputFieldsNameList}
+            ></c-b2b_vsrx-prescription-value_read-only>
+        </template>
+
+        <div key={currentStep.isCentringDataStep} class="slds-grid slds-wrap">
+            <template if:true={currentStep.isCentringDataStep} key={currentStep.isCentringDataStep}>
+                <div key={currentStep.isCentringDataStep} if:true={currentStep.showAdapterMessage} class="backgroundCheckbox">
+                    <table>
+                        <tr>
+                            <td valign="top">
+                                <lightning-input class="checkboxPos" type="checkbox" checked disabled> </lightning-input>
+                            </td>
+                            <td valign="top">
+                                <p class="termsConditionCheckbox">{labels.msgForAdapter}</p>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </template>
+
+            <template if:true={currentStep.isCentringDataStep} key={currentStep.isCentringDataStep}>
+                <div key={currentStep.isCentringDataStep} if:true={currentStep.showDirectGlazingMessage} class="backgroundCheckbox slds-m-around_large">
+                    <table>
+                        <tr>
+                            <td valign="top">
+                                <lightning-input class="checkboxPos" type="checkbox" checked disabled> </lightning-input>
+                            </td>
+                            <td valign="top">
+                                <p class="termsConditionCheckbox">{labels.msgForDirectGlazing}</p>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </template>
+
+            <div key={currentStep.isCentringDataStep} class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+                <template if:true={currentStep.isCentringDataStep} key={currentStep.isCentringDataStep}>
+                    <!--Added to show img for adpter and direct glazing Start BS-1065-->
+
+                    <div class="centering-data-container">
+                        <!--Added to show img for adpter and direct glazing End BS-1065-->
+                        <table key={currentStep.isCentringDataStep} class="centering-table">
+                            <tr key={currentStep.isCentringDataStep}>
+                                <td></td>
+                                <td><h5 class="text-heading">{labels.rightEye}</h5></td>
+                                <td><h5 class="text-heading">{labels.leftEye}</h5></td>
+                            </tr>
+                            <tr key={currentStep.isCentringDataStep}>
+                                <td>
+                                    <h5 class="text-heading">{labels.pupilDistance}</h5>
+                                    <span class="text-value">26 to 40 mm</span>
+                                </td>
+                                <td>
+                                    <lightning-input
+                                        type="text"
+                                        variant="label-hidden"
+                                        class="border-input pupilDistanceRightEye"
+                                        name="pupilDistanceRightEye"
+                                        onchange={handleInputChange}
+                                        value={_pupilDistanceRightEye}
+                                        readonly={_isReadOnly}
+                                    ></lightning-input>
+                                </td>
+                                <td>
+                                    <lightning-input
+                                        type="text"
+                                        variant="label-hidden"
+                                        class="border-input pupilDistanceLeftEye"
+                                        name="pupilDistanceLeftEye"
+                                        value={_pupilDistanceLeftEye}
+                                        onchange={handleInputChange}
+                                        readonly={_isReadOnly}
+                                    ></lightning-input>
+                                </td>
+                            </tr>
+                            <tr key={currentStep.isCentringDataStep}>
+                                <td>
+                                    <h5 class="text-heading">{labels.fittingHeight}</h5>
+                                    <span class="text-value">> 0 mm</span>
+                                </td>
+                                <td>
+                                    <lightning-input
+                                        type="text"
+                                        variant="label-hidden"
+                                        class="border-input fittingHeightRightEye"
+                                        name="fittingHeightRightEye"
+                                        onchange={handleInputChange}
+                                        value={_fittingHeightRightEye}
+                                        readonly={_isReadOnly}
+                                    ></lightning-input>
+                                </td>
+                                <td>
+                                    <lightning-input
+                                        type="text"
+                                        variant="label-hidden"
+                                        class="border-input fittingHeightLeftEye"
+                                        name="fittingHeightLeftEye"
+                                        onchange={handleInputChange}
+                                        value={_fittingHeightLeftEye}
+                                        readonly={_isReadOnly}
+                                    ></lightning-input>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div class="centering-data-container" key={currentStep.isCentringDataStep}>
+                        <table class="centering-table-secondary">
+                            <tr key={currentStep.isCentringDataStep} for:each={currentStep.currentStepAllFields} for:item="field">
+                                <td if:true={field.isCentringInputField} key={field.label} class="text-value">
+                                    {field.label}
+                                    <img class="infoicon slds-m-left_xx-small" src={infoSVG} title={field.helpText} />
+                                </td>
+                                <td key={field.label}>
+                                    <lightning-input
+                                        if:true={field.isCentringInputField}
+                                        type="text"
+                                        variant="label-hidden"
+                                        class="border-input pantascopicTilt"
+                                        name="pantascopicTilt"
+                                        value={field.value}
+                                        disabled
+                                    ></lightning-input>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </template>
+            </div>
+            <div key={currentStep.isCentringDataStep} class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+                <div if:true={currentStep.isCentringDataStep} key={currentStep.isCentringDataStep} class="slds-grid slds-wrap">
+                    <div
+                        key={currentStep.isCentringDataStep}
+                        class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12 centeringDataImage"
+                    >
+                        <img class="" data-name="boxingSystem" data-value={_boxingSystemValue} onclick={handleRadioButtonChange} src={centeringDataImage} />
+                        <br />
+                        <input
+                            type="radio"
+                            id="boxing_system"
+                            class="prescription-radio-button black-color radio"
+                            name="boxingSystem"
+                            value={labels.boxingSystem}
+                            data-name="boxingSystem"
+                            data-value={_boxingSystemValue}
+                            checked={_boxingSystemChecked}
+                            disabled
+                        />
+                        <span class="black-color filterValues" title={_boxingSystemLabel}>{_boxingSystemLabel}</span>
+                    </div>
+
+                    <div
+                        if:true={currentStep.isCentringDataStep}
+                        class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12 centeringDataImage"
+                    >
+                        <img
+                            src={centeringDataImage2}
+                            data-name="measurementLineSystem"
+                            data-value={_measurementLineSystemValue}
+                            onclick={handleRadioButtonChange}
+                        />
+                        <br />
+                        <input
+                            type="radio"
+                            id="measurment_line_system"
+                            class="prescription-radio-button black-color radio"
+                            name="measurementLineSystem"
+                            value={labels.measurementLineSystem}
+                            data-name="measurementLineSystem"
+                            data-value={_measurementLineSystemValue}
+                            onclick={handleRadioButtonChange}
+                            checked={_measurementSystemChecked}
+                            disabled
+                        />
+                        <span class="black-color filterValues" title={_measurementLineSystemLabel}>{_measurementLineSystemLabel}</span>
+                    </div>
+                    <div
+                        if:true={_showValidationForMeasurementSystem}
+                        class="slds-col slds-size_1-of-1 slds-medium-size_12-of-12 slds-large-size_12-of-12"
+                    ></div>
+                </div>
+
+                <div if:true={currentStep.isCentringDataStep} key={currentStep.isCentringDataStep} class="slds-col slds-size_1-of-1">
+                    <div key={currentStep.isCentringDataStep} if:true={currentStep.showAdapterImage} class="imgPad">
+                        <img src={imgForAdapter} />
+                    </div>
+                    <div key={currentStep.isCentringDataStep} if:true={currentStep.showDirectGlazingImage} class="imgPad">
+                        <img src={imgForDirectGlazing} />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <!-- BS-1244 : Calculate Lens Component Start -->
+    <div if:true={_showCalculateLensComponent}>
+        <c-b2b_vs_rx_calculate_lens_component
+            lens-configurator-collection={_lensConfigurationCollection}
+            page-source={pageSource}
+        ></c-b2b_vs_rx_calculate_lens_component>
+    </div>
+    <!-- BS-1244 : Calculate Lens Component End -->
+</template>

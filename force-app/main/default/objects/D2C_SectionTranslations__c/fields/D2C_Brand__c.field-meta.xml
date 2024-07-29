@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>D2C_Brand__c</fullName>
+    <description>The brand for which this content is applicable.</description>
+    <externalId>false</externalId>
+    <label>Brand</label>
+    <required>true</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Neubau</fullName>
+                <default>false</default>
+                <label>Neubau</label>
+            </value>
+            <value>
+                <fullName>Silhouette</fullName>
+                <default>false</default>
+                <label>Silhouette</label>
+            </value>
+            <value>
+                <fullName>Evil Eye</fullName>
+                <default>false</default>
+                <label>Evil Eye</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

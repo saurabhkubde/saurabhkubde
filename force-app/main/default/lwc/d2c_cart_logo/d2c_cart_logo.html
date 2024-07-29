@@ -1,0 +1,16 @@
+<template>
+    <!-- NBD2C-24 : Cart Logo Section - Start -->
+    <div if:true={_isReady} class="slds-dropdown-trigger slds-dropdown-trigger_click slds-p-around_xxx-small">
+        <!-- NBD2C-24 : Cart Logo Section Start  -->
+        <img class="cartIcon" src={_cartLogo} onclick={navigateToCart} />
+        <!-- NBD2C-24 : Cart Logo Section End  -->
+
+        <!-- NBD2C-24 : Cart Item Counter Section - Start -->
+        <span class="slds-assistive-text">{iconAssistiveText}</span>
+        <span aria-hidden="true" class="slds-notification-badge badgeIcon">
+            <lightning-formatted-number value={badgeItemsCount} maximum-fraction-digits={_maximumFractionDigits}></lightning-formatted-number>
+        </span>
+        <!-- NBD2C-24 : Cart Item Counter Section - End -->
+    </div>
+    <!-- NBD2C-24 : Cart Logo Section - End -->
+</template>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>k_Has_RX__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Relevant to label to validate RX accounts</description>
+    <externalId>false</externalId>
+    <label>With RX</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

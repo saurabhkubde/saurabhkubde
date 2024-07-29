@@ -1,0 +1,265 @@
+.container {
+    max-width: 450px;
+    margin: auto;
+}
+
+.spinnerStyling {
+    background-color: rgba(255, 255, 255, 0.75) !important;
+}
+
+.slds-m-around_medium {
+    margin: 1rem;
+}
+
+.slds-form-element {
+    margin-bottom: 1rem;
+}
+
+.slds-text-color_error {
+    color: #e4002b;
+    margin-top: 0.5rem;
+}
+
+.marketingConsentLabel {
+    display: flex;
+}
+
+.marketingConsentLabel span {
+    font-size: 16px;
+    font-family: 'Adobe Caslon pro';
+}
+
+.text-style {
+    font-family: 'Adobe Caslon Pro';
+    font-size: 18px !important;
+    display: inline;
+    padding-left: 10px;
+}
+
+.linkout-text {
+    color: #000 !important;
+    text-decoration: underline !important;
+}
+
+.linkout-text {
+    color: #000 !important;
+    text-decoration: underline !important;
+}
+
+.field-name {
+    color: #8c8c8c !important;
+    font-family: 'Adobe Caslon Pro';
+    font-weight: 500;
+    font-size: 16px;
+}
+
+input[type='radio'] {
+    accent-color: #000 !important;
+}
+
+.input {
+    font-family: 'Adobe Caslon Pro';
+    color: #000;
+    font-size: 16px;
+    padding: 4px 0px 0px 5px;
+    max-width: 100% !important;
+    border-radius: 0px !important;
+    padding: 12px;
+    height: 50px;
+}
+
+.marketingConsent {
+    padding-right: 0.75rem;
+    padding-left: 0.75rem;
+    margin-top: 20px;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+    -webkit-box-shadow: 0 0 0px 1000px #ffffff inset !important;
+}
+
+.select-option {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-image: var(--background-image-url);
+    background-color: #fff;
+    background-size: 16px;
+    background-position-x: 97%;
+    background-position-y: 50%;
+    background-repeat: no-repeat;
+    color: #8c8c8c !important;
+    font-family: 'Adobe Caslon Pro';
+    font-weight: 500;
+    font-size: 18px;
+}
+
+.countryCodes {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-image: var(--background-image-url);
+    background-color: #fff;
+    background-size: 14px;
+    background-position-x: 80%;
+    background-position-y: 50%;
+    background-repeat: no-repeat;
+    color: black;
+    font-family: 'Adobe Caslon Pro';
+    font-weight: 500;
+    font-size: 18px;
+    border-right: 0px;
+    padding-left: 3px;
+    padding-top: 15px;
+}
+
+.termsAndConditions {
+    font-size: 16px;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+    font-family: 'Adobe Caslon Pro';
+}
+
+@media only screen and (max-width: 767px) {
+    .input {
+        max-width: 100% !important;
+    }
+
+    .marketingConsentLabel span {
+        font-size: 14px;
+    }
+
+    .nameContainer {
+        justify-content: space-between;
+    }
+
+    .text-style {
+        font-size: 16px !important;
+        padding-left: 7px;
+    }
+
+    .countryCodes {
+        font-size: 14px;
+    }
+
+    .termsAndConditions {
+        font-size: 14px;
+    }
+}
+
+.personalDetailHeader {
+    text-transform: uppercase;
+    font-family: 'SweetSansProLight';
+    font-weight: 400;
+    margin-bottom: 20px;
+    font-size: 19.5px;
+    text-align: left;
+}
+
+.salutationButtons .slds-radio {
+    width: 18% !important;
+    display: inline-block !important;
+}
+
+.salutationButtons .slds-form-element__legend {
+    margin-bottom: 0px !important;
+}
+
+.firstName,
+.lastName,
+.zipCode,
+.townCity {
+    display: inline-block;
+    width: 45%;
+}
+
+/*--personal details--*/
+.input,
+.input:focus,
+.input:focus-within {
+    outline: transparent;
+    box-shadow: none;
+    border: 1.4px solid black;
+}
+
+.slds-text-color_error {
+    color: #e4002b;
+    margin-top: 0.5rem;
+}
+
+.phone {
+    width: 100%;
+}
+
+.phone td:first-child {
+    width: 80px;
+    border-right: 0px !important;
+}
+
+.personalDetailsalutation .slds-form-element__legend {
+    margin-bottom: 10px !important;
+    color: #8c8c8c !important;
+    font-family: 'Adobe Caslon Pro' !important;
+    font-weight: 500 !important;
+    font-size: 18px !important;
+}
+
+.personalDetailForm .slds-form-element__label {
+    margin-bottom: -5px !important;
+}
+
+.personalDetailsalutation .slds-radio {
+    min-width: 115px !important;
+}
+
+.personalDetailsalutation fieldset .slds-form-element__control span .slds-radio__label .slds-form-element__label {
+    font-family: 'Adobe Caslon Pro' !important;
+    font-weight: 500 !important;
+    font-size: 18px !important;
+}
+
+.countryCodes {
+    border-right: 0px !important;
+    padding-right: 30% !important;
+    text-align: center;
+}
+
+option:hover,
+option:active,
+option:focus,
+option:focus-within {
+    background-color: #f7f7f8 !important ;
+}
+
+/* NBD2C-98*/
+@media only screen and (max-width: 767px) {
+    .personalDetailHeader {
+        text-align: left !important;
+    }
+}
+
+.marketingConsentLabelHolder a,
+.marketingConsentLabelHolder a:hover,
+.marketingConsentLabelHolder a:focus,
+.marketingConsentLabelHolder a:active,
+.privacyPolicyLabelHolder a,
+.privacyPolicyLabelHolder a:hover,
+.privacyPolicyLabelHolder a:focus,
+.privacyPolicyLabelHolder a:active,
+.termsAndConditionsLabelHolder a,
+.termsAndConditionsLabelHolder a:hover,
+.termsAndConditionsLabelHolder a:focus,
+.termsAndConditionsLabelHolder a:active {
+    color: black !important;
+    text-decoration: underline !important;
+}
+
+/*--personal details--*/

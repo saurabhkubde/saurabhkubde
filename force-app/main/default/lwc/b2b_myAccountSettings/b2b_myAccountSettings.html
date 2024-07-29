@@ -1,0 +1,32 @@
+<template>
+    <!-- Component Loading Section -->
+    <lightning-spinner if:true={_isLoading} class="slds-is-fixed slds-align_absolute-center" variant="brand" size="large"> </lightning-spinner>
+
+    <div class="slds-grid slds-wrap">
+        <div class="slds-col slds-size_1-of-2">
+            <c-b2b_change-password is-silhouette-site={_isSilhouetteSite}></c-b2b_change-password>
+        </div>
+        <div class="slds-col slds-size_1-of-2">
+            <c-b2b_language-switcher is-footer-located={isFooterLocated} is-silhouette-site={_isSilhouetteSite}></c-b2b_language-switcher>
+        </div>
+    </div>
+    <div if:false={hideSuggestedRetailPriceField} class="slds-form-element slds-p-top_xx-large">
+        <div class="slds-form-element__label slds-m-bottom_none slds-p-bottom_x-small">
+            <h1>{_recomendedRetailPriceLabel}</h1>
+        </div>
+        <label class="slds-checkbox_toggle slds-grid toggleButton">
+            <input
+                type="checkbox"
+                name="checkbox-toggle-6"
+                value="checkbox-toggle-6"
+                aria-describedby="checkbox-toggle-6"
+                aria-pressed="false"
+                checked={_isToggleClicked}
+                onchange={handleToggle}
+            />
+            <span id="checkbox-toggle-6" class="slds-checkbox_faux_container">
+                <span class="slds-checkbox_faux"></span>
+            </span>
+        </label>
+    </div>
+</template>

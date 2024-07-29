@@ -1,0 +1,142 @@
+.order-summary-container {
+    padding: 50px;
+}
+
+.spinnerStyling {
+    background-color: rgba(255, 255, 255, 0.75) !important;
+}
+
+.order-image {
+    height: 100px;
+}
+
+.order-summary-section {
+    width: 85%;
+}
+
+.logo-styling {
+    height: 25px;
+    width: 25px;
+}
+
+.customer-preferences-summary-section {
+    padding-left: 50px;
+    font-family: 'Adobe Caslon Pro';
+}
+
+.personal-details-section,
+.selected-retailer-section,
+.appointment-details-section {
+    padding: 15px 0px;
+}
+
+.personal-details-container {
+    word-break: break-all;
+}
+
+.item-details {
+    min-height: 25px;
+}
+
+.retailer-name {
+    text-transform: uppercase;
+}
+
+.retailer-address {
+    font-size: 12px;
+}
+
+.details {
+    padding-left: 5px;
+    padding: 5px;
+    word-wrap: break-word;
+    max-width: 85%;
+}
+
+.section-label {
+    font-size: 16px;
+}
+
+.section-value {
+    padding: 12px 8px;
+    font-size: 14px;
+}
+
+.calender-logo {
+    margin-top: 5px;
+    margin-right: -5px;
+}
+
+.line {
+    width: 1px;
+    align-self: stretch;
+    background: rgb(255, 255, 255);
+    background: linear-gradient(0deg, rgb(255, 255, 255) 0%, rgb(200, 200, 200) 47%, rgb(255, 255, 255) 100%);
+    margin-right: 30px !important;
+}
+
+.position-relative {
+    position: relative;
+}
+
+@media only screen and (max-width: 767px) {
+    .order-summary-container {
+        padding: 20px;
+    }
+
+    .order-summary-section {
+        width: 100%;
+    }
+
+    .calender-logo {
+        margin-right: 0px;
+    }
+
+    .customer-preferences-summary-section {
+        padding-left: 10px;
+    }
+
+    .line {
+        display: none;
+    }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+    .order-summary-container {
+        padding: 20px;
+    }
+
+    .order-summary-section {
+        width: 100%;
+    }
+
+    .customer-preferences-summary-section {
+        padding-left: 10px;
+    }
+
+    .calender-logo {
+        margin-right: 0px;
+    }
+}
+
+@media screen and (max-width: 360px) {
+    .customer-preferences-summary-section {
+        padding-left: 10px;
+    }
+
+    .order-summary-container {
+        padding: 10px;
+    }
+
+    .retailer-address {
+        font-size: 10px;
+    }
+
+    .details {
+        padding: 0px;
+    }
+
+    .calender-logo {
+        margin-top: 0px;
+    }
+}

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>55.0</apiVersion>
+    <isExposed>true</isExposed>
+    <masterLabel>B2B My Account Settings</masterLabel>
+    <description>Wrapper component for the My Account Settings page in the Experience Builder</description>
+    <targets>
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Default</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightningCommunity__Default">
+            <property name="isSilhouetteSite" label="is Silhouette Site?" type="Boolean" default="true" />
+            <property
+                name="effectiveAccountId"
+                type="String"
+                label="Effective Account Id"
+                description="The ID of the account under which the user is acting"
+                default="{!CurrentUser.effectiveAccountId}"
+            />
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

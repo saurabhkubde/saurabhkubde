@@ -1,0 +1,1411 @@
+<template>
+    <template if:false={_isSilhouetteStore}>
+        <div class="slds-grid slds-wrap parent-container">
+            <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_3-of-12 slds-p-around_small">
+                <div class="font-24-500 slds-border_bottom">
+                    <span>
+                        <img src={orderDetailSVG} class="image-size slds-m-horizontal_xx-small" />
+                    </span>
+                    <span>{labels.orderDetails}</span>
+                </div>
+                <div class="slds-p-top_medium">
+                    <div class="grey100-background-color">
+                        <div class="slds-m-bottom_medium slds-m-horizontal_medium slds-p-top_small">
+                            <div class="font-16-500">{labels.account}</div>
+                            <div class="font-14-300">{accountName}</div>
+                        </div>
+                        <!-- BS-2274 -->
+                        <div class="slds-border_top slds-m-around_medium slds-p-top_small">
+                            <div class="font-16-500">{labels.ordernumber}</div>
+                            <div class="font-14-300">{orderErpNumber}</div>
+                        </div>
+                        <div class="slds-border_top slds-m-around_medium slds-p-top_small">
+                            <div class="font-16-500">{labels.orderdate}</div>
+                            <div class="font-14-300">{orderDate}</div>
+                        </div>
+                        <div class="slds-border_top slds-m-around_medium slds-p-top_small">
+                            <div class="font-16-500">{labels.status}</div>
+                            <div class="font-14-300">{orderStatus}</div>
+                        </div>
+                        <div class="slds-border_top slds-m-around_medium slds-p-top_small">
+                            <div class="font-16-500">{labels.source}</div>
+                            <div class="font-14-300">{orderSource}</div>
+                        </div>
+                        <div class="font-16-500 slds-border_top slds-m-around_medium slds-p-vertical_small">
+                            <span> {labels.otherAction} </span>
+                            <span>
+                                <img data-id={orderData} src={infoSVG} title={labels.requestDocument} class={documentRequestDisabled} onclick={openModal} />
+                            </span>
+                            <!-- BS-2277 -->
+                            <span>
+                                <img src={reorderIcon} title={labels.reorder} class="document-enabled" onclick={handleRedirection} />
+                            </span>
+                        </div>
+                    </div>
+                    <template if:true={showModal}>
+                        <section aria-modal="true" class="slds-align_absolute-center slds-modal slds-fade-in-open">
+                            <div class="slds-modal__container">
+                                <header class="slds-modal__header">
+                                    <h2 class="slds-m-top_small model-text-24 black-color">{labels.furtherinfos} {selectedOrderNumber}</h2>
+                                    <div class="slds-modal__close general-close" onclick={closeModal}></div>
+                                </header>
+                                <div class="slds-modal__content slds-var-p-around_small">
+                                    <div class="slds-border_bottom">
+                                        <template if:true={showTrackingNumber}>
+                                            <p class="slds-align_absolute-center model-text-18 black-color">{labels.trackinglinks}</p>
+                                            <template if:true={hasTrackingLinks}>
+                                                <template for:each={trackingReferences} for:item="trackingReference">
+                                                    <div key={trackingReference.id} class="slds-align_absolute-center slds-col black-color model-text-16">
+                                                        <div class="slds-col black-color">{trackingReference.B2B_Order_Reference_Link__c}</div>
+                                                    </div>
+                                                </template>
+                                            </template>
+                                            <template if:false={hasTrackingLinks}>
+                                                <div class="slds-align_absolute-center model-text-16 slds-col black-color">{labels.nolinks}</div>
+                                            </template>
+                                            <br />
+                                        </template>
+                                        <template if:true={isOrderConfirmation}>
+                                            <p class="slds-align_absolute-center model-text-18 black-color">{labels.orderconfirmationlinks}</p>
+                                            <div>
+                                                <button
+                                                    class="slds-align_absolute-center slds-m-vertical_small silButton capital buttonWidth"
+                                                    data-name="Order Confirmation"
+                                                    onclick={handleSend}
+                                                >
+                                                    {labels.sendorderconfirmation}
+                                                </button>
+                                                <p
+                                                    class="slds-text-align_center font-14-300 black-color slds-m-vertical_small"
+                                                    if:true={isOrderConfirmationSent}
+                                                >
+                                                    {labels.orderConfirmationMessage} <span class="email-text" if:true={accountEmail}>"{accountEmail}"</span>
+                                                </p>
+                                            </div>
+                                        </template>
+                                    </div>
+                                    <template if:true={isDeleveryNote}>
+                                        <p class="slds-align_absolute-center slds-m-top_small model-text-18 black-color">{labels.deliverylinks}</p>
+                                        <div class="slds-col slds-var-p-vertical_xx-small">
+                                            <button
+                                                class="slds-align_absolute-center slds-m-vertical_small silButton capital buttonWidth"
+                                                data-name="Delivery Note"
+                                                onclick={handleSend}
+                                            >
+                                                {labels.senddelivery}
+                                            </button>
+                                            <p class="slds-text-align_center font-14-300 black-color slds-m-vertical_small" if:true={isDeleveryNoteSent}>
+                                                {labels.deliveryNoteMessage} <span class="email-text" if:true={accountEmail}>"{accountEmail}"</span>
+                                            </p>
+                                        </div>
+                                    </template>
+                                    <template if:true={isOrderInvoice}>
+                                        <p class="slds-align_absolute-center model-text-18 black-color slds-border_top slds-p-top_medium">
+                                            {labels.invoicelinks}
+                                        </p>
+                                        <div class="slds-col">
+                                            <button
+                                                class="slds-align_absolute-center slds-m-top_small silButton capital buttonWidth"
+                                                data-name="Invoice"
+                                                onclick={handleSend}
+                                            >
+                                                {labels.sendinvoice}
+                                            </button>
+                                            <p class="slds-text-align_center font-14-300 black-color slds-m-vertical_small" if:true={isOrderInvoiceSent}>
+                                                {labels.invoiceMessage} <span class="email-text" if:true={accountEmail}>"{accountEmail}"</span>
+                                            </p>
+                                        </div>
+                                        <br />
+                                    </template>
+                                </div>
+                            </div>
+                        </section>
+                        <div class="slds-backdrop slds-backdrop_open"></div>
+                    </template>
+                </div>
+            </div>
+            <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_4-of-12 slds-p-around_small">
+                <div class="font-24-500 slds-border_bottom">
+                    <span>
+                        <img src={addressSVG} class="image-size slds-m-horizontal_xx-small" />
+                    </span>
+                    <span>{labels.address}</span>
+                </div>
+                <div class="slds-m-vertical_medium">
+                    <div class="grey100-background-color slds-p-horizontal_medium slds-p-vertical_x-small address-div">
+                        <p class="text-heading-strong black-color font-16-500">{labels.shippingAddress}</p>
+                        <template if:true={shippingAddress}>
+                            <template for:each={shippingAddress} for:item="item">
+                                <span class="font-14-300" key={item.key} if:true={item.value}>{item.value} <br /></span>
+                            </template>
+                        </template>
+                    </div>
+                </div>
+                <div class="slds-p-top_medium">
+                    <div class="grey100-background-color slds-p-horizontal_medium slds-p-vertical_x-small address-div">
+                        <p class="text-heading-strong black-color font-16-500">{labels.billingAddress}</p>
+                        <template for:each={billingAddress} for:item="item">
+                            <span class="font-14-300" key={item.key} if:true={item.value}>{item.value} <br /></span>
+                        </template>
+                    </div>
+                </div>
+            </div>
+            <div class="slds-col slds-size_1-of-1 slds-medium-size_12-of-12 slds-large-size_5-of-12 slds-p-around_small scrollableContainer">
+                <div class="font-24-500 slds-border_bottom">
+                    <span>
+                        <img src={overviewSVG} class="image-size slds-m-horizontal_xx-small" />
+                    </span>
+                    <span> {labels.overview}</span>
+                </div>
+                <div class="slds-scrollable_y">
+                    <!--Product image section-->
+                    <ul>
+                        <div>
+                            <template for:each={orderItems} for:item="item">
+                                <li key={item.Id} class={item.isGreyOut} title={item.errorMessage}>
+                                    <!--Product image section-->
+                                    <figure>
+                                        <a tabindex="-1" href={item.productUrl} data-productid={item.product2Id} onclick={handleProductDetailNavigation}>
+                                            <img
+                                                if:true={item.Product2.B2B_Picture_Link__c}
+                                                src={item.Product2.B2B_Picture_Link__c}
+                                                alt={item.Product2.DisplayUrl}
+                                                data-productid={item.Product2Id}
+                                                title={item.productTitle}
+                                            />
+                                            <img
+                                                if:false={item.Product2.B2B_Picture_Link__c}
+                                                src={dummyImage}
+                                                alt={dummyImage}
+                                                data-productid={item.Product2Id}
+                                                title={item.productTitle}
+                                            />
+                                        </a>
+                                    </figure>
+
+                                    <!--Product details section-->
+                                    <!-- Start BS-882-->
+                                    <div class="details slds-has-flexi-truncate slds-p-left_x-small">
+                                        <div if:true={item.isEvilEyeLens}>
+                                            <div if:true={item.Product2.B2B_Model__c} key={item.Product2.B2B_Model__c} class="productModel">
+                                                <span
+                                                    ><b
+                                                        ><lightning-formatted-text
+                                                            title={item.Product2.B2B_Model__c}
+                                                            value={item.Product2.B2B_Model__c}
+                                                        ></lightning-formatted-text></b
+                                                ></span>
+                                            </div>
+                                            <div if:true={item.Product2.Name} key={item.Product2.Name} class="productModel">
+                                                <span
+                                                    ><b
+                                                        ><lightning-formatted-text
+                                                            title={item.Product2.Name}
+                                                            value={item.Product2.Name}
+                                                        ></lightning-formatted-text></b
+                                                ></span>
+                                            </div>
+                                            <div
+                                                if:true={item.Product2.B2B_Frame_Color_Description__c}
+                                                key={item.Product2.B2B_Frame_Color_Description__c}
+                                                class="productModel"
+                                            >
+                                                <span
+                                                    ><b
+                                                        ><lightning-formatted-text
+                                                            title={item.Product2.B2B_Frame_Color_Description__c}
+                                                            value={item.Product2.B2B_Frame_Color_Description__c}
+                                                        ></lightning-formatted-text></b
+                                                ></span>
+                                            </div>
+                                            <div
+                                                if:true={item.Product2.B2B_Design_Family__c}
+                                                key={item.Product2.B2B_Design_Family__c}
+                                                class="slds-align_absolute-left"
+                                            >
+                                                <span
+                                                    ><lightning-formatted-text
+                                                        title={item.Product2.B2B_Design_Family__c}
+                                                        value={item.Product2.B2B_Design_Family__c}
+                                                    ></lightning-formatted-text
+                                                ></span>
+                                            </div>
+                                        </div>
+                                        <div if:false={item.isEvilEyeLens}>
+                                            <b><lightning-formatted-text title={item.Product2.Name} value={item.Product2.Name}></lightning-formatted-text> </b>
+                                        </div>
+                                        <!-- End BS-882-->
+                                        <div class="slds-grid slds-wrap slds-m-top_small font-14-300 slds-p-bottom_x-small">
+                                            <div class="slds-col slds-size_6-of-12 slds-medium-size_6-of-12 slds-large-size_6-of-12 search-card-element">
+                                                <div>{labels.sku} :</div>
+                                                <div>{item.Product2.StockKeepingUnit}</div>
+                                            </div>
+                                            <div class="slds-col slds-size_6-of-12 slds-medium-size_6-of-12 slds-large-size_6-of-12 slds-p-left_small">
+                                                <div>{labels.quantity} :</div>
+                                                <div>{item.Quantity}</div>
+                                            </div>
+                                        </div>
+                                        <span if:true={item.B2B_Customer_Reference__c}> <b>{labels.patiantsName} :</b>{item.B2B_Customer_Reference__c} </span>
+                                    </div>
+                                </li>
+                            </template>
+                        </div>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </template>
+    <template if:true={_isSilhouetteStore}>
+        <!--BS-1064-->
+        <template if:true={_isLoading}>
+            <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+        </template>
+        <div if:false={_isLoading} class="slds-grid slds-wrap parent-container">
+            <!-- Order details for SH store for Silhouette-->
+            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-1 slds-p-vertical_small">
+                <div class="font-24-500 slds-m-bottom_small">
+                    <span>
+                        <img src={orderDetailSVG} class="image-size slds-m-horizontal_xx-small" />
+                    </span>
+                    <span>{labels.orderDetails}</span>
+                    <!-- Added as a part of BS-1947-->
+                    <span class="hideInPrint download tooltip font-24-500 slds-m-bottom_small slds-float_right">
+                        <a onclick={generatePdf} class="slds-m-left_xxx-small" label="">
+                            <span class="tooltiptext">{printLabel}</span>
+                            <img src={printSVG} class="print-size slds-p-right_medium slds-m-horizontal_xxx-small" />
+                        </a>
+                    </span>
+                </div>
+                <ul class="list">
+                    <li class="list-item">
+                        <div class="list-content ml-10">
+                            <div class="font-16-500">{labels.account}</div>
+                            <div class="font-14-300 slds-p-top_small">{accountName}</div>
+                        </div>
+                    </li>
+                    <!-- BS-2274 -->
+                    <li class="list-item">
+                        <div class="list-content ml-10">
+                            <div class="font-16-500">{labels.ordernumber}</div>
+                            <div class="font-14-300 slds-p-top_small">{orderErpNumber}</div>
+                        </div>
+                    </li>
+                    <li class="list-item">
+                        <div class="list-content">
+                            <div class="font-16-500">{labels.orderdate}</div>
+                            <div class="font-14-300 slds-p-top_small">{orderDate}</div>
+                        </div>
+                    </li>
+                    <li class="list-item">
+                        <div class="list-content">
+                            <div class="font-16-500">{labels.status}</div>
+                            <div class="font-14-300 slds-p-top_small">{orderStatus}</div>
+                        </div>
+                    </li>
+                    <li class="list-item">
+                        <div class="list-content">
+                            <div class="font-16-500">{labels.source}</div>
+                            <div class="font-14-300 slds-p-top_small">{orderSource}</div>
+                        </div>
+                    </li>
+                    <li class="list-item">
+                        <div class="list-content mr-10">
+                            <div class="font-16-500 order-action-padding">{labels.otherAction}</div>
+                            <div class="slds-p-top_small">
+                                <img data-id={orderData} src={infoSVG} title={labels.requestDocument} class={documentRequestDisabled} onclick={openModal} />
+                                <!--BS-1064-->
+                                <span if:true={_isVSRXorder} class="slds-p-top_small">
+                                    <img src={reorderIcon} title={labels.reorder} class="document-enabled" onclick={handleOrderPopup} />
+                                </span>
+                                <!--BS-2277-->
+                                <span if:false={_isVSRXorder} class="slds-p-top_small">
+                                    <img src={reorderIcon} title={labels.reorder} class="document-enabled" onclick={handleRedirection} />
+                                </span>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <div class="slds-p-top_medium">
+                    <template if:true={showModal}>
+                        <section aria-modal="true" class="slds-align_absolute-center slds-modal slds-fade-in-open">
+                            <div class="slds-modal__container">
+                                <header class="slds-modal__header">
+                                    <h2 class="slds-m-top_small model-text-24 black-color">{labels.furtherinfos} {selectedOrderNumber}</h2>
+                                    <div class="slds-modal__close general-close" onclick={closeModal}></div>
+                                </header>
+                                <div class="slds-modal__content slds-var-p-around_small">
+                                    <div class="slds-border_bottom">
+                                        <template if:true={showTrackingNumber}>
+                                            <p class="slds-align_absolute-center model-text-18 black-color">{labels.trackinglinks}</p>
+                                            <template if:true={hasTrackingLinks}>
+                                                <template for:each={trackingReferences} for:item="trackingReference">
+                                                    <div key={trackingReference.id} class="slds-align_absolute-center slds-col black-color model-text-16">
+                                                        <div class="slds-col black-color">{trackingReference.B2B_Order_Reference_Link__c}</div>
+                                                    </div>
+                                                </template>
+                                            </template>
+                                            <template if:false={hasTrackingLinks}>
+                                                <div class="slds-align_absolute-center model-text-16 slds-col black-color">{labels.nolinks}</div>
+                                            </template>
+                                            <br />
+                                        </template>
+                                        <template if:true={isOrderConfirmation}>
+                                            <p class="slds-align_absolute-center model-text-18 black-color">{labels.orderconfirmationlinks}</p>
+                                            <div>
+                                                <button
+                                                    class="slds-align_absolute-center slds-m-vertical_small silButton capital buttonWidth"
+                                                    data-name="Order Confirmation"
+                                                    onclick={handleSend}
+                                                >
+                                                    {labels.sendorderconfirmation}
+                                                </button>
+                                                <p
+                                                    class="slds-text-align_center font-14-300 black-color slds-m-vertical_small"
+                                                    if:true={isOrderConfirmationSent}
+                                                >
+                                                    {labels.orderConfirmationMessage} <span class="email-text" if:true={accountEmail}>"{accountEmail}"</span>
+                                                </p>
+                                            </div>
+                                        </template>
+                                    </div>
+                                    <template if:true={isDeleveryNote}>
+                                        <p class="slds-align_absolute-center slds-m-top_small model-text-18 black-color">{labels.deliverylinks}</p>
+                                        <div class="slds-col slds-var-p-vertical_xx-small">
+                                            <button
+                                                class="slds-align_absolute-center slds-m-vertical_small silButton capital buttonWidth"
+                                                data-name="Delivery Note"
+                                                onclick={handleSend}
+                                            >
+                                                {labels.senddelivery}
+                                            </button>
+                                            <p class="slds-text-align_center font-14-300 black-color slds-m-vertical_small" if:true={isDeleveryNoteSent}>
+                                                {labels.deliveryNoteMessage} <span class="email-text" if:true={accountEmail}>"{accountEmail}"</span>
+                                            </p>
+                                        </div>
+                                    </template>
+                                    <template if:true={isOrderInvoice}>
+                                        <p class="slds-align_absolute-center model-text-18 black-color slds-border_top slds-p-top_medium">
+                                            {labels.invoicelinks}
+                                        </p>
+                                        <div class="slds-col">
+                                            <button
+                                                class="slds-align_absolute-center slds-m-top_small silButton capital buttonWidth"
+                                                data-name="Invoice"
+                                                onclick={handleSend}
+                                            >
+                                                {labels.sendinvoice}
+                                            </button>
+                                            <p class="slds-text-align_center font-14-300 black-color slds-m-vertical_small" if:true={isOrderInvoiceSent}>
+                                                {labels.invoiceMessage} <span class="email-text" if:true={accountEmail}>"{accountEmail}"</span>
+                                            </p>
+                                        </div>
+                                        <br />
+                                    </template>
+                                </div>
+                            </div>
+                        </section>
+                        <div class="slds-backdrop slds-backdrop_open"></div>
+                    </template>
+                    <!--BS-1064-->
+                    <template if:true={_showReorderModal}>
+                        <section aria-modal="true" class="slds-align_absolute-center slds-modal slds-fade-in-open">
+                            <div class="slds-modal__container">
+                                <header class="slds-modal__header">
+                                    <h2 class="slds-m-top_large model-text-24-normal black-color arial-font">
+                                        {_reorderMessageFirstPart} <br />
+                                        {_reorderMessageSecondPart}
+                                    </h2>
+                                    <div class="close-button-right slds-modal__close general-close" onclick={closeReorderModal}></div>
+                                </header>
+                                <div class="slds-modal__header slds-var-p-around_small">
+                                    <button if:true={isEligibleForVS} class="silButton margin-8" data-name="SH_VS" onclick={handleReorderForVS}>
+                                        {_reorderForVS}
+                                    </button>
+                                    <button if:true={isEligibleForRX} class="silButton margin-8" data-name="EE_RX" onclick={handleReorderForRX}>
+                                        {_reorderForRX}
+                                    </button>
+                                    <button class="silButton" data-name="Invoice" onclick={closeReorderModal}>{labels.cancel}</button>
+                                </div>
+                            </div>
+                        </section>
+                        <div class="slds-backdrop slds-backdrop_open"></div>
+                    </template>
+                </div>
+            </div>
+            <!-- Product details for SH store for Silhouette-->
+            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-1 slds-p-bottom_small scrollableContainer">
+                <div class="font-24-500 slds-m-bottom_small">
+                    <span if:true={_isSHEEOrder}>
+                        <img src={overviewSVG} class="image-size slds-m-horizontal_xx-small" />
+                    </span>
+                    <span if:true={_isRxItem}>
+                        <img src={EEBrandIcon} class="logo" />
+                    </span>
+                    <span if:true={_isVsScreen}>
+                        <img src={silhouetteVsIcon} class="logo" />
+                    </span>
+                    <span class="overview-header"> {labels.overview}</span>
+                </div>
+                <div>
+                    <ul>
+                        <div>
+                            <template for:each={orderItems} for:item="item">
+                                <!--BS-998 Start-->
+                                <div key={item.Id} if:true={item.isParentProduct} class="slds-grid slds-wrap">
+                                    <li key={item.Id} class={item.isGreyOut} title={item.errorMessage}>
+                                        <!-- Start : Name/Image/Quantity/SKU section-->
+                                        <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_2-of-12 slds-p-top_small">
+                                            <!-- Name section-->
+                                            <div if:true={item.isEvilEyeLens}>
+                                                <div if:true={item.Product2.B2B_Model__c} key={item.Product2.B2B_Model__c}>
+                                                    <span
+                                                        ><b
+                                                            ><lightning-formatted-text
+                                                                title={item.Product2.B2B_Model__c}
+                                                                value={item.Product2.B2B_Model__c}
+                                                                class="productModel"
+                                                            ></lightning-formatted-text></b
+                                                    ></span>
+                                                </div>
+                                                <div if:true={item.Product2.Name} key={item.Product2.Name}>
+                                                    <span
+                                                        ><b
+                                                            ><lightning-formatted-text
+                                                                title={item.Product2.Name}
+                                                                value={item.Product2.Name}
+                                                                class="productModel"
+                                                            ></lightning-formatted-text></b
+                                                    ></span>
+                                                </div>
+                                                <div if:true={item.Product2.B2B_Frame_Color_Description__c} key={item.Product2.B2B_Frame_Color_Description__c}>
+                                                    <span
+                                                        ><b
+                                                            ><lightning-formatted-text
+                                                                title={item.Product2.B2B_Frame_Color_Description__c}
+                                                                value={item.Product2.B2B_Frame_Color_Description__c}
+                                                                class="productModel"
+                                                            ></lightning-formatted-text></b
+                                                    ></span>
+                                                </div>
+                                                <div
+                                                    if:true={item.Product2.B2B_Design_Family__c}
+                                                    key={item.Product2.B2B_Design_Family__c}
+                                                    class="slds-align_absolute-left"
+                                                >
+                                                    <span
+                                                        ><lightning-formatted-text
+                                                            title={item.Product2.B2B_Design_Family__c}
+                                                            value={item.Product2.B2B_Design_Family__c}
+                                                        ></lightning-formatted-text
+                                                    ></span>
+                                                </div>
+                                            </div>
+                                            <div if:false={item.isEvilEyeLens}>
+                                                <div>
+                                                    <!-- BS-2024 -->
+                                                    <b class="tooltip-productname">
+                                                        <lightning-formatted-rich-text
+                                                            value={item.Product2.Name}
+                                                            class="productModel"
+                                                            title={item.Product2.Name}
+                                                        >
+                                                        </lightning-formatted-rich-text>
+                                                    </b>
+                                                </div>
+                                                <div>
+                                                    <b>
+                                                        <lightning-formatted-text
+                                                            title={item.Product2.B2B_Model__c}
+                                                            value={item.Product2.B2B_Model__c}
+                                                            class="productModel"
+                                                        >
+                                                        </lightning-formatted-text>
+                                                    </b>
+                                                </div>
+                                            </div>
+                                            <!-- Start : Product image section-->
+                                            <div class="slds-is-relative image-wrap">
+                                                <div class="slds-m-vertical_small">
+                                                    <a
+                                                        tabindex="-1"
+                                                        href={item.productUrl}
+                                                        data-productid={item.product2Id}
+                                                        onclick={handleProductDetailNavigation}
+                                                    >
+                                                        <img
+                                                            if:true={item.Product2.B2B_Picture_Link__c}
+                                                            src={item.Product2.B2B_Picture_Link__c}
+                                                            alt={item.Product2.DisplayUrl}
+                                                            data-productid={item.Product2Id}
+                                                            title={item.productTitle}
+                                                            class="product-img"
+                                                        />
+                                                        <img
+                                                            if:false={item.Product2.B2B_Picture_Link__c}
+                                                            src={dummyImage}
+                                                            alt={dummyImage}
+                                                            data-productid={item.Product2Id}
+                                                            title={item.productTitle}
+                                                            class="product-img"
+                                                        />
+                                                    </a>
+                                                </div>
+                                                <!--BS-1270 start-->
+                                                <div class="slds-m-vertical_small">
+                                                    <img
+                                                        if:true={orderData.B2B_RX_Picture_Link__c}
+                                                        src={orderData.B2B_RX_Picture_Link__c}
+                                                        alt={orderData.B2B_RX_Picture_Link__c}
+                                                        class="product-img"
+                                                    />
+                                                </div>
+                                                <div class="slds-m-vertical_small">
+                                                    <img
+                                                        if:true={orderData.B2B_Lens_Picture_Link__c}
+                                                        src={orderData.B2B_Lens_Picture_Link__c}
+                                                        alt={orderData.B2B_Lens_Picture_Link__c}
+                                                        class="product-img"
+                                                    />
+                                                </div>
+                                                <!--BS-1270 end-->
+                                            </div>
+                                            <!-- End : Product image section-->
+                                            <!--SKU/QTY section-->
+                                            <div class="slds-m-top_small font-14-300 slds-p-bottom_x-small">
+                                                <div class="search-card-element">
+                                                    <div if:false={item.isVsRxItem}>
+                                                        <span class="fs-14">{labels.sku} </span>
+                                                        <span class="fs-14-bold slds-p-left_xx-small">{item.Product2.StockKeepingUnit}</span>
+                                                    </div>
+                                                </div>
+                                                <div class="slds-p-top_xx-small">
+                                                    <div if:false={item.isVsRxItem}>
+                                                        <span class="fs-14">{labels.quantity}</span>
+                                                        <span class="fs-14-bold slds-p-left_xx-small">{item.Quantity}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- End : Name/Image/Quantity/SKU section-->
+                                        <!-- Start : Product details section-->
+                                        <div class="slds-col slds-size_1-of-1 slds-medium-size_9-of-12 slds-large-size_10-of-12 slds-p-left_small">
+                                            <!-- Start BS-1802 SH/EE product details-->
+                                            <div if:false={item.isVsRxItem} class="slds-col slds-grid slds-wrap">
+                                                <!-- Product Information section -->
+                                                <div
+                                                    class="slds-col slds-size_1-of-1 slds-medium-size_8-of-12 slds-large-size_8-of-12 slds-grid slds-wrap slds-p-top_small"
+                                                >
+                                                    <div class="slds-col slds-size_1-of-1 slds-grid">
+                                                        <div class="slds-col slds-size_1-of-2 fs-14" if:true={item.frameColor}>{_frameColorLabel}</div>
+                                                        <div if:true={item.frameColor} class="slds-col slds-size_1-of-2 fs-14-bold slds-p-left_x-small">
+                                                            <span class="dot slds-m-horizontal_xx-small color-align" style={item.frameColor}></span>
+                                                            <span class="slds-m-horizontal_xx-small slds-m-bottom_small product-details">
+                                                                {item.colorNumber}
+                                                            </span>
+                                                            <span class="slds-m-horizontal_xx-small slds-m-bottom_small product-details">
+                                                                {item.Product2.B2B_Frame_Color_Description__c}
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div if:true={item.Product2.B2B_EE_Size__c} class="slds-col slds-size_1-of-1 slds-p-top_x-small slds-grid">
+                                                        <div class="slds-col slds-size_1-of-2 fs-14">{label.productSize}</div>
+                                                        <div class="slds-col slds-size_1-of-2 fs-14-bold slds-p-left_x-small">
+                                                            {item.Product2.B2B_EE_Size__c}
+                                                        </div>
+                                                    </div>
+                                                    <div
+                                                        if:true={item.Product2.B2B_Shape_Size__c}
+                                                        class="slds-col slds-size_1-of-1 slds-p-top_x-small slds-grid"
+                                                    >
+                                                        <div class="slds-col slds-size_1-of-2 fs-14">{productLabel.shapeSize}</div>
+                                                        <div class="slds-col slds-size_1-of-2 fs-14-bold slds-p-left_x-small">
+                                                            {item.Product2.B2B_Shape_Size__c}
+                                                        </div>
+                                                    </div>
+                                                    <div if:true={item.shapeSizeHeight} class="slds-col slds-size_1-of-1 slds-p-top_x-small slds-grid">
+                                                        <div class="slds-col slds-size_1-of-2 fs-14">{productLabel.sizeHeightLabel}</div>
+                                                        <div class="slds-col slds-size_1-of-2 fs-14-bold slds-p-left_x-small">
+                                                            <span>
+                                                                <img class="icon-img" src={lensShapeSVG} />
+                                                            </span>
+                                                            <span class="slds-m-horizontal_xx-small slds-m-bottom_small product-details"
+                                                                >{item.shapeSizeHeight}</span
+                                                            >
+                                                        </div>
+                                                    </div>
+                                                    <div
+                                                        if:true={item.Product2.B2B_Bridge_Size__c}
+                                                        class="slds-col slds-size_1-of-1 slds-p-top_x-small slds-grid"
+                                                    >
+                                                        <div class="slds-col slds-size_1-of-2 fs-14">{productLabel.bridgeSize}</div>
+                                                        <div class="slds-col slds-size_1-of-2 fs-14-bold slds-p-left_x-small">
+                                                            <span>
+                                                                <img class="icon-img" src={bridgeSizeSVG} />
+                                                            </span>
+                                                            <span class="slds-m-horizontal_xx-small slds-m-bottom_small product-details"
+                                                                >{item.Product2.B2B_Bridge_Size__c}</span
+                                                            >
+                                                        </div>
+                                                    </div>
+                                                    <div
+                                                        if:true={item.Product2.B2B_Temple_Length__c}
+                                                        class="slds-col slds-size_1-of-1 slds-p-top_x-small slds-grid"
+                                                    >
+                                                        <div class="slds-col slds-size_1-of-2 fs-14">{productLabel.templeLength}</div>
+                                                        <div class="slds-col slds-size_1-of-2 fs-14-bold slds-p-left_x-small">
+                                                            <span>
+                                                                <img class="icon-img" src={templeLengthSVG} />
+                                                            </span>
+                                                            <span class="slds-m-horizontal_xx-small slds-m-bottom_small product-details"
+                                                                >{item.Product2.B2B_Temple_Length__c}</span
+                                                            >
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- Customer/Clerk section -->
+                                                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12 slds-p-left_xx-small">
+                                                    <div if:true={item.B2B_Customer_Reference__c}>
+                                                        <div class="slds-p-top_small fs-14">{labels.customerName}</div>
+                                                        <div class="slds-p-top_xx-small fs-14-bold">{item.B2B_Customer_Reference__c}</div>
+                                                    </div>
+                                                    <div if:true={item.B2B_Employee_Name__c} class="slds-p-top_medium">
+                                                        <div class="slds-p-top_small fs-14">{productLabel.clerk}</div>
+
+                                                        <div class="slds-p-top_xx-small fs-14-bold">{item.B2B_Employee_Name__c}</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div if:true={item.isVsRxItem} class="slds-col slds-grid slds-wrap slds-p-left_small">
+                                                <!-- Start : RX Customer/Clerk details-->
+                                                <div
+                                                    if:true={item.isRxItem}
+                                                    class="slds-col slds-size_1-of-1 slds-grid slds-wrap slds-p-bottom_small slds-p-left_x-small header-data"
+                                                >
+                                                    <div
+                                                        class="slds-col slds-size_1-of-1 slds-medium-size_12-of-12 slds-large-size_4-of-12 slds-p-top_small slds-p-left_xx-small"
+                                                    >
+                                                        <div class="slds-col slds-size_1-of-1 slds-grid">
+                                                            <div class="slds-col slds-size_1-of-3 slds-medium-size_1-of-3 slds-large-size_1-of-2 fs-13">
+                                                                {labels.customerName}
+                                                            </div>
+                                                            <div
+                                                                class="slds-col slds-size_2-of-3 slds-medium-size_2-of-3 slds-large-size_1-of-2 fs-14-bold slds-p-left_xx-small"
+                                                            >
+                                                                {orderData.B2B_Customer_Name__c}
+                                                            </div>
+                                                        </div>
+                                                        <div class="slds-col slds-size_1-of-1 slds-grid fs-14 slds-p-top_small">
+                                                            <div class="slds-col slds-size_1-of-3 slds-medium-size_1-of-3 slds-large-size_1-of-2 fs-14">
+                                                                {label.orderType}
+                                                            </div>
+                                                            <div
+                                                                class="slds-col slds-size_2-of-3 slds-medium-size_2-of-3 slds-large-size_1-of-2 fs-14-bold slds-p-left_xx-small"
+                                                            >
+                                                                {orderData.B2B_Configuration_Type__c}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div
+                                                        class="slds-col slds-size_1-of-1 slds-medium-size_12-of-12 slds-large-size_3-of-12 slds-p-left_xx-small slds-p-top_small"
+                                                    >
+                                                        <div class="slds-col slds-size_1-of-1 slds-grid slds-col fs-14">
+                                                            <div class="slds-col slds-size_1-of-3 slds-medium-size_1-of-3 slds-large-size_2-of-6 fs-14">
+                                                                {productLabel.clerk}
+                                                            </div>
+                                                            <div
+                                                                class="slds-col slds-size_2-of-3 slds-medium-size_2-of-3 slds-large-size_4-of-6 fs-14-bold slds-p-left_xx-small"
+                                                            >
+                                                                {orderData.B2B_Clerk__c}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- End : RX Customer/Clerk details-->
+                                                <!-- Start : RX product Data-->
+                                                <div if:true={item.isRxItem} class="slds-col slds-size_1-of-1 slds-grid slds-wrap slds-p-bottom_small">
+                                                    <div
+                                                        class="slds-col slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_4-of-12 slds-p-left_x-small slds-p-top_small"
+                                                    >
+                                                        <div class="slds-col slds-size_1-of-1 slds-grid">
+                                                            <div
+                                                                class="slds-col slds-size_1-of-3 slds-medium-size_1-of-3 slds-large-size_1-of-2 fs-14"
+                                                                if:true={item.frameColor}
+                                                            >
+                                                                {_frameColorLabel}
+                                                            </div>
+                                                            <div
+                                                                if:true={item.frameColor}
+                                                                class="slds-col slds-size_2-of-3 slds-medium-size_2-of-3 slds-large-size_1-of-2 fs-14-bold slds-p-left_xx-small"
+                                                            >
+                                                                <span class="dot slds-m-horizontal_xx-small color-align" style={item.frameColor}></span>
+                                                                <span class="slds-m-horizontal_xx-small slds-m-bottom_small product-details">
+                                                                    {item.colorNumber}
+                                                                </span>
+                                                                <span class="slds-m-horizontal_xx-small slds-m-bottom_small product-details">
+                                                                    {item.Product2.B2B_Frame_Color_Description__c}
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                        <div
+                                                            if:true={item.Product2.B2B_EE_Size__c}
+                                                            class="slds-col slds-size_1-of-1 slds-p-top_x-small slds-grid"
+                                                        >
+                                                            <div
+                                                                class="slds-col slds-size_1-of-3 slds-medium-size_1-of-3 slds-large-size_1-of-2 fs-14"
+                                                                if:true={item.Product2.B2B_EE_Size__c}
+                                                            >
+                                                                {label.productSize}
+                                                            </div>
+                                                            <div
+                                                                class="slds-col slds-size_2-of-3 slds-medium-size_2-of-3 slds-large-size_1-of-2 fs-14-bold slds-p-left_x-small"
+                                                                if:true={item.Product2.B2B_EE_Size__c}
+                                                            >
+                                                                {item.Product2.B2B_EE_Size__c}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div
+                                                        class="slds-col slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_4-of-12 slds-p-left_x-small slds-p-top_small"
+                                                    >
+                                                        <div if:true={orderData.B2B_RX_Solution__c} class="slds-col slds-size_1-of-1 slds-grid">
+                                                            <div class="slds-col slds-size_1-of-3 slds-medium-size_1-of-3 slds-large-size_2-of-6 fs-14">
+                                                                {label._rxSolutionHeaderLabel}
+                                                            </div>
+                                                            <div
+                                                                class="slds-col slds-size_2-of-3 slds-medium-size_2-of-3 slds-large-size_4-of-6 fs-14-bold slds-p-left_x-small"
+                                                            >
+                                                                {orderData.B2B_RX_Solution__c}
+                                                            </div>
+                                                        </div>
+                                                        <div if:true={orderData.B2B_RX_Type__c} class="slds-col slds-size_1-of-1 slds-p-top_x-small slds-grid">
+                                                            <div class="slds-col slds-size_1-of-3 slds-medium-size_1-of-3 slds-large-size_2-of-6 fs-14">
+                                                                {label._RXTypeLabel}
+                                                            </div>
+                                                            <div
+                                                                class="slds-col slds-size_2-of-3 slds-medium-size_2-of-3 slds-large-size_4-of-6 fs-14-bold slds-p-left_x-small"
+                                                            >
+                                                                {orderData.B2B_RX_Type__c}
+                                                            </div>
+                                                        </div>
+                                                        <div if:true={orderData.isClipIn}>
+                                                            <div
+                                                                if:true={item.Product2.B2B_Variant_Shape__c}
+                                                                class="slds-col slds-size_1-of-1 slds-p-top_x-small slds-grid"
+                                                            >
+                                                                <div class="slds-col slds-size_1-of-3 slds-medium-size_1-of-3 slds-large-size_2-of-6 fs-14">
+                                                                    {label.vsLensShapeLabel}
+                                                                </div>
+                                                                <div
+                                                                    class="slds-col slds-size_2-of-3 slds-medium-size_2-of-3 slds-large-size_4-of-6 fs-14-bold slds-p-left_x-small"
+                                                                >
+                                                                    {item.Product2.B2B_Variant_Shape__c}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div
+                                                            if:true={orderData.B2B_RX_Solution_Description__c}
+                                                            class="slds-col slds-size_1-of-1 slds-p-top_x-small slds-grid"
+                                                        >
+                                                            <div class="slds-col slds-size_1-of-3 slds-medium-size_1-of-3 slds-large-size_2-of-6 fs-14">
+                                                                {label._colorLabel}
+                                                            </div>
+                                                            <div
+                                                                class="slds-col slds-size_2-of-3 slds-medium-size_2-of-3 slds-large-size_4-of-6 fs-14-bold slds-p-left_x-small"
+                                                            >
+                                                                {orderData.B2B_RX_Solution_Description__c}
+                                                            </div>
+                                                        </div>
+                                                        <div
+                                                            if:true={orderData.B2B_without_clipin__c}
+                                                            class="slds-col slds-size_1-of-1 slds-p-top_x-small slds-grid"
+                                                        >
+                                                            <div class="slds-col slds-size_1-of-3 slds-medium-size_1-of-3 slds-large-size_2-of-6 fs-14">
+                                                                {label.lensOnlyForClipIn}
+                                                            </div>
+                                                            <div
+                                                                class="slds-col slds-size_2-of-3 slds-medium-size_2-of-3 slds-large-size_4-of-6 fs-14-bold fs-14-bold slds-p-left_x-small"
+                                                            >
+                                                                {label.yes}
+                                                            </div>
+                                                        </div>
+                                                        <div
+                                                            if:true={orderData.B2B_Lenses_without_Adapter__c}
+                                                            class="slds-col slds-size_1-of-1 slds-p-top_x-small slds-grid"
+                                                        >
+                                                            <div class="slds-col slds-size_1-of-3 slds-medium-size_1-of-3 slds-large-size_2-of-6 fs-14">
+                                                                {label.lensesWithoutAdapter}
+                                                            </div>
+                                                            <div
+                                                                class="slds-col slds-size_2-of-3 slds-medium-size_2-of-3 slds-large-size_4-of-6 fs-14-bold slds-p-left_x-small"
+                                                            >
+                                                                {label.yes}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div
+                                                        class="slds-col slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_4-of-12 slds-p-left_x-small slds-p-top_small"
+                                                    >
+                                                        <div if:true={orderData.B2B_Lens_Type__c} class="slds-col slds-size_1-of-1 slds-grid">
+                                                            <div class="slds-col slds-size_1-of-3 slds-medium-size_1-of-3 slds-large-size_1-of-2 fs-14">
+                                                                {label.lensType}
+                                                            </div>
+                                                            <div
+                                                                class="slds-col slds-size_2-of-3 slds-medium-size_2-of-3 slds-large-size_1-of-2 fs-14-bold slds-p-left_x-small"
+                                                            >
+                                                                {orderData.B2B_Lens_Type__c}
+                                                            </div>
+                                                        </div>
+                                                        <div
+                                                            if:true={orderData.B2B_Lens_Index__c}
+                                                            class="slds-col slds-size_1-of-1 slds-p-top_x-small slds-grid"
+                                                        >
+                                                            <div class="slds-col slds-size_1-of-3 slds-medium-size_1-of-3 slds-large-size_1-of-2 fs-14">
+                                                                {label.lensIndex}
+                                                            </div>
+                                                            <div
+                                                                class="slds-col slds-size_2-of-3 slds-medium-size_2-of-3 slds-large-size_1-of-2 fs-14-bold slds-p-left_x-small"
+                                                            >
+                                                                {orderData.B2B_Lens_Index__c}
+                                                            </div>
+                                                        </div>
+                                                        <!-- Start : BS-1938-->
+                                                        <div if:true={_showProgressiveLength} class="slds-col slds-size_1-of-1 slds-p-top_x-small slds-grid">
+                                                            <div class="slds-col slds-size_1-of-3 slds-medium-size_1-of-3 slds-large-size_1-of-2 fs-14">
+                                                                {lensSelectionLabel.progressionLength}
+                                                            </div>
+                                                            <div
+                                                                class="slds-col slds-size_2-of-3 slds-medium-size_2-of-3 slds-large-size_1-of-2 fs-14-bold slds-p-left_x-small"
+                                                            >
+                                                                {orderData.B2B_Progression_Length__c}
+                                                            </div>
+                                                        </div>
+                                                        <!-- End : BS-1938-->
+                                                        <div if:false={orderData.isClipIn}>
+                                                            <div
+                                                                if:true={orderData.B2B_Lens_Color__c}
+                                                                class="slds-col slds-size_1-of-1 slds-p-top_x-small slds-grid"
+                                                            >
+                                                                <div class="slds-col slds-size_1-of-3 slds-medium-size_1-of-3 slds-large-size_1-of-2 fs-14">
+                                                                    {label.lensColor}
+                                                                </div>
+                                                                <div
+                                                                    class="slds-col slds-size_2-of-3 slds-medium-size_2-of-3 slds-large-size_1-of-2 fs-14-bold slds-p-left_x-small"
+                                                                >
+                                                                    {orderData.B2B_Lens_Color__c}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div
+                                                            if:true={orderData.B2B_Antireflection_SKU__c}
+                                                            class="slds-col slds-size_1-of-1 slds-p-top_x-small slds-grid"
+                                                        >
+                                                            <div class="slds-col slds-size_1-of-3 slds-medium-size_1-of-3 slds-large-size_1-of-2 fs-14">
+                                                                {label.antireflectionLabel}
+                                                            </div>
+                                                            <div
+                                                                class="slds-col slds-size_2-of-3 slds-medium-size_2-of-3 slds-large-size_1-of-2 fs-14-bold slds-p-left_x-small"
+                                                            >
+                                                                {label.yes}
+                                                            </div>
+                                                        </div>
+                                                        <div
+                                                            if:false={orderData.B2B_Antireflection_SKU__c}
+                                                            class="slds-col slds-size_1-of-1 slds-p-top_x-small slds-grid"
+                                                        >
+                                                            <div class="slds-col slds-size_1-of-3 slds-medium-size_1-of-3 slds-large-size_1-of-2 fs-14">
+                                                                {label.antireflectionLabel}
+                                                            </div>
+                                                            <div
+                                                                class="slds-col slds-size_2-of-3 slds-medium-size_2-of-3 slds-large-size_1-of-2 fs-14-bold slds-p-left_x-small"
+                                                            >
+                                                                {label.no}
+                                                            </div>
+                                                        </div>
+                                                        <div class="slds-col slds-size_1-of-1 slds-p-top_x-small slds-grid">
+                                                            <div class="slds-col slds-size_1-of-3 slds-medium-size_1-of-3 slds-large-size_1-of-2 fs-14">
+                                                                {label.hardCoating}
+                                                            </div>
+                                                            <div
+                                                                class="slds-col slds-size_2-of-3 slds-medium-size_2-of-3 slds-large-size_1-of-2 fs-14-bold slds-p-left_x-small"
+                                                            >
+                                                                {label.yes}
+                                                            </div>
+                                                        </div>
+                                                        <div
+                                                            if:true={orderData.B2B_Lens_Material__c}
+                                                            class="slds-col slds-size_1-of-1 slds-p-top_x-small slds-grid"
+                                                        >
+                                                            <div class="slds-col slds-size_1-of-3 slds-medium-size_1-of-3 slds-large-size_1-of-2 fs-14">
+                                                                {label.material}
+                                                            </div>
+                                                            <div
+                                                                class="slds-col slds-size_2-of-3 slds-medium-size_2-of-3 slds-large-size_1-of-2 fs-14-bold slds-p-left_x-small"
+                                                            >
+                                                                {orderData.B2B_Lens_Material__c}
+                                                            </div>
+                                                        </div>
+                                                        <div if:true={orderData.showEvilEyeEdge} class="slds-col slds-size_1-of-1 slds-p-top_x-small slds-grid">
+                                                            <div class="slds-col slds-size_1-of-3 slds-medium-size_1-of-3 slds-large-size_1-of-2 fs-14">
+                                                                {lensSelectionLabel.evilEyeEdgeLabel}
+                                                            </div>
+                                                            <div
+                                                                class="slds-col slds-size_2-of-3 slds-medium-size_2-of-3 slds-large-size_1-of-2 fs-14-bold slds-p-left_x-small"
+                                                            >
+                                                                {label.yes}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- End : RX product Data-->
+                                                <!-- Start : VS Customer/Clerk details-->
+                                                <div
+                                                    if:true={item.isVsItem}
+                                                    class="slds-col slds-size_1-of-1 slds-grid slds-wrap slds-p-bottom_small slds-p-left_small header-data"
+                                                >
+                                                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_5-of-12 slds-p-top_small">
+                                                        <div class="slds-col slds-size_1-of-1 slds-grid fs-14">
+                                                            <div
+                                                                class="slds-col slds-size_1-of-3 slds-medium-size_1-of-3 slds-large-size_1-of-2 slds-size_1-of-3 fs-13"
+                                                            >
+                                                                {labels.customerName}
+                                                            </div>
+                                                            <div
+                                                                class="slds-col slds-size_2-of-3 slds-medium-size_2-of-3 slds-large-size_1-of-2 fs-14-bold slds-p-left_x-small"
+                                                            >
+                                                                {orderData.B2B_Customer_Name__c}
+                                                            </div>
+                                                        </div>
+                                                        <div class="slds-col slds-size_1-of-1 slds-grid fs-14 slds-p-top_small">
+                                                            <div
+                                                                class="slds-col slds-col slds-size_1-of-3 slds-medium-size_1-of-3 slds-large-size_1-of-2 fs-14"
+                                                            >
+                                                                {label.orderType}
+                                                            </div>
+                                                            <div
+                                                                class="slds-col slds-size_2-of-3 slds-medium-size_2-of-3 slds-large-size_1-of-2 fs-14-bold slds-p-left_x-small"
+                                                            >
+                                                                {orderData.B2B_Configuration_Type__c}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div
+                                                        class="slds-col slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_7-of-12 slds-p-left_xxx-small slds-p-top_small"
+                                                    >
+                                                        <div class="slds-col slds-size_1-of-1 slds-grid slds-col fs-14">
+                                                            <div class="slds-col slds-size_1-of-3 slds-medium-size_1-of-3 slds-large-size_2-of-5 fs-14">
+                                                                {productLabel.clerk}
+                                                            </div>
+                                                            <div
+                                                                class="slds-col slds-size_2-of-3 slds-medium-size_2-of-3 slds-large-size_3-of-5 fs-14-bold slds-p-left_x-small"
+                                                            >
+                                                                {orderData.B2B_Clerk__c}
+                                                            </div>
+                                                        </div>
+                                                        <div class="slds-col slds-size_1-of-1 slds-grid slds-col fs-14 slds-p-top_small">
+                                                            <div class="slds-col slds-size_1-of-3 slds-medium-size_1-of-3 slds-large-size_2-of-5 fs-14">
+                                                                {_frameTypeHeaderLabel}
+                                                            </div>
+                                                            <div
+                                                                class="slds-col slds-size_2-of-3 slds-medium-size_2-of-3 slds-large-size_3-of-5 fs-14-bold slds-p-left_x-small"
+                                                            >
+                                                                {orderData.B2B_Frame_Type__c}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- End : VS Customer/Clerk details-->
+                                                <!-- Start : VS product Data-->
+                                                <div if:true={item.isVsItem} class="slds-col slds-size_1-of-1 slds-grid slds-wrap slds-p-bottom_small">
+                                                    <div
+                                                        if:true={_lensSelectionReadOnlySetupDone}
+                                                        class="slds-col slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_5-of-12 slds-var-p-left_small slds-p-top_small"
+                                                    >
+                                                        <div class="slds-col slds-size_1-of-1 slds-grid">
+                                                            <div
+                                                                class="slds-col slds-size_1-of-3 slds-medium-size_1-of-3 slds-large-size_1-of-2 fs-14"
+                                                                if:true={item.frameColor}
+                                                            >
+                                                                {_frameColorLabel}
+                                                            </div>
+                                                            <div
+                                                                if:true={item.frameColor}
+                                                                class="slds-col slds-size_2-of-3 slds-medium-size_2-of-3 slds-large-size_1-of-2 fs-14-bold slds-p-left_x-small"
+                                                            >
+                                                                <span class="dot slds-m-horizontal_xx-small color-align" style={item.frameColor}></span>
+                                                                <span class="slds-m-horizontal_xx-small slds-m-bottom_small product-details"
+                                                                    >{item.colorNumber} {item.Product2.B2B_Frame_Color_Description__c}</span
+                                                                >
+                                                            </div>
+                                                        </div>
+                                                        <div class="slds-col slds-size_1-of-1 slds-p-top_x-small slds-grid">
+                                                            <div class="slds-col slds-size_1-of-3 slds-medium-size_1-of-3 slds-large-size_1-of-2 fs-14">
+                                                                {label.bridgeTempleLabelValue}
+                                                            </div>
+                                                            <div
+                                                                class="slds-col slds-size_2-of-3 slds-medium-size_2-of-3 slds-large-size_1-of-2 fs-14-bold slds-p-left_x-small"
+                                                            >
+                                                                {item.Product2.B2B_Bridge_Size__c}/{item.Product2.B2B_Temple_Length__c}
+                                                            </div>
+                                                        </div>
+                                                        <div
+                                                            if:true={lensSelectionReadOnlyCollection.lensSize}
+                                                            class="slds-col slds-size_1-of-1 slds-p-top_x-small slds-grid"
+                                                        >
+                                                            <div class="slds-col slds-size_1-of-3 slds-medium-size_1-of-3 slds-large-size_1-of-2 fs-14">
+                                                                {label.vsLensSizeLabel}
+                                                            </div>
+                                                            <div
+                                                                class="slds-col slds-size_2-of-3 slds-medium-size_2-of-3 slds-large-size_1-of-2 fs-14-bold slds-p-left_x-small"
+                                                            >
+                                                                {lensSelectionReadOnlyCollection.lensSize}
+                                                            </div>
+                                                        </div>
+                                                        <div
+                                                            if:true={lensSelectionReadOnlyCollection.lensShape}
+                                                            class="slds-col slds-size_1-of-1 slds-p-top_x-small slds-grid"
+                                                        >
+                                                            <div class="slds-col slds-size_1-of-3 slds-medium-size_1-of-3 slds-large-size_1-of-2 fs-14">
+                                                                {label.vsLensShapeLabel}
+                                                            </div>
+                                                            <div
+                                                                class="slds-col slds-size_2-of-3 slds-medium-size_2-of-3 slds-large-size_1-of-2 fs-14-bold slds-p-left_x-small"
+                                                            >
+                                                                {lensSelectionReadOnlyCollection.lensShape}
+                                                            </div>
+                                                        </div>
+                                                        <div
+                                                            if:true={lensSelectionReadOnlyCollection.colorGrooveData}
+                                                            class="slds-col slds-size_1-of-1 slds-p-top_x-small slds-grid"
+                                                        >
+                                                            <div class="slds-col slds-size_1-of-3 slds-medium-size_1-of-3 slds-large-size_1-of-2 fs-14">
+                                                                {lensSelectionReadOnlyCollection.grooveColorLabel}
+                                                            </div>
+                                                            <div
+                                                                class="slds-col slds-size_2-of-3 slds-medium-size_2-of-3 slds-large-size_1-of-2 fs-14-bold slds-p-left_x-small display-flex"
+                                                            >
+                                                                <span
+                                                                    class="color-bubble-vs"
+                                                                    style={lensSelectionReadOnlyCollection.colorGrooveData.styling}
+                                                                ></span>
+                                                                <span class="slds-m-left_medium fs-14-bold"
+                                                                    >{lensSelectionReadOnlyCollection.colorGrooveData.label}</span
+                                                                >
+                                                            </div>
+                                                        </div>
+                                                        <div
+                                                            if:true={lensSelectionReadOnlyCollection.accentRingData}
+                                                            class="slds-col slds-size_1-of-1 slds-p-top_x-small slds-grid"
+                                                        >
+                                                            <div class="slds-col slds-size_1-of-3 slds-medium-size_1-of-3 slds-large-size_1-of-2 fs-14">
+                                                                {label.accentRingColorLabel}
+                                                            </div>
+                                                            <div
+                                                                class="slds-col slds-size_2-of-3 slds-medium-size_2-of-3 slds-large-size_1-of-2 fs-14-bold slds-p-left_x-small display-flex"
+                                                            >
+                                                                <span
+                                                                    class="color-bubble-vs"
+                                                                    style={lensSelectionReadOnlyCollection.accentRingData.styling}
+                                                                ></span>
+                                                                <span class="slds-m-left_medium fs-14-bold"
+                                                                    >{lensSelectionReadOnlyCollection.accentRingData.label}</span
+                                                                >
+                                                            </div>
+                                                        </div>
+                                                        <div
+                                                            if:true={lensSelectionReadOnlyCollection.shapeAdjusted}
+                                                            class="slds-col slds-size_1-of-1 slds-p-top_x-small slds-grid"
+                                                        >
+                                                            <div class="slds-col slds-size_1-of-3 slds-medium-size_1-of-3 slds-large-size_1-of-2 fs-14">
+                                                                {label.vsShapeAdjusted}
+                                                            </div>
+                                                            <div
+                                                                class="slds-col slds-size_2-of-3 slds-medium-size_2-of-3 slds-large-size_1-of-2 fs-14-bold slds-p-left_x-small"
+                                                            >
+                                                                {label.yes}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div
+                                                        if:true={_lensSelectionReadOnlySetupDone}
+                                                        class="slds-col slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_7-of-12 vs-data-container slds-p-top_small"
+                                                    >
+                                                        <div if:true={lensSelectionReadOnlyCollection.glazingValue} class="slds-col slds-size_1-of-1 slds-grid">
+                                                            <div class="slds-col slds-size_1-of-3 slds-medium-size_1-of-3 slds-large-size_2-of-5 fs-14">
+                                                                {lensSelectionLabel.glazing}
+                                                            </div>
+                                                            <div
+                                                                class="slds-col slds-size_1-of-3 slds-medium-size_1-of-3 slds-large-size_3-of-5 fs-14-bold slds-p-left_x-small"
+                                                            >
+                                                                {lensSelectionReadOnlyCollection.glazingValue}
+                                                            </div>
+                                                        </div>
+                                                        <div
+                                                            if:true={lensSelectionReadOnlyCollection.lensType}
+                                                            class="slds-col slds-size_1-of-1 slds-p-top_x-small slds-grid"
+                                                        >
+                                                            <div class="slds-col slds-size_1-of-3 slds-medium-size_1-of-3 slds-large-size_2-of-5 fs-14">
+                                                                {lensSelectionLabel.lensType}
+                                                            </div>
+                                                            <div
+                                                                class="slds-col slds-size_1-of-3 slds-medium-size_1-of-3 slds-large-size_3-of-5 fs-14-bold slds-p-left_x-small"
+                                                            >
+                                                                {lensSelectionReadOnlyCollection.lensType}
+                                                            </div>
+                                                        </div>
+                                                        <div if:true={_showProgressiveLength} class="slds-col slds-size_1-of-1 slds-p-top_x-small slds-grid">
+                                                            <div class="slds-col slds-size_1-of-3 slds-medium-size_1-of-3 slds-large-size_2-of-5 fs-14">
+                                                                {lensSelectionLabel.progressionLength}
+                                                            </div>
+                                                            <div
+                                                                class="slds-col slds-size_1-of-3 slds-medium-size_1-of-3 slds-large-size_3-of-5 fs-14-bold slds-p-left_x-small"
+                                                            >
+                                                                {lensSelectionReadOnlyCollection.progressionLength}
+                                                            </div>
+                                                        </div>
+                                                        <div
+                                                            if:true={lensSelectionReadOnlyCollection.lensDistance}
+                                                            class="slds-col slds-size_1-of-1 slds-p-top_x-small slds-grid"
+                                                        >
+                                                            <div class="slds-col slds-size_1-of-3 slds-medium-size_1-of-3 slds-large-size_2-of-5 fs-14">
+                                                                {lensSelectionLabel.lensDistance}
+                                                            </div>
+                                                            <div
+                                                                class="slds-col slds-size_1-of-3 slds-medium-size_1-of-3 slds-large-size_3-of-5 fs-14-bold slds-p-left_x-small"
+                                                            >
+                                                                {lensSelectionReadOnlyCollection.lensDistance}
+                                                            </div>
+                                                        </div>
+                                                        <div
+                                                            if:true={lensSelectionReadOnlyCollection.lensIndex}
+                                                            class="slds-col slds-size_1-of-1 slds-p-top_x-small slds-grid"
+                                                        >
+                                                            <div class="slds-col slds-size_1-of-3 slds-medium-size_1-of-3 slds-large-size_2-of-5 fs-14">
+                                                                {lensSelectionLabel.lensIndex}
+                                                            </div>
+                                                            <div
+                                                                class="slds-col slds-size_1-of-3 slds-medium-size_1-of-3 slds-large-size_3-of-5 fs-14-bold slds-p-left_x-small"
+                                                            >
+                                                                {lensSelectionReadOnlyCollection.lensIndex}
+                                                            </div>
+                                                        </div>
+                                                        <!-- Start: Bs-2322-->
+                                                        <div
+                                                            if:true={lensSelectionReadOnlyCollection.selectedLensColor}
+                                                            class="slds-col slds-size_1-of-1 slds-p-top_x-small slds-grid"
+                                                        >
+                                                            <div class="slds-col slds-size_1-of-3 slds-medium-size_1-of-3 slds-large-size_2-of-5 fs-14">
+                                                                {label.lensColor}
+                                                            </div>
+                                                            <div
+                                                                class="slds-col slds-size_1-of-3 slds-medium-size_1-of-3 slds-large-size_3-of-5 fs-14-bold slds-p-left_x-small"
+                                                            >
+                                                                {lensSelectionReadOnlyCollection.selectedLensColor}
+                                                            </div>
+                                                        </div>
+                                                        <!-- End: Bs-2322-->
+                                                        <div
+                                                            if:true={lensSelectionReadOnlyCollection.visualPreferences}
+                                                            class="slds-col slds-size_1-of-1 slds-p-top_x-small slds-grid"
+                                                        >
+                                                            <div class="slds-col slds-size_1-of-3 slds-medium-size_1-of-3 slds-large-size_2-of-5 fs-14">
+                                                                {lensSelectionLabel.visualPreferences}
+                                                            </div>
+                                                            <div
+                                                                class="slds-col slds-size_1-of-3 slds-medium-size_1-of-3 slds-large-size_3-of-5 fs-14-bold slds-p-left_x-small"
+                                                            >
+                                                                {lensSelectionReadOnlyCollection.visualPreferences}
+                                                            </div>
+                                                        </div>
+                                                        <div
+                                                            if:true={lensSelectionReadOnlyCollection.blueSensation}
+                                                            class="slds-col slds-size_1-of-1 slds-p-top_x-small slds-grid"
+                                                        >
+                                                            <div class="slds-col slds-size_1-of-3 slds-medium-size_1-of-3 slds-large-size_2-of-5 fs-14">
+                                                                {lensSelectionLabel.blueSensation}
+                                                            </div>
+                                                            <div
+                                                                class="slds-col slds-size_1-of-3 slds-medium-size_1-of-3 slds-large-size_3-of-5 fs-14-bold slds-p-left_x-small"
+                                                            >
+                                                                {lensSelectionReadOnlyCollection.blueSensation}
+                                                            </div>
+                                                        </div>
+                                                        <div
+                                                            if:true={lensSelectionReadOnlyCollection.lensColor}
+                                                            class="slds-col slds-size_1-of-1 slds-p-top_x-small slds-grid"
+                                                        >
+                                                            <div class="slds-col slds-size_1-of-3 slds-medium-size_1-of-3 slds-large-size_2-of-5 fs-14">
+                                                                {lensSelectionLabel.lensColor}
+                                                            </div>
+                                                            <div
+                                                                class="slds-col slds-size_1-of-3 slds-medium-size_1-of-3 slds-large-size_3-of-5 fs-14-bold slds-p-left_x-small"
+                                                            >
+                                                                {lensSelectionReadOnlyCollection.lensColor}
+                                                            </div>
+                                                        </div>
+                                                        <div
+                                                            if:true={lensSelectionReadOnlyCollection.photoSensation}
+                                                            class="slds-col slds-size_1-of-1 slds-p-top_x-small slds-grid"
+                                                        >
+                                                            <div class="slds-col slds-size_1-of-3 slds-medium-size_1-of-3 slds-large-size_2-of-5 fs-14">
+                                                                {lensSelectionLabel.photoSensation}
+                                                            </div>
+                                                            <div
+                                                                class="slds-col slds-size_1-of-3 slds-medium-size_1-of-3 slds-large-size_3-of-5 fs-14-bold slds-p-left_x-small"
+                                                            >
+                                                                {lensSelectionReadOnlyCollection.photoSensation}
+                                                            </div>
+                                                        </div>
+                                                        <div
+                                                            if:true={lensSelectionReadOnlyCollection.lensEdge}
+                                                            class="slds-col slds-size_1-of-1 slds-p-top_x-small slds-grid"
+                                                        >
+                                                            <div class="slds-col slds-size_1-of-3 slds-medium-size_1-of-3 slds-large-size_2-of-5 fs-14">
+                                                                {lensSelectionLabel.lensEdge}
+                                                            </div>
+                                                            <div
+                                                                class="slds-col slds-size_1-of-3 slds-medium-size_1-of-3 slds-large-size_3-of-5 fs-14-bold slds-p-left_x-small"
+                                                            >
+                                                                {lensSelectionReadOnlyCollection.lensEdge}
+                                                            </div>
+                                                        </div>
+                                                        <div
+                                                            if:true={lensSelectionReadOnlyCollection.productMaterial}
+                                                            class="slds-col slds-size_1-of-1 slds-p-top_x-small slds-grid"
+                                                        >
+                                                            <div class="slds-col slds-size_1-of-3 slds-medium-size_1-of-3 slds-large-size_2-of-5 fs-14">
+                                                                {lensSelectionLabel.material}
+                                                            </div>
+                                                            <div
+                                                                class="slds-col slds-size_1-of-3 slds-medium-size_1-of-3 slds-large-size_3-of-5 fs-14-bold slds-p-left_x-small"
+                                                            >
+                                                                {lensSelectionReadOnlyCollection.productMaterial}
+                                                            </div>
+                                                        </div>
+                                                        <div
+                                                            if:true={lensSelectionReadOnlyCollection.antireflectionCoatingValue}
+                                                            class="slds-col slds-size_1-of-1 slds-p-top_x-small slds-grid"
+                                                        >
+                                                            <div class="slds-col slds-size_1-of-3 slds-medium-size_1-of-3 slds-large-size_2-of-5 fs-14">
+                                                                {lensSelectionLabel.hardCoatingLabel}
+                                                                <!--BS-2190-->
+                                                            </div>
+                                                            <div
+                                                                class="slds-col slds-size_1-of-3 slds-medium-size_1-of-3 slds-large-size_3-of-5 fs-14-bold slds-p-left_x-small"
+                                                            >
+                                                                {lensSelectionReadOnlyCollection.antireflectionCoatingValue}
+                                                            </div>
+                                                        </div>
+                                                        <div
+                                                            if:true={lensSelectionReadOnlyCollection.sGraving}
+                                                            class="slds-col slds-size_1-of-1 slds-p-top_x-small slds-grid"
+                                                        >
+                                                            <div class="slds-col slds-size_1-of-3 slds-medium-size_1-of-3 slds-large-size_2-of-5 fs-14">
+                                                                {silhouetteGravingLabel}
+                                                            </div>
+                                                            <div
+                                                                class="slds-col slds-size_1-of-3 slds-medium-size_1-of-3 slds-large-size_3-of-5 fs-14-bold slds-p-left_x-small"
+                                                            >
+                                                                {label.yes}
+                                                            </div>
+                                                        </div>
+                                                        <div
+                                                            if:false={lensSelectionReadOnlyCollection.sGraving}
+                                                            class="slds-col slds-size_1-of-1 slds-p-top_x-small slds-grid"
+                                                        >
+                                                            <div class="slds-col slds-size_1-of-3 slds-medium-size_1-of-3 slds-large-size_2-of-5 fs-14">
+                                                                {silhouetteGravingLabel}
+                                                            </div>
+                                                            <div
+                                                                class="slds-col slds-size_1-of-3 slds-medium-size_1-of-3 slds-large-size_3-of-5 fs-14-bold slds-p-left_x-small"
+                                                            >
+                                                                {label.no}
+                                                            </div>
+                                                        </div>
+                                                        <div
+                                                            if:true={lensSelectionReadOnlyCollection.showFacetCut}
+                                                            class="slds-col slds-size_1-of-1 slds-p-top_x-small slds-grid"
+                                                        >
+                                                            <div class="slds-col slds-size_1-of-3 slds-medium-size_1-of-3 slds-large-size_2-of-5 fs-14">
+                                                                {label.facetCutLabel}
+                                                            </div>
+                                                            <div
+                                                                if:true={lensSelectionReadOnlyCollection.withFacetCut}
+                                                                class="slds-col slds-size_1-of-3 slds-medium-size_1-of-3 slds-large-size_3-of-5 fs-14-bold slds-p-left_x-small"
+                                                            >
+                                                                {label.yes}
+                                                            </div>
+                                                            <div
+                                                                if:false={lensSelectionReadOnlyCollection.withFacetCut}
+                                                                class="slds-col slds-size_1-of-3 slds-medium-size_1-of-3 slds-large-size_3-of-5 fs-14-bold slds-p-left_x-small"
+                                                            >
+                                                                {label.no}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- End : VS product Data-->
+                                            </div>
+                                            <!-- End BS-1802 SH/EE product details-->
+                                        </div>
+                                        <!-- End : Product details section-->
+                                        <!-- Start : VS/RX additional details section -->
+                                        <div if:true={item.isVsRxItem} class="additional-attribute-section">
+                                            <c-b2b_vs_rx_additional-order-details
+                                                order-data={orderData}
+                                                label={label}
+                                                is-rx-item={item.isRXItem}
+                                                is-vs-item={item.isVSItem}
+                                                lens-selection-read-only-collection={lensSelectionReadOnlyCollection}
+                                                lens-selection-label={lensSelectionLabel}
+                                                is-comment={_isComment}
+                                                instructions-label={_instructionsLabel}
+                                                shape-adjusted={lensSelectionReadOnlyCollection.shapeAdjusted}
+                                                lens-configurator-id={lensConfiguratorId}
+                                            >
+                                            </c-b2b_vs_rx_additional-order-details>
+                                        </div>
+                                    </li>
+                                </div>
+                                <!--BS-998 end-->
+                            </template>
+                        </div>
+                    </ul>
+                </div>
+            </div>
+            <!-- Start : Address details for SH store for Silhouette-->
+            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-1 slds-p-vertical_small slds-border_top slds-p-top_small">
+                <div class="font-24-500 slds-m-bottom_small">
+                    <span>
+                        <img src={addressSVG} class="image-size slds-m-horizontal_xx-small" />
+                    </span>
+                    <span>{labels.address}</span>
+                </div>
+                <div class="address-container">
+                    <div>
+                        <div class="order-details">
+                            <div class="font-16-500">{labels.shippingAddress}</div>
+                            <div class="font-14-300 slds-p-vertical_small">
+                                <template if:true={shippingAddress}>
+                                    <template for:each={shippingAddress} for:item="item">
+                                        <span class="font-14-300" key={item.key} if:true={item.value}>{item.value}</span>
+                                    </template>
+                                </template>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="order-details">
+                            <div class="font-16-500">{labels.billingAddress}</div>
+                            <div class="font-14-300 slds-p-vertical_small">
+                                <template for:each={billingAddress} for:item="item">
+                                    <span class="font-14-300" key={item.key} if:true={item.value}>{item.value}</span>
+                                </template>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End : Address details for SH store for Silhouette-->
+        </div>
+    </template>
+</template>

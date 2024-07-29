@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>B2B_With_Partial_Color_Groove__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>This field maps the user&apos;s partial groove selection on VS configurator to Order</description>
+    <externalId>false</externalId>
+    <label>With Partial Color Groove</label>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

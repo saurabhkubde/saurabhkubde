@@ -1,0 +1,207 @@
+<template>
+    <!-- Container for the newsletter subscription form -->
+    <template if:true={_isNBBrand}>
+        <div class="slds-m-around_medium newsletterContainer">
+            <!-- Heading for the newsletter subscription form -->
+            <h1 class="newsletter-heading">{_newsLetterLabel}</h1>
+
+            <!-- Salutation radio group -->
+            <div class="slds-form-element">
+                <lightning-radio-group
+                    name="salutation"
+                    label={_salutationLabel}
+                    options={salutationOptions}
+                    value={_salutationValue}
+                    class="field-name"
+                    onchange={handleSalutationChange}
+                    type="radio"
+                ></lightning-radio-group>
+            </div>
+
+            <!-- First Name input field -->
+            <div class="slds-form-element">
+                <label class="slds-form-element__label field-name" for="firstName">{_firstNameLabel}*</label>
+                <div class="slds-form-element__control">
+                    <input type="text" id="firstName" name="firstName" value={_firstName} oninput={handleInputChange} class="slds-input input" required />
+                </div>
+            </div>
+
+            <!-- Last Name input field -->
+            <div class="slds-form-element">
+                <label class="slds-form-element__label field-name" for="lastName">{_lastNameLabel}*</label>
+                <div class="slds-form-element__control">
+                    <input type="text" id="lastName" name="lastName" value={_lastName} oninput={handleInputChange} class="slds-input input" required />
+                </div>
+            </div>
+
+            <!-- Email input field -->
+            <div class="slds-form-element">
+                <label class="slds-form-element__label field-name" for="email">{_emailLabel}*</label>
+                <div class="slds-form-element__control">
+                    <input type="email" id="email" name="email" value={_email} oninput={handleInputChange} class="slds-input input" required />
+                </div>
+            </div>
+
+            <!-- Newsletter Language select field -->
+            <div class="slds-form-element">
+                <label class="slds-form-element__label field-name" for="newsletterLanguage">{_newsLetterLanguageLabel}*</label>
+                <div class="slds-form-element__control">
+                    <select
+                        id="newsletterLanguage"
+                        name="newsletterLanguage"
+                        value={_newsletterLanguage}
+                        onchange={handleInputChange}
+                        class="slds-select input select-option"
+                        required
+                    >
+                        <option value="" disabled selected>{_selectLanguage}</option>
+                        <!-- Placeholder option -->
+                        <template for:each={_supportedLanguages} for:item="language">
+                            <option key={language.value} value={language.value}>{language.label}</option>
+                            <!-- Language options -->
+                        </template>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Country select field -->
+            <div class="slds-form-element">
+                <label class="slds-form-element__label field-name" for="country">{_countryLabel}*</label>
+                <div class="slds-form-element__control">
+                    <select id="country" name="country" value={_country} onchange={handleInputChange} class="slds-select input select-option" required>
+                        <option value="" disabled selected>{_selectCountry}</option>
+                        <!-- Placeholder option -->
+                        <template for:each={_supportedCountries} for:item="country">
+                            <option key={country.value} value={country.value}>{country.label}</option>
+                            <!-- Country options -->
+                        </template>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Terms and Conditions checkbox -->
+            <div class="slds-form-element">
+                <div class="slds-checkbox">
+                    <input type="checkbox" id="terms" name="terms" onchange={handleInputChange} required />
+                    <label class="slds-checkbox__label" for="terms">
+                        <span class="slds-checkbox_faux"></span>
+                        <span class="slds-form-element__label text-style"
+                            >{_checkboxInitialText} <a href="" class="linkout-text">{_checkboxMiddleText}</a>{_checkboxEndText}</span
+                        >
+                    </label>
+                </div>
+            </div>
+
+            <!-- Subscribe button -->
+            <button type="button" class="button-style" onclick={handleSubscribe}>{_sendButton}</button>
+        </div>
+    </template>
+
+    <template if:true={_isSHBrand}>
+        <div class="slds-m-around_medium newsletterContainer">
+            <!-- Heading for the newsletter subscription form -->
+            <h1 class="sh-newsletter-heading">{_shNewsLetterHeadline}</h1>
+
+            <!-- Salutation radio group -->
+            <div class="slds-form-element">
+                <lightning-radio-group
+                    name="salutation"
+                    label={_salutationLabel}
+                    options={salutationOptions}
+                    value={_salutationValue}
+                    class="sh-field-name"
+                    onchange={handleSalutationChange}
+                    type="radio"
+                ></lightning-radio-group>
+            </div>
+
+            <!-- First Name input field -->
+            <div class="slds-form-element">
+                <label class="slds-form-element__label sh-field-name" for="firstName">{_firstNameLabel}*</label>
+                <div class="slds-form-element__control">
+                    <input type="text" id="shfirstName" name="firstName" value={_firstName} oninput={handleInputChange} class="slds-input sh-input" required />
+                </div>
+            </div>
+
+            <!-- Last Name input field -->
+            <div class="slds-form-element">
+                <label class="slds-form-element__label sh-field-name" for="lastName">{_lastNameLabel}*</label>
+                <div class="slds-form-element__control">
+                    <input type="text" id="shlastName" name="lastName" value={_lastName} oninput={handleInputChange} class="slds-input sh-input" required />
+                </div>
+            </div>
+
+            <!-- Email input field -->
+            <div class="slds-form-element">
+                <label class="slds-form-element__label sh-field-name" for="email">{_emailLabel}*</label>
+                <div class="slds-form-element__control">
+                    <input type="email" id="shemail" name="email" value={_email} oninput={handleInputChange} class="slds-input sh-input" required />
+                </div>
+            </div>
+
+            <!-- Newsletter Language select field -->
+            <div class="slds-form-element">
+                <label class="slds-form-element__label sh-field-name" for="newsletterLanguage">{_newsLetterLanguageLabel}*</label>
+                <div class="slds-form-element__control">
+                    <select
+                        id="shnewsletterLanguage"
+                        name="newsletterLanguage"
+                        value={_newsletterLanguage}
+                        onchange={handleInputChange}
+                        class="slds-select input select-option"
+                        required
+                    >
+                        <option value="" disabled selected>{_selectLanguage}</option>
+                        <!-- Placeholder option -->
+                        <template for:each={_supportedLanguages} for:item="language">
+                            <option key={language.value} value={language.value}>{language.label}</option>
+                            <!-- Language options -->
+                        </template>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Country select field -->
+            <div class="slds-form-element">
+                <label class="slds-form-element__label sh-field-name" for="country">{_countryLabel}*</label>
+                <div class="slds-form-element__control">
+                    <select id="shcountry" name="country" value={_country} onchange={handleInputChange} class="slds-select input select-option" required>
+                        <option value="" disabled selected>{_selectCountry}</option>
+                        <!-- Placeholder option -->
+                        <template for:each={_supportedCountries} for:item="country">
+                            <option key={country.value} value={country.value}>{country.label}</option>
+                            <!-- Country options -->
+                        </template>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Terms and Conditions checkbox -->
+            <div class="slds-form-element">
+                <div class="slds-checkbox">
+                    <input type="checkbox" id="shterms" name="terms" onchange={handleInputChange} required />
+                    <label class="slds-checkbox__label" for="shterms">
+                        <span class="slds-checkbox_faux"></span>
+                        <span if:true={_isSHBrand} class="slds-form-element__label sh-text-style">
+                            <lightning-formatted-rich-text value={_shNewsLetterAcceptance}></lightning-formatted-rich-text>
+                        </span>
+                    </label>
+                </div>
+            </div>
+
+            <span class="sh-text">{_shNewsLetterMandatory}</span><br />
+            <lightning-formatted-rich-text class="sh-text" value={_shNewsLetterTCPrivacyPolicy}></lightning-formatted-rich-text>
+
+            <!-- Subscribe button -->
+            <button type="button" class="sh-button-style" onclick={handleSubscribe}>{_shSendButton}</button>
+        </div>
+    </template>
+    <!-- Spinner component for showing loading state -->
+    <lightning-spinner
+        if:true={_showSpinner}
+        alternative-text={_loadingLabel}
+        class="slds-is-absolute slds-align_absolute-center spinner-styling"
+        id="lightningSpinner"
+        size="large"
+    ></lightning-spinner>
+</template>

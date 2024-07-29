@@ -1,0 +1,79 @@
+.filterValues {
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.radio-custom {
+    opacity: 0;
+    position: absolute;
+    z-index: 9;
+    width: 24px;
+    height: 24px;
+}
+.radio-custom,
+.radio-custom-label {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 5px;
+    cursor: pointer;
+    margin-left: 0px !important;
+}
+
+.radio-custom-label {
+    position: relative;
+}
+
+.radio-custom + .radio-custom-label:before {
+    content: '';
+    background: #fff;
+    border: 1px solid #ddd;
+    display: inline-block;
+    vertical-align: middle;
+    width: 22px;
+    height: 22px;
+    padding: 2px;
+    margin-right: 10px;
+    text-align: center;
+}
+.radio-custom + .radio-custom-label:before {
+    border-radius: 50%;
+}
+
+.radio-custom:checked + .radio-custom-label:before {
+    content: '';
+    background-image: var(--background-image-url);
+    background-color: #000;
+    background-size: 70%;
+    color: #bbb;
+    border: solid 1px #000;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.radio-custom:focus + .radio-custom-label {
+    outline: none; /* focus style */
+}
+
+:host {
+    --background-image-url: 'default.jpg';
+}
+
+.parentCategoryText {
+    font-size: 16px !important;
+    font-weight: 500 !important;
+    margin-bottom: 10px;
+    display: block;
+}
+
+/* Start BS-850 */
+.filter-scroller {
+    max-height: 215px !important;
+    overflow: auto;
+}
+
+@media only screen and (max-device-width: 767.99px) {
+    .filter-scroller {
+        max-height: 175px !important;
+    }
+}
+/* Start BS-850 */

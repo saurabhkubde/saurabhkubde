@@ -1,0 +1,84 @@
+:host {
+    display: block;
+}
+.limitHitTextSection {
+    display: flex;
+    justify-content: center;
+}
+.pageControlPart {
+    display: flex;
+    justify-content: center;
+}
+.nav-button-current,
+.nav-direction,
+.nav-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    outline: none;
+    width: 40px !important;
+    height: 32px;
+    line-height: 1.875rem;
+}
+.nav-button {
+    border-style: none;
+}
+.range-symbol-container {
+    text-align: center;
+    width: 32px;
+    height: 32px;
+    padding-top: 3px;
+}
+
+.navigationButton {
+    background: transparent !important;
+    border-radius: 0px !important;
+    border: 1px solid black !important;
+    box-shadow: none !important;
+}
+
+.navigationButton:focus {
+    box-shadow: none !important;
+}
+
+.navigationButton:hover {
+    background-color: white !important;
+    border-color: black !important;
+    color: white !important;
+    border: 1px solid black !important;
+}
+
+.active {
+    background-color: black !important;
+    border-color: black !important;
+    color: white !important;
+    width: 40px !important;
+    border-radius: 0px !important;
+    max-height: 32px !important;
+}
+
+.active:hover {
+    background-color: black !important;
+    border-color: black !important;
+    color: white !important;
+    width: 40px !important;
+}
+
+.active:focus {
+    box-shadow: none !important;
+}
+
+.inactive {
+    color: #000000 !important;
+    border-radius: 0px !important;
+}
+
+.inactive:hover {
+    background-color: black !important;
+    border-color: black !important;
+    color: white !important;
+}
+
+.inactive:focus {
+    box-shadow: none !important;
+}

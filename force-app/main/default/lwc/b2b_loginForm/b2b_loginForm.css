@@ -1,0 +1,292 @@
+.marginDiv {
+    /* margin-top: 54px; */
+    border-top: none;
+    border-right: none;
+    border-bottom-width: 0px;
+    border-left: none;
+}
+.loginText {
+    font-size: 23px;
+    text-align: center;
+    font-weight: 500;
+}
+.silhouetteText {
+    font-size: 15px;
+    text-align: center;
+    color: black;
+}
+
+.silhouetteText :hover {
+    color: black;
+}
+
+.btn-100 {
+    width: 100%;
+}
+
+.btn {
+    text-transform: uppercase !important;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+}
+
+.floating-input,
+.floating-select {
+    border-top: none !important;
+    border-right: none !important;
+    border-left: none !important;
+    border-radius: 0px !important;
+    border-bottom-color: black !important;
+}
+
+.stockIcon {
+    height: 18px;
+    width: 18px;
+    border-radius: 50%;
+    display: inline-block;
+    margin: 3px;
+    background-repeat: no-repeat !important;
+    background-position: 50% !important;
+    margin-top: 0px;
+}
+
+.stock-div {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.underlineStyling {
+    text-decoration: underline !important;
+}
+
+/* START: BS-1859 */
+.required-label {
+    font-weight: 300 !important;
+    font-size: 14px !important;
+    color: #000;
+}
+
+.required-star {
+    font-size: 16px;
+    font-weight: 300;
+    color: #000;
+}
+
+.toolTipStyling {
+    width: 14px;
+    margin-left: 5px;
+    margin-top: -2px;
+}
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+}
+
+.tooltip .text {
+    position: absolute;
+    width: 435px;
+    background-color: black;
+    color: #fff;
+    text-align: left;
+    padding: 4px 4px;
+    z-index: 1;
+    border-radius: 0px;
+    bottom: 110%;
+    left: -20px;
+    margin-left: -188px;
+    opacity: 0;
+    visibility: hidden;
+    font-size: 12px;
+}
+.tooltip .text::after {
+    position: absolute;
+    content: '';
+    border-style: solid;
+    border-width: 5px;
+    border-color: black transparent transparent transparent;
+    top: 100%;
+    left: 50.5%;
+    margin-left: -5px;
+}
+.tooltip:hover .text {
+    visibility: visible;
+    opacity: 1;
+}
+
+@media only screen and (max-width: 440px) {
+    .tooltip .text {
+        width: 270px !important;
+        left: 10px !important;
+    }
+    .tooltip .text::after {
+        left: 70.5% !important;
+    }
+    .marginDiv {
+        padding-left: 0.5rem !important;
+        padding-right: 0.5rem !important;
+    }
+}
+/* END: BS-1859 */
+/* added as a part of BS-1855*/
+.slds-input-has-icon .slds-input__icon:not(button) {
+    pointer-events: all;
+    cursor: pointer;
+    display: inline-table;
+    top: 2.5rem;
+}
+
+/* START: BS-2004 */
+.not-registered {
+    font-size: 24px;
+    font-weight: 400;
+    text-align: left;
+    line-height: 28px;
+}
+
+.register-here-link {
+    font-size: 24px;
+    font-weight: 300;
+    text-decoration-line: underline;
+    text-align: left;
+    line-height: 28px;
+}
+/* END: BS-2004 */
+
+/* START: BS-2095 */
+
+.country-code-popover {
+    position: absolute;
+    left: 145px;
+    top: -176px;
+    font-weight: 300 !important;
+    font-size: 14px !important;
+}
+
+.country-code-popover-large {
+    position: absolute;
+    left: 145px;
+    top: -186px;
+    font-weight: 300 !important;
+    font-size: 14px !important;
+}
+
+.country-code-popover-large .close-icon {
+    position: absolute;
+    right: 0;
+}
+.country-code-popover .close-icon {
+    position: absolute;
+    right: 0;
+}
+
+.fnt-500 {
+    font-weight: 500 !important;
+}
+
+.text-underline {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.globe-icon {
+    width: 16px;
+    height: 16px;
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+@media only screen and (max-width: 767px) {
+    .country-code-popover .slds-popover_large {
+        min-width: 320px !important;
+    }
+    .country-code-popover {
+        left: -190px;
+        top: 33px;
+    }
+    .country-code-popover .slds-nubbin_left:before,
+    .slds-nubbin--left:before {
+        width: 1rem;
+        height: 1rem;
+        position: absolute;
+        transform: rotate(45deg);
+        content: '';
+        background-color: inherit;
+        top: 0%;
+        left: 15.5rem;
+        margin-top: -0.5rem;
+    }
+    .country-code-popover .slds-nubbin_left:after,
+    .slds-nubbin--left:after {
+        width: 1rem;
+        height: 1rem;
+        position: absolute;
+        transform: rotate(135deg);
+        content: '';
+        background-color: inherit;
+        top: 0%;
+        left: 15.5rem;
+        margin-top: -0.5rem;
+    }
+
+    .country-code-popover-large .slds-popover_large {
+        min-width: 320px !important;
+    }
+    .country-code-popover-large {
+        left: -190px;
+        top: 33px;
+    }
+    .country-code-popover-large .slds-nubbin_left:before,
+    .slds-nubbin--left:before {
+        width: 1rem;
+        height: 1rem;
+        position: absolute;
+        transform: rotate(45deg);
+        content: '';
+        background-color: inherit;
+        top: 0%;
+        left: 15.5rem;
+        margin-top: -0.5rem;
+    }
+    .country-code-popover-large .slds-nubbin_left:after,
+    .slds-nubbin--left:after {
+        width: 1rem;
+        height: 1rem;
+        position: absolute;
+        transform: rotate(135deg);
+        content: '';
+        background-color: inherit;
+        top: 0%;
+        left: 15.5rem;
+        margin-top: -0.5rem;
+    }
+}
+
+@media screen and (min-width: 768px) and (max-device-width: 890px) {
+    .loginflowcontainer .slds-p-horizontal_xx-large {
+        padding-left: 0px !important;
+        padding-right: 0px !important;
+    }
+}
+
+@media only screen and (max-width: 360px) {
+    .country-code-popover {
+        left: -162px;
+        top: 33px;
+    }
+    .country-code-popover .slds-popover_large {
+        min-width: 240px !important;
+        max-width: 280px !important;
+    }
+
+    .country-code-popover-large {
+        left: -162px;
+        top: 33px;
+    }
+    .country-code-popover-large .slds-popover_large {
+        min-width: 240px !important;
+        max-width: 280px !important;
+    }
+}
+
+/* END: BS-2095 */

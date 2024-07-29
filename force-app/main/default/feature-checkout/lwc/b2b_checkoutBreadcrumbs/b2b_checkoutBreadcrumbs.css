@@ -1,0 +1,71 @@
+.checkoutbreadcrumb-wrap {
+    border-bottom: solid 1px #d8d8d8;
+}
+.breadcrumb {
+    width: 20%;
+    color: #000 !important;
+    font-weight: 300;
+    font-size: 18px;
+    border-radius: 0px;
+    padding: 10px;
+    text-align: center;
+}
+
+.breadcrumb-active {
+    width: 20%;
+    color: #000 !important;
+    border-bottom: 1px solid #000;
+    font-weight: 500;
+    font-size: 18px;
+    border-radius: 0px;
+    padding: 10px;
+    text-align: center;
+}
+
+/* Tablet screens */
+@media only screen and (min-width: 48em) and (max-width: 64em) {
+    .breadcrumb {
+        width: 30%;
+        /*START OF BS-920*/
+        -webkit-hyphens: auto;
+        -ms-hyphens: auto;
+        hyphens: auto;
+        word-wrap: break-word;
+        white-space: normal;
+        /*END OF BS-920*/
+    }
+    .breadcrumb-active {
+        width: 30%;
+        /*START OF BS-920*/
+        -webkit-hyphens: auto;
+        -ms-hyphens: auto;
+        hyphens: auto;
+        word-wrap: break-word;
+        white-space: normal;
+        /*END OF BS-920*/
+    }
+}
+
+/* Phone screens */
+@media only screen and (max-width: 47.9375em) {
+    .breadcrumb {
+        width: 33%;
+        /*START OF BS-920*/
+        -webkit-hyphens: auto;
+        -ms-hyphens: auto;
+        hyphens: auto;
+        word-wrap: break-word;
+        white-space: normal;
+        /*END OF BS-920*/
+    }
+    .breadcrumb-active {
+        width: 33%;
+        /*START OF BS-920*/
+        -webkit-hyphens: auto;
+        -ms-hyphens: auto;
+        hyphens: auto;
+        word-wrap: break-word;
+        white-space: normal;
+        /*END OF BS-920*/
+    }
+}

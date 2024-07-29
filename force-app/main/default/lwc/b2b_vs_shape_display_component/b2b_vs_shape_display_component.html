@@ -1,0 +1,73 @@
+<template>
+    <lightning-spinner if:true={_isLoading} class="slds-is-fixed slds-align_absolute-center" variant="brand" size="medium"> </lightning-spinner>
+    <div if:true={_initialLoadComplete}>
+        <p class="section-title-prescription slds-m-top_small">{_vsShapeAdjusted}</p>
+        <div if:true={_shapeSelectionCollection} class="slds-grid slds-wrap">
+            <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12 slds-text-align_left">
+                <div class="slds-grid slds-wrap">
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_5-of-12 slds-large-size_5-of-12">
+                        <canvas class="glassContainer" lwc:dom="manual" data-id="c"></canvas>
+                    </div>
+                    <div class="slds-col slds-size_1-of-1 slds-p-left_medium slds-medium-size_6-of-12 slds-large-size_6-of-12">
+                        <div class="slds-m-top_small slds-m-left_small">
+                            <table class="table-auto">
+                                <tr>
+                                    <td><div class="originalShape"></div></td>
+                                    <td>{_originalShapeLabel}</td>
+                                </tr>
+                                <tr>
+                                    <td><div class="scaledShape"></div></td>
+                                    <td>{_scaledShapeLabel}</td>
+                                </tr>
+                            </table>
+
+                            <table class="slds-m-vertical_small table-auto">
+                                <tr>
+                                    <td>{_heightLabel}</td>
+                                    <td>: {_shapeSelectionCollection.height} {_measurementUnitLabel}</td>
+                                </tr>
+                                <tr>
+                                    <td>{_widthLabel}</td>
+                                    <td>: {_shapeSelectionCollection.width} {_measurementUnitLabel}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12 slds-text-align_left slds-m-top_small">
+                <div if:false={_shapeSelectionCollection.showWithAccentRing} class="fnt14-bold">{_shapeEditorSubHeader}</div>
+
+                <table class="shapeEditor" if:false={_shapeSelectionCollection.showWithAccentRing}>
+                    <tr>
+                        <td class="bg">{_aLabel}</td>
+                        <td>{_shapeSelectionCollection.a}</td>
+                        <td class="bg">{_b1Label}</td>
+                        <td>{_shapeSelectionCollection.b1}</td>
+                    </tr>
+                    <tr>
+                        <td class="bg">{_bLabel}</td>
+                        <td>{_shapeSelectionCollection.b}</td>
+                        <td class="bg">{_b2Label}</td>
+                        <td>{_shapeSelectionCollection.b2}</td>
+                    </tr>
+                    <tr>
+                        <td class="bg">{_sfLabel}</td>
+                        <td>{_shapeSelectionCollection.sf}</td>
+                        <td class="bg">{_dhpLabel}</td>
+                        <td>{_shapeSelectionCollection.blp}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div if:true={_shapeSelectionCollection} class="slds-grid slds-wrap slds-gutters">
+            <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+                <div if:true={_shapeSelectionCollection.showAccentRingImage} class="accentRingImage slds-text-align_center">
+                    <img class="slds-m-left_xx-small" src={_shapeSelectionCollection.accentRingImage} />
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

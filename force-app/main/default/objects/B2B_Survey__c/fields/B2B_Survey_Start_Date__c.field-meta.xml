@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>B2B_Survey_Start_Date__c</fullName>
+    <description>This field holds the value of the start date of the survey, i.e. from when the login count should be considered.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>This field holds the value of the start date of the survey, i.e. from when the login count should be considered.</inlineHelpText>
+    <label>Survey Start Date</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>DateTime</type>
+</CustomField>

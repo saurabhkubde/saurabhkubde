@@ -1,0 +1,66 @@
+<template>
+    <template if:true={displayShipToSection}>
+        <legend class="slds-text-title_caps slds-var-p-around_x-small spcHeader black-color">
+            <abbr class="slds-required" title="required">*</abbr> {labels.component.shipToSectionHeader}
+        </legend>
+
+        <div class="slds-box slds-var-m-bottom_medium">
+            <div class="slds-grid slds-gutters slds-wrap">
+                <!-- radio button selection -->
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-4">
+                    <div class="slds-var-m-bottom_medium">
+                        <lightning-radio-group
+                            name="addressType"
+                            label="Select your address input method"
+                            variant="label-hidden"
+                            options={addressInputMethods}
+                            value={addressInputType}
+                            type="radio"
+                            onchange={handleAddressInputTypeChange}
+                        >
+                        </lightning-radio-group>
+                    </div>
+                </div>
+
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-4 slds-border_left columnPaymentForm">
+                    <div class="slds-grid slds-gutters slds-wrap">
+                        <template if:true={isSelect}>
+                            <div class="slds-col slds-size_1-of-1">
+                                <lightning-radio-group
+                                    name="radioGroup"
+                                    label="Ship To"
+                                    variant="label-hidden"
+                                    options={options}
+                                    value={selectedAddress}
+                                    onchange={handleAddressChange}
+                                    type="radio"
+                                    required
+                                ></lightning-radio-group>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <legend class="slds-text-title_caps slds-var-p-around_x-small spcHeader black-color">{labels.component.shipToRequestedDate}</legend>
+
+    <div class="slds-var-m-bottom_medium black-color">
+        <lightning-input type="date" name="inputRDD" placeholder={labels.component.requestedDatePlaceholder} onchange={handleRequestDate}></lightning-input>
+    </div>
+
+    <template if:true={displayDeliveryInstructions}>
+        <legend class="slds-text-title_caps slds-var-p-around_x-small spcHeader black-color">{labels.component.shipToDeliveryInstructions}</legend>
+
+        <lightning-textarea
+            name="shippingInstructions"
+            label="Delivery Instructions"
+            variant="label-hidden"
+            class="slds-var-m-bottom_medium"
+            value={shippingInstructions}
+            onchange={handleShippingInstructionsChange}
+            placeholder={labels.component.deliveryInstructionsPlaceholder}
+        ></lightning-textarea>
+    </template>
+</template>

@@ -1,0 +1,334 @@
+.layout-contiainer {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+}
+
+.aside-section {
+    flex: 1 0 20%;
+    max-width: 15rem;
+}
+
+.main-section {
+    flex: 1 0 75% !important;
+    margin-left: 5%;
+}
+.show-filter {
+    display: none;
+}
+.show-filter2 {
+    padding-top: 200px;
+}
+@media screen and (max-width: 767.99px) {
+    /* .aside-section{
+        display: none;
+    }
+    .displayFilter{
+        display: block !important;
+    } */
+    .main-section {
+        margin-left: 0% !important;
+    }
+    .show-filter {
+        display: block;
+    }
+}
+
+.filters-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.filters-header .bold {
+    font-weight: bold;
+}
+
+.filters-header .clear-all-button {
+    align-self: flex-end;
+    padding: 0;
+    border: none;
+    background: none;
+    color: #000;
+}
+
+.sorting-div {
+    float: right;
+    display: flex;
+    flex-direction: row;
+}
+
+.sorting-div label {
+    padding-top: 6px;
+    padding-right: 12px;
+}
+
+.hide-price-icon {
+    float: right;
+}
+
+.comboboxDiv {
+    /* padding-bottom: 20px; */
+}
+.header-border {
+    border-bottom: 1px solid #e0e0e0;
+    padding-top: 10px;
+}
+.wrapper {
+    border: 1px solid black;
+    width: auto;
+    margin: auto;
+}
+.wrapper td {
+    padding: 5px;
+}
+.order-number {
+    padding-left: 5px;
+    font-size: 16px !important;
+    font-weight: 500;
+}
+/* 
+    small form factor 
+    SLDS media query reference : https://www.lightningdesignsystem.com/design-tokens/#category-media-query
+*/
+@media only screen and (max-width: 47.9375em) {
+    .layout-contiainer {
+        flex-direction: column;
+    }
+
+    .aside-section {
+        max-width: 100%;
+    }
+
+    .header-div {
+        display: block;
+    }
+
+    .sort-items {
+        display: flex;
+    }
+}
+.layout-contiainer {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+}
+
+.aside-section {
+    flex: 1 0 20%;
+    max-width: 15rem;
+}
+
+.main-section {
+    flex: 1 0 80%;
+}
+
+.filters-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.filters-header .bold {
+    font-weight: bold;
+}
+
+.filters-header .clear-all-button {
+    align-self: flex-end;
+    padding: 0;
+    border: none;
+    background: none;
+    color: #000;
+}
+
+.sorting-div {
+    float: right;
+    display: flex;
+    flex-direction: row;
+}
+
+.sorting-div label {
+    padding-top: 6px;
+    padding-right: 12px;
+}
+
+.hide-price-icon {
+    float: right;
+}
+
+/* 
+    small form factor 
+    SLDS media query reference : https://www.lightningdesignsystem.com/design-tokens/#category-media-query
+*/
+@media only screen and (max-width: 47.9375em) {
+    .layout-contiainer {
+        flex-direction: column;
+    }
+
+    .aside-section {
+        max-width: 100%;
+    }
+
+    .header-div {
+        display: block;
+    }
+
+    .sort-items {
+        display: flex;
+    }
+}
+.layout-contiainer {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+}
+
+.aside-section {
+    flex: 1 0 20%;
+    max-width: 15rem;
+}
+
+.main-section {
+    flex: 1 0 80%;
+}
+
+.filters-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.filters-header .bold {
+    font-weight: bold;
+}
+
+.filters-header .clear-all-button {
+    align-self: flex-end;
+    padding: 0;
+    border: none;
+    background: none;
+    color: #000;
+}
+
+.sorting-div {
+    float: right;
+    display: flex;
+    flex-direction: row;
+}
+
+.sorting-div label {
+    padding-top: 6px;
+    padding-right: 12px;
+}
+
+.hide-price-icon {
+    float: right;
+}
+
+.wrapper {
+    align-items: center;
+    text-align: center;
+}
+
+.order-number {
+    display: inline-block;
+    font-size: large;
+}
+
+.cross-button {
+    /* display: inline-block; */
+    position: absolute;
+    padding-left: 5px;
+}
+
+/* 
+    small form factor 
+    SLDS media query reference : https://www.lightningdesignsystem.com/design-tokens/#category-media-query
+*/
+@media only screen and (max-width: 48em) {
+    .layout-contiainer {
+        flex-direction: column;
+    }
+
+    .aside-section {
+        max-width: 100%;
+    }
+
+    .header-div {
+        display: block;
+    }
+
+    .sort-items {
+        display: flex;
+    }
+}
+
+.comboboxWidth-100 {
+    width: 100%;
+}
+
+.dot {
+    height: 28px;
+    width: 28px;
+    border-radius: 50%;
+    filter: drop-shadow(1px 1px 2px #d8d8d8);
+    border-color: #494949;
+    display: inline-block;
+    margin: 3px;
+    cursor: pointer;
+    background-repeat: no-repeat !important;
+    background-position: 50% !important;
+}
+.reorderFilters {
+    padding-left: 9px;
+    padding-top: 8px;
+}
+.reorderFiltersNB {
+    padding-left: 0px;
+    padding-top: 0px;
+}
+.reorderFiltersNB .dot {
+    height: 23px;
+    width: 23px;
+    padding-left: 3px;
+}
+.filterStyle {
+    border: 1.5px solid #d8d8d8 !important;
+    padding: 3px 15px 5px 15px !important;
+    border-radius: 20px !important;
+    margin: 4px;
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 300;
+    height: 28px;
+}
+
+.footer-action {
+    background-color: transparent;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    font-weight: 300;
+}
+
+.clearAllDiv {
+    border-top: 1px solid #e0e0e0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-weight: 500;
+}
+
+.slds-button:hover {
+    box-shadow: none !important;
+}
+
+.slds-button:focus {
+    box-shadow: none !important;
+    border: none !important;
+}
+
+.slds-button:active {
+    box-shadow: none !important;
+    border: none !important;
+}

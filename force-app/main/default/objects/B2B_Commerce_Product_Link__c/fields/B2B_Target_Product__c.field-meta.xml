@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>B2B_Target_Product__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>Target product which is related to another product (e.g. is accessory for)</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Target product which is related to another product (e.g. is accessory for)</inlineHelpText>
+    <label>Target Product</label>
+    <referenceTo>Product2</referenceTo>
+    <relationshipLabel>Related Link from</relationshipLabel>
+    <relationshipName>Incoming_Product_Relations</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

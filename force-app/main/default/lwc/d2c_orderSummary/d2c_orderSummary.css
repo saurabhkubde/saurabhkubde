@@ -1,0 +1,146 @@
+.order-summary-body {
+    border: 1.5px solid #f7f7f8;
+    font-family: 'Adobe Caslon Pro';
+}
+
+.product-information-container {
+    margin-left: -12px;
+}
+
+.item-boundry {
+    margin-top: 3px;
+}
+
+.order-summary-header {
+    padding: 10px 12px;
+    border: 1px solid #f7f7f8;
+    background-color: #f7f7f8;
+    font-family: 'SweetSansProLight' !important;
+    line-height: 0.9 !important;
+    font-variant: small-caps !important;
+    text-transform: lowercase !important;
+    word-spacing: 0.3ch !important;
+    letter-spacing: -0.025em !important;
+    font-weight: 400 !important;
+    width: 100% !important;
+    font-size: 20px;
+}
+
+.order-summary-footer {
+    padding: 0px 0px;
+    border: 1px solid #f7f7f8;
+    background-color: #f7f7f8;
+    font-family: 'Adobe Caslon Pro';
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.order-summary-body {
+    padding: 22px;
+    font-size: 14px;
+}
+
+.pricing-information {
+    font-size: 11px !important;
+    margin-top: -3px;
+    line-height: 10px;
+}
+
+.total-price-value {
+    font-weight: 600;
+}
+
+.order-item-name-number-section {
+    text-transform: uppercase;
+    font-family: 'SweetSansProLight';
+}
+
+.order-total-price-container {
+    padding-left: 4px;
+}
+
+.total-price-value-container {
+    margin-left: -4px;
+}
+
+@media only screen and (min-width: 350px) and (max-width: 767px) {
+    .order-summary-container {
+        margin-top: 20px;
+    }
+
+    .order-summary-body {
+        padding: 20px;
+        font-size: 16px;
+    }
+
+    .product-information-container {
+        margin-left: 0px;
+    }
+
+    .pricing-information {
+        font-size: 12px !important;
+        margin-top: -2px;
+        line-height: 10px;
+    }
+
+    .total-price-label {
+        padding-left: 20px;
+    }
+
+    .order-total-price-container {
+        padding-left: 0px;
+    }
+}
+
+@media only screen and (max-width: 350px) {
+    .order-summary-header {
+        padding: 10px 12px;
+        border: 1px solid #f7f7f8;
+        background-color: #f7f7f8;
+        font-family: 'SweetSansProLight' !important;
+        line-height: 0.9 !important;
+        font-variant: small-caps !important;
+        text-transform: lowercase !important;
+        word-spacing: 0.3ch !important;
+        letter-spacing: -0.025em !important;
+        font-weight: 400 !important;
+        width: 100% !important;
+        font-size: 16px;
+    }
+
+    .order-summary-container {
+        margin-top: 20px;
+    }
+
+    .product-information-container {
+        margin-left: 0px;
+    }
+
+    .pricing-information {
+        font-size: 10px !important;
+        margin-top: -2px;
+        line-height: 12px;
+    }
+
+    .total-price-label {
+        padding-left: 20px;
+    }
+
+    .order-summary-body {
+        padding: 20px;
+        font-size: 12px;
+    }
+
+    .order-total-price-container {
+        font-size: 12px !important;
+        padding-left: 0px;
+    }
+
+    .customer-preferences-summary-section {
+        padding-left: 10px;
+    }
+
+    .order-summary-container {
+        padding: 10px;
+    }
+}

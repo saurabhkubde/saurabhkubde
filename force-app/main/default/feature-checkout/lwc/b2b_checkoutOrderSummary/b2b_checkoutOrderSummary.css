@@ -1,0 +1,41 @@
+table {
+    width: 65%;
+    margin-left: 11%;
+    margin-top: 2%;
+}
+
+.allign-right {
+    text-align: right;
+    padding-right: 10px;
+}
+
+.title {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.totalTitle {
+    font-size: 22px;
+    font-weight: 500;
+}
+
+.description {
+    font-size: 15px;
+    font-weight: 300;
+}
+
+.border-bottom {
+    border-bottom: solid 1px #d8d8d8;
+}
+
+.uppercase {
+    text-transform: uppercase;
+}
+
+@media screen and (max-width: 480px) {
+    .mb-center {
+        text-align: center;
+        display: grid;
+        margin: 10px auto;
+    }
+}

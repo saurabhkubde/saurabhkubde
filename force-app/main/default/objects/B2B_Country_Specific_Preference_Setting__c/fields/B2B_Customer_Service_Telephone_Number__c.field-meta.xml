@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>B2B_Customer_Service_Telephone_Number__c</fullName>
+    <description>This field stores the customer service telephone number for the applicable brand as well as country.</description>
+    <externalId>false</externalId>
+    <label>B2B Customer Service Telephone Number</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Phone</type>
+</CustomField>

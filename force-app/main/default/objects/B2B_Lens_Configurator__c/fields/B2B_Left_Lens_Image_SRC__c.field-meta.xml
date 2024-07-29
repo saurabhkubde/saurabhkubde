@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>B2B_Left_Lens_Image_SRC__c</fullName>
+    <description>This field is used to store value for left image SRC obtained from Schneider callout</description>
+    <externalId>false</externalId>
+    <label>Left Lens Image SRC</label>
+    <length>131072</length>
+    <trackTrending>false</trackTrending>
+    <type>LongTextArea</type>
+    <visibleLines>3</visibleLines>
+</CustomField>

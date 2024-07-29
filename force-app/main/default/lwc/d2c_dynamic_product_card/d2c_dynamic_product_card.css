@@ -1,0 +1,523 @@
+/** NBD2C-29 : Styling for Product Card : Start*/
+
+/*
+ * NBD2C-29
+ * Styling for normal desktop screen - Start
+ */
+
+.spinnerStyling {
+    background-color: rgba(255, 255, 255, 0.75) !important;
+}
+.productCardContainerStyling {
+    background-color: #f7f7f8;
+    height: 450px;
+    width: 95% !important;
+    margin: auto !important;
+    overflow: hidden;
+}
+
+.additionalExploreMoreButton {
+    background-color: transparent !important;
+    border: 1px solid black !important;
+    color: black !important;
+}
+
+.additionalExploreMoreButton:hover {
+    background-color: black !important;
+    color: white !important;
+    transition: background-color 0.3s, color 0.3s !important;
+}
+
+.imageContainer {
+    max-height: 270px;
+    min-height: 270px;
+    position: relative;
+}
+
+.productImageStyling {
+    position: absolute !important;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%) !important;
+    max-width: 300px;
+}
+
+.exploreButtonContainer {
+    margin: auto;
+    padding-left: 20px !important;
+}
+
+.productTitleAndHeaderSectionStyling {
+    width: 100%;
+    padding: 15px 20px;
+    min-height: 80px;
+}
+
+.model-image {
+    position: relative;
+    min-height: 450px;
+    z-index: 0;
+    height: 450px;
+    width: 100% !important;
+}
+
+.hiddenDisplayStyling {
+    display: none;
+}
+
+.visibleDisplayStyling {
+    display: block;
+}
+
+.productTitleStyling {
+    font-size: 24px;
+    font-weight: 500;
+    text-transform: UPPERCASE;
+    text-transform: UPPERCASE !important;
+    overflow: hidden !important;
+    white-space: nowrap !important;
+    text-overflow: ellipsis !important;
+    max-width: 100% !important;
+    font-family: SweetSansProLight !important;
+}
+
+.productSubTitleStyling {
+    margin-top: 10px;
+    font-size: 16px;
+    font-weight: 100;
+    font-family: Adobe Caslon Pro !important;
+}
+
+.virtualTryOnSection {
+    margin-top: 5px;
+    text-align: center;
+}
+
+.virtualTryOnLogoStyling {
+    height: 26px;
+    width: 26px;
+}
+
+.virtualTryOnLogoContainerStyling {
+    float: right;
+    cursor: pointer;
+}
+
+.text-section {
+    position: absolute;
+    color: #f2f2f2;
+    font-size: 15px;
+    bottom: 0px;
+    width: 100%;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.slideNumbers {
+    font-size: 12px;
+    position: absolute;
+    padding: 8px 12px;
+    top: 0;
+    color: #f2f2f2;
+}
+
+.productVariationsContainer {
+    align-self: end;
+    padding: 10px 15px !important;
+    min-height: 60px;
+}
+
+.dot {
+    height: 18px;
+    width: 18px;
+    border-radius: 50%;
+    cursor: pointer;
+    background-color: #bbb;
+    margin: 0 5px;
+    display: inline-block;
+}
+
+.active,
+.dot:hover {
+    height: 20px !important;
+    width: 20px !important;
+    background-color: transparent !important;
+    border: 2px solid #f7f7f8 !important;
+    outline: #000 solid 1.5px;
+    transition: all 0.6s cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+.slide {
+    animation-name: slide;
+    animation-duration: 1s;
+    animation-delay: 2s;
+}
+
+.poster-container {
+    position: relative;
+    display: none;
+    width: 100%;
+    height: 280px;
+}
+
+.button-container {
+    position: absolute;
+    bottom: 30px;
+    left: 0;
+    right: 0;
+    text-align: center;
+}
+
+.exploreMoreButton {
+    background-color: transparent;
+    border: 1px solid white;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    font-family: Adobe Caslon Pro !important;
+}
+
+.exploreMoreButton:hover {
+    background-color: black;
+    border: none !important;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.card-container {
+    display: block;
+    position: relative;
+}
+
+.productTitleAndHeaderSectionWithModelImageStyling {
+    color: white !important;
+    z-index: 2;
+    position: absolute;
+}
+
+.container-one {
+    position: relative;
+}
+
+.background-gray {
+    background-color: #e0dede;
+    display: grid;
+    min-height: 450px;
+    max-width: 450px;
+}
+
+.priceArea {
+    float: right;
+    padding-bottom: 4px;
+    padding-right: 4px;
+    max-width: 100%;
+    font-family: Adobe Caslon Pro !important;
+}
+/* Styling for normal desktop screen - End */
+
+/*
+ * NBD2C-29
+ * Styling for Mobile devices with small & medium screen size and narrow width
+ */
+@media screen and (max-width: 550px) {
+    .productTitleStyling {
+        font-size: 20px !important;
+        font-weight: 500 !important;
+        text-transform: UPPERCASE !important;
+        overflow: hidden !important;
+        white-space: nowrap !important;
+        text-overflow: ellipsis !important;
+        max-width: 100% !important;
+    }
+
+    .productSubTitleStyling {
+        font-size: 12px !important;
+        font-weight: 100;
+        text-transform: UPPERCASE !important;
+        overflow: hidden !important;
+        white-space: nowrap !important;
+        text-overflow: ellipsis !important;
+        max-width: 100% !important;
+    }
+
+    .priceArea {
+        float: right;
+        padding-bottom: 4px !important;
+        max-width: 100%;
+        padding-right: 4px !important;
+    }
+
+    .imageContainer {
+        max-height: 180px;
+        min-height: 180px;
+        position: relative;
+    }
+
+    .productVariationsContainer {
+        padding: 10px 15px !important;
+    }
+
+    .exploreButtonContainer {
+        padding-left: 20px !important;
+    }
+
+    .productImageStyling {
+        position: absolute !important;
+        top: 50%;
+        left: 50%;
+        -ms-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%) !important;
+        max-width: 230px !important;
+    }
+
+    .productCardContainerStyling {
+        background-color: #f7f7f8;
+        height: 400px !important;
+    }
+
+    .exploreMoreButton {
+        background-color: transparent;
+        border: 1px solid black !important;
+        color: black !important;
+        font-size: 14px !important;
+        font-family: Adobe Caslon Pro !important;
+    }
+
+    .exploreMoreButton:hover {
+        background-color: black !important;
+        border: none !important;
+        color: white !important;
+    }
+
+    .virtualTryOnLogoContainerStyling {
+        float: none !important;
+        padding: 0px !important;
+    }
+}
+
+/*
+ * NBD2C-29
+ * Styling for Mobile devices with large & wider size
+ */
+@media screen and (min-width: 551px) and (max-width: 767px) {
+    .imageContainer {
+        max-height: 150px !important;
+        min-height: 150px !important;
+        position: relative;
+    }
+
+    .productImageStyling {
+        max-width: 120px !important;
+    }
+
+    .productVariationsContainer {
+        align-self: end;
+        min-height: 60px;
+    }
+
+    .productCardContainerStyling {
+        background-color: #f7f7f8;
+        /* height: 350px !important; */
+    }
+
+    .productTitleAndHeaderSectionStyling {
+        width: 100%;
+        margin: 0px 0px !important;
+        padding: 10px 10px !important;
+    }
+
+    .productTitleStyling {
+        font-size: 18px !important;
+        font-weight: 500 !important;
+        text-transform: UPPERCASE !important;
+        overflow: hidden !important;
+        white-space: nowrap !important;
+        text-overflow: ellipsis !important;
+        max-width: 100% !important;
+    }
+
+    .productSubTitleStyling {
+        font-size: 12px !important;
+        font-weight: 100;
+        text-transform: UPPERCASE !important;
+        overflow: hidden !important;
+        white-space: nowrap !important;
+        text-overflow: ellipsis !important;
+        max-width: 100% !important;
+    }
+
+    .priceArea {
+        float: right;
+        padding-bottom: 4px !important;
+        max-width: 100%;
+        padding-right: 4px !important;
+        font-size: 12px !important;
+    }
+
+    .exploreButtonContainer {
+        padding-left: 20px !important;
+    }
+
+    .exploreMoreButton {
+        background-color: transparent;
+        border: 1px solid black !important;
+        color: black !important;
+        font-size: 12px !important;
+        font-family: Adobe Caslon Pro !important;
+    }
+
+    .exploreMoreButton:hover {
+        background-color: black !important;
+        border: none !important;
+        color: white !important;
+    }
+
+    .variationsStyling {
+        min-height: 75px;
+    }
+
+    .dot {
+        margin: 0 3px !important;
+    }
+
+    .productCardContainerStyling {
+        height: 400px !important;
+    }
+}
+
+/*
+ * NBD2C-29
+ * Styling for tablet devices with large & wider size
+ */
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+    .productTitleStyling {
+        font-size: 18px !important;
+        font-weight: 500 !important;
+        text-transform: UPPERCASE !important;
+        overflow: hidden !important;
+        white-space: nowrap !important;
+        text-overflow: ellipsis !important;
+        max-width: 100% !important;
+    }
+
+    .productSubTitleStyling {
+        font-size: 12px !important;
+        font-weight: 100;
+        text-transform: UPPERCASE !important;
+        overflow: hidden !important;
+        white-space: nowrap !important;
+        text-overflow: ellipsis !important;
+        max-width: 100% !important;
+    }
+
+    .ourFavouritesContainerStyling .columns-content .columns {
+        display: flex;
+        flex-direction: row !important;
+        flex-grow: 1;
+    }
+
+    .productCardContainerStyling {
+        background-color: #f7f7f8;
+        height: 400px !important;
+    }
+
+    .imageContainer {
+        max-height: 180px !important;
+        min-height: 180px !important;
+        position: relative;
+    }
+
+    .productVariationsContainer {
+        align-self: end;
+    }
+
+    .productImageStyling {
+        position: absolute !important;
+        top: 50%;
+        left: 50%;
+        -ms-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%) !important;
+        max-width: 180px !important;
+    }
+
+    .exploreMoreButton {
+        background-color: transparent;
+        border: 1px solid black !important;
+        color: black !important;
+        font-family: Adobe Caslon Pro !important;
+    }
+
+    .exploreMoreButton:hover {
+        background-color: black !important;
+        border: none !important;
+        color: white !important;
+    }
+
+    .virtualTryOnLogoContainerStyling {
+        float: none !important;
+        padding: 0px !important;
+    }
+}
+
+/*
+ * NBD2C-29
+ * Styling for large screen desktop devices
+ */
+@media screen and (min-width: 1800px) {
+    .productTitleStyling {
+        font-size: 24px !important;
+        font-weight: 500;
+        text-transform: UPPERCASE;
+        text-transform: UPPERCASE !important;
+        overflow: hidden !important;
+        white-space: nowrap !important;
+        text-overflow: ellipsis !important;
+        max-width: 100% !important;
+        font-family: SweetSansProLight !important;
+    }
+
+    .productSubTitleStyling {
+        font-size: 16px !important;
+        font-weight: 100;
+        font-family: Adobe Caslon Pro !important;
+    }
+
+    .imageContainer {
+        max-height: 300px !important;
+        min-height: 300px !important;
+        position: relative;
+    }
+
+    .productImageStyling {
+        max-width: 300px !important;
+    }
+
+    .productTitleAndHeaderSectionStyling {
+        padding: 10px 20px !important;
+    }
+
+    .model-image {
+        position: relative;
+        min-height: 450px !important;
+        z-index: 0;
+        height: 450px !important;
+    }
+}
+
+/* Styling for sliding animation on product card */
+@keyframes slide {
+    0% {
+        transform: translateX(0%);
+    }
+
+    100% {
+        transform: translateX(-100%);
+    }
+}
+/** NBD2C-29 : Styling for Product Card : End*/

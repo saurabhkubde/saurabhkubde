@@ -1,0 +1,1486 @@
+<template>
+    <div class="cartcontainer">
+        <template if:true={_renderCartItems} for:each={_cartInformation} for:item="lineItem">
+            <div key={lineItem.cartItemId} class="icon-container">
+                <!--BS-1624 Start-->
+
+                <!--VS Icons delete Start-->
+                <div if:true={lineItem.additionalInfo.isVsItem} class="slds-grid slds-grid_align-end">
+                    <div if:true={isCartPage} class="iconclass slds-p-vertical_xx-small slds-m-vertical_xx-small">
+                        <!-- START : BS-1958 -->
+                        <div class="tooltip slds-m-bottom_small slds-m-right_small">
+                            <img
+                                src={editIcon}
+                                class="delete-icon-grey delete-icon slds-m-top_xx-small"
+                                data-cartitemid={lineItem.cartItem.cartItemId}
+                                onclick={openModalToEdit}
+                            />
+                            <span class="tooltiptext">{_editIconLabel}</span>
+                        </div>
+                        <!-- END : BS-1958 -->
+                        <div class="tooltip slds-m-bottom_small">
+                            <img
+                                src={_deleteIcon}
+                                class="delete-icon-grey delete-icon slds-m-top_xx-small"
+                                onclick={openPopupForDelete}
+                                data-cartitemid={lineItem.cartItem.cartItemId}
+                            />
+                            <span class="tooltiptext">{_removeProductLabel}</span>
+                        </div>
+                    </div>
+                </div>
+                <!--VS Icons delete End-->
+
+                <div class="slds-grid slds-wrap">
+                    <!-- First Block -->
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_1-of-5 slds-m-top_small">
+                        <div>
+                            <div if:true={lineItem.showEvilEyeLensDeatils}>
+                                <div key={lineItem.cartItemId} class="additional-information-for-evil-eye">
+                                    <a
+                                        key={lineItem.cartItemId}
+                                        class="field-item slds-text-link_reset"
+                                        data-productid={lineItem.cartItem.productDetails.productId}
+                                        onclick={handleProductDetailNavigation}
+                                    >
+                                        <div if:true={lineItem.model} key={lineItem.productName}>
+                                            <lightning-formatted-text title={lineItem.model} value={lineItem.model} class="productModel">
+                                            </lightning-formatted-text>
+                                        </div>
+                                        <div if:true={lineItem.displayName} key={lineItem.displayName}>
+                                            <lightning-formatted-text title={lineItem.displayName} value={lineItem.displayName} class="productModel">
+                                            </lightning-formatted-text>
+                                        </div>
+                                        <div if:true={lineItem.frameColorDescription} key={lineItem.productName} class="productModel">
+                                            <lightning-formatted-text
+                                                title={lineItem.frameColorDescription}
+                                                value={lineItem.frameColorDescription}
+                                                class="productModel"
+                                            ></lightning-formatted-text>
+                                        </div>
+                                        <div if:true={lineItem.collectionDesignFamily} key={lineItem.productName} class="slds-align_absolute-left">
+                                            <lightning-formatted-text
+                                                title={lineItem.collectionDesignFamily}
+                                                value={lineItem.collectionDesignFamily}
+                                                class="font-13-400"
+                                            ></lightning-formatted-text>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                            <div if:false={lineItem.showEvilEyeLensDeatils}>
+                                <div class="f16">
+                                    <a
+                                        key={lineItem.cartItemId}
+                                        data-productid={lineItem.cartItem.productDetails.productId}
+                                        onclick={handleProductDetailNavigation}
+                                        tabindex="0"
+                                        class="black-color item-name tooltip-productname product-name-wrap"
+                                    >
+                                        {lineItem.displayName}
+                                        <lightning-formatted-rich-text
+                                            class="tooltiptext text2"
+                                            value={lineItem.cartItem.productDetails.name}
+                                        ></lightning-formatted-rich-text>
+                                    </a>
+                                </div>
+                                <div if:true={lineItem.model} class="f16">{lineItem.model}</div>
+                            </div>
+
+                            <div>
+                                <img
+                                    if:true={lineItem.productLink}
+                                    src={lineItem.productLink}
+                                    alt={lineItem.productLink}
+                                    data-productid={lineItem.productId}
+                                    title={lineItem.cartItem.productDetails.name}
+                                    class="product-img"
+                                />
+                                <img
+                                    if:false={lineItem.productLink}
+                                    src={lineItem.productImageUrl}
+                                    alt={lineItem.productLink}
+                                    data-productid={lineItem.productId}
+                                    title={lineItem.cartItem.productDetails.name}
+                                    class="product-img"
+                                />
+                            </div>
+                            <div if:true={lineItem.additionalInfo.selectedRxSolutionImage}>
+                                <div if:true={lineItem.additionalInfo.selectedRxSolutionImage} class="rx-solution-img">
+                                    <img
+                                        if:true={lineItem.additionalInfo.selectedRxSolutionImage}
+                                        src={lineItem.additionalInfo.selectedRxSolutionImage}
+                                        alt={lineItem.additionalInfo.selectedRxSolutionImage}
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Start : VS cart details-->
+                    <div
+                        if:true={lineItem.additionalInfo.isVsItem}
+                        class="slds-col slds-size_1-of-1 slds-medium-size_9-of-12 slds-large-size_9-of-12 vs-product-info"
+                    >
+                        <div>
+                            <div class="slds-col slds-size_1-of-1 slds-p-vertical_xx-small">
+                                <div class="slds-col slds-grid slds-wrap backgroundGrey">
+                                    <!-- Customer Details Div 1 -->
+                                    <div if:true={lineItem.additionalInfo} class="slds-col slds-size_1-of-1 slds-medium-size_12-of-12 slds-large-size_6-of-12">
+                                        <div class="productdetails-container">
+                                            <table>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>
+                                                            <div class="w-65">
+                                                                <div>
+                                                                    <div class="fs-14 slds-p-left_x-small min_width">{labels.customerName}</div>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+
+                                                        <td>
+                                                            <div class="w-65">
+                                                                <div>
+                                                                    <!---->
+                                                                    <div
+                                                                        if:true={lineItem.additionalInfo.B2B_Customer_Name__c}
+                                                                        class="fs-14-bold slds-p-left_xxx-small wrap_styling"
+                                                                    >
+                                                                        {lineItem.additionalInfo.B2B_Customer_Name__c}
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td class="w-65">
+                                                            <div>
+                                                                <div class="fs-14 slds-p-left_x-small">{labels.orderType}</div>
+                                                            </div>
+                                                        </td>
+
+                                                        <td class="w-65">
+                                                            <div>
+                                                                <div class="fs-14-bold slds-p-left_xxx-small">{lineItem.additionalInfo.B2B_Order_Type__c}</div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+
+                                    <!-- Customer Details Div 2 -->
+                                    <div if:true={lineItem.additionalInfo} class="slds-col slds-size_1-of-1 slds-medium-size_12-of-12 slds-large-size_6-of-12">
+                                        <div class="productdetails-container vs-product-info">
+                                            <table>
+                                                <tbody>
+                                                    <tr sl>
+                                                        <td>
+                                                            <div class="w-65">
+                                                                <div>
+                                                                    <div class="fs-14 slds-p-left_x-small min_width">{labels.clerk}</div>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+
+                                                        <td>
+                                                            <div class="w-65">
+                                                                <div>
+                                                                    <div class="fs-14-bold slds-p-left_xx-small wrap_styling">
+                                                                        {lineItem.additionalInfo.B2B_Clerk__c}
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr if:true={lineItem.additionalInfo.B2B_Frame_Type__c}>
+                                                        <td>
+                                                            <div class="w-65">
+                                                                <div>
+                                                                    <div class="fs-14 slds-p-left_x-small">{labels.frameType}</div>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+
+                                                        <td>
+                                                            <div class="w-65">
+                                                                <div>
+                                                                    <div class="fs-14-bold slds-p-left_xx-small">
+                                                                        {lineItem.additionalInfo.B2B_Frame_Type__c}
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12"></div>
+                                </div>
+                            </div>
+
+                            <div class="slds-col slds-grid slds-wrap">
+                                <!-- Second Block -->
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_12-of-12 slds-large-size_6-of-12 slds-p-left_x-small">
+                                    <div class="productdetails-container">
+                                        <table>
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <div class="w-65">
+                                                            <div class="fs-14">{_productColorLabel}</div>
+                                                        </div>
+                                                    </td>
+
+                                                    <td>
+                                                        <div class="w-65">
+                                                            <div if:true={lineItem.backgroundColorUpper} class="product-details slds-p-right_xxx-small">
+                                                                <span class="product-color-bubble slds-m-top_xxx-small slds-m-right_xxx-small color-bubble">
+                                                                    <span class="product-color-bubble__upper" style={lineItem.backgroundColorUpper}></span>
+                                                                    <span class="product-color-bubble__lower" style={lineItem.backgroundColorLower}></span>
+                                                                </span>
+                                                                <span class="slds-m-horizontal_xx-small product-details">{lineItem.frameColorValue}</span>
+                                                                <span class="slds-m-horizontal_xx-small product-details">{lineItem.frameColorDescription}</span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+
+                                                <tr if:true={lineItem.templeLength}>
+                                                    <td>
+                                                        <div if:true={lineItem.templeLength} class="w-65">
+                                                            <div if:true={lineItem.bridgeSize}>
+                                                                <div class="fs-14">{_bridgeTempleLabel}</div>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+
+                                                    <td>
+                                                        <div if:true={lineItem.templeLength} class="w-65">
+                                                            <div if:true={lineItem.bridgeSize}>
+                                                                <div class="fs-14-bold">{lineItem.bridgeSize}/{lineItem.templeLength}</div>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+
+                                                <tr if:true={lineItem.additionalInfo.B2B_Lens_Size__c}>
+                                                    <td if:true={lineItem.additionalInfo.isVsItem}>
+                                                        <div class="fs-14">{_vsLensSizeLabel}</div>
+                                                    </td>
+                                                    <td if:true={lineItem.additionalInfo.B2B_Lens_Size__c}>
+                                                        <div if:true={lineItem.additionalInfo.isVsItem}>
+                                                            <div class="product-details fs-14-bold">{lineItem.additionalInfo.B2B_Lens_Size__c}</div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+
+                                                <tr if:true={lineItem.additionalInfo.B2B_Lens_Shape__c}>
+                                                    <td if:true={lineItem.additionalInfo.isVsItem}>
+                                                        <div class="fs-14">{_vsLensShapeLabel}</div>
+                                                    </td>
+                                                    <td if:true={lineItem.additionalInfo.B2B_Lens_Shape__c}>
+                                                        <div if:true={lineItem.additionalInfo.isVsItem}>
+                                                            <div class="product-details fs-14-bold">{lineItem.additionalInfo.B2B_Lens_Shape__c}</div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+
+                                                <tr if:true={lineItem.colorGrooveData}>
+                                                    <td if:true={lineItem.additionalInfo.isVsItem}>
+                                                        <div class="fs-14">{lineItem.grooveColorLabel}</div>
+                                                    </td>
+                                                    <td if:true={lineItem.additionalInfo.isVsItem}>
+                                                        <div if:true={lineItem.colorGrooveData} class="display-flex">
+                                                            <span class="color-bubble-vs" style={lineItem.colorGrooveData.styling}></span>
+                                                            <span class="margin-left-20 fs-14-bold">{lineItem.colorGrooveData.label}</span>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr if:true={lineItem.accentRingData}>
+                                                    <td if:true={lineItem.additionalInfo.isVsItem}>
+                                                        <div class="fs-14">{_accentRingColorLabel}</div>
+                                                    </td>
+                                                    <td if:true={lineItem.additionalInfo.isVsItem}>
+                                                        <div if:true={lineItem.accentRingData} class="display-flex">
+                                                            <span class="color-bubble-vs" style={lineItem.accentRingData.styling}></span>
+                                                            <span class="margin-left-20 fs-14-bold">{lineItem.accentRingData.label}</span>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr if:true={lineItem.shapeAdjusted}>
+                                                    <td if:true={lineItem.additionalInfo.isVsItem}>
+                                                        <div class="fs-14">{_vsShapeAdjusted}</div>
+                                                    </td>
+                                                    <td if:true={lineItem.additionalInfo.isVsItem}>
+                                                        <div if:true={lineItem.shapeAdjusted}>
+                                                            <div class="product-details fs-14-bold">{labels.yes}</div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <!-- VS Lens Data -->
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_12-of-12 slds-large-size_6-of-12 slds-p-left_x-small">
+                                    <div if:true={lineItem.additionalInfo}>
+                                        <div class="productdetails-container vs-product-info">
+                                            <table>
+                                                <tbody>
+                                                    <tr if:true={lineItem.additionalInfo.selectedLensImage}>
+                                                        <td>
+                                                            <div if:true={lineItem.additionalInfo.selectedLensImage} class="lens-img"></div>
+                                                        </td>
+
+                                                        <td>
+                                                            <div if:true={lineItem.additionalInfo.selectedLensImage} class="lens-img">
+                                                                <img
+                                                                    if:true={lineItem.additionalInfo.selectedLensImage}
+                                                                    src={lineItem.additionalInfo.selectedLensImage}
+                                                                    alt={lineItem.additionalInfo.selectedLensImage}
+                                                                />
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr if:true={lineItem.additionalInfo.B2B_Glazing_Type__c}>
+                                                        <td>
+                                                            <div if:true={lineItem.additionalInfo.B2B_Glazing_Type__c}>
+                                                                <div class="fs-14">{labels.glazing}</div>
+                                                            </div>
+                                                        </td>
+
+                                                        <td>
+                                                            <div if:true={lineItem.additionalInfo.B2B_Glazing_Type__c}>
+                                                                <div class="fs-14-bold">{lineItem.additionalInfo.B2B_Glazing_Type__c}</div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr if:true={lineItem.additionalInfo.B2B_Lens_Type__c}>
+                                                        <td>
+                                                            <div>
+                                                                <div if:true={lineItem.additionalInfo.B2B_Lens_Type__c}>
+                                                                    <div class="fs-14">{labels.lensType}</div>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+
+                                                        <td>
+                                                            <div>
+                                                                <div if:true={lineItem.additionalInfo.B2B_Lens_Type__c}>
+                                                                    <div class="fs-14-bold">{lineItem.additionalInfo.B2B_Lens_Type__c}</div>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr if:true={lineItem.additionalInfo.B2B_Lens_Index__c}>
+                                                        <td>
+                                                            <div>
+                                                                <div if:true={lineItem.additionalInfo.B2B_Lens_Index__c}>
+                                                                    <div class="fs-14">{labels.lensIndex}</div>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+
+                                                        <td>
+                                                            <div>
+                                                                <div if:true={lineItem.additionalInfo.B2B_Lens_Index__c}>
+                                                                    <div class="fs-14-bold">{lineItem.additionalInfo.B2B_Lens_Index__c}</div>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr if:true={lineItem.additionalInfo.B2B_Progression_Length__c}>
+                                                        <td>
+                                                            <div if:true={lineItem.additionalInfo.B2B_Progression_Length__c}>
+                                                                <div class="fs-14">{labels.progressionLength}</div>
+                                                            </div>
+                                                        </td>
+
+                                                        <td>
+                                                            <div if:true={lineItem.additionalInfo.B2B_Progression_Length__c}>
+                                                                <div class="fs-14-bold">{lineItem.additionalInfo.B2B_Progression_Length__c}</div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr if:true={lineItem.additionalInfo.B2B_Lens_Color__c}>
+                                                        <td>
+                                                            <div if:true={lineItem.additionalInfo.B2B_Lens_Color__c}>
+                                                                <div class="fs-14">{labels.lensColor}</div>
+                                                            </div>
+                                                        </td>
+
+                                                        <td>
+                                                            <div if:true={lineItem.additionalInfo.B2B_Lens_Color__c}>
+                                                                <div class="fs-14-bold">{lineItem.additionalInfo.B2B_Lens_Color__c}</div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr if:true={lineItem.additionalInfo.photoSensation}>
+                                                        <td>
+                                                            <div if:true={lineItem.additionalInfo.photoSensation}>
+                                                                <div class="fs-14">{labels.photoSensation}</div>
+                                                            </div>
+                                                        </td>
+
+                                                        <td>
+                                                            <div if:true={lineItem.additionalInfo.photoSensation}>
+                                                                <div class="fs-14-bold">{lineItem.additionalInfo.photoSensation}</div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr if:true={lineItem.additionalInfo.B2B_Lens_Distance__c}>
+                                                        <td>
+                                                            <div if:true={lineItem.additionalInfo.B2B_Lens_Distance__c}>
+                                                                <div class="fs-14">{labels.lensDistance}</div>
+                                                            </div>
+                                                        </td>
+
+                                                        <td>
+                                                            <div if:true={lineItem.additionalInfo.B2B_Lens_Distance__c}>
+                                                                <div class="fs-14-bold">{lineItem.additionalInfo.B2B_Lens_Distance__c}</div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr if:true={lineItem.additionalInfo.B2B_Lens_Edge__c}>
+                                                        <td>
+                                                            <div if:true={lineItem.additionalInfo.B2B_Lens_Edge__c}>
+                                                                <div class="fs-14">{labels.lensEdge}</div>
+                                                            </div>
+                                                        </td>
+
+                                                        <td>
+                                                            <div if:true={lineItem.additionalInfo.B2B_Lens_Edge__c}>
+                                                                <div class="fs-14-bold">{lineItem.additionalInfo.B2B_Lens_Edge__c}</div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr if:true={lineItem.additionalInfo.B2B_Visual_Preference__c}>
+                                                        <td>
+                                                            <div if:true={lineItem.additionalInfo.B2B_Visual_Preference__c}>
+                                                                <div class="fs-14">{labels.visualPreferences}</div>
+                                                            </div>
+                                                        </td>
+
+                                                        <td>
+                                                            <div if:true={lineItem.additionalInfo.B2B_Visual_Preference__c}>
+                                                                <div class="fs-14-bold">{lineItem.additionalInfo.B2B_Visual_Preference__c}</div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr if:false={lineItem.additionalInfo.isVsItem}>
+                                                        <td if:true={lineItem.additionalInfo.B2B_Antireflection_SKU__c}>
+                                                            <template if:false={lineItem.additionalInfo.isVsItem}>
+                                                                <div if:true={lineItem.additionalInfo.B2B_Antireflection_SKU__c}>
+                                                                    <div class="fs-14">{labels.antireflection}</div>
+                                                                </div>
+                                                            </template>
+                                                        </td>
+
+                                                        <td if:true={lineItem.additionalInfo.B2B_Antireflection_SKU__c}>
+                                                            <template if:false={lineItem.additionalInfo.isVsItem}>
+                                                                <div if:true={lineItem.additionalInfo.B2B_Antireflection_SKU__c}>
+                                                                    <div class="fs-14-bold">{lineItem.additionalInfo.B2B_Antireflection_SKU__c}</div>
+                                                                </div>
+                                                            </template>
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr if:false={lineItem.additionalInfo.isVsItem}>
+                                                        <td if:true={lineItem.additionalInfo.B2B_Hard_Coating_SKU__c}>
+                                                            <template if:false={lineItem.additionalInfo.isVsItem}>
+                                                                <div if:true={lineItem.additionalInfo.B2B_Hard_Coating_SKU__c}>
+                                                                    <div class="fs-14">{labels.hardCoating}</div>
+                                                                </div>
+                                                            </template>
+                                                        </td>
+
+                                                        <td if:true={lineItem.additionalInfo.B2B_Hard_Coating_SKU__c}>
+                                                            <template if:false={lineItem.additionalInfo.isVsItem}>
+                                                                <div if:true={lineItem.additionalInfo.B2B_Hard_Coating_SKU__c}>
+                                                                    <div class="fs-14-bold">{lineItem.additionalInfo.B2B_Hard_Coating_SKU__c}</div>
+                                                                </div>
+                                                            </template>
+                                                        </td>
+                                                    </tr>
+                                                    <tr if:true={lineItem.selectedLensMaterial}>
+                                                        <td>
+                                                            <div>
+                                                                <div if:true={lineItem.selectedLensMaterial}>
+                                                                    <div class="fs-14">{labels.material}</div>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+
+                                                        <td>
+                                                            <div>
+                                                                <div if:true={lineItem.selectedLensMaterial}>
+                                                                    <div class="fs-14-bold">{lineItem.selectedLensMaterial}</div>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr if:true={lineItem.additionalInfo.isVsItem}>
+                                                        <td if:true={lineItem.additionalInfo.antireflectionHardCoating}>
+                                                            <template if:true={lineItem.additionalInfo.isVsItem}>
+                                                                <div if:true={lineItem.additionalInfo.antireflectionHardCoating}>
+                                                                    <div class="fs-14">{labels.hardCoating}</div>
+                                                                    <!--BS-2190-->
+                                                                </div>
+                                                            </template>
+                                                        </td>
+
+                                                        <td if:true={lineItem.additionalInfo.antireflectionHardCoating}>
+                                                            <template if:true={lineItem.additionalInfo.isVsItem}>
+                                                                <div if:true={lineItem.additionalInfo.antireflectionHardCoating}>
+                                                                    <div class="fs-14-bold">{lineItem.additionalInfo.antireflectionHardCoating}</div>
+                                                                </div>
+                                                            </template>
+                                                        </td>
+                                                    </tr>
+                                                    <tr if:true={lineItem.additionalInfo.blueSensation}>
+                                                        <td>
+                                                            <div if:true={lineItem.additionalInfo.blueSensation}>
+                                                                <div class="fs-14">{labels.blueSensation}</div>
+                                                            </div>
+                                                        </td>
+
+                                                        <td>
+                                                            <div if:true={lineItem.additionalInfo.blueSensation}>
+                                                                <div class="fs-14-bold">{lineItem.additionalInfo.blueSensation}</div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr if:true={lineItem.additionalInfo.B2B_S_Graving__c}>
+                                                        <td>
+                                                            <div if:true={lineItem.additionalInfo.B2B_S_Graving__c}>
+                                                                <div class="fs-14">{labels.sGraving}</div>
+                                                            </div>
+                                                        </td>
+
+                                                        <td>
+                                                            <div if:true={lineItem.additionalInfo.B2B_S_Graving__c}>
+                                                                <div class="fs-14-bold">{labels.yes}</div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr if:false={lineItem.additionalInfo.B2B_S_Graving__c}>
+                                                        <td>
+                                                            <div if:false={lineItem.additionalInfo.B2B_S_Graving__c}>
+                                                                <div class="fs-14">{labels.sGraving}</div>
+                                                            </div>
+                                                        </td>
+
+                                                        <td>
+                                                            <div if:false={lineItem.additionalInfo.B2B_S_Graving__c}>
+                                                                <div class="fs-14-bold">{labels.no}</div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr if:true={lineItem.showFacetCut}>
+                                                        <td if:true={lineItem.withFacetCut}>
+                                                            <div class="fs-14">{labels.facetCutLabel}</div>
+                                                        </td>
+
+                                                        <td>
+                                                            <div if:true={lineItem.withFacetCut}>
+                                                                <div class="fs-14-bold">{labels.yes}</div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr if:false={lineItem.showFacetCut}>
+                                                        <td>
+                                                            <div if:false={lineItem.withFacetCut}>
+                                                                <div class="fs-14">{labels.facetCutLabel}</div>
+                                                            </div>
+                                                        </td>
+
+                                                        <td>
+                                                            <div if:false={lineItem.withFacetCut}>
+                                                                <div class="fs-14-bold">{labels.no}</div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End : VS cart details-->
+                    <!-- Start : RX cart details-->
+                    <div
+                        if:false={lineItem.additionalInfo.isVsItem}
+                        class="slds-col slds-size_1-of-1 slds-medium-size_9-of-12 slds-large-size_4-of-5 vs-product-info"
+                    >
+                        <div class="slds-is-relative">
+                            <!-- Customer Details Block -->
+                            <div class="slds-col slds-size_1-of-1 slds-p-vertical_xx-small">
+                                <div class="slds-col slds-grid backgroundGrey slds-is-relative slds-wrap">
+                                    <!-- Customer Details Div 1 -->
+                                    <div if:true={lineItem.additionalInfo} class="slds-col slds-size_1-of-1 slds-medium-size_12-of-12 slds-large-size_4-of-12">
+                                        <div class="productdetails-container-rx slds-p-left_x-small no-left-padding">
+                                            <table>
+                                                <tbody>
+                                                    <tr>
+                                                        <td class="rx-td-label max_width_RX">
+                                                            <div class="width-70">
+                                                                <div>
+                                                                    <div class="fs-14 word_break max_widthRX">{labels.customerName}</div>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+
+                                                        <td class="rx-td-data">
+                                                            <div class="w-65">
+                                                                <div>
+                                                                    <div
+                                                                        if:true={lineItem.additionalInfo.B2B_Customer_Name__c}
+                                                                        class="fs-14-bold wrap_stylingRX"
+                                                                    >
+                                                                        {lineItem.additionalInfo.B2B_Customer_Name__c}
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td class="rx-td-label">
+                                                            <div class="w-65">
+                                                                <div class="fs-14">{labels.orderType}</div>
+                                                            </div>
+                                                        </td>
+
+                                                        <td class="rx-td-data">
+                                                            <div class="w-65">
+                                                                <div class="fs-14-bold">{lineItem.additionalInfo.B2B_Order_Type__c}</div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+
+                                    <!-- Customer Details Div 2 -->
+                                    <div if:true={lineItem.additionalInfo} class="slds-col slds-size_1-of-1 slds-medium-size_12-of-12 slds-large-size_4-of-12">
+                                        <div class="productdetails-container-rx">
+                                            <table>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>
+                                                            <div class="w-65">
+                                                                <div>
+                                                                    <div class="fs-14 min_width">{labels.clerk}</div>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+
+                                                        <td>
+                                                            <div class="w-65">
+                                                                <div>
+                                                                    <div class="fs-14-bold slds-m-left_small wrap_stylingRX">
+                                                                        {lineItem.additionalInfo.B2B_Clerk__c}
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+
+                                    <!--RX Icons delete Start-->
+                                    <div if:false={lineItem.additionalInfo.isVsItem} class="action-icon">
+                                        <div if:true={isCartPage}>
+                                            <!-- START : BS-1958 -->
+                                            <div class="tooltip slds-m-bottom_small slds-m-right_small">
+                                                <img
+                                                    src={editIcon}
+                                                    class="delete-icon-grey delete-icon slds-m-top_xx-small"
+                                                    data-cartitemid={lineItem.cartItem.cartItemId}
+                                                    onclick={openModalToEdit}
+                                                />
+                                                <span class="tooltiptext">{_editIconLabel}</span>
+                                            </div>
+                                            <!-- END : BS-1958 -->
+                                            <div class="tooltip slds-m-bottom_small">
+                                                <img
+                                                    src={_deleteIcon}
+                                                    class="delete-icon-grey delete-icon slds-m-top_xx-small"
+                                                    onclick={openPopupForDelete}
+                                                    data-cartitemid={lineItem.cartItem.cartItemId}
+                                                />
+                                                <span class="tooltiptext">{_removeProductLabel}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--RX Icons delete End-->
+                                </div>
+                            </div>
+
+                            <div class="slds-col slds-grid slds-wrap">
+                                <!-- Second Block -->
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_12-of-12 slds-large-size_4-of-12">
+                                    <div class="productdetails-container-rx slds-p-left_x-small no-left-padding">
+                                        <table>
+                                            <tbody>
+                                                <tr>
+                                                    <td class="rx-td-label">
+                                                        <div class="w-65">
+                                                            <div class="fs-14">{_productColorLabel}</div>
+                                                        </div>
+                                                    </td>
+
+                                                    <td class="rx-td-data">
+                                                        <div class="w-65">
+                                                            <div class="product-details slds-p-right_large width-70">
+                                                                <span class="product-color-bubble slds-m-top_xxx-small slds-m-right_xxx-small color-bubble">
+                                                                    <span class="product-color-bubble__upper" style={lineItem.backgroundColorUpper}></span>
+                                                                    <span class="product-color-bubble__lower" style={lineItem.backgroundColorLower}></span>
+                                                                </span>
+                                                                <span class="slds-m-horizontal_xx-small product-details">{lineItem.frameColorValue}</span>
+                                                                <span class="slds-m-horizontal_xx-small product-details">{lineItem.frameColorDescription}</span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+
+                                                <tr if:true={lineItem.eeSize}>
+                                                    <td class="rx-td-label" if:false={lineItem.additionalInfo.isVsItem}>
+                                                        <div if:false={lineItem.additionalInfo.isVsItem} class="w-65">
+                                                            <div if:true={lineItem.eeSize}>
+                                                                <div class="fs-14">{labels.productSize}</div>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+
+                                                    <td class="rx-td-data" if:false={lineItem.additionalInfo.isVsItem}>
+                                                        <div if:false={lineItem.additionalInfo.isVsItem} class="w-65">
+                                                            <div if:true={lineItem.eeSize}>
+                                                                <div class="fs-14-bold">{lineItem.eeSize}</div>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <!-- Third Block -->
+                                <div
+                                    if:true={lineItem.additionalInfo.B2B_RX_Solution__c}
+                                    class="slds-col slds-size_1-of-1 slds-medium-size_12-of-12 slds-large-size_4-of-12"
+                                >
+                                    <div if:true={lineItem.additionalInfo}>
+                                        <div if:true={lineItem.additionalInfo.B2B_RX_Solution__c} class="productdetails-container-rx">
+                                            <table>
+                                                <tbody>
+                                                    <tr if:true={lineItem.additionalInfo.B2B_RX_Solution__c}>
+                                                        <td>
+                                                            <div if:true={lineItem.additionalInfo.B2B_RX_Solution__c}>
+                                                                <div class="fs-14">{labels._rxSolutionHeaderLabel}</div>
+                                                            </div>
+                                                        </td>
+
+                                                        <td>
+                                                            <div if:true={lineItem.additionalInfo.B2B_RX_Solution__c}>
+                                                                <div class="fs-14-bold">{lineItem.additionalInfo.B2B_RX_Solution__c}</div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr if:true={lineItem.additionalInfo.B2B_RX_Type__c}>
+                                                        <td>
+                                                            <div if:false={lineItem.additionalInfo.isDirectGlazing} class="rx-type-color">
+                                                                <div if:true={lineItem.additionalInfo.B2B_RX_Type__c}>
+                                                                    <div class="fs-14">{labels._RXTypeLabel}</div>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+
+                                                        <td>
+                                                            <div if:false={lineItem.additionalInfo.isDirectGlazing} class="rx-type-color">
+                                                                <div if:true={lineItem.additionalInfo.B2B_RX_Type__c}>
+                                                                    <div class="fs-14-bold">{lineItem.additionalInfo.B2B_RX_Type__c}</div>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr if:true={lineItem.additionalInfo.isClipIn}>
+                                                        <td>
+                                                            <div if:true={lineItem.variantShape} class="rx-type-color">
+                                                                <div if:true={lineItem.variantShape}>
+                                                                    <div class="fs-14">{_vsLensShapeLabel}</div>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+
+                                                        <td>
+                                                            <div if:true={lineItem.variantShape} class="rx-type-color">
+                                                                <div if:true={lineItem.variantShape}>
+                                                                    <div class="fs-14-bold">{lineItem.variantShape}</div>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr if:true={lineItem.selectedRxSolutionColor}>
+                                                        <td>
+                                                            <div if:true={lineItem.selectedRxSolutionColor} class="rx-type-color">
+                                                                <div if:false={lineItem.additionalInfo.isDirectGlazing}>
+                                                                    <div class="fs-14">{labels._colorLabel}</div>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+
+                                                        <td>
+                                                            <div if:true={lineItem.selectedRxSolutionColor} class="rx-type-color">
+                                                                <div if:false={lineItem.additionalInfo.isDirectGlazing}>
+                                                                    <div class="fs-14-bold">{lineItem.selectedRxSolutionColor}</div>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr if:true={lineItem.additionalInfo.B2B_without_clipin__c}>
+                                                        <td>
+                                                            <div if:true={lineItem.additionalInfo.B2B_without_clipin__c} class="rx-type-color">
+                                                                <div if:true={lineItem.additionalInfo.isClipIn}>
+                                                                    <div class="fs-14">{labels.lensOnlyForClipIn}</div>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+
+                                                        <td>
+                                                            <div if:true={lineItem.additionalInfo.B2B_without_clipin__c} class="rx-type-color">
+                                                                <div if:true={lineItem.additionalInfo.isClipIn}>
+                                                                    <div class="fs-14-bold">{labels.yes}</div>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr if:true={lineItem.additionalInfo.B2B_Lenses_without_Adapter__c}>
+                                                        <td>
+                                                            <div if:true={lineItem.additionalInfo.B2B_Lenses_without_Adapter__c} class="rx-type-color">
+                                                                <div if:true={lineItem.additionalInfo.isAdapter}>
+                                                                    <div class="fs-14">{labels.lensesWithoutAdapter}</div>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+
+                                                        <td>
+                                                            <div if:true={lineItem.additionalInfo.B2B_Lenses_without_Adapter__c} class="rx-type-color">
+                                                                <div if:true={lineItem.additionalInfo.isAdapter}>
+                                                                    <div class="fs-14-bold">{labels.yes}</div>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- RX Fourth Block -->
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_12-of-12 slds-large-size_4-of-12">
+                                    <div if:true={lineItem.additionalInfo}>
+                                        <div class="productdetails-container-rx">
+                                            <table>
+                                                <tbody>
+                                                    <tr if:true={lineItem.additionalInfo.selectedLensImage}>
+                                                        <td>
+                                                            <div if:true={lineItem.additionalInfo.selectedLensImage} class="lens-img"></div>
+                                                        </td>
+
+                                                        <td>
+                                                            <div if:true={lineItem.additionalInfo.selectedLensImage} class="lens-img">
+                                                                <img
+                                                                    if:true={lineItem.additionalInfo.selectedLensImage}
+                                                                    src={lineItem.additionalInfo.selectedLensImage}
+                                                                    alt={lineItem.additionalInfo.selectedLensImage}
+                                                                />
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr if:true={lineItem.additionalInfo.B2B_Glazing_Type__c}>
+                                                        <td class="rx-lens-td-label">
+                                                            <div if:true={lineItem.additionalInfo.B2B_Glazing_Type__c}>
+                                                                <div class="fs-14">{labels.glazing}</div>
+                                                            </div>
+                                                        </td>
+
+                                                        <td class="rx-lens-td-data">
+                                                            <div if:true={lineItem.additionalInfo.B2B_Glazing_Type__c}>
+                                                                <div class="fs-14-bold">{lineItem.additionalInfo.B2B_Glazing_Type__c}</div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr if:true={lineItem.additionalInfo.B2B_Lens_Type__c}>
+                                                        <td class="rx-lens-td-label">
+                                                            <div>
+                                                                <div if:true={lineItem.additionalInfo.B2B_Lens_Type__c}>
+                                                                    <div class="fs-14">{labels.lensType}</div>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+
+                                                        <td class="rx-lens-td-data">
+                                                            <div>
+                                                                <div if:true={lineItem.additionalInfo.B2B_Lens_Type__c}>
+                                                                    <div class="fs-14-bold horizontal-view">{lineItem.additionalInfo.B2B_Lens_Type__c}</div>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr if:true={lineItem.additionalInfo.B2B_Lens_Index__c}>
+                                                        <td class="rx-lens-td-label">
+                                                            <div>
+                                                                <div if:true={lineItem.additionalInfo.B2B_Lens_Index__c}>
+                                                                    <div class="fs-14">{labels.lensIndex}</div>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+
+                                                        <td class="rx-lens-td-data">
+                                                            <div>
+                                                                <div if:true={lineItem.additionalInfo.B2B_Lens_Index__c}>
+                                                                    <div class="fs-14-bold">{lineItem.additionalInfo.B2B_Lens_Index__c}</div>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr if:true={lineItem.additionalInfo.B2B_Progression_Length__c}>
+                                                        <td class="rx-lens-td-label">
+                                                            <div if:true={lineItem.additionalInfo.B2B_Progression_Length__c}>
+                                                                <div class="fs-14">{labels.progressionLength}</div>
+                                                            </div>
+                                                        </td>
+
+                                                        <td class="rx-lens-td-data">
+                                                            <div if:true={lineItem.additionalInfo.B2B_Progression_Length__c}>
+                                                                <div class="fs-14-bold">{lineItem.additionalInfo.B2B_Progression_Length__c}</div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr if:true={lineItem.additionalInfo.B2B_Lens_Color__c}>
+                                                        <td class="rx-lens-td-label">
+                                                            <div if:true={lineItem.additionalInfo.B2B_Lens_Color__c}>
+                                                                <div class="fs-14">{labels.lensColor}</div>
+                                                            </div>
+                                                        </td>
+
+                                                        <td class="rx-lens-td-data">
+                                                            <div if:true={lineItem.additionalInfo.B2B_Lens_Color__c}>
+                                                                <div class="fs-14-bold horizontal-view">{lineItem.additionalInfo.B2B_Lens_Color__c}</div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr if:true={lineItem.additionalInfo.photoSensation}>
+                                                        <td class="rx-lens-td-label">
+                                                            <div if:true={lineItem.additionalInfo.photoSensation}>
+                                                                <div class="fs-14">{labels.photoSensation}</div>
+                                                            </div>
+                                                        </td>
+
+                                                        <td class="rx-lens-td-data">
+                                                            <div if:true={lineItem.additionalInfo.photoSensation}>
+                                                                <div class="fs-14-bold horizontal-view">{lineItem.additionalInfo.photoSensation}</div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr if:true={lineItem.additionalInfo.B2B_Lens_Distance__c}>
+                                                        <td>
+                                                            <div if:true={lineItem.additionalInfo.B2B_Lens_Distance__c}>
+                                                                <div class="fs-14">{labels.lensDistance}</div>
+                                                            </div>
+                                                        </td>
+
+                                                        <td>
+                                                            <div if:true={lineItem.additionalInfo.B2B_Lens_Distance__c}>
+                                                                <div class="fs-14-bold">{lineItem.additionalInfo.B2B_Lens_Distance__c}</div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr if:true={lineItem.additionalInfo.B2B_Lens_Edge__c}>
+                                                        <td>
+                                                            <div if:true={lineItem.additionalInfo.B2B_Lens_Edge__c}>
+                                                                <div class="fs-14">{labels.lensEdge}</div>
+                                                            </div>
+                                                        </td>
+
+                                                        <td>
+                                                            <div if:true={lineItem.additionalInfo.B2B_Lens_Edge__c}>
+                                                                <div class="fs-14-bold">{lineItem.additionalInfo.B2B_Lens_Edge__c}</div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr if:true={lineItem.additionalInfo.B2B_Visual_Preference__c}>
+                                                        <td>
+                                                            <div if:true={lineItem.additionalInfo.B2B_Visual_Preference__c}>
+                                                                <div class="fs-14">{labels.visualPreferences}</div>
+                                                            </div>
+                                                        </td>
+
+                                                        <td>
+                                                            <div if:true={lineItem.additionalInfo.B2B_Visual_Preference__c}>
+                                                                <div class="fs-14-bold">{lineItem.additionalInfo.B2B_Visual_Preference__c}</div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr if:false={lineItem.additionalInfo.isVsItem}>
+                                                        <td>
+                                                            <template if:false={lineItem.additionalInfo.isVsItem}>
+                                                                <div>
+                                                                    <div class="fs-14">{labels.antireflection}</div>
+                                                                </div>
+                                                            </template>
+                                                        </td>
+
+                                                        <td if:true={lineItem.additionalInfo.B2B_Antireflection_SKU__c}>
+                                                            <template if:false={lineItem.additionalInfo.isVsItem}>
+                                                                <div if:true={lineItem.additionalInfo.B2B_Antireflection_SKU__c}>
+                                                                    <div class="fs-14-bold">{labels.yes}</div>
+                                                                </div>
+                                                            </template>
+                                                        </td>
+                                                        <td if:false={lineItem.additionalInfo.B2B_Antireflection_SKU__c}>
+                                                            <template if:false={lineItem.additionalInfo.isVsItem}>
+                                                                <div if:false={lineItem.additionalInfo.B2B_Antireflection_SKU__c}>
+                                                                    <div class="fs-14-bold">{labels.no}</div>
+                                                                </div>
+                                                            </template>
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr if:false={lineItem.additionalInfo.isVsItem}>
+                                                        <td>
+                                                            <template if:false={lineItem.additionalInfo.isVsItem}>
+                                                                <div>
+                                                                    <div class="fs-14">{labels.hardCoating}</div>
+                                                                </div>
+                                                            </template>
+                                                        </td>
+
+                                                        <td>
+                                                            <template if:false={lineItem.additionalInfo.isVsItem}>
+                                                                <div>
+                                                                    <div class="fs-14-bold">{labels.yes}</div>
+                                                                </div>
+                                                            </template>
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr if:true={lineItem.additionalInfo.isVsItem}>
+                                                        <td if:true={lineItem.additionalInfo.antireflectionHardCoating}>
+                                                            <template if:true={lineItem.additionalInfo.isVsItem}>
+                                                                <div if:true={lineItem.additionalInfo.antireflectionHardCoating}>
+                                                                    <div class="fs-14">{labels.hardCoating}</div>
+                                                                    <!--BS-2190-->
+                                                                </div>
+                                                            </template>
+                                                        </td>
+
+                                                        <td if:true={lineItem.additionalInfo.antireflectionHardCoating}>
+                                                            <template if:true={lineItem.additionalInfo.isVsItem}>
+                                                                <div if:true={lineItem.additionalInfo.antireflectionHardCoating}>
+                                                                    <div class="fs-14-bold">{lineItem.additionalInfo.antireflectionHardCoating}</div>
+                                                                </div>
+                                                            </template>
+                                                        </td>
+                                                    </tr>
+                                                    <tr if:true={lineItem.additionalInfo.blueSensation}>
+                                                        <td>
+                                                            <div if:true={lineItem.additionalInfo.blueSensation}>
+                                                                <div class="fs-14">{labels.blueSensation}</div>
+                                                            </div>
+                                                        </td>
+
+                                                        <td>
+                                                            <div if:true={lineItem.additionalInfo.blueSensation}>
+                                                                <div class="fs-14-bold horizontal-view">{lineItem.additionalInfo.blueSensation}</div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr if:true={lineItem.selectedLensMaterial}>
+                                                        <td>
+                                                            <div>
+                                                                <div if:true={lineItem.selectedLensMaterial}>
+                                                                    <div class="fs-14">{labels.material}</div>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+
+                                                        <td>
+                                                            <div>
+                                                                <div if:true={lineItem.selectedLensMaterial}>
+                                                                    <div class="fs-14-bold">{lineItem.selectedLensMaterial}</div>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+
+                                                    <!--BS-1796 start-->
+                                                    <tr if:true={lineItem.additionalInfo.B2B_S_Graving__c}>
+                                                        <td>
+                                                            <div if:true={lineItem.additionalInfo.B2B_S_Graving__c}>
+                                                                <div class="fs-14">{labels.sGraving}</div>
+                                                            </div>
+                                                        </td>
+
+                                                        <td>
+                                                            <div if:true={lineItem.additionalInfo.B2B_S_Graving__c}>
+                                                                <div class="fs-14-bold">{labels.yes}</div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <!--BS-1796 end-->
+                                                    <tr if:true={lineItem.additionalInfo.B2B_Evil_Eye_Edge__c}>
+                                                        <td>
+                                                            <div if:true={lineItem.additionalInfo.B2B_Evil_Eye_Edge__c}>
+                                                                <div class="fs-14">{labels.evileyeEdge}</div>
+                                                            </div>
+                                                        </td>
+
+                                                        <td>
+                                                            <div if:true={lineItem.additionalInfo.B2B_Evil_Eye_Edge__c}>
+                                                                <div class="fs-14-bold">{labels.yes}</div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End : RX cart details-->
+                </div>
+
+                <!--Show More Glass Details START-->
+                <div class="slds-grid slds-grid_align-end">
+                    <div class="slds-col">
+                        <span>
+                            <div class="total-label">
+                                <button
+                                    class="dropbutton"
+                                    label={lineItem.additionalAttributeLabel}
+                                    data-id={lineItem.cartItem.cartItemId}
+                                    onclick={updateShowMore}
+                                >
+                                    {lineItem.additionalAttributeLabel}
+                                    <lightning-icon
+                                        class="slds-p-around_xx-small"
+                                        size="x-small"
+                                        icon-name="utility:chevronright"
+                                        alternative-text="Utility image"
+                                        title="Image"
+                                    ></lightning-icon>
+                                </button>
+                            </div>
+                        </span>
+                    </div>
+                </div>
+                <!--Show More Glass Details END-->
+
+                <!-- Start of Show More section -->
+                <div if:true={lineItem.additionalInfo}>
+                    <div if:true={lineItem.showMoreBoolean} class="slds-border_top">
+                        <div class="section-title-prescription slds-p-vertical_x-small">
+                            <p>{labels.priscriptionValue}</p>
+                        </div>
+                        <div class="font-400 prescription-value">
+                            <!--priscription value table start-->
+                            <table>
+                                <tr>
+                                    <th></th>
+                                    <th>{labels.sphere}</th>
+                                    <th>{labels.cylinder}</th>
+                                    <th>{labels.axis}</th>
+                                    <th>{labels.addition}</th>
+                                    <th>{labels.prism1}</th>
+                                    <th>{labels.prismBase1}</th>
+                                    <th>{labels.prism2}</th>
+                                    <th>{labels.prismBase2}</th>
+                                </tr>
+                                <tr>
+                                    <td class="fnt14-bold">{labels.rightEye}</td>
+                                    <td>
+                                        <div if:true={lineItem.additionalInfo}>{lineItem.additionalInfo.B2B_Sphere_Right__c}</div>
+                                        <div if:false={lineItem.additionalInfo}></div>
+                                    </td>
+                                    <td>
+                                        <div if:true={lineItem.additionalInfo}>{lineItem.additionalInfo.B2B_Cylinder_Right__c}</div>
+                                        <div if:false={lineItem.additionalInfo}></div>
+                                    </td>
+                                    <td>
+                                        <div if:true={lineItem.additionalInfo}>{lineItem.additionalInfo.B2B_Axis_Right__c}</div>
+                                        <div if:false={lineItem.additionalInfo}></div>
+                                    </td>
+                                    <td>
+                                        <div if:true={lineItem.additionalInfo}>{lineItem.additionalInfo.B2B_Addition_Right__c}</div>
+                                        <div if:false={lineItem.additionalInfo}></div>
+                                    </td>
+                                    <td>
+                                        <div if:true={lineItem.additionalInfo}>{lineItem.additionalInfo.B2B_Prism_1_Right__c}</div>
+                                        <div if:false={lineItem.additionalInfo}></div>
+                                    </td>
+                                    <td>
+                                        <div if:true={lineItem.additionalInfo}>{lineItem.additionalInfo.B2B_PB1_Right__c}</div>
+                                        <div if:false={lineItem.additionalInfo}></div>
+                                        <div if:true={lineItem.additionalInfo.B2B_PB1Placement_Right__c}>
+                                            {lineItem.additionalInfo.B2B_PB1Placement_Right__c}
+                                        </div>
+                                        <div if:false={lineItem.additionalInfo}></div>
+                                    </td>
+                                    <td>
+                                        <div if:true={lineItem.additionalInfo}>{lineItem.additionalInfo.B2B_Prism2_Right__c}</div>
+                                        <div if:false={lineItem.additionalInfo}></div>
+                                    </td>
+                                    <td>
+                                        <div if:true={lineItem.additionalInfo}>{lineItem.additionalInfo.B2B_Prism_base2_Right__c}</div>
+                                        <div if:false={lineItem.additionalInfo}></div>
+                                        <div if:true={lineItem.additionalInfo.B2B_PB2Placement_Right__c}>
+                                            {lineItem.additionalInfo.B2B_PB2Placement_Right__c}
+                                        </div>
+                                        <div if:false={lineItem.additionalInfo}></div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="fnt14-bold">{labels.leftEye}</td>
+                                    <td>
+                                        <div if:true={lineItem.additionalInfo}>{lineItem.additionalInfo.B2B_Sphere_Left__c}</div>
+                                        <div if:false={lineItem.additionalInfo}></div>
+                                    </td>
+                                    <td>
+                                        <div if:true={lineItem.additionalInfo}>{lineItem.additionalInfo.B2B_Cylinder_Left__c}</div>
+                                        <div if:false={lineItem.additionalInfo}></div>
+                                    </td>
+                                    <td>
+                                        <div if:true={lineItem.additionalInfo}>{lineItem.additionalInfo.B2B_Axis_Left__c}</div>
+                                        <div if:false={lineItem.additionalInfo}></div>
+                                    </td>
+                                    <td>
+                                        <div if:true={lineItem.additionalInfo}>{lineItem.additionalInfo.B2B_Addition_Left__c}</div>
+                                        <div if:false={lineItem.additionalInfo}></div>
+                                    </td>
+                                    <td>
+                                        <div if:true={lineItem.additionalInfo}>{lineItem.additionalInfo.B2B_Prism_1_Left__c}</div>
+                                        <div if:false={lineItem.additionalInfo}></div>
+                                    </td>
+                                    <td>
+                                        <div if:true={lineItem.additionalInfo}>{lineItem.additionalInfo.B2B_PB1_Left__c}</div>
+                                        <div if:false={lineItem.additionalInfo}></div>
+                                        <div if:true={lineItem.additionalInfo.B2B_PB1Placement_Left__c}>{lineItem.additionalInfo.B2B_PB1Placement_Left__c}</div>
+                                        <div if:false={lineItem.additionalInfo}></div>
+                                    </td>
+                                    <td>
+                                        <div if:true={lineItem.additionalInfo}>{lineItem.additionalInfo.B2B_Prism2_Left__c}</div>
+                                        <div if:false={lineItem.additionalInfo}></div>
+                                    </td>
+                                    <td>
+                                        <div if:true={lineItem.additionalInfo}>{lineItem.additionalInfo.B2B_Prism_base2_Left__c}</div>
+                                        <div if:false={lineItem.additionalInfo}></div>
+                                        <div if:true={lineItem.additionalInfo.B2B_PB2Placement_Left__c}>{lineItem.additionalInfo.B2B_PB2Placement_Left__c}</div>
+                                        <div if:false={lineItem.additionalInfo}></div>
+                                    </td>
+                                </tr>
+                                <!--Added centering data in same table BS-2343-->
+                                <tr></tr>
+                                <tr>
+                                    <td colspan="2" class="section-title-prescription slds-m-top_small">{labels.centringData}</td>
+                                </tr>
+                                <tr>
+                                    <th></th>
+                                    <th colspan="2">{labels.pupilDistance}</th>
+                                    <th>{labels.fittingHeight}</th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                                <tr>
+                                    <td class="fnt14-bold">{labels.rightEye}</td>
+                                    <td colspan="2">
+                                        <div if:true={lineItem.additionalInfo}>{lineItem.additionalInfo.B2B_Pupil_Distance_Right_Eye__c}</div>
+                                        <div if:false={lineItem.additionalInfo}></div>
+                                    </td>
+                                    <td>
+                                        <div if:true={lineItem.additionalInfo}>{lineItem.additionalInfo.B2B_Fitting_height_Right_Eye__c}</div>
+                                        <div if:false={lineItem.additionalInfo}></div>
+                                    </td>
+                                    <td></td>
+                                    <td colspan="2">
+                                        <div if:true={lineItem.additionalInfo.B2B_Pantoscopic_tilt__c}>{labels.pantascopicTilt}</div>
+                                        <div if:false={lineItem.additionalInfo.B2B_Pantoscopic_tilt__c}></div>
+                                    </td>
+                                    <td>
+                                        <div if:true={lineItem.additionalInfo.B2B_Pantoscopic_tilt__c}>{lineItem.additionalInfo.B2B_Pantoscopic_tilt__c}</div>
+                                        <div if:false={lineItem.additionalInfo.B2B_Pantoscopic_tilt__c}></div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="fnt14-bold">{labels.leftEye}</td>
+                                    <td colspan="2">
+                                        <div if:true={lineItem.additionalInfo}>{lineItem.additionalInfo.B2B_Pupil_Distance_Left_Eye__c}</div>
+                                        <div if:false={lineItem.additionalInfo}></div>
+                                    </td>
+                                    <td>
+                                        <div if:true={lineItem.additionalInfo}>{lineItem.additionalInfo.B2B_Fitting_height_Left_Eye__c}</div>
+                                        <div if:false={lineItem.additionalInfo}></div>
+                                    </td>
+                                    <td></td>
+                                    <td if:true={lineItem.additionalInfo.B2B_BVD_worn__c} colspan="2">{labels.bvdWorn}</td>
+                                    <td if:true={lineItem.additionalInfo.B2B_BVD_worn__c}>{lineItem.additionalInfo.B2B_BVD_worn__c}</td>
+                                </tr>
+                                <tr>
+                                    <td if:true={lineItem.additionalInfo.B2B_Measurement_System__c} class="fnt14-bold" colspan="2">
+                                        {labels.measurementSystem}
+                                    </td>
+                                    <td if:true={lineItem.additionalInfo.B2B_Measurement_System__c} class="fnt14-bold">
+                                        {lineItem.additionalInfo.B2B_Measurement_System__c}
+                                    </td>
+                                    <td></td>
+                                    <td></td>
+                                    <td if:true={lineItem.additionalInfo.B2B_BVD_refracted__c} colspan="2">{labels.bvdReffracted}</td>
+                                    <td if:true={lineItem.additionalInfo.B2B_BVD_refracted__c}>{lineItem.additionalInfo.B2B_BVD_refracted__c}</td>
+                                </tr>
+                                <tr if:true={lineItem.additionalInfo.B2B_Working_Distance__c}>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td colspan="2">{labels.workingDistanceFieldLabel}</td>
+                                    <td>{lineItem.additionalInfo.B2B_Working_Distance__c}</td>
+                                </tr>
+                            </table>
+                            <!--priscription value table end-->
+                        </div>
+                        <!--Added new component to show shape selection-->
+                        <div if:true={lineItem.shapeAdjusted}>
+                            <c-b2b_vs_shape_display_component lens-configurator-id={lineItem.additionalInfo.Id}></c-b2b_vs_shape_display_component>
+                        </div>
+                        <div if:true={lineItem.additionalInfo.isComment} class="slds-m-bottom_small">
+                            <div class="title slds-p-vertical_medium">{labels.commentLabel}</div>
+                            <!--BS-1064-->
+                            <div class="fs-14 slds-grid slds-wrap">
+                                <div
+                                    if:true={lineItem.additionalInfo.B2B_Note__c}
+                                    class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12 w-155"
+                                >
+                                    {labels.noteLabel} :
+                                    <span if:true={lineItem.additionalInfo.B2B_Related_Order_Number__c}
+                                        >{labels.relatedOrder} {lineItem.additionalInfo.B2B_Related_Order_Number__c}</span
+                                    >
+                                    {lineItem.additionalInfo.B2B_Note__c}
+                                </div>
+                                <div
+                                    if:false={lineItem.additionalInfo.B2B_Note__c}
+                                    class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12 w-155"
+                                >
+                                    {labels.noteLabel} :
+                                    <span if:true={lineItem.additionalInfo.B2B_Related_Order_Number__c}
+                                        >{labels.relatedOrder} {lineItem.additionalInfo.B2B_Related_Order_Number__c}</span
+                                    >
+                                </div>
+                                <div
+                                    if:true={lineItem.additionalInfo.B2B_Special_Handling__c}
+                                    class="slds-col slds-size_1-of-1 slds-medium-size_8-of-12 slds-large-size_8-of-12 w-155"
+                                >
+                                    {lineItem.additionalInfo.B2B_Special_Handling__c}
+                                </div>
+                            </div>
+                            <div>
+                                <div if:true={lineItem.additionalInfo.B2B_Customer_Service_Preference__c} class="fs-14 slds-m-vertical_large">
+                                    {_instructionsLabel}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End of Show More section -->
+
+                <!--Total Price Start-->
+                <div class="slds-grid slds-grid_align-end backgroundGrey">
+                    <div class="slds-col">
+                        <span>
+                            <div if:false={hidePurchasePriceField}>
+                                <div if:true={isCartPage} class="slds-p-around_small backgroundGrey">
+                                    <span class="f14 slds-m-right_x-small vertical-align">{_totalPriceLabel}</span>
+                                    <span class="f18">
+                                        <lightning-formatted-number
+                                            format-style="currency"
+                                            currency-code={currencyCode}
+                                            class="black-color slds-truncate"
+                                            currency-display-as="symbol"
+                                            maximum-fraction-digits="2"
+                                            value={lineItem.cartItem.totalPrice}
+                                            title={_totalPriceLabel}
+                                        >
+                                        </lightning-formatted-number>
+                                    </span>
+                                </div>
+                                <div if:false={isCartPage} class="slds-p-vertical_small">
+                                    <span class="f14 slds-m-right_x-small">{_totalPriceLabel}</span>
+                                    <span class="f18 slds-m-right_small">
+                                        <lightning-formatted-number
+                                            format-style="currency"
+                                            currency-code={currencyCode}
+                                            class="black-color slds-truncate"
+                                            currency-display-as="symbol"
+                                            maximum-fraction-digits="2"
+                                            value={lineItem.cartItem.totalPrice}
+                                            title={_totalPriceLabel}
+                                        >
+                                        </lightning-formatted-number>
+                                    </span>
+                                </div>
+                            </div>
+                        </span>
+                    </div>
+                </div>
+                <!--Total Price End-->
+
+                <!--BS-1624 END-->
+            </div>
+        </template>
+    </div>
+</template>

@@ -1,0 +1,247 @@
+.spinnerStyling {
+    background-color: rgba(255, 255, 255, 0.75) !important;
+}
+
+.appointmentTitle {
+    text-transform: uppercase;
+    font-size: 18px;
+    text-align: center;
+    width: 70%;
+    margin: 30px auto;
+}
+
+.openingHoursContainer {
+    height: 300px;
+    width: 330px;
+    font-family: 'Adobe Caslon Pro';
+    background-color: #f7f7f8;
+    padding: 25px 30px;
+    max-width: 100%;
+}
+
+.calendarIconCell {
+    width: 36px;
+}
+
+.timeSlotContainer,
+.selectedDateTime {
+    margin-top: 10px;
+}
+
+.timeSlotOption:hover {
+    background-color: #000;
+    color: #fff;
+}
+
+.timeSlotComponent,
+.timeSlotTitle {
+    font-family: 'Adobe Caslon Pro' !important;
+    color: #8c8c8c;
+}
+
+.openingHoursTitle {
+    margin-bottom: 10px;
+}
+
+.appointmentDateContainer {
+    background: #f7f7f8;
+    font-family: 'Adobe Caslon Pro';
+    padding-left: 15px;
+    padding-top: 15px;
+}
+
+td {
+    padding-bottom: 10px;
+}
+
+.appointmentMainContainer {
+    max-width: 800px;
+    margin: auto;
+    height: auto;
+}
+
+/* Target the select element */
+select {
+    -webkit-appearance: none; /* Remove default styling in WebKit browsers */
+    -moz-appearance: none; /* Remove default styling in Firefox */
+    appearance: none; /* Remove default styling in modern browsers */
+    border: 1px solid #ccc;
+    padding: 5px;
+    font-size: 16px;
+    background-color: white;
+    color: black;
+}
+
+/* Target the option elements */
+option {
+    background-color: transparent; /* Make the background color transparent */
+}
+
+/* Remove the hover background color for the options */
+select:hover option:hover {
+    background-color: transparent; /* Remove the hover background color */
+    color: black; /* Optionally change text color */
+}
+
+/* Add additional styling for better visibility */
+select:focus {
+    outline: none; /* Remove the default outline */
+    border-color: #aaa; /* Optional: change the border color on focus */
+}
+
+.select-option,
+.timeSlotComponent {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-image: var(--background-image-url);
+    background-color: #fff;
+    background-size: 12px;
+    background-position-x: 97%;
+    background-position-y: 50%;
+    background-repeat: no-repeat;
+    font-family: 'Adobe Caslon Pro';
+    font-weight: 500;
+    font-size: 16px;
+    padding: 6px;
+    border-radius: 0px !important;
+    color: #8c8c8c !important;
+    border-color: #000;
+}
+
+@media only screen and (max-width: 600px) {
+    .calendarContainer {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: auto;
+        max-width: 100%;
+    }
+
+    .openingHoursContainer,
+    .timeSlotContainer,
+    .appointmentDateContainer {
+        max-width: 390px;
+        margin: auto;
+        width: 100%;
+        padding: 10px;
+    }
+
+    .subContainer {
+        display: flex;
+        flex-direction: column;
+        margin: auto;
+    }
+
+    .appointmentTitle {
+        text-transform: uppercase;
+        font-size: 20px;
+        width: 80%;
+        margin: 30px auto;
+        text-align: left;
+    }
+
+    .retailerDetailsContainer {
+        margin-top: 40px;
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    .appointmentTitle {
+        text-transform: uppercase;
+        font-size: 18px;
+        width: 90%;
+        margin: 30px auto;
+        text-align: left;
+    }
+
+    .openingHoursContainer,
+    .timeSlotContainer,
+    .appointmentDateContainer {
+        max-width: 100%;
+        margin: auto;
+        width: 330px;
+    }
+}
+
+@media only screen and (max-width: 350px) {
+    .appointmentTitle {
+        font-size: 16px;
+        text-align: left;
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    .subContainer {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    .minimize {
+        height: 40px !important;
+        overflow: hidden !important;
+    }
+
+    .openingHoursTitle {
+        background-image: var(--background-image-opening-hours-url);
+        background-size: 12px;
+        background-position-x: 96%;
+        background-position-y: 0%;
+        background-repeat: no-repeat;
+        cursor: pointer;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    .subContainer {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+}
+
+.openingHoursData tr td {
+    padding: 3px 0px;
+}
+.openingHoursData td {
+    padding: 3px 0px;
+}
+
+select option:checked,
+select option:hover {
+    background-color: #000 !important;
+    color: #fff !important;
+}
+
+select option:hover {
+    background-color: #000 !important;
+    color: #fff !important;
+}
+
+@media only screen and (min-width: 600px) and (max-width: 768px) {
+    .openingHoursContainer,
+    .timeSlotContainer,
+    .appointmentDateContainer {
+        width: 475px !important;
+        margin: 20px auto;
+    }
+}
+@media only screen and (min-width: 768px) and (max-width: 769px) {
+    .openingHoursContainer,
+    .timeSlotContainer,
+    .appointmentDateContainer {
+        width: 280px !important;
+        margin: auto !important;
+        margin-top: auto;
+        font-size: 16px;
+        height: auto;
+    }
+
+    .openingHoursContainer {
+        margin-top: 0px !important;
+    }
+}

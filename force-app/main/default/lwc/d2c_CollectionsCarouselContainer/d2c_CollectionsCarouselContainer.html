@@ -1,0 +1,39 @@
+<template>
+    <template if:true={_initialLoadComplete}>
+        <!-- NBD2C-31: Image container Section -->
+        <div class="slds-m-top_x-medium">
+            <!-- NBD2C-31: Dynamic Image Section -->
+            <div
+                class="list-wrapper slider"
+                onmouseenter={handleMouseEnter}
+                onmouseleave={handleMouseLeave}
+                onmousedown={handleMouseDown}
+                onmouseup={handleMouseUp}
+                onmousemove={handleMouseMove}
+                onmousewheel={handleMouseMove}
+            >
+                <!-- NBD2C-31: Carousel Images Section -->
+                <ul class="list slider-inner">
+                    <template for:each={_displayableCarouselImageList} for:item="carousel">
+                        <li key={carousel} class="item">
+                            <div class="carouselImageStyling mouse-pointer">
+                                <img class="imageStyling" src={carousel.image} data-link-url={carousel.link} onclick={handleNavigation} />
+                                <div class="slds-p-around_medium text-section">
+                                    <h3 class="slds-text-heading_large" data-link-url={carousel.link} onclick={handleNavigation}>{carousel.title}</h3>
+                                </div>
+                            </div>
+                        </li>
+                    </template>
+                </ul>
+
+                <!-- NBD2C-31: Carousel Navigational Button Container Section  -->
+                <div class="control-button-size">
+                    <!-- NBD2C-31: Previous button with dynamic styling -->
+                    <button style={_leftStyling} class="button button--previous" type="button" onclick={handlePreviousButtonClick}>&#10094;</button>
+                    <!-- NBD2C-31: Next button with dynamic styling -->
+                    <button style={_rightStyling} class="button button--next" type="button" onclick={handleNextButtonClick}>&#10095;</button>
+                </div>
+            </div>
+        </div>
+    </template>
+</template>

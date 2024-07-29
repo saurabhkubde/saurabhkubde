@@ -1,0 +1,96 @@
+<template>
+    <!-- NBD2C-98 : Component Loading Section - Start -->
+    <div>
+        <lightning-spinner
+            if:true={_isLoading}
+            alternative-text={_labels.loadingSpinnerAlternateText}
+            class="slds-is-fixed slds-align_absolute-center spinnerStyling"
+            id="lightningSpinner"
+            size="large"
+        >
+        </lightning-spinner>
+    </div>
+    <!-- NBD2C-98 : Component Loading Section - End -->
+
+    <!-- NBD2C-98 : Retailer, Appointment, Order Summary Section - Start -->
+    <div class="order-summary-container" id="order-summary-container">
+        <div class="slds-grid slds-wrap">
+            <!-- NBD2C-98 : Retailer and Appointment Summary Section - Start -->
+            <div if:true={_showComponent} class="slds-col slds-small-size_12-of-12 slds-medium-size_5-of-12 slds-large-size_5-of-12 position-relative">
+                <div class="customer-preferences-summary-section">
+                    <div class="selected-retailer-section">
+                        <!-- NBD2C-98 : Selected Retailer Summary Section - Start -->
+                        <div if:true={_labels.retailerHeaderLabel} class="selcted-retailer-label section-label">{_labels.retailerHeaderLabel}</div>
+                        <div class="selcted-retailer-value section-value">
+                            <div class="slds-grid slds-wrap">
+                                <div class="logo-container calender-logo slds-col slds-small-size_1-of-12 slds-medium-size_1-of-12 slds-large-size_1-of-12">
+                                    <img src={_locationLogo} class="logo-styling" alt="location" />
+                                </div>
+                                <div
+                                    if:true={customerSummary.retailerData.retailerLocation}
+                                    class="details slds-col slds-small-size_11-of-12 slds-medium-size_11-of-12 slds-large-size_11-of-12"
+                                >
+                                    <div if:true={customerSummary.retailerData.retailerName} class="retailer-name">
+                                        {customerSummary.retailerData.retailerName}
+                                    </div>
+                                    <div if:true={customerSummary.retailerData.retailerLocation} class="retailer-address">
+                                        {customerSummary.retailerData.retailerLocation}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- NBD2C-98 : Selected Retailer Summary Section - End -->
+                    </div>
+
+                    <!-- NBD2C-98 : Personal Details Section - Start -->
+                    <div class="personal-details-section">
+                        <div if:true={_labels.personalDetailsLabel} class="personal-details-header section-label">{_labels.personalDetailsLabel}</div>
+                        <div class="personal-details-container section-value">
+                            <table class="personalDetailsTable">
+                                <tr if:true={customerSummary.personalData.firstName}>
+                                    <td>{_labels.nameFieldLabel}</td>
+                                    <td>{customerSummary.personalData.firstName} {customerSummary.personalData.lastName}</td>
+                                </tr>
+                                <tr if:true={customerSummary.personalData.email}>
+                                    <td>{_labels.emailFieldLabel}</td>
+                                    <td>{customerSummary.personalData.email}</td>
+                                </tr>
+                                <tr if:true={customerSummary.personalData.phoneNumber}>
+                                    <td class="phoneNumberLabel">{_labels.phoneFieldLabel}</td>
+                                    <td>{customerSummary.personalData.phoneNumber}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- NBD2C-98 : Personal Details Section - End -->
+
+                    <!-- NBD2C-98 : Appointment Details Section - Start -->
+                    <div class="appointment-details-section">
+                        <div class="appointment-section-header section-label">{_labels.appointmentFieldLabel}</div>
+                        <div class="section-value">
+                            <div if:true={customerSummary.appointmentData} class="slds-grid slds-wrap">
+                                <div class="logo-container slds-col slds-small-size_1-of-12 slds-medium-size_1-of-12 slds-large-size_1-of-12">
+                                    <img src={_calenderLogo} class="logo-styling" alt="location" />
+                                </div>
+                                <div class="details slds-col slds-small-size_11-of-12 slds-medium-size_11-of-12 slds-large-size_11-of-12">
+                                    <div>{customerSummary.appointmentData}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- NBD2C-98 : Appointment Details Section - Start -->
+                </div>
+            </div>
+            <!-- NBD2C-98 : Retailer and Appointment Summary Section - End -->
+            <div class="line slds-col slds-medium-size_1-of-12 slds-large-size_1-of-12"></div>
+            <!-- NBD2C-98 : Order Summary Section - Start -->
+            <div class="slds-col slds-small-size_12-of-12 slds-medium-size_6-of-12 slds-large-size_6-of-12 summaryContainer">
+                <div class="order-summary-section">
+                    <c-d2c_order-Summary if:true={_showOrderSummary} labels={_labels} onloadingcontrolevent={handleLoading}> </c-d2c_order-Summary>
+                </div>
+            </div>
+            <!-- NBD2C-98 : Order Summary Section - End -->
+        </div>
+    </div>
+    <!-- NBD2C-98 : Retailer, Appointment, Order Summary Section - End -->
+</template>

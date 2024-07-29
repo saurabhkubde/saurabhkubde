@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>D2C_VTO_Closed_Time_Stamp__c</fullName>
+    <description>This field helps to identify at what time the POS Session was updated to “Closed” status</description>
+    <externalId>false</externalId>
+    <label>Session Closed Time Stamp</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>DateTime</type>
+</CustomField>

@@ -1,0 +1,146 @@
+<!--Component Markup to show summary of products added to cart-->
+<template>
+    <div class="mainComponent" style={_additionalStyling}>
+        <!--Header for Cart Page-->
+        <div if:true={isCartPage} class="slds-grid slds-wrap headerStyle slds-p-bottom_large slds-m-bottom_medium">
+            <div if:true={_isComponentAvailable} class="slds-col slds-size_1-of-1 slds-medium-size_7-of-12 slds-large-size_8-of-12 slds-p-top_small">
+                <span>
+                    <lightning-icon icon-name="utility:cart" class="slds-m-bottom_xx-small slds-m-right_x-small vmiddle" alternative-text="Event" title="Event">
+                    </lightning-icon>
+                </span>
+                <span class="cart-header"> {cartHeaderLabel} </span>
+            </div>
+            <!-- clear Cart  -->
+            <div if:true={isCartPage} class="slds-col slds-size_1-of-1 slds-medium-size_5-of-12 slds-large-size_4-of-12 text-medium-strong">
+                <div if:true={_isComponentAvailable} class="removeItems">
+                    <!-- BS-249 : Clear Cart Section -->
+                    <span>
+                        <button if:false={isCartEmpty} class="clear-cart-button slds-m-top_small slds-m-bottom_x-small font-14" onclick={showPopupForClearCart}>
+                            <span>
+                                <img src={refreshIcon} class="refresh-image-size slds-m-horizontal_xx-small" />
+                            </span>
+                            <span> {label.clearCartLabel} </span>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Header for Checkout Page -->
+        <div if:true={isCheckoutPage} class="slds-m-bottom_small slds-border_bottom">
+            <div class="slds-m-bottom_small cart-header">{label.orderHeaderLabel}</div>
+        </div>
+
+        <!-- Component Loading Section -->
+        <lightning-spinner
+            if:true={_isLoading}
+            alternative-text={label.loadingCartItems}
+            class="slds-is-fixed slds-align_absolute-center"
+            variant="brand"
+            size="large"
+        >
+        </lightning-spinner>
+
+        <!--            
+            BS-496 Created an additional spinner because the existing spinner had additional noticeable delay as it is reused for loading from child component of this component as well.
+            So in order to show a loader even before child component loads we had to introduce a spinner corresponding to entire page load. This loader need not to be used by devs for other operations.
+            Note: We could have reused the same spinner loader but as we cannot have multiple conditions in if:true block this was not possible.
+        -->
+        <lightning-spinner
+            if:false={_initialPageLoader}
+            alternative-text={label.loadingCartItems}
+            class="slds-is-fixed slds-align_absolute-center"
+            variant="brand"
+            size="large"
+        >
+        </lightning-spinner>
+        <!-- Cart Items Section -->
+        <div if:false={isCartEmpty}>
+            <c-b2b_cart-items
+                cart-items={cartItems}
+                currency-code={currencyCode}
+                onquantitychanged={handleQuantityChanged}
+                onloadevent={handleLoadEvent}
+                onupdatecartheadercount={handleUpdateCartHeaderCount}
+                onpopupfordelete={showPopupForCartItem}
+                is-cart-disabled={isCartDisabled}
+                country-code={countryCode}
+                is-cart-page={isCartPage}
+                is-checkout-page={isCheckoutPage}
+                shipping-picklist-values={shippingPicklistValues}
+                effective-account-id={effectiveAccountId}
+            >
+            </c-b2b_cart-items>
+        </div>
+
+        <!-- Empty Cart Section -->
+        <div if:true={isCartEmpty} class="margin-auto empty-cart-container slds-text-align_center slds-p-around_medium slds-m-vertical_xx-large">
+            <div class="slds-m-top_small slds-align_absolute-center">
+                <lightning-icon icon-name="utility:cart" class="slds-m-bottom_xx-small slds-m-right_x-small vmiddle"> </lightning-icon>
+            </div>
+            <div class="font-24-500 slds-m-top_small slds-align_absolute-center">{label.emptyCartLabelHeader}</div>
+            <div class="font-14-300 slds-m-top_small slds-align_absolute-center">{label.emptyCartLabelBody}</div>
+            <button name="continueShopping" class="slds-align_absolute-center silButton capital slds-m-top_medium" onclick={handleRedirectToHome}>
+                {_continueShoppingButtonLabel}
+            </button>
+        </div>
+
+        <!-- BS-249 : Pop-up Section -->
+        <div class="slds-modal__parent__container slds-backdrop slds-backdrop_open warning-popupmessage" if:true={_isCartCloseClicked}>
+            <section role="dialog" tabindex="-1" aria-modal="true" class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container">
+                    <div class="popupOnClearCart">
+                        <div class="modal-button">
+                            <lightning-button-icon
+                                class="slds-modal__close"
+                                title="Close"
+                                icon-name="utility:close"
+                                onclick={handleDialogClose}
+                            ></lightning-button-icon>
+                        </div>
+                        <div class="slds-align_absolute-center slds-m-top_x-large">
+                            <img if:true={_clearItem} src={_deleteIcon} class="delete-icon" />
+                            <img if:true={_clearCart} src={refreshWarningIcon} class="refresh-image-modal-size slds-m-horizontal_xx-small" />
+                        </div>
+                        <div class="slds-align_absolute-center font-24-500 slds-m-top_small">{_warningLabel}</div>
+                        <div class="slds-m-top_x-small slds-m-bottom_medium slds-p-horizontal_x-small">
+                            <p class="deleteCartWarningMessage font-18-300" if:true={_clearCart}>{label.clearCartPopupMessage}</p>
+                            <p class="deleteCartWarningMessage font-18-300" if:true={_clearItem}>{label.clearItemPopupMessage}</p>
+                        </div>
+                        <div class="slds-grid slds-grid_vertical-align-center slds-grid_align-center btn-wrap">
+                            <div class="slds-m-right_x-small warning-btns">
+                                <button class="silButton capital warning-btn" onclick={closePopup}>{label.clearCartPopupCancel}</button>
+                            </div>
+                            <div class="slds-m-left_x-small warning-btns">
+                                <button class="silButton capital delete-cart-button warning-btn" if:true={_clearCart} onclick={closePopupAndClearCart}>
+                                    {label.clearCartLabel}
+                                </button>
+                                <button class="silButton capital delete-cart-button warning-btn" if:true={_clearItem} onclick={closePopupAndClearCartItem}>
+                                    {_removeLabel}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    <!-- Added as a part of BS-1554 -->
+    <div class="slds-modal__parent__container slds-backdrop slds-backdrop_open warning-popupmessage" if:true={_showWarningMessage}>
+        <section role="dialog" tabindex="-1" aria-modal="true" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <div class="popupOnClearCart">
+                    <div class="modal-button">
+                        <lightning-button-icon
+                            class="slds-modal__close"
+                            title="Close"
+                            icon-name="utility:close"
+                            onclick={handleCloseModal}
+                        ></lightning-button-icon>
+                    </div>
+                    <div class="slds-text-align_center font-24-500 slds-m-top_small">{label._cartQuantityWarningMessageLabel}</div>
+                </div>
+            </div>
+        </section>
+    </div>
+</template>

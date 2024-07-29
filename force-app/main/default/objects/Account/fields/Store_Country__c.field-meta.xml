@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Store_Country__c</fullName>
+    <description>Country code based on AE&apos;s Location</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Show country options as picklist values in a dropdown in the country field for e.g. Get Access flow</inlineHelpText>
+    <label>Store Country (picklist)</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>true</sorted>
+            <value>
+                <fullName>Armenia</fullName>
+                <default>false</default>
+                <label>Armenia</label>
+            </value>
+            <value>
+                <fullName>Austria</fullName>
+                <default>false</default>
+                <label>Austria</label>
+            </value>
+            <value>
+                <fullName>Belgium</fullName>
+                <default>false</default>
+                <label>Belgium</label>
+            </value>
+            <value>
+                <fullName>Brazil</fullName>
+                <default>false</default>
+                <label>Brazil</label>
+            </value>
+            <value>
+                <fullName>Canada</fullName>
+                <default>false</default>
+                <label>Canada</label>
+            </value>
+            <value>
+                <fullName>China</fullName>
+                <default>false</default>
+                <label>China</label>
+            </value>
+            <value>
+                <fullName>Czech Republic</fullName>
+                <default>false</default>
+                <label>Czech Republic</label>
+            </value>
+            <value>
+                <fullName>Denmark</fullName>
+                <default>false</default>
+                <label>Denmark</label>
+            </value>
+            <value>
+                <fullName>Finland</fullName>
+                <default>false</default>
+                <label>Finland</label>
+            </value>
+            <value>
+                <fullName>France</fullName>
+                <default>false</default>
+                <label>France</label>
+            </value>
+            <value>
+                <fullName>Germany</fullName>
+                <default>false</default>
+                <label>Germany</label>
+            </value>
+            <value>
+                <fullName>Germany-MITTE</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Germany-MITTE</label>
+            </value>
+            <value>
+                <fullName>Germany-NORD</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Germany-NORD</label>
+            </value>
+            <value>
+                <fullName>Germany-SUD</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Germany-SUD</label>
+            </value>
+            <value>
+                <fullName>Great Britain</fullName>
+                <default>false</default>
+                <label>Great Britain</label>
+            </value>
+            <value>
+                <fullName>Guatemala</fullName>
+                <default>false</default>
+                <label>Guatemala</label>
+            </value>
+            <value>
+                <fullName>HongKong</fullName>
+                <default>false</default>
+                <label>HongKong</label>
+            </value>
+            <value>
+                <fullName>Hungary</fullName>
+                <default>false</default>
+                <label>Hungary</label>
+            </value>
+            <value>
+                <fullName>Iceland</fullName>
+                <default>false</default>
+                <label>Iceland</label>
+            </value>
+            <value>
+                <fullName>Ireland</fullName>
+                <default>false</default>
+                <label>Ireland</label>
+            </value>
+            <value>
+                <fullName>Italy</fullName>
+                <default>false</default>
+                <label>Italy</label>
+            </value>
+            <value>
+                <fullName>Lithuania</fullName>
+                <default>false</default>
+                <label>Lithuania</label>
+            </value>
+            <value>
+                <fullName>Luxembourg</fullName>
+                <default>false</default>
+                <label>Luxembourg</label>
+            </value>
+            <value>
+                <fullName>Netherlands</fullName>
+                <default>false</default>
+                <label>Netherlands</label>
+            </value>
+            <value>
+                <fullName>Norway</fullName>
+                <default>false</default>
+                <label>Norway</label>
+            </value>
+            <value>
+                <fullName>Poland</fullName>
+                <default>false</default>
+                <label>Poland</label>
+            </value>
+            <value>
+                <fullName>Portugal</fullName>
+                <default>false</default>
+                <label>Portugal</label>
+            </value>
+            <value>
+                <fullName>Portuguese</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Portuguese</label>
+            </value>
+            <value>
+                <fullName>South Korea</fullName>
+                <default>false</default>
+                <label>South Korea</label>
+            </value>
+            <value>
+                <fullName>Spain</fullName>
+                <default>false</default>
+                <label>Spain</label>
+            </value>
+            <value>
+                <fullName>Sweden</fullName>
+                <default>false</default>
+                <label>Sweden</label>
+            </value>
+            <value>
+                <fullName>Switzerland</fullName>
+                <default>false</default>
+                <label>Switzerland</label>
+            </value>
+            <value>
+                <fullName>Taiwan</fullName>
+                <default>false</default>
+                <label>Taiwan</label>
+            </value>
+            <value>
+                <fullName>United Kingdom</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>United Kingdom</label>
+            </value>
+            <value>
+                <fullName>United States</fullName>
+                <default>false</default>
+                <label>United States</label>
+            </value>
+            <value>
+                <fullName>US-CENTRAL</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>US-CENTRAL</label>
+            </value>
+            <value>
+                <fullName>US-MID WEST</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>US-MID WEST</label>
+            </value>
+            <value>
+                <fullName>US- NORTH EAST</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>US- NORTH EAST</label>
+            </value>
+            <value>
+                <fullName>US-SOUTH EAST</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>US-SOUTH EAST</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

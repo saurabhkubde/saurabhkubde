@@ -1,0 +1,74 @@
+<template>
+    <!-- NBD2C-95 : Proceed to Checkout Main Container - Start -->
+    <div class="mainContainer">
+        <!-- NBD2C-95 : Progress Indicator Section - Start -->
+        <div class="progressBarContainer">
+            <c-d2c_progress_bar_component
+                class="progressBar"
+                page-source={_pageSource}
+                onprogressbarstepscomplete={handleTotalSteps}
+            ></c-d2c_progress_bar_component>
+        </div>
+        <!-- NBD2C-95 : Progress Indicator Section - End -->
+
+        <!-- NBD2C-95 : Proceed to checkout section - Start -->
+        <div if:true={_loadComponents} class="container">
+            <!-- NBD2C-95 : Retailer Search Component Container - Start -->
+            <div if:true={_currentActiveComponent.retailer_Search} class="retailerSearchComponentContainer">
+                <c-d2c_retailer_search_component
+                    is-checkout={_isCheckout}
+                    onretailerinformation={handleRetailerInformation}
+                    retailer-data-from-parent={retailerDataValue}
+                ></c-d2c_retailer_search_component>
+                <!-- <c-d2c_personal-details></c-d2c_personal-details> -->
+            </div>
+            <!-- NBD2C-95 : Retailer Search Component Container - End -->
+
+            <!-- NBD2C-96 : Appointment Details Section Container - Start -->
+            <div if:true={_currentActiveComponent.appointment_Section} class="appointmentDetailsContainer">
+                <c-d2c_appointment-section
+                    retailer-data={_retailerData}
+                    ondateandtimeselection={handleAppointmentDateAndTime}
+                    ondisablenextbutton={disableNextButton}
+                    selected-date-time-from-parent={_appointmentDateTime}
+                ></c-d2c_appointment-section>
+            </div>
+            <!-- NBD2C-96 : Appointment Details Section Container - End -->
+
+            <!-- NBD2C-97 : Personal Details Section Container - Start -->
+            <div if:true={_currentActiveComponent.personal_Details} class="personalDetailsContainer">
+                <c-d2c_personal-details
+                    is-online-purchase={_isOnlinePurchase}
+                    onuserinformation={handleUserInformation}
+                    user-details={_userDetails}
+                ></c-d2c_personal-details>
+            </div>
+            <!-- NBD2C-97 : Personal Details Section Container - End -->
+
+            <!-- NBD2C-98 : Order Summary Section Container - Start -->
+            <div if:true={_currentActiveComponent.order_Summary} class="order-summary-component">
+                <c-d2c_order_summary_container if:false={_isOnlinePurchase} customer-summary={_customerSummary}></c-d2c_order_summary_container>
+            </div>
+            <!-- NBD2C-98 : Order Summary Section Container - End -->
+        </div>
+        <!-- NBD2C-95 : Proceed to checkout section - End -->
+
+        <!-- NBD2C-95 : Proceed to Checkout button section - Start -->
+        <div class="buttonContainer">
+            <!-- NBD2C-95 : Back Button Container - Start -->
+            <div class="backButtonContainer">
+                <button if:false={_disableBackButton} class="backButton" onclick={handleButtonClick} value="Back">{_backButtonLabel}</button>
+            </div>
+            <!-- NBD2C-95 : Back Button Container - End -->
+
+            <!-- NBD2C-95 : Next Button Container - Start -->
+            <div class="nextButtonContainer">
+                <button if:false={_disableNextButton} class="nextButton" onclick={handleButtonClick} value="Next">{_nextButtonLabel}</button>
+                <button if:true={_disableNextButton} class="nextButton disabled" disabled>{_nextButtonLabel}</button>
+            </div>
+            <!-- NBD2C-95 : Next Button Container - End -->
+        </div>
+        <!-- NBD2C-95 : Proceed to Checkout button section - End -->
+    </div>
+    <!-- NBD2C-95 : Proceed to Checkout Main Container - End -->
+</template>

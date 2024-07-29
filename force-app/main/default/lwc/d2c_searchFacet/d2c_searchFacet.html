@@ -1,0 +1,17 @@
+<template lwc:render-mode="light">
+    <div class="facet-header">
+        <h2 class="facet-name">{name}</h2>
+    </div>
+    <div class="facet-body" role="group">
+        <c-d2c_search-input-facet
+            if:false={_metadataNotLoaded}
+            values={values}
+            type={type}
+            shape-field-values={shapelabelVsApiNameMap}
+            class={facetDisplayClasses}
+            color-metadata={_colorMetadata}
+            field-name={normalizedDisplayData.nameOrId}
+            onfacetvaluetoggle={handleFacetToggle}
+        ></c-d2c_search-input-facet>
+    </div>
+</template>

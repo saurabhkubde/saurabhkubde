@@ -1,0 +1,136 @@
+<template>
+    <div class="sh-ee-product-image">
+        <template if:false={showDefaultImage}>
+            <div class="slds-grid slds-wrap full-height slds-align_absolute-center">
+                <div if:true={renderImg} class="slds-col slds-size_8-of-8 slds-p-bottom_xx-small full-height">
+                    <figure class="slds-align_absolute-center slds-p-around_xx-small main-image-border full-height">
+                        <template if:true={displayArrows}>
+                            <lightning-icon
+                                class="left-arrow"
+                                icon-name="utility:chevronleft"
+                                size="medium"
+                                alternative-text="left"
+                                onclick={leftArrowClick}
+                            ></lightning-icon>
+                        </template>
+                        <img
+                            class={showOpacityMainImage}
+                            src={mainImage.imageUrl}
+                            alt={mainImage.imageAltText}
+                            onclick={clickOnMainImage}
+                            style="cursor: pointer"
+                        />
+                        <template if:true={displayArrows}>
+                            <lightning-icon
+                                class="right-arrow"
+                                icon-name="utility:chevronright"
+                                size="medium"
+                                alternative-text="right"
+                                onclick={rightArrowClick}
+                            ></lightning-icon>
+                        </template>
+                    </figure>
+                </div>
+                <div if:false={renderImg} class="slds-col slds-size_8-of-8 slds-p-bottom_xx-small full-height">
+                    <figure class="slds-align_absolute-center slds-p-around_xx-small main-image-border full-height">
+                        <template if:true={displayArrows}>
+                            <lightning-icon
+                                class="left-arrow"
+                                icon-name="utility:chevronleft"
+                                size="medium"
+                                alternative-text="left"
+                                onclick={leftArrowClick}
+                            ></lightning-icon>
+                        </template>
+                        <img
+                            class={showOpacityMainImage}
+                            src={mainImage.imageUrl}
+                            alt={mainImage.imageAltText}
+                            onclick={clickOnMainImage}
+                            style="cursor: pointer"
+                        />
+                        <template if:true={displayArrows}>
+                            <lightning-icon
+                                class="right-arrow"
+                                icon-name="utility:chevronright"
+                                size="medium"
+                                alternative-text="right"
+                                onclick={rightArrowClick}
+                            ></lightning-icon>
+                        </template>
+                    </figure>
+                </div>
+                <template for:each={productImages} for:item="image">
+                    <template if:true={image.lastImage}>
+                        <div key={image.imageOrder} class="slds-col slds-size_1-of-8 child-image-div slds-m-top_medium">
+                            <figure
+                                class="slds-align_absolute-center slds-p-around_xx-small slds-p-bottom_large image-figure"
+                                onclick={clickOnChildImage}
+                                data-id={image.imageOrder}
+                            >
+                                <img class={showOpacity} src={image.imageUrl} alt={image.imageAltText} />
+                            </figure>
+                        </div>
+                    </template>
+
+                    <template if:false={image.lastImage}>
+                        <div key={image.imageOrder} class="slds-col slds-size_1-of-8 slds-p-right_xx-small child-image-div slds-m-top_medium">
+                            <figure
+                                class="slds-align_absolute-center slds-p-around_xx-small slds-p-bottom_large image-figure"
+                                onclick={clickOnChildImage}
+                                data-id={image.imageOrder}
+                            >
+                                <img class={showOpacity} src={image.imageUrl} alt={image.imageAltText} />
+                            </figure>
+                        </div>
+                    </template>
+                </template>
+            </div>
+        </template>
+        <template if:true={showDefaultImage}>
+            <div class="slds-grid slds-wrap full-height slds-align_absolute-center">
+                <figure
+                    class="slds-align_absolute-center slds-p-around_xx-small slds-border_top slds-border_right slds-border_bottom slds-border_left full-height full-width"
+                >
+                    <img class={showOpacity} src={defaultImage.url} alt={defaultImage.alternativeText} />
+                </figure>
+            </div>
+        </template>
+        <template if:true={showModal}>
+            <section role="dialog" tabindex="-1" aria-modal="true" aria-labelledby="modal-heading-01" class="slds-modal slds-fade-in-open slds-modal_medium">
+                <div class="slds-modal__container">
+                    <div class="slds-modal__content product-img-popup slds-p-around_medium" id="modal-content-id-1">
+                        <button
+                            class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse slds-float_right"
+                            title="Close"
+                            onclick={closeModal}
+                        >
+                            <!-- <lightning-icon icon-name="utility:close" alternative-text="close" variant="inverse" size="small"> </lightning-icon> -->
+                            <img src={closeIcon} />
+                        </button>
+                        <div class="slds-grid slds-gutters full-height-modal-img">
+                            <div class="slds-col slds-size_1-of-1">
+                                <figure class="slds-align_absolute-center slds-p-around_xx-small full-height">
+                                    <img class={showOpacityMainImage} src={mainImage.imageUrl} alt={mainImage.imageAltText} />
+                                </figure>
+                            </div>
+                        </div>
+
+                        <div class="slds-grid slds-grid_align-center">
+                            <template for:each={productImages} for:item="image">
+                                <div class="slds-col modal-tumb-img" key={image.imageOrder}>
+                                    <span>
+                                        <figure onclick={clickOnChildImage} data-id={image.imageOrder}>
+                                            <img class={showOpacity} src={image.imageUrl} alt={image.imageAltText} />
+                                        </figure>
+                                    </span>
+                                </div>
+                            </template>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
+        </template>
+    </div>
+</template>

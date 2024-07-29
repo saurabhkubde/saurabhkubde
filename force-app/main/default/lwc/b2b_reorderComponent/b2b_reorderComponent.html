@@ -1,0 +1,352 @@
+<template>
+    <!-- SH/EE Reorder-->
+    <template if:true={_isSilhouetteStore}>
+        <template if:true={_isLoading}>
+            <lightning-spinner class="slds-is-fixed slds-align_absolute-center" alternative-text="Loading" size="medium"></lightning-spinner>
+        </template>
+        <!-- Added as part of BS-525-->
+        <br />
+        <div>
+            <article class="layout-contiainer">
+                <aside if:true={showReorderComp} class="aside-section">
+                    <!-- Start BS-955 : Added render-brand-filters-->
+                    <c-b2b_filter-container
+                        page-source={pageSource}
+                        store-name={storeNameShortForm}
+                        update-filter-boolean={updateFilter}
+                        all-product-data={_globalProductListForFilterContainer}
+                        onclearall={handleClearAll}
+                        onfilterproductsearch={handleFilterProductSearch}
+                        onupdatedfilter={handleFilterProductSearch}
+                        previously-selected-filter={recievedProducts}
+                        render-brand-filters={_renderBrandFilter}
+                        render-silhouette-brand-filter={_containsSilhouetteProduct}
+                        render-evil-eye-brand-filter={_containsEvilEyeProduct}
+                    >
+                        <!-- End BS-955 -->
+                    </c-b2b_filter-container>
+                </aside>
+                <section class="main-section">
+                    <div if:true={showReorderComp} class="slds-grid slds-wrap">
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_2-of-12 slds-large-size_3-of-12"></div>
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_8-of-12 slds-large-size_6-of-12">
+                            <div if:true={orderNumber} class="slds-text-align_center slds-p-around_xx-small">
+                                <table class="wrapper">
+                                    <tr>
+                                        <td>
+                                            <div class="order-number">{selectedOrderNumberLabel} {orderNumberValue}</div>
+                                        </td>
+                                        <td>
+                                            <lightning-button-icon
+                                                style="position: unset"
+                                                icon-name="utility:close"
+                                                class="cross-button"
+                                                variant="bare"
+                                                onclick={resetProductsToAllOrders}
+                                                size="medium"
+                                            >
+                                            </lightning-button-icon>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_2-of-12 slds-large-size_6-of-12"></div>
+                    </div>
+                    <div class="slds-grid slds-gutters comboboxDiv slds-grid slds-wrap">
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12">
+                            <div class="sort-items">
+                                <lightning-combobox
+                                    name="period"
+                                    label={reorderPeriodLabel}
+                                    options={periodOptions}
+                                    value={periodValue}
+                                    onchange={handlePeriodChange}
+                                    disabled={isPeriodDisabled}
+                                    class=".comboboxWidth-100"
+                                ></lightning-combobox>
+                            </div>
+                        </div>
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12">
+                            <div class="sort-items">
+                                <lightning-combobox
+                                    name="source"
+                                    label={reorderSourceLabel}
+                                    value={_selectedSourceValue}
+                                    options={_sourceOptions}
+                                    onchange={handleSourceChange}
+                                    disabled={isSourceDisabled}
+                                    class=".comboboxWidth-100"
+                                ></lightning-combobox>
+                            </div>
+                        </div>
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12">
+                            <div class="sort-items">
+                                <lightning-combobox
+                                    id="sortingList"
+                                    dropdown-alignment="right"
+                                    name="progress"
+                                    label={reorderSortByLabel}
+                                    value={sortByValue}
+                                    options={sortByOptions}
+                                    onchange={handleSortingUpdate}
+                                    class=".comboboxWidth-100"
+                                ></lightning-combobox>
+                            </div>
+                        </div>
+                        <!--BS-730 start-->
+                        <div if:true={showReorderComp} class="reorderFilters">
+                            <template if:true={_selectedFilters}>
+                                <template for:each={_selectedFilters} for:item="filter">
+                                    <template if:true={filter.isColor}>
+                                        <span class="title-small dot" style={filter.colorStyle} key={filter.fieldName}>
+                                            <lightning-icon
+                                                name="filter"
+                                                icon-name="utility:close"
+                                                alternative-text="clear"
+                                                data-field-name={filter.fieldName}
+                                                data-field-value={filter.fieldValue}
+                                                data-field-type={filter.filterType}
+                                                data-pre-category-id={filter.previousCategoryId}
+                                                title="clear"
+                                                size="x-small"
+                                                onclick={handleRemoveFilter}
+                                            ></lightning-icon>
+                                        </span>
+                                    </template>
+                                    <template if:false={filter.isColor}>
+                                        <span class="title-small filterStyle" key={filter.fieldName}
+                                            >{filter.displayFilter}
+                                            <lightning-icon
+                                                name="filter"
+                                                icon-name="utility:close"
+                                                alternative-text="clear"
+                                                data-field-name={filter.fieldName}
+                                                data-field-value={filter.fieldValue}
+                                                data-field-type={filter.filterType}
+                                                data-pre-category-id={filter.previousCategoryId}
+                                                data-pre-category-name={filter.previousCategoryName}
+                                                class="slds-p-left_x-small order-detail-icon request-document-enabled"
+                                                title="clear"
+                                                size="x-small"
+                                                onclick={handleRemoveFilter}
+                                            ></lightning-icon>
+                                        </span>
+                                    </template>
+                                </template>
+                                <template if:false={isPLPPage} class="slds-p-top_medium clearAllDiv">
+                                    <span class="clearAllLinkReorder">
+                                        <img class="slds-p-bottom_xx-small" src={refreshIcon} />
+                                        <button class="footer-action" onclick={handleClearReorder}>{labels.clearAllLabel}</button>
+                                    </span>
+                                </template>
+                            </template>
+                        </div>
+                        <!--BS-730 End-->
+                        <div class="slds-col slds-size_1-of-1">
+                            <div class="header-border"></div>
+                        </div>
+                    </div>
+                    <div if:true={showReorderComp}>
+                        <template if:true={_displayData}>
+                            <!-- BS-2142 added date-format -->
+                            <c-b2b_search-layout
+                                display-data={displayData.layoutData}
+                                config={config.layoutConfig}
+                                demo-vs-chassis-product-map={demoVsChassisObj}
+                                show-chassis-button={_showChassisButton}
+                                oncalltoaction={handleAction}
+                                onshowdetail={handleShowDetail}
+                                effective-account-id={resolvedEffectiveAccountId}
+                                hide-prices-from-tiles={hidePricesFromTiles}
+                                page-source={pageSource}
+                                order-source={_sourceValue}
+                                applicable-currency-code={_applicableCurrencyCode}
+                                date-format={dateFormat}
+                            >
+                                <!--BS-1245 : Added applicable-currency-code={_applicableCurrencyCode}-->
+                            </c-b2b_search-layout>
+                        </template>
+                    </div>
+                    <div if:true={showReorderComp}>
+                        <c-b2b_search-paginator
+                            if:true={_showPaginator}
+                            page-number={pageNumber}
+                            page-size={pageSizePaginator}
+                            total-item-count={totalProducts}
+                            onprevious={handlePreviousPage}
+                            onnext={handleNextPage}
+                            onpagejump={handlePageJump}
+                        >
+                        </c-b2b_search-paginator>
+                        <c-b2b_add-to-cart-modal cart-item-id={_cartItemId}></c-b2b_add-to-cart-modal>
+                        <!-- BS-1562 Added cart-item-id={_cartItemId} -->
+                    </div>
+                    <!-- Added as Part of BS-934 -->
+                    <c-b2b_no-product-to-show if:true={_noProducts} no-products={_noProducts}></c-b2b_no-product-to-show>
+                </section>
+            </article>
+        </div>
+    </template>
+
+    <!-- NB Reorder-->
+    <template if:false={_isSilhouetteStore}>
+        <template if:true={_isLoading}>
+            <lightning-spinner class="slds-is-fixed slds-align_absolute-center" alternative-text="Loading" size="medium"></lightning-spinner>
+        </template>
+        <!-- Added as part of BS-525-->
+        <div if:true={orderNumber} class="slds-text-align_center slds-p-around_xx-small">
+            <table class="wrapper">
+                <tr>
+                    <td>
+                        <div class="order-number">{selectedOrderNumberLabel} {orderNumberValue}</div>
+                    </td>
+                    <td>
+                        <lightning-button-icon
+                            style="position: unset"
+                            icon-name="utility:close"
+                            class="cross-button"
+                            variant="bare"
+                            onclick={resetProductsToAllOrders}
+                            size="medium"
+                        >
+                        </lightning-button-icon>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="slds-grid slds-gutters">
+            <div class="slds-col slds-size_1-of-3 sort-items">
+                <lightning-combobox
+                    name="period"
+                    label={reorderPeriodLabel}
+                    options={periodOptions}
+                    value={periodValue}
+                    onchange={handlePeriodChange}
+                    disabled={isPeriodDisabled}
+                ></lightning-combobox>
+            </div>
+            <div class="slds-col slds-size_1-of-3 sort-items">
+                <lightning-combobox
+                    name="source"
+                    label={reorderSourceLabel}
+                    value={_selectedSourceValue}
+                    options={_sourceOptions}
+                    onchange={handleSourceChange}
+                    disabled={isSourceDisabled}
+                ></lightning-combobox>
+            </div>
+            <div class="slds-col slds-size_1-of-3 sort-items">
+                <lightning-combobox
+                    id="sortingListNB"
+                    dropdown-alignment="right"
+                    name="progress"
+                    label={reorderSortByLabel}
+                    value={sortByValue}
+                    options={sortByOptions}
+                    onchange={handleSortingUpdate}
+                ></lightning-combobox>
+            </div>
+        </div>
+        <br />
+        <!--BS-730 start-->
+        <div class="reorderFiltersNB">
+            <template if:true={_selectedFilters}>
+                <template for:each={_selectedFilters} for:item="filter">
+                    <template if:true={filter.isColor}>
+                        <span class="title-small dot" style={filter.colorStyle} key={filter.fieldName}>
+                            <lightning-icon
+                                name="filter"
+                                icon-name="utility:close"
+                                alternative-text="clear"
+                                data-field-name={filter.fieldName}
+                                data-field-value={filter.fieldValue}
+                                data-field-type={filter.filterType}
+                                data-pre-category-id={filter.previousCategoryId}
+                                title="clear"
+                                size="x-small"
+                                onclick={handleRemoveFilter}
+                            ></lightning-icon>
+                        </span>
+                    </template>
+                    <template if:false={filter.isColor}>
+                        <span class="title-small filterStyle" key={filter.fieldName}
+                            >{filter.displayFilter}
+                            <lightning-icon
+                                name="filter"
+                                icon-name="utility:close"
+                                alternative-text="clear"
+                                data-field-name={filter.fieldName}
+                                data-field-value={filter.fieldValue}
+                                data-field-type={filter.filterType}
+                                data-pre-category-id={filter.previousCategoryId}
+                                data-pre-category-name={filter.previousCategoryName}
+                                class="slds-p-left_x-small order-detail-icon request-document-enabled"
+                                title="clear"
+                                size="x-small"
+                                onclick={handleRemoveFilter}
+                            ></lightning-icon>
+                        </span>
+                    </template>
+                </template>
+                <!-- Added as Part of BS-934 -->
+                <template if:true={showReorderComp}>
+                    <template if:false={isPLPPage} class="slds-p-top_medium clearAllDiv">
+                        <span class="clearAllLinkReorder">
+                            <img class="slds-p-bottom_xx-small" src={refreshIcon} />
+                            <button class="footer-action" onclick={handleClearReorder}>{labels.clearAllLabel}</button>
+                        </span>
+                    </template>
+                </template>
+            </template>
+        </div>
+        <!--BS-730 End-->
+        <template if:true={showReorderComp}>
+            <article class="slds-border_top slds-p-top_large layout-contiainer">
+                <aside class="aside-section">
+                    <c-b2b_filter-container
+                        page-source={pageSource}
+                        store-name={storeNameShortForm}
+                        update-filter-boolean={updateFilter}
+                        all-product-data={_globalProductListForFilterContainer}
+                        onclearall={handleClearAll}
+                        onfilterproductsearch={handleFilterProductSearch}
+                        onupdatedfilter={handleFilterProductSearch}
+                        previously-selected-filter={recievedProducts}
+                    >
+                    </c-b2b_filter-container>
+                </aside>
+                <section class="main-section">
+                    <c-b2b_search-layout
+                        display-data={displayData.layoutData}
+                        config={config.layoutConfig}
+                        demo-vs-chassis-product-map={demoVsChassisObj}
+                        show-chassis-button={_showChassisButton}
+                        oncalltoaction={handleAction}
+                        onshowdetail={handleShowDetail}
+                        effective-account-id={resolvedEffectiveAccountId}
+                        hide-prices-from-tiles={hidePricesFromTiles}
+                        page-source={pageSource}
+                        order-source={_sourceValue}
+                        applicable-currency-code={_applicableCurrencyCode}
+                    >
+                        <!-- BS-1245 Added applicable-currency-code={_applicableCurrencyCode}-->
+                    </c-b2b_search-layout>
+                    <c-b2b_search-paginator
+                        if:true={_showPaginator}
+                        page-number={pageNumber}
+                        page-size={pageSizePaginator}
+                        total-item-count={totalProducts}
+                        onprevious={handlePreviousPage}
+                        onnext={handleNextPage}
+                    >
+                    </c-b2b_search-paginator>
+                    <c-b2b_add-to-cart-modal cart-item-id={_cartItemId}></c-b2b_add-to-cart-modal>
+                    <!-- BS-1562 Added cart-item-id={_cartItemId} -->
+                </section>
+            </article>
+        </template>
+        <!-- Added as Part of BS-934 -->
+        <c-b2b_no-product-to-show if:true={_noProducts} no-products={_noProducts}></c-b2b_no-product-to-show>
+    </template>
+</template>

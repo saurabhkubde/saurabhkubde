@@ -1,0 +1,20 @@
+.textStyle {
+    font-size: 16px !important;
+    font-weight: 300 !important;
+}
+
+.uppercase {
+    text-transform: uppercase;
+}
+.logo {
+    padding: 20px;
+    border: solid 1px #d8d8d8;
+    max-width: 200px;
+    border-radius: 6px;
+    transition: transform 0.2s;
+    box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.2);
+}
+.logo:hover {
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+}

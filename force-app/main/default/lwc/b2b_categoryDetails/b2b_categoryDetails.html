@@ -1,0 +1,56 @@
+<template>
+    <template if:true={category.parentCategory}>
+        <!-- Start BS-841-->
+        <lightning-accordion allow-multiple-sections-open active-section-name={activeCategoryLabel}>
+            <lightning-accordion-section name={activeCategoryLabel} label={categoryLabel}>
+                <!-- End BS-841-->
+                <div class="slds-form-element" if:true={isSearchableFilter}>
+                    <!-- BS-1540 : Improve usage of longer picklist value lists by adding search field -->
+                    <lightning-input
+                        type="text"
+                        variant="label-hidden"
+                        label=""
+                        placeholder={searchLabel}
+                        onchange={handleSearch}
+                        value={searchTerm}
+                    ></lightning-input>
+                </div>
+
+                <ul>
+                    <li class="slds-text-title_bold slds-truncate" title={category.parentCategory}>
+                        <lightning-formatted-rich-text class="parentCategoryText" value={category.parentCategory}></lightning-formatted-rich-text>
+                    </li>
+                    <div class="filter-scroller">
+                        <template for:each={_categoryOptions} for:item="childCategory">
+                            <li key={childCategory.categoryId} class="slds-text-body_small slds-truncate" title={childCategory.categoryName}>
+                                <!-- radio button -->
+                                <div
+                                    class="slds-is-relative slds-size_12-of-12 slds-medium-size_11-of-12 slds-large-size_12-of-12"
+                                    key={childCategory.categoryId}
+                                >
+                                    <input
+                                        type="radio"
+                                        id={childCategory.categoryId}
+                                        class="radio-custom"
+                                        value={childCategory.categoryName}
+                                        data-category-id={childCategory.categoryId}
+                                        data-parent-category-name={category.parentCategory}
+                                        name={childCategory.categoryName}
+                                        onclick={notifyCategorySelection}
+                                        title={childCategory.categoryName}
+                                        onselect={notifyCategorySelection}
+                                    />
+                                    <label for={childCategory.categoryId} class="black-color filterValues radio-custom-label"
+                                        >{childCategory.categoryName} <span>&nbsp;({childCategory.productCount})</span></label
+                                    >
+                                    <br />
+                                </div>
+                            </li>
+                            <!-- radio button -->
+                        </template>
+                    </div>
+                </ul>
+            </lightning-accordion-section>
+        </lightning-accordion>
+    </template>
+</template>

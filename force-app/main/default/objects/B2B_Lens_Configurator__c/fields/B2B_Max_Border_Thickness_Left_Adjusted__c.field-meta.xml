@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>B2B_Max_Border_Thickness_Left_Adjusted__c</fullName>
+    <description>This field is used to store value of lens thickness at border maximum of left lens obtained from Schneider callout</description>
+    <externalId>false</externalId>
+    <label>Max Border Thickness Left Lens Adjusted</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>4</scale>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

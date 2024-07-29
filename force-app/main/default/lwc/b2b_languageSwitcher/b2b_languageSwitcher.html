@@ -1,0 +1,44 @@
+<template>
+    <div class="slds-grid slds-wrap slds-gutters">
+        <template if:true={isLoading}>
+            <lightning-spinner alternative-text="Loading" size="small"></lightning-spinner>
+        </template>
+        <template if:false={isFooterLocated}>
+            <!-- BS-746 -->
+            <template if:true={isSilhouetteSite}>
+                <div class="slds-col slds-size_1-of-1">
+                    <h2 class="h4-font-strong black-color">{label.LANGUAGE_SWITCHER_LABEL_SH}</h2>
+                </div>
+            </template>
+            <template if:false={isSilhouetteSite}>
+                <div class="slds-col slds-size_1-of-1">
+                    <h2 class="h4-font-strong black-color">{label.LANGUAGE_SWITCHER_LABEL_NB}</h2>
+                </div>
+            </template>
+        </template>
+        <div if:true={_isSilhouetteStore} class="slds-col slds-size_1-of-1">
+            <lightning-combobox
+                name="languageSwitcher"
+                dropdown-alignment="left"
+                placeholder={label.languageSwitcherPlaceholder}
+                options={languages}
+                value={selectedLang}
+                onchange={handleChangeLanguage}
+                class="switcher-button"
+            >
+            </lightning-combobox>
+        </div>
+        <div if:false={_isSilhouetteStore} class="slds-col slds-size_1-of-1">
+            <lightning-combobox
+                name="languageSwitcher"
+                class="languageValue"
+                dropdown-alignment="left"
+                placeholder={label.languageSwitcherPlaceholder}
+                options={languages}
+                value={selectedLang}
+                onchange={handleChangeLanguage}
+            >
+            </lightning-combobox>
+        </div>
+    </div>
+</template>

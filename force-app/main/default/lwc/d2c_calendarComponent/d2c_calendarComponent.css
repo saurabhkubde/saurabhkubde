@@ -1,0 +1,205 @@
+.container {
+    background-color: white;
+    color: black;
+    padding: 10px 20px;
+    height: 100%;
+    width: 100%;
+    box-shadow: 0px 0px 5px 2px #c0c0c0;
+}
+
+.calendarMonth {
+    display: flex;
+    width: 230px;
+    justify-content: space-around;
+    align-items: center;
+    text-transform: uppercase !important; /* NBD2C-98*/
+}
+
+.current-month {
+    font-weight: 600;
+}
+
+.calendar-header {
+    display: flex;
+    gap: 5px;
+    justify-content: space-between;
+    margin: 20px;
+}
+
+.calendarYear .slds-form-element {
+    margin-bottom: 0px !important;
+}
+
+.calendarYear select {
+    width: 100px;
+    border-radius: 0px;
+    border-color: #f7f7f8;
+    margin-left: auto;
+    text-align: center;
+    font-family: 'SweetSansProLight' !important;
+}
+.header-text {
+    grid-column-start: 1;
+    grid-column-end: 6;
+    text-align: left;
+}
+.previousButton {
+    grid-column-start: 6;
+    grid-column-end: 7;
+    opacity: 0.2;
+    cursor: not-allowed;
+}
+.nextButton {
+    grid-column-start: 7;
+    grid-column-end: 8;
+    cursor: pointer;
+}
+
+.monthly-calendar {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-auto-rows: auto;
+    gap: 10px 13px;
+    text-transform: uppercase !important;
+    font-family: 'SweetSansProLight' !important;
+}
+
+.monthly-calendar span {
+    padding: 0.2rem;
+    padding-top: 1rem;
+    height: 52px;
+    text-align: center;
+    width: 52px;
+    border: 2px solid transparent;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 12px;
+}
+.bright:hover {
+    border: 2px solid black !important;
+}
+.today {
+    border: 1px solid black !important ;
+    border-radius: 50%;
+}
+.selected {
+    border: 1.4px solid black !important;
+}
+
+.disabled {
+    pointer-events: none;
+    cursor: not-allowed;
+    background-color: #f7f7f8;
+    border: none;
+    color: #a0a0a0;
+}
+
+@media only screen and (max-width: 600px) {
+    .monthly-calendar span {
+        padding: 0.2rem;
+        padding-top: 0.3rem;
+        height: 32px;
+        text-align: center;
+        width: 32px;
+        border: 2px solid transparent;
+        border-radius: 50%;
+        cursor: pointer;
+        font-size: 12px;
+    }
+
+    .container {
+        background-color: white;
+        color: black;
+        padding: 10px 7px;
+        height: 100%;
+        width: 98%;
+        box-shadow: 0px 0px 5px 2px #c0c0c0;
+    }
+
+    .monthly-calendar {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        grid-auto-rows: auto;
+        gap: 10px 5px;
+    }
+
+    .calendarMonth .header-text {
+        font-size: 20px;
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    .container {
+        width: 330px;
+        margin: auto;
+    }
+
+    .calendarYear {
+        font-size: 16px;
+    }
+
+    .calendarMonth .header-text {
+        font-size: 18px;
+    }
+}
+
+@media only screen and (max-width: 340px) {
+    .container {
+        width: 350px;
+        margin: auto;
+    }
+
+    .calendarMonth .header-text {
+        font-size: 16px;
+    }
+}
+
+@media only screen and (max-width: 320px) {
+    .container {
+        width: 270px;
+        margin: auto;
+    }
+}
+
+@media only screen and (min-width: 600px) and (max-width: 768px) {
+    .monthly-calendar span {
+        padding: 0.2rem;
+        padding-top: 0.5rem;
+        height: 42px;
+        text-align: center;
+        width: 42px;
+        border: 2px solid transparent;
+        border-radius: 50%;
+        cursor: pointer;
+        font-size: 12px;
+    }
+
+    .container {
+        width: fit-content;
+        margin: auto;
+        padding: 10px 50px;
+    }
+    .monthly-calendar {
+        gap: 10px 10px;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    .monthly-calendar span {
+        padding: 0.2rem;
+        padding-top: 0.5rem;
+        height: 42px;
+        text-align: center;
+        width: 42px;
+        border: 2px solid transparent;
+        border-radius: 50%;
+        cursor: pointer;
+        font-size: 12px;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    .container {
+        padding: 10px 10px;
+    }
+}

@@ -1,0 +1,53 @@
+<template>
+    <div>
+        <div class="product-image main-image-border bg-color">
+            <template if:false={_showDefaultImage}>
+                <div class="slds-grid slds-wrap full-height">
+                    <div class="slds-col slds-size_11-of-12 product_name">{_productModelName}</div>
+                    <!--Wishlist icon placeholder
+                        <div class="slds-col slds-size_1-of-12 "> </div> 
+                     -->
+                    <div class="slds-col slds-size_8-of-8 slds-p-bottom_xx-small full-height">
+                        <figure class="slds-align_absolute-center slds-p-around_xx-small full-height">
+                            <div class="slds-is-relative product-img-container">
+                                <template if:true={_displayArrows}>
+                                    <img src={_leftArrowIcon} class="left-arrow" onclick={leftArrowClick} />
+                                </template>
+                                <div class="product-img">
+                                    <img class={showOpacityMainImage} src={_mainImage.imageURL} alt={_mainImage.imageAltText} style="cursor: pointer" />
+                                </div>
+                                <template if:true={_displayArrows}>
+                                    <img src={_rightArrowIcon} class="right-arrow" onclick={rightArrowClick} />
+                                </template>
+                            </div>
+                        </figure>
+                    </div>
+                    <div class="pdpfooter-container">
+                        <div class="dots-container">
+                            <div class="dots">
+                                <template for:each={productImages} for:item="image">
+                                    <template if:true={image.lastImage}>
+                                        <div key={image.imageOrder} class="">
+                                            <figure class="image-figure" onclick={clickOnChildImage} data-id={image.imageOrder}></figure>
+                                        </div>
+                                    </template>
+                                    <template if:false={image.lastImage}>
+                                        <div key={image.imageOrder}>
+                                            <figure class="image-figure" onclick={clickOnChildImage} data-id={image.imageOrder}></figure>
+                                        </div>
+                                    </template>
+                                </template>
+                            </div>
+                        </div>
+                        <div class="virtual-try-on">
+                            <div class="display-flex">
+                                <div><img src={_virtualTryOnIcon} class="slds-m-horizontal_xx-small virtualTryOn-icon-size" /></div>
+                                <div class="vto-text">{_virtualTryOnLabel}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </template>
+        </div>
+    </div>
+</template>

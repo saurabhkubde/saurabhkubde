@@ -1,0 +1,342 @@
+<template>
+    <!-- Component Loading Section Start -->
+    <lightning-spinner if:true={_isLoading} class="slds-is-fixed slds-align_absolute-center" variant="brand" size="medium"> </lightning-spinner>
+    <!-- Component Loading Section End -->
+    <div class="slds-grid slds-wrap">
+        <!--Progress Bar Section Start-->
+        <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_2-of-12 progressBar">
+            <div class="stepWrap">
+                <!-- VS/RX Logo Section Start -->
+                <div class="container">
+                    <div>
+                        <!--Logo of VS-->
+                        <img if:true={_isSourceVS} class="variation-div-img" src={vsIcon.icon} />
+                        <!--Logo of RX-->
+                        <img if:true={_isSourceRX} class="variation-div-img" src={rxIcon.icon} />
+                    </div>
+                </div>
+                <!-- VS/RX Logo Section End -->
+
+                <!-- Progress Bar Component Start -->
+                <c-b2b_progress-bar-component onprogressbarstepscomplete={handleProgressBarStepsCollection} page-source={pageSource}>
+                </c-b2b_progress-bar-component>
+                <!-- Progress Bar Component End -->
+            </div>
+        </div>
+        <!--Progress Bar Section End-->
+
+        <!-- Main Page Section Start -->
+        <div if:true={_progressBarStepsLoaded} class="slds-col slds-size_1-of-1 slds-medium-size_9-of-12 slds-large-size_10-of-12 mainBody">
+            <!-- Main Page Templates Section Start -->
+            <div class="templateSection">
+                <div class="slds-m-bottom_small">
+                    <!-- Template No.1: Order Reference Section Start -->
+                    <!--BS-787 Added Below Lines:
+                        order-type-selection-edit-mode-for-other-source={orderTypeSelectionEditModeForPDPSource}
+                        is-source-from-outside-configurator={_isFromPDPPage}
+                    -->
+                    <div if:true={componentVisibilityObj._showOrderReferenceComponent}>
+                        <c-b2b_vs_rx_order_reference_component
+                            order-type-selection-edit-mode-for-other-source={orderTypeSelectionEditModeForPDPSource}
+                            is-source-from-outside-configurator={_isFromPDPPage}
+                            lens-configurator-collection={lensConfiguratorCollection}
+                            effective-account-id={accountId}
+                            order-information-summary-collection={_orderInformationSummaryCollection}
+                            page-source={pageSource}
+                            onorderinformationavailable={handleOrderInformation}
+                            onupdateprogressbar={handleProgressBarExplicitely}
+                            current-step={_currentActiveStep}
+                            onoperateloader={handleComponentLoading}
+                            onupdateconfiguratordata={handleResetLensConfigurator}
+                            preserved-order-information-collection={_preservedOrderInformationCollection}
+                            order-reference-component-mode={componentVisibilityObj._orderReferenceComponentMode}
+                            selected-frame-id={_selectedFrameId}
+                            onshowcharlimitexception={showcharlimitexception}
+                        ></c-b2b_vs_rx_order_reference_component>
+                    </div>
+                    <!-- Template No.1: Order Reference Section End -->
+
+                    <!-- Template No.2: Frame Search Section Start -->
+                    <div if:true={componentVisibilityObj._showFrameSearchComponent}>
+                        <c-b2b_vs_rx_search_result_container
+                            effective-account-id={accountId}
+                            order-type={_selectedOrderType}
+                            frame-type-collection={_selectedFrameTypeCollection}
+                            page-reference={pageSource}
+                            onframesearchdone={handleFrameSearchCompletion}
+                            onoperateloader={handleComponentLoading}
+                        >
+                        </c-b2b_vs_rx_search_result_container>
+                    </div>
+                    <!-- Template No.2: Frame Search Section End -->
+
+                    <!-- Template No.3: Frame Selection Section Start -->
+                    <!-- added as a part of BS-709 -->
+                    <div if:true={componentVisibilityObj._showFrameSelectionComponent}>
+                        <c-b2b_vs_rx_product_details_component
+                            onsendselectedproductdata={handleSentSelectedProductData}
+                            effective-account-id={accountId}
+                            order-type-values-collection={_orderTypeValues}
+                            order-type={_selectedOrderType}
+                            frame-type={_selectedFrameType}
+                            page-reference={pageSource}
+                            onframesearchdone={handleFrameSearchCompletion}
+                            record-id={_selectedFrameId}
+                            onprodidchange={handleProdIdChange}
+                            order-information-summary-collection={_orderInformationSummaryCollection}
+                            lens-configurator-collection={lensConfiguratorCollection}
+                        >
+                        </c-b2b_vs_rx_product_details_component>
+                    </div>
+                    <!-- Template No.3:  Frame Selection Section End -->
+
+                    <!-- Template No.4: Frame information Section Start -->
+                    <!-- added as a part of BS-788-->
+                    <div if:true={componentVisibilityObj._showFrameDetailsComponent}>
+                        <c-b2b_vs_rx_frame_information
+                            is-source-from-outside-configurator={_isFromPDPPage}
+                            record-id={_selectedFrameId}
+                            effective-account-id={accountId}
+                            lens-configurator-collection={lensConfiguratorCollection}
+                            product-data={_productData}
+                            order-frame-data={_preservedOrderInformationCollection}
+                            open-confirm-popup={_openConfirmPopUp}
+                            page-source={pageSource}
+                            order-information-collection={_orderInformationSummaryCollection}
+                            onupdateprogressbar={handleProgressBarExplicitely}
+                            onsendinsertedlensconfiguratordata={handleInsertedLensConfiguratorData}
+                        >
+                        </c-b2b_vs_rx_frame_information>
+                    </div>
+                    <!-- Template No.4:  Frame information Section End -->
+                    <div if:true={componentVisibilityObj._showShapeSelectionComponent}>
+                        <c-b2b_vs_shape_selection_component
+                            frame-type={_frameType}
+                            model={_model}
+                            effective-account-id={accountId}
+                            component-visibility-mode={componentVisibilityObj._shapeSelectionVisibilityMode}
+                            lens-configurator-collection={lensConfiguratorCollection}
+                            onupdateprogressbar={handleProgressBarExplicitely}
+                            onupdateshapeselectiondata={handleShapeSelectionDataUpdate}
+                            from-my-vs-rx={fromMyVSRX}
+                        >
+                        </c-b2b_vs_shape_selection_component>
+                    </div>
+                    <!-- Template No.5: Rx-Solution Section Start -->
+                    <!-- added as a part of BS-724-->
+                    <div if:true={componentVisibilityObj._showRXSolutionComponent}>
+                        <c-b2b_rx_solution
+                            page-source={pageSource}
+                            selected-product-data={_productData}
+                            onpopulaterxsolutiondata={handleRXSolutionData}
+                            lens-configurator-collection={lensConfiguratorCollection}
+                            onupdateprogressbar={handleProgressBarExplicitely}
+                            rx-solution-component-mode={componentVisibilityObj._rxSolutionComponentMode}
+                        >
+                        </c-b2b_rx_solution>
+                    </div>
+                    <!-- Template No.5:  Rx-Solution Section End -->
+                    <!-- Template No.6: Lens Selection Section Start BS-723 -->
+                    <div if:true={componentVisibilityObj._lensSelectionComponent}>
+                        <c-b2b_vs_rx_lens-selection
+                            page-source={pageSource}
+                            effective-account-id={accountId}
+                            order-type-values-collection={_orderTypeValues}
+                            lens-configurator-id={_insertedLensConfiguratorId}
+                            order-type={_selectedOrderType}
+                            frame-type={_selectedFrameType}
+                            lens-configurator-collection={lensConfiguratorCollection}
+                            page-reference={pageSource}
+                            onframesearchdone={handleFrameSearchCompletion}
+                            record-id={_selectedFrameId}
+                            onprodidchange={handleProdIdChange}
+                            onupdatelensconfiguratorcollection={updateLensConfiguratorByLensCollection}
+                            lens-selection-component-mode={componentVisibilityObj._lensSelectionComponentMode}
+                            onupdateprogressbar={handleProgressBarExplicitely}
+                        >
+                        </c-b2b_vs_rx_lens-selection>
+                    </div>
+                    <!-- Template No.6:  Lens Selection Section End -->
+                    <!-- Template No.7: Prescription value start -->
+                    <div if:true={componentVisibilityObj._prescriptionValueComponent}>
+                        <c-b2b_vsrx-prescription-value
+                            effective-account-id={accountId}
+                            order-type-values-collection={_orderTypeValues}
+                            lens-configurator-id={_insertedLensConfiguratorId}
+                            order-type={_selectedOrderType}
+                            frame-type={_selectedFrameType}
+                            lens-configurator-collection={lensConfiguratorCollection}
+                            page-source={pageSource}
+                            onaddprescriptionvalue={handlePrescriptionValueUpdate}
+                            prescription-value-component-mode={componentVisibilityObj._prescriptionValueComponentMode}
+                            onupdateprogressbar={handleProgressBarExplicitely}
+                        >
+                        </c-b2b_vsrx-prescription-value>
+                    </div>
+                    <!-- Template No.7: Prescription value end -->
+                    <!-- Template No.8: Centering Data -->
+                    <!-- BS-1055 :Added component-rendering-mode and onupdateprogressbarcentering -->
+                    <div if:true={componentVisibilityObj._showCenteringComponent}>
+                        <c-b2b_vsrx-centering-data
+                            page-source={pageSource}
+                            effective-account-id={accountId}
+                            order-type-values-collection={_orderTypeValues}
+                            lens-configurator-id={_insertedLensConfiguratorId}
+                            order-type={_selectedOrderType}
+                            frame-type={_selectedFrameType}
+                            lens-configurator-collection={lensConfiguratorCollection}
+                            page-reference={pageSource}
+                            onaddceneteringdata={handleCenteringDataUpdate}
+                            component-rendering-mode={componentVisibilityObj._centeringDataComponentMode}
+                            onupdateprogressbarcentering={handleProgressBarExplicitely}
+                        >
+                        </c-b2b_vsrx-centering-data>
+                    </div>
+                    <!-- Template No.8: Centering Data end -->
+
+                    <!-- Template No.9: Calculate Lens Component (BS-727) Start -->
+                    <div if:true={componentVisibilityObj._showCalculateLensComponent}>
+                        <c-b2b_vs_rx_calculate_lens_component
+                            lens-configurator-collection={lensConfiguratorCollection}
+                            page-source={pageSource}
+                            onoperateloader={handleComponentLoading}
+                            onnavigatetopreviousscreen={navigateBackToPreviousScreen}
+                            sendthicknessmatchingvalues={handleLensCalculationData}
+                            onupdateprogressbar={handleProgressBarExplicitely}
+                            onlenscalculationdataupdate={handleLensCalculationDataUpdate}
+                            component-mode={componentVisibilityObj._calculateLensComponentMode}
+                            response-data={lensCalculationResponseData}
+                            from-different-source={fromMyVSRX}
+                            onschneidercalloutcomplete={handleLensCalculationResponse}
+                        ></c-b2b_vs_rx_calculate_lens_component>
+                    </div>
+                    <!-- Template No.9: Calculate Lens Component (BS-727) End -->
+
+                    <!-- Template No.10: Add to cart Section Start -->
+                    <div if:true={componentVisibilityObj._showAddToCartComponent}>
+                        <c-b2b_vs_rx_add_to_cart_component
+                            onoperateloader={handleComponentLoading}
+                            onuserinput={handleInputsFromAddToCartComponent}
+                            page-source={pageSource}
+                            lens-configurator-collection={lensConfiguratorCollection}
+                            user-input-for-special-handling-field={_userInputForSpecialHandlingField}
+                            user-input-for-notes-field={_userInputForNotesField}
+                            customer-service-preference-choice={_customerServicePrefernceChoice}
+                        ></c-b2b_vs_rx_add_to_cart_component>
+                    </div>
+                    <!-- Template No.10 : Add to cart Section Section End -->
+                    <!--728-->
+                    <template if:true={_showAddToCartModel}>
+                        <div class="slds-backdrop slds-backdrop_open">
+                            <section role="dialog" tabindex="-1" aria-modal="true" class="slds-modal slds-fade-in-open">
+                                <div class="slds-modal__container">
+                                    <div class="popupOnClearCart">
+                                        <div>
+                                            <lightning-button-icon class="closeIcon" icon-name="utility:close" onclick={closePopup}></lightning-button-icon>
+                                        </div>
+
+                                        <div class="slds-align_absolute-center slds-m-top_x-large">
+                                            <img if:true={_addToCartSuccessfull} src={successIcon} class="delete-icon" />
+                                            <img if:true={_addToCartFailed} src={errorIcon} class="delete-icon" />
+                                        </div>
+
+                                        <div if:true={_addToCartSuccessfull} class="slds-align_absolute-center font-24-500 slds-m-top_small">
+                                            {labelObject._addToCartSuccessMessage}
+                                        </div>
+                                        <div if:true={_addToCartFailed} class="slds-align_absolute-center font-24-500 slds-m-top_small">
+                                            {labelObject._addToCartFailueMessage}
+                                        </div>
+
+                                        <div class="slds-grid slds-wrap slds-grid_vertical-align-center slds-grid_align-center">
+                                            <div class="slds-m-vertical_small buttonStyling">
+                                                <button if:true={_addToCartSuccessfull} class="silButton capital buttonStyling" onclick={navigateToCart}>
+                                                    {labelObject._viewCartButtonLabel}
+                                                </button>
+                                                <button if:true={_addToCartFailed} class="silButton capital buttonStyling" onclick={closePopup}>
+                                                    {labelObject._CancelButtonLabel}
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                    </template>
+                    <!--728: Popup Screen for Delete Record Section End -->
+                </div>
+            </div>
+            <!-- Main Page Templates Section End -->
+
+            <!-- Footer Section Start -->
+            <footer>
+                <!-- Back Button Section Start -->
+                <span class="previousSpan">
+                    <button if:true={componentVisibilityObj._backButtonActive} class="commerce-button" onclick={handleButtonClick} value="Back">
+                        {labelObject._backButtonLabel}
+                    </button>
+                </span>
+                <!-- Back Button Section End -->
+
+                <!-- Next and Cancel Button Section Start -->
+                <span class="nextButton">
+                    <div class="selectConfigurationButtons">
+                        <!-- Cancel Button -->
+                        <button
+                            if:true={componentVisibilityObj._cancelButtonActive}
+                            class="commerce-button cancel"
+                            onclick={handleCancelButtonClick}
+                            value="Cancel"
+                        >
+                            {labelObject._cancelButtonLabel}
+                        </button>
+
+                        <!-- Next Button -->
+                        <button if:true={componentVisibilityObj._nextButtonActive} class="commerce-button" onclick={handleButtonClick} value="Next">
+                            {labelObject._nextButtonLabel}
+                        </button>
+
+                        <!-- Next Button -->
+                        <button
+                            if:true={componentVisibilityObj._saveAndNextButtonActive}
+                            class="commerce-button"
+                            onclick={handleButtonClick}
+                            value="SaveAndNext"
+                        >
+                            {labelObject._saveAndNextButtonLabel}
+                        </button>
+
+                        <!-- BS-1034 Start -->
+                        <span if:true={componentVisibilityObj._addToCartButtonActive}>
+                            <button
+                                if:true={_checkAndAddToCartDisabled}
+                                class="commerce-button disabledStyling"
+                                onclick={handleAddToCartButtonClick}
+                                value="Next"
+                                disabled
+                            >
+                                {labelObject._checkAndAddToCartButtonLabel}
+                            </button>
+                            <button if:false={_checkAndAddToCartDisabled} class="commerce-button" onclick={handleAddToCartButtonClick} value="Next">
+                                {labelObject._checkAndAddToCartButtonLabel}
+                            </button>
+                        </span>
+                        <!-- BS-1034 End -->
+
+                        <!-- Preview and Next Button -->
+                        <button
+                            if:true={componentVisibilityObj._previewAndNextButtonActive}
+                            class="commerce-button leftMarginStyling"
+                            onclick={handleButtonClick}
+                            value="SaveAndNext"
+                        >
+                            {labelObject._previewAndNextButtonLabel}
+                        </button>
+                    </div>
+                </span>
+                <!-- Next and Cancel Button Section End -->
+            </footer>
+            <!--Footer Section End-->
+        </div>
+        <!--Main Page Section End-->
+    </div>
+</template>

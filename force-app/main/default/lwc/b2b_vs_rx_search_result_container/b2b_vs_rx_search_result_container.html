@@ -1,0 +1,184 @@
+<template>
+    <!-- BS-941 BreadCrumb Component Section Start -->
+    <div if:true={_isBreadCrumbsActive} class="flex-child">
+        <c-b2b_vs_rx_breadcrumb_component
+            page-source={_currentStore}
+            frame-type={frameTypeCollection}
+            oncategoryupdate={handleCategoryUpdate}
+            translated-categories-collection={_translatedCategoriesCollection}
+            is-displaydata={isDisplaydata}
+            category-details-from-local-storage={_categoryDetailsFromLocalStorage}
+            category-details-collection={_categoryDetailsCollection}
+        >
+        </c-b2b_vs_rx_breadcrumb_component>
+    </div>
+    <!--BS-941 BreadCrumb Component Section End -->
+
+    <!-- Header Section Start -->
+    <header class="plpHeader">
+        <!-- Component Loading Section Start-->
+        <lightning-spinner if:true={_isLoading} class="slds-is-fixed slds-align_absolute-center" variant="brand" size="medium"></lightning-spinner>
+        <!-- Component Loading Section Start-->
+    </header>
+    <!-- Header Section Start -->
+
+    <!-- Filter Container Section Start -->
+    <article class="layout-contiainer">
+        <!-- Main Section Start -->
+        <aside class="aside-section">
+            <template if:true={_loadFilters}>
+                <div class="">
+                    <c-b2b_vs_rx_filter_container
+                        page-source={pageSource}
+                        store-name={storeName}
+                        display-data={displayData}
+                        all-product-data={_productsToShow}
+                        category-data={_categoryData}
+                        oncategoryupdate={handleCategoryUpdate}
+                        onfilterproductsearch={handleFilterProductSearch}
+                        onclearall={handleClearAll}
+                        current-page-source={pageReference}
+                        applicable-categories-data={_childCategoriesDataCollection}
+                        applicable-category-id={recordId}
+                        current-store={_currentStore}
+                        previously-selected-filter={_recievedFilters}
+                        frame-type-collection={frameTypeCollection}
+                        global-product-data={_globalProductData}
+                        onfilterfetched={populateFiltersMetadata}
+                    >
+                    </c-b2b_vs_rx_filter_container>
+                </div>
+            </template>
+        </aside>
+        <!-- Filter Container Section End -->
+
+        <section class="main-section">
+            <template if:true={_hasProducts}>
+                <div class="slds-grid slds-wrap slds-p-top_medium">
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_7-of-12 slds-large-size_8-of-12">
+                        <span class="slds-truncate slds-text-heading_small black-color headerText slds-m-right_x-small">{headerText}</span>
+
+                        <!--BS-730 start-->
+                        <template if:true={_selectedFilters}>
+                            <template for:each={_selectedFilters} for:item="filter">
+                                <template if:true={filter.isColor}>
+                                    <span class="title-small dot" style={filter.colorStyle} key={filter.fieldValue}>
+                                        <lightning-icon
+                                            name="filter"
+                                            icon-name="utility:close"
+                                            alternative-text="clear"
+                                            data-field-name={filter.fieldName}
+                                            data-field-value={filter.fieldValue}
+                                            data-field-type={filter.filterType}
+                                            data-is-multiselect={filter.isMultiselect}
+                                            data-pre-category-id={filter.previousCategoryId}
+                                            size="x-small"
+                                            onclick={handleRemoveFilter}
+                                        ></lightning-icon>
+                                    </span>
+                                </template>
+                                <template if:false={filter.isColor}>
+                                    <span class="filterStyle" key={filter.fieldValue}
+                                        >{filter.displayFilter}
+                                        <lightning-icon
+                                            name="filter"
+                                            icon-name="utility:close"
+                                            alternative-text="clear"
+                                            data-field-name={filter.fieldName}
+                                            data-field-value={filter.fieldValue}
+                                            data-field-type={filter.filterType}
+                                            data-is-multiselect={filter.isMultiselect}
+                                            data-pre-category-id={filter.previousCategoryId}
+                                            data-pre-category-name={filter.previousCategoryName}
+                                            class="slds-p-left_x-small order-detail-icon request-document-enabled"
+                                            size="x-small"
+                                            onclick={handleRemoveFilter}
+                                        ></lightning-icon>
+                                    </span>
+                                </template>
+                            </template>
+                            <a href="" onclick={handleClearAll} class="clearAllLink">
+                                <img class="slds-p-bottom_xx-small" src={_refreshIcon} />
+                                <span class="footer-action">{_clearAllLabel} </span>
+                            </a>
+                        </template>
+                        <!--BS-730 End-->
+                    </div>
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_5-of-12 slds-large-size_4-of-12 sort-items">
+                        <table>
+                            <tr>
+                                <td>
+                                    <!-- Sorting Section Start -->
+                                    <div class="sorting-div">
+                                        <lightning-combobox
+                                            id="sortingList"
+                                            name="progress"
+                                            label={_sortByLabel}
+                                            value={sortingValue}
+                                            options={sortingOptions}
+                                            onchange={handleSortingUpdate}
+                                        ></lightning-combobox>
+                                    </div>
+                                    <!-- Sorting Section End -->
+                                </td>
+                                <td>
+                                    <!-- Hide/Show Prices Component Start -->
+                                    <div if:true={_hasProducts} class="hide-price-icon">
+                                        <div if:false={hidePurchasePriceField}>
+                                            <c-b2b_vs_rx_hide_prices_component
+                                                set-hide-price={hidePrice}
+                                                onhidepricesection={handleHidePriceSection}
+                                                onshowpricesection={handleShowPriceSection}
+                                            ></c-b2b_vs_rx_hide_prices_component>
+                                        </div>
+                                    </div>
+                                    <!-- Hide/Show Prices Component End -->
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </template>
+
+            <!-- No Products To Show Component Start-->
+            <c-b2b_vs_rx_no_product_to_show_component
+                if:true={_noProducts}
+                no-products={_noProducts}
+                no-search-results={_noResultFound}
+            ></c-b2b_vs_rx_no_product_to_show_component>
+            <!-- No Products To Show Component End-->
+
+            <!-- Search Layout Component Start-->
+            <div>
+                <c-b2b_vs_rx_search-layout
+                    display-data={displayData.layoutData}
+                    config={config.layoutConfig}
+                    oncalltoaction={handleAction}
+                    onshowdetail={handleShowDetail}
+                    effective-account-id={resolvedEffectiveAccountId}
+                    hide-prices-from-tiles={hidePricesFromTiles}
+                    page-source={pageSource}
+                    store-name={storeName}
+                    applicable-currency-code={_applicableCurrencyCode}
+                    store-type={_storeType}
+                >
+                    <!--BS-1245 Added applicable-currency-code={_applicableCurrencyCode} -->
+                </c-b2b_vs_rx_search-layout>
+            </div>
+            <!-- Search Layout Component End-->
+
+            <!-- Paginator Component Start -->
+            <c-b2b_vs_rx_paginator_component
+                if:true={hasMorePages}
+                page-number={pageNumber}
+                page-size={_pageSizeForPopUp}
+                total-item-count={_totalProducts}
+                onprevious={handlePreviousPage}
+                onnext={handleNextPage}
+                onpagejump={handlePageJump}
+            >
+            </c-b2b_vs_rx_paginator_component>
+            <!-- Paginator Component End -->
+        </section>
+    </article>
+</template>

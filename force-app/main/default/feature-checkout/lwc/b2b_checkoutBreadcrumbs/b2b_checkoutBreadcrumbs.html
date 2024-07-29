@@ -1,0 +1,12 @@
+<template>
+    <div class="checkoutbreadcrumb-wrap">
+        <template for:each={checkoutStepsList} for:item="checkoutStep">
+            <template if:true={checkoutStep.active}>
+                <div class="breadcrumb-active" style="display: inline-block" key={checkoutStep.label}>{checkoutStep.label}</div>
+            </template>
+            <template if:false={checkoutStep.active}>
+                <div class="breadcrumb" style="display: inline-block" key={checkoutStep.label}>{checkoutStep.label}</div>
+            </template>
+        </template>
+    </div>
+</template>

@@ -1,0 +1,93 @@
+<template>
+    <!-- BS-788 : Lens information Section -->
+    <div class="slds-grid slds-wrap">
+        <div class="title slds-border_bottom slds-p-vertical_medium slds-m-bottom_small">
+            <div class="orderInformationTitle">{_frameInforamtionHeaderLabel}</div>
+
+            <!--Added Edit button BS-943-->
+            <!--Added edit functionality as part of BS-1456 -->
+            <div class="orderInformationIcon">
+                <img class="order-detail-icon request-document-enabled" src={editIcon.icon} onclick={handleFrameInformationEdit} width="20" height="20" />
+            </div>
+        </div>
+
+        <div class="slds-grid slds-wrap w-100">
+            <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_5-of-12">
+                <template for:each={_frameInformationSummaryCollection} for:item="frame">
+                    <div key={frame} class="slds-m-bottom_medium">
+                        <label class="orderInformationSummaryLabels">{frame.label}</label>
+                        <div if:true={frame.showColorBubble} class="display-flex">
+                            <div class="product-color-bubble slds-m-top_xxx-small slds-m-right_xxx-small color-bubble">
+                                <span class="product-color-bubble__upper" style={frame.backgroundColorUpper}></span>
+                                <span class="product-color-bubble__lower" style={frame.backgroundColorLower}></span>
+                            </div>
+                            <div>
+                                <!-- BS-2024 -->
+                                <lightning-formatted-rich-text
+                                    type="text"
+                                    class="orderInformationSummaryFields w-100"
+                                    title={frame.label}
+                                    value={frame.value}
+                                    readonly
+                                    required
+                                >
+                                </lightning-formatted-rich-text>
+                            </div>
+                        </div>
+                        <div if:false={frame.showColorBubble}>
+                            <!-- BS-2024 -->
+                            <lightning-formatted-rich-text
+                                type="text"
+                                class="orderInformationSummaryFields w-100"
+                                title={frame.label}
+                                value={frame.value}
+                                readonly
+                                required
+                            >
+                            </lightning-formatted-rich-text>
+                        </div>
+                    </div>
+                </template>
+            </div>
+            <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_7-of-12">
+                <div class="frame-img">
+                    <img src={showImage} alt="frame image" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- BS-788 : Pop-up Section -->
+    <div class="ModalPopUpForConfirm" id="ModalPopUpForConfirm">
+        <template if:true={openConfirmPopup}>
+            <section role="dialog" tabindex="-1" aria-modal="true" class="slds-modal slds-fade-in-open slds-modal_medium">
+                <div class="slds-modal__container">
+                    <div class="popupOnClearCart">
+                        <div class="modal-button">
+                            <lightning-button-icon
+                                class="slds-modal__close"
+                                title="Close"
+                                icon-name="utility:close"
+                                onclick={handleDialogClose}
+                            ></lightning-button-icon>
+                        </div>
+
+                        <div class="slds-m-top_x-small slds-m-bottom_medium slds-p-horizontal_x-small slds-grid_align-center">
+                            <div class="slds-text-align_center check-icon">
+                                <img src={_checkIconWithCircle} />
+                            </div>
+
+                            <p class="slds-text-align_center fnt-24 slds-m-top_x-large">{_confirmMessage}</p>
+                        </div>
+                        <div class="slds-grid slds-wrap slds-grid_vertical-align-center slds-grid_align-center">
+                            <div class="slds-m-around_small">
+                                <button class="silButton capital modal-btn" onclick={redirectToHomePage}>{_exitButtonLabel}</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                                <button class="silButton capital modal-btn" onclick={saveDataAndRedirectToHome}>{_saveAndExitButtonLabel}</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </template>
+    </div>
+</template>

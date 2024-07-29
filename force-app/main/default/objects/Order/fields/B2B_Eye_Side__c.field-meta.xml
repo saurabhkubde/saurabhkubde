@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>B2B_Eye_Side__c</fullName>
+    <description>This field stores the value of eye side.</description>
+    <externalId>false</externalId>
+    <label>Eye Side</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>right and left lens side</fullName>
+                <default>false</default>
+                <label>right and left lens side</label>
+            </value>
+            <value>
+                <fullName>Right lens</fullName>
+                <default>false</default>
+                <label>Right lens</label>
+            </value>
+            <value>
+                <fullName>Left lens</fullName>
+                <default>false</default>
+                <label>Left lens</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,368 @@
+<template>
+    <!-- COMPONENT LOADING SECTION -->
+    <template if:true={isLoading}>
+        <lightning-spinner class="slds-is-fixed" alternative-text="Loading" size="small"></lightning-spinner>
+    </template>
+
+    <!-- HEADER AND ADD ADDRESS BUTTON SECTION -->
+    <div class="slds-grid slds-wrap heading slds-m-top_small slds-m-bottom_small">
+        <!-- HEADER SECTION -->
+        <div class="slds-col slds-small-size_12-of-12 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+            <div class="headerBlock">{label.headline}</div>
+        </div>
+
+        <!-- ADD ADDRESS BUTTON SECTION -->
+        <div class="slds-col slds-small-size_12-of-12 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+            <div class="customButton"><button class="commerce-button" onclick={openAddAddress}>{label.ADD_ADDRESS_BUTTON_LABEL}</button></div>
+        </div>
+    </div>
+
+    <!-- SHIPPING AND BILLING TABLE -->
+    <template if:true={hasCPAs}>
+        <div class="shippingbillingtable">
+            <lightning-datatable
+                columns={columns}
+                data={addresses}
+                key-field="Id"
+                hide-checkbox-column="true"
+                show-row-number-column
+                default-sort-direction={defaultSortDirection}
+                sorted-direction={sortDirection}
+                sorted-by={sortedBy}
+                onsort={onHandleSort}
+                onrowaction={openEditAddress}
+                class="slds-max-medium-table_stacked-horizontal black-color"
+            ></lightning-datatable>
+        </div>
+    </template>
+
+    <!-- NO ADDRESS SECTION -->
+    <template if:false={hasCPAs}>
+        <div>
+            <h2 class="h4-font-strong black-color">{label.noaddress}</h2>
+        </div>
+    </template>
+
+    <!-- CHANGE REQUEST SECTION -->
+    <template if:true={hasOpenChangeRequest}>
+        <div class="addressChangeRequest slds-m-top_x-large">
+            <div class="textStyle black-color">
+                <div class="largeFont"><lightning-formatted-rich-text value={label.OPEN_CHANGE_LABEL}></lightning-formatted-rich-text></div>
+                <div class="mediumFont">
+                    <lightning-formatted-rich-text value={label.THANK_YOU_AND_OPEN_CHANGE_INSTRUCTION_LABEL}></lightning-formatted-rich-text>
+                </div>
+                <div class="mediumFont"><lightning-formatted-rich-text value={label.GET_BACK_TO_YOU_LABEL}></lightning-formatted-rich-text></div>
+            </div>
+        </div>
+    </template>
+
+    <!-- SHOW ADDRESS SECTION -->
+    <template if:true={showAddAddressModal}>
+        <section aria-modal="true" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container black-color newAddressModelContainer">
+                <template if:true={showAddAddressConfirmationMessage}>
+                    <div class="slds-modal__content slds-var-p-around_medium black-color">
+                        <div class="slds-modal__close general-close" onclick={closeModal}></div>
+                        <div class="font-16-500">{label.changeRequestConfirmationMessage}</div>
+                    </div>
+                </template>
+                <template if:false={showAddAddressConfirmationMessage}>
+                    <div class="slds-modal__content slds-var-p-around_medium black-color">
+                        <div class="slds-grid slds-wrap heading slds-m-top_small slds-m-bottom_small">
+                            <div class="modelHeaderTop">
+                                <div class="slds-modal__close general-close" onclick={closeModal}></div>
+                                <h2 class="text-large-strong addressRequestLabelStyling popupHeaderStyling">{label.requestShippingAddress}</h2>
+                            </div>
+                            <div class="slds-col slds-small-size_12-of-12 slds-medium-size_12-of-12 slds-large-size_6-of-12">
+                                <div class="addressLeftBlock">
+                                    <lightning-input
+                                        name="AddAddress_ShippingName"
+                                        class="validate"
+                                        label={label.shippingName}
+                                        pattern="^.*[a-zA-Z0-9\S]+.*$"
+                                        message-when-pattern-mismatch={label.onlyWhiteSpaceError}
+                                        type="text"
+                                        required="true"
+                                        onchange={genericOnChange}
+                                    ></lightning-input>
+
+                                    <lightning-input
+                                        name="AddAddress_City"
+                                        class="validate"
+                                        type="text"
+                                        label={label.shippingCity}
+                                        pattern="^.*[a-zA-Z0-9\S]+.*$"
+                                        message-when-pattern-mismatch={label.onlyWhiteSpaceError}
+                                        required="true"
+                                        onchange={genericOnChange}
+                                    ></lightning-input>
+
+                                    <lightning-input
+                                        name="AddAddress_PostalCode"
+                                        class="validate inputPadding"
+                                        type="text"
+                                        label={label.shippingZipCode}
+                                        pattern="^.*[a-zA-Z0-9\S]+.*$"
+                                        message-when-pattern-mismatch={label.onlyWhiteSpaceError}
+                                        required="true"
+                                        onchange={genericOnChange}
+                                    ></lightning-input>
+                                </div>
+                            </div>
+                            <div class="slds-col slds-small-size_12-of-12 slds-medium-size_12-of-12 slds-large-size_6-of-12">
+                                <div class="addressRightBlock">
+                                    <lightning-textarea
+                                        name="AddAddress_ShippingStreet"
+                                        class="validate shippingStreet"
+                                        label={label.shippingStreet}
+                                        pattern="^.*[a-zA-Z0-9\S]+.*$"
+                                        message-when-pattern-mismatch={label.onlyWhiteSpaceError}
+                                        required="true"
+                                        onchange={genericOnChange}
+                                    ></lightning-textarea>
+
+                                    <div class="slds-grid slds-gutters slds-wrap">
+                                        <div class="slds-col slds-small-size_12-of-12 slds-medium-size_12-of-12 slds-large-size_6-of-12">
+                                            <lightning-input
+                                                name="AddAddress_Country"
+                                                class="validate"
+                                                type="text"
+                                                label={label.shippingCountry}
+                                                pattern="^.*[a-zA-Z0-9\S]+.*$"
+                                                message-when-pattern-mismatch={label.onlyWhiteSpaceError}
+                                                required="true"
+                                                onchange={genericOnChange}
+                                            ></lightning-input>
+                                        </div>
+                                        <div class="slds-col slds-small-size_12-of-12 slds-medium-size_12-of-12 slds-large-size_6-of-12 shippingStateStyling">
+                                            <!-- Updated as part of BS-1520 -->
+                                            <lightning-input
+                                                name="AddAddress_Province"
+                                                class="validate"
+                                                type="text"
+                                                label={label.shippingState}
+                                                onchange={genericOnChange}
+                                            ></lightning-input>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="slds-col slds-small-size_12-of-12 slds-medium-size_12-of-12 slds-large-size_12-of-12">
+                                <!-- Updated as part of BS-1520 -->
+                                <lightning-textarea
+                                    class="validate"
+                                    name="AddAddress_Comment"
+                                    label={label.comment}
+                                    onchange={genericOnChange}
+                                ></lightning-textarea>
+                            </div>
+                        </div>
+                        <button
+                            name="addShippingAddress"
+                            class="slds-float_right buttonStyle commerce-button"
+                            onclick={openAddAddressConfirmationModal}
+                            disabled={disableAddAddressProceedButton}
+                        >
+                            {label.SEND_REQUEST_BUTTON_LABEL}
+                        </button>
+                    </div>
+                </template>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+
+    <!-- SHOW EDIT ADDRESS SECTION -->
+    <template if:true={showEditAddressModal}>
+        <section aria-modal="true" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container black-color billingAddressChangeRequestModel">
+                <template if:true={showAddressChangeConfirmationMessage}>
+                    <div class="slds-modal__content slds-var-p-around_medium black-color">
+                        <div class="slds-modal__close general-close" onclick={closeModal}></div>
+                        <div class="font-16-500">{label.changeAddressConfirmation}</div>
+                    </div>
+                </template>
+                <!-- BILLING ADDRESS SECTION-->
+                <template if:true={showBillingAddressModal}>
+                    <div class="slds-modal__content slds-var-p-around_medium black-color newAddressModelContainer">
+                        <div class="slds-grid slds-wrap heading slds-m-top_small slds-m-bottom_small">
+                            <div class="modelHeaderTop">
+                                <div class="slds-modal__close general-close" onclick={closeModal}></div>
+                                <h2 class="h5-font-light popupHeaderStyling">{label.billingAddressChangeHeader}</h2>
+                            </div>
+                            <div class="slds-col slds-small-size_12-of-12 slds-medium-size_12-of-12 slds-large-size_12-of-12">
+                                <span class="testdemo">
+                                    <lightning-radio-group
+                                        class="validate"
+                                        name="EditBillingAddress_Options"
+                                        label={label.billingAddressChangeOptionLabel}
+                                        options={options}
+                                        required="true"
+                                        onchange={genericOnChange}
+                                        type="radio"
+                                    ></lightning-radio-group>
+                                </span>
+                                <lightning-textarea
+                                    name="EditBillingAddress_ChangeRequestReason"
+                                    class="validate changeRequestStyling"
+                                    label={label.addressChangeRequestReason}
+                                    pattern="^.*[a-zA-Z0-9\S]+.*$"
+                                    message-when-pattern-mismatch={label.onlyWhiteSpaceError}
+                                    required="true"
+                                    onchange={genericOnChange}
+                                >
+                                </lightning-textarea>
+                            </div>
+                        </div>
+                        <button
+                            name="changeBillingAddress"
+                            class="slds-float_right buttonStyleModel billing-button"
+                            onclick={openEditAddressConfirmationModal}
+                            disabled={disableEditBillingAddressProceedButton}
+                        >
+                            {label.SEND_REQUEST_BUTTON_LABEL}
+                        </button>
+                    </div>
+                </template>
+
+                <!-- EDIT AND DELETE SECTION -->
+                <template if:true={showShippingAddressEditOrDeleteButton}>
+                    <div class="slds-modal__content slds-var-p-around_medium black-color containerStyling">
+                        <div class="modelHeader">
+                            <div class="slds-modal__close general-close closeModelStyling iconWithCloseButtonStyling" onclick={closeModal}></div>
+                            <div class="iconStyling">
+                                <img class="alertIconStyling" src={alertIcon.icon} />
+                            </div>
+                            <div class="h4-font-strong headerText">{label.B2B_WARNING_LABEL}</div>
+                            <div class="text-small-light">{label.deletOrEditShippingAddressHeader}</div>
+                        </div>
+                        <button class="modelButtonsClass slds-align_absolute-center layover-button" onclick={openEditShippingAddressModal}>
+                            {label.EDIT_ADDRESS_OPTION_LABEL}</button
+                        ><br />
+                        <button class="modelButtonsClass slds-align_absolute-center layover-button" onclick={openDeleteShippingAddressModal}>
+                            {label.DELETE_ADDRESS_OPTION_LABEL}
+                        </button>
+                    </div>
+                </template>
+
+                <!--EDIT ADDRESS SECTION-->
+                <template if:true={showPrePopulatedShippingAddressModal}>
+                    <div class="slds-modal__content slds-var-p-around_medium black-color newAddressModelContainer">
+                        <div class="slds-grid slds-wrap heading slds-m-top_small slds-m-bottom_small">
+                            <div class="modelHeaderTop">
+                                <div class="slds-modal__close general-close" onclick={closeModal}></div>
+                                <h2 class="text-large-strong addressRequestLabelStyling popupHeaderStyling">{label.editShippingAddressHeader}</h2>
+                            </div>
+                            <div class="slds-col slds-small-size_12-of-12 slds-medium-size_12-of-12 slds-large-size_12-of-12">
+                                <lightning-textarea
+                                    name="EditShippingAddress_Street"
+                                    label={label.shippingStreet}
+                                    pattern="^.*[a-zA-Z0-9\S]+.*$"
+                                    message-when-pattern-mismatch={label.onlyWhiteSpaceError}
+                                    class="validate"
+                                    required="true"
+                                    value={addressChangeRequestParameter.EditShippingAddress_Street}
+                                    type="street"
+                                    onchange={genericOnChange}
+                                ></lightning-textarea>
+                            </div>
+                            <div class="slds-col slds-small-size_12-of-12 slds-medium-size_12-of-12 slds-large-size_6-of-12">
+                                <div>
+                                    <lightning-input
+                                        name="AddAddress_City"
+                                        class="validate"
+                                        type="text"
+                                        label={label.shippingCity}
+                                        pattern="^.*[a-zA-Z0-9\S]+.*$"
+                                        message-when-pattern-mismatch="ERROR"
+                                        required="true"
+                                        value={addressChangeRequestParameter.EditShippingAddress_City}
+                                        onchange={genericOnChange}
+                                    ></lightning-input>
+
+                                    <lightning-input
+                                        name="AddAddress_Country"
+                                        class="validate"
+                                        type="text"
+                                        label={label.shippingCountry}
+                                        pattern="^.*[a-zA-Z0-9\S]+.*$"
+                                        message-when-pattern-mismatch={label.onlyWhiteSpaceError}
+                                        required="true"
+                                        value={addressChangeRequestParameter.EditShippingAddress_Country}
+                                        onchange={genericOnChange}
+                                    ></lightning-input>
+                                </div>
+                            </div>
+                            <div class="slds-col slds-small-size_12-of-12 slds-medium-size_12-of-12 slds-large-size_6-of-12">
+                                <div class="addressRightBlock">
+                                    <lightning-input
+                                        name="AddAddress_PostalCode"
+                                        class="validate"
+                                        type="text"
+                                        label={label.shippingZipCode}
+                                        pattern="^.*[a-zA-Z0-9\S]+.*$"
+                                        message-when-pattern-mismatch={label.onlyWhiteSpaceError}
+                                        required="true"
+                                        value={addressChangeRequestParameter.EditShippingAddress_PostalCode}
+                                        onchange={genericOnChange}
+                                    ></lightning-input>
+                                    <!-- Updated as part of BS-1520 -->
+                                    <lightning-input
+                                        name="AddAddress_Province"
+                                        class="validate"
+                                        type="text"
+                                        label={label.shippingState}
+                                        onchange={genericOnChange}
+                                        value={addressChangeRequestParameter.EditShippingAddress_Province}
+                                    ></lightning-input>
+                                </div>
+                            </div>
+
+                            <div class="slds-col slds-small-size_12-of-12 slds-medium-size_12-of-12 slds-large-size_12-of-12">
+                                <!-- Updated as part of BS-1520 -->
+                                <lightning-textarea
+                                    class="validate"
+                                    name="AddAddress_Comment"
+                                    label={label.comment}
+                                    onchange={genericOnChange}
+                                ></lightning-textarea>
+                            </div>
+                        </div>
+                        <button
+                            name="editShippingAddressRequest"
+                            class="slds-float_right buttonStyle commerce-button"
+                            onclick={openEditAddressConfirmationModal}
+                            disabled={disableAddAddressProceedButton}
+                        >
+                            {label.SEND_REQUEST_BUTTON_LABEL}
+                        </button>
+                    </div>
+                </template>
+
+                <!--DELETE ADDRESS SECTION-->
+                <template if:true={showDeleteShippingAddressModal}>
+                    <div class="slds-modal__content slds-var-p-around_medium black-color containerStyling">
+                        <div class="modelHeader">
+                            <div class="slds-modal__close general-close closeModelStyling iconWithCloseButtonStyling" onclick={closeModal}></div>
+                            <div class="iconStyling">
+                                <img class="deleteIconStyling" src={deleteIcon.icon} />
+                            </div>
+                            <div class="h4-font-strong headerText">{label.B2B_WARNING_LABEL}</div>
+                            <div class="text-small-light">{label.deleteShippingAddressHeader}</div>
+                        </div>
+                        <button
+                            name="deleteShippingAddress"
+                            class="slds-align_absolute-center buttonStyleModel commerce-button"
+                            onclick={openEditAddressConfirmationModal}
+                            disabled={disableDeleteShippingAddressProceedButton}
+                        >
+                            {label.DELETE_SHIPPING_ADDRESS_BUTTON_LABEL}
+                        </button>
+                    </div>
+                </template>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+</template>

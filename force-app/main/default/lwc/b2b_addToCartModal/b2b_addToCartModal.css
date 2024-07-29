@@ -1,0 +1,141 @@
+/*START OF BS-1315*/
+.ErrorMessage {
+    text-align: center;
+    font-size: 18px;
+    font-weight: 300;
+}
+/*END OF BS-1315 */
+
+/*START OF BS-1562*/
+.custom {
+    color: #000000;
+    box-shadow: none;
+    border: none;
+    border-bottom: 1px solid #c9c9c9;
+    width: 100%;
+    padding: 6px 0px;
+    font-size: 14px;
+    font-weight: 300;
+}
+
+.custom:focus {
+    outline: none;
+}
+
+.input_wrap {
+    width: 95%;
+    position: relative;
+}
+
+.input_wrap .label-helptext {
+    background: #ffffff;
+    font-weight: 300;
+}
+
+.label-helptext {
+    display: inline-block;
+}
+
+.validation {
+    color: #d0021b;
+    font-weight: 300 !important;
+    font-size: 12px !important;
+    padding-bottom: 10px;
+}
+
+.footer-background {
+    background: #f4f4f4;
+    width: 100%;
+}
+/*END OF BS-1562*/
+/* Start: BS-2085 */
+.infoicon {
+    width: 15px !important;
+    min-width: 10px;
+    transition: transform 0.2s;
+    cursor: pointer;
+    padding-left: 2px;
+}
+
+.tooltip-normal {
+    position: relative;
+    display: inline-block;
+}
+.tooltip-normal .tooltiptext-normal {
+    visibility: hidden;
+    width: 238px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    padding: 2px 0;
+    position: absolute;
+    z-index: 9;
+    bottom: 120%;
+    left: -350%;
+    margin-left: -40px;
+    font-size: 12px;
+    font-weight: 300;
+}
+.tooltip-normal .tooltiptext-normal::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: black transparent transparent transparent;
+}
+.tooltip-normal:hover .tooltiptext-normal {
+    visibility: visible;
+}
+
+.tooltip-normal:focus,
+.tooltip-normal:valid {
+    top: -14px;
+    background: #ffffff;
+    font-weight: 300;
+    font-size: 10px;
+}
+
+@media screen and (max-width: 279.99px) {
+    .tooltip-normal .tooltiptext-normal {
+        visibility: hidden;
+        width: 225px;
+        background-color: black;
+        color: #fff;
+        text-align: center;
+        padding: 2px 0;
+        position: absolute;
+        z-index: 9;
+        bottom: 103%;
+        left: -430%;
+        margin-left: -40px;
+        font-size: 12px;
+        font-weight: 300;
+    }
+}
+
+@media only screen and (max-width: 1023px) {
+    .tooltip-normal .tooltiptext-normal {
+        visibility: hidden;
+        width: 238px;
+        background-color: black;
+        color: #fff;
+        padding: 2px 0;
+        position: absolute;
+        z-index: 9;
+        bottom: 120%;
+        left: -350%;
+        margin-left: -40px;
+        font-size: 12px;
+        font-weight: 300;
+    }
+}
+
+@media only screen and (max-width: 360px) {
+    .tooltip-normal .tooltiptext-normal {
+        left: -460% !important;
+    }
+}
+/* End: BS-2085 */

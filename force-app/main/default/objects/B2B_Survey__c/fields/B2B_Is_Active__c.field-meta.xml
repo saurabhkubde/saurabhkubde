@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>B2B_Is_Active__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>This field indicates whether the survey is active or not which shall help in identification to show it to customer.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>This field indicates whether the survey is active or not which shall help in identification to show it to customer.</inlineHelpText>
+    <label>Active</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

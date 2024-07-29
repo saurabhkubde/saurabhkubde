@@ -1,0 +1,48 @@
+<template>
+    <lightning-spinner
+        if:true={_isLoading}
+        alternative-text={_loadingLabel}
+        class="slds-is-fixed slds-align_absolute-center spinner-styling"
+        id="lightningSpinner"
+        size="large"
+    ></lightning-spinner>
+
+    <div if:true={_showData} class="cart-container">
+        <div class="slds-grid slds-wrap slds-gutters">
+            <div class="slds-col slds-medium-size_8-of-12 slds-large-size_8-of-12 slds-order_2 slds-medium-order_1">
+                <!-- NBD2C-78 : Added oncartitemremoval={handleCartItemRemoval} -->
+                <c-d2c_cart-products
+                    is-online-purchase={_isOnlinePurchase}
+                    is-click-and-collect={_isClickAndCollect}
+                    total-product-count={_totalProductCount}
+                    products={_produtsData}
+                    onquantitychanged={handleQuantityChange}
+                    onhandleloader={handleLoaderAction}
+                    oncartitemremoval={handleCartItemRemoval}
+                >
+                </c-d2c_cart-products>
+            </div>
+            <div class="slds-col slds-medium-size_4-of-12 slds-large-size_4-of-12 slds-small-order_1 slds-order_1 slds-medium-order_2">
+                <!-- NBD2C-95 : Added is-online-purchase={_isOnlinePurchase} -->
+                <c-d2c_cart-pricing
+                    total-price={_totalPrice}
+                    currency-iso-code={_currencyISOCode}
+                    is-online-purchase={_isOnlinePurchase}
+                    is-click-and-collect={_isClickAndCollect}
+                    onhandleloader={handleLoaderAction}
+                >
+                </c-d2c_cart-pricing>
+            </div>
+        </div>
+    </div>
+
+    <!-- NBD2C-78 : Empty Cart Section - Start -->
+    <div if:true={_showEmptyCartScreen} class="empty-cart-container-styling">
+        <div>
+            <img class="cart-logo-styling" src={_cartBlackLogo} onclick={navigateToCart} />
+        </div>
+        <div class="empty-cart-message-styling">{_emptyCartMessage}</div>
+        <button name="continueShopping" class="navigational-button-styling" onclick={handleRedirectToHome}>{_continueShoppingLabel}</button>
+    </div>
+    <!-- NBD2C-78 : Empty Cart Section - End -->
+</template>

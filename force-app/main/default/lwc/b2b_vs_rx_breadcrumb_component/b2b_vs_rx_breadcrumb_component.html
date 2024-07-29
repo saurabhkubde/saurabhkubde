@@ -1,0 +1,37 @@
+<template>
+    <!-- VS BREADCRUMBS SECTION START -->
+    <template if:false={_isEvilEyeStore}>
+        <lightning-breadcrumbs>
+            <template for:each={_breadcrumbCategories} for:item="crumbs">
+                <lightning-breadcrumb
+                    key={crumbs.id}
+                    name={crumbs.id}
+                    data-type={crumbs.type}
+                    data-label={crumbs.label}
+                    label={crumbs.displayLabel}
+                    onclick={handleBreadcrumbCategorySelection}
+                >
+                </lightning-breadcrumb>
+            </template>
+        </lightning-breadcrumbs>
+    </template>
+    <!-- VS BREADCRUMBS SECTION END -->
+
+    <!-- RX BREADCRUMBS SECTION START -->
+    <template if:true={_isEvilEyeStore}>
+        <lightning-breadcrumbs class="breadcrumb-color slds-p-around_small">
+            <template for:each={_breadcrumbCategories} for:item="crumbs">
+                <lightning-breadcrumb
+                    key={crumbs.id}
+                    name={crumbs.id}
+                    data-type={crumbs.type}
+                    data-label={crumbs.label}
+                    label={crumbs.displayLabel}
+                    onclick={handleBreadcrumbCategorySelection}
+                >
+                </lightning-breadcrumb>
+            </template>
+        </lightning-breadcrumbs>
+    </template>
+    <!-- RX BREADCRUMBS SECTION END -->
+</template>

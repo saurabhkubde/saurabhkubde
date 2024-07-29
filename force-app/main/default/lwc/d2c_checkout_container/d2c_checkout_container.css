@@ -1,0 +1,104 @@
+.mainContainer {
+    margin: auto;
+    margin-bottom: 60px;
+    max-width: 1300px;
+    border: 1px solid #f7f7f8;
+}
+
+.progressBarContainer {
+    height: 125px;
+    max-height: 130px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    background: #f7f7f8;
+}
+
+.progressBar {
+    width: 100%;
+    max-width: 1000px;
+}
+
+.buttonContainer {
+    max-width: 1300px;
+    margin: auto;
+    display: flex;
+    background: #f7f7f8;
+    padding: 20px;
+    height: 85px;
+    position: sticky;
+    bottom: 0;
+    justify-content: space-between;
+}
+
+.nextButton {
+    margin-left: auto;
+}
+
+.nextButton,
+.backButton {
+    height: 46px;
+    width: fit-content;
+    min-width: 160px;
+    background: black;
+    color: white;
+    text-transform: capitalize;
+    font-family: 'Adobe Caslon Pro';
+    transition: 0.4s;
+    padding: 11px;
+    border: 1px solid black;
+    font-size: 16px;
+}
+
+.nextButton:hover,
+.backButton:hover {
+    background: white;
+    color: black;
+    border: 1px solid black;
+}
+.backButtonContainer,
+.nextButtonContainer {
+    display: flex;
+    width: 50%;
+}
+
+.backButton.disabled,
+.nextButton.disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.personalDetailsContainer {
+    margin-top: 30px;
+}
+
+.appointmentDetailsContainer,
+.personalDetailsContainer {
+    margin-bottom: 20px;
+}
+
+@media only screen and (max-width: 400px) {
+    .backButtonContainer,
+    .nextButtonContainer {
+        width: 40%;
+        font-size: 12px;
+    }
+
+    .nextButton {
+        width: fit-content;
+        line-height: 15px;
+    }
+
+    .nextButton,
+    .backButton {
+        min-width: 120px !important;
+        font-size: 14px;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .nextButton,
+    .backButton {
+        font-size: 14px;
+    }
+}

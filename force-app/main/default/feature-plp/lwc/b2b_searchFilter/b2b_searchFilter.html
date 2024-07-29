@@ -1,0 +1,26 @@
+<template>
+    <lightning-accordion allow-multiple-sections-open onsectiontoggle={handleSectionToggle} class="slds-border_top" active-section-name={activeSections}>
+        <template for:each={facets} for:item="facet">
+            <lightning-accordion-section name={facet.id} label={facet.displayName} key={facet.id}>
+                <div class="slds-form-element__control slds-p-left_large">
+                    <template for:each={facet.values} for:item="filter">
+                        <span class="slds-radio slds-p-bottom_x-small" key={filter.nameOrId} style="display: block">
+                            <input type="radio" id={filter.nameOrId} value={filter.displayLabel} name={filter.nameOrId} checked={filter.checked} />
+                            <label
+                                class="slds-radio__label"
+                                for={filter.nameOrId}
+                                onclick={handleInputChange}
+                                id={filter.nameOrId}
+                                data-name={facet.id}
+                                data-id={filter.nameOrId}
+                            >
+                                <span class="slds-radio_faux"></span>
+                                <span class="slds-form-element__label">{filter.displayLabel}</span>
+                            </label>
+                        </span>
+                    </template>
+                </div>
+            </lightning-accordion-section>
+        </template>
+    </lightning-accordion>
+</template>

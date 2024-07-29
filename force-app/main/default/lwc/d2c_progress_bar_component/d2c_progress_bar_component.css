@@ -1,0 +1,86 @@
+.container {
+    display: flex;
+    align-items: center;
+}
+
+.stepNameContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 14px;
+    color: black;
+    font-family: Adobe Caslon pro;
+    margin-top: 12px;
+}
+
+.step {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: lightgrey;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    font-size: 0.8em;
+}
+
+.stepTitle {
+    color: black;
+    word-break: break-word;
+    padding: 8px;
+}
+
+.step.completed,
+.step.current {
+    background-color: black;
+}
+
+.line {
+    height: 2px;
+    background-color: lightgrey;
+    flex: 1;
+}
+
+.line-completed {
+    background-color: black;
+}
+
+button {
+    margin-top: 20px;
+}
+
+@media only screen and (min-width: 300px) and (max-width: 400px) {
+    .container {
+        margin-right: 30px !important;
+        margin-left: 20px;
+    }
+}
+
+@media only screen and (min-width: 400px) and (max-width: 500px) {
+    .container {
+        margin-right: 50px !important;
+        margin-left: 20px;
+    }
+}
+
+@media only screen and (min-width: 500px) and (max-width: 600px) {
+    .container {
+        margin-right: 60px !important;
+        margin-left: 30px;
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    .stepNameContainer {
+        font-size: 10px;
+    }
+}
+
+@media only screen and (min-width: 600px) {
+    .container {
+        margin-left: 30px;
+        margin-right: 40px;
+        margin-top: 20px;
+    }
+}

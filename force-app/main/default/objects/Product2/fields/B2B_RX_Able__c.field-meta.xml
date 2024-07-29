@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>B2B_RX_Able__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>RX-able</description>
+    <externalId>false</externalId>
+    <label>RX-able</label>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

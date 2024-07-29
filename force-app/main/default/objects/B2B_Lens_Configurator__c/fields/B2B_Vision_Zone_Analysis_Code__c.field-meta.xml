@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>B2B_Vision_Zone_Analysis_Code__c</fullName>
+    <description>This field stores the Id fetched from the callout to get the vision zone analysis id for vision zone analysis survey.</description>
+    <externalId>false</externalId>
+    <label>Vision Zone Analysis Code</label>
+    <length>255</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

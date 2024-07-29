@@ -1,0 +1,29 @@
+<template>
+    <!-- NBD2C-95 : Progress Bar Start-->
+
+    <!-- NBD2C-95 : Progress Bar Styling (Currenct Active and remaining steps) Section : Start -->
+    <div class="container">
+        <div class="step completed" data-step="1"></div>
+        <div class="line" data-step="2"></div>
+        <div class="step" data-step="2"></div>
+        <div class="line" data-step="3"></div>
+        <div class="step" data-step="3"></div>
+        <div class="line" data-step="4"></div>
+        <div class="step" data-step="4"></div>
+        <div if:true={_isSourceClickAndCollect} class="line" data-step="5"></div>
+        <div if:true={_isSourceClickAndCollect} class="step" data-step="5"></div>
+    </div>
+    <!-- NBD2C-95 : Progress Bar Styling (Currenct Active and remaining steps) Section : End -->
+
+    <!-- NBD2C-95 : Progress Bar Steps Names Section : Start -->
+    <div class="stepNameContainer">
+        <template for:each={_progressBarStepsCollection} for:item="step">
+            <div key={step}>
+                <div class="stepTitle" data-step={step.stepNumber}>{step.stepName}</div>
+            </div>
+        </template>
+    </div>
+    <!-- NBD2C-95 : Progress Bar Steps Names Section : End -->
+
+    <!-- NBD2C-95 : Progress Bar End-->
+</template>

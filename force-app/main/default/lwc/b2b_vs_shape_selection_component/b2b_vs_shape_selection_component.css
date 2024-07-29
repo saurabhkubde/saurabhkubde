@@ -1,0 +1,685 @@
+.title {
+    width: 100%;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.errorMessage {
+    width: 100%;
+    color: red;
+    font-weight: 300;
+}
+
+.editIcon {
+    float: right;
+    cursor: pointer;
+}
+
+.shapeediter-container {
+    background: #f4f5f7;
+}
+
+.shapeediter-fnt14 {
+    font-size: 14px;
+    font-weight: 300;
+}
+.originalShape {
+    width: 14px;
+    height: 14px;
+    background: #cdcdcd;
+    margin-right: 10px;
+}
+.scaledShape {
+    width: 14px;
+    height: 14px;
+    background: #d8c27c;
+    margin-right: 10px;
+}
+.table-auto {
+    width: auto;
+}
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+}
+
+/* BS-791 */
+.tooltip-normal {
+    position: relative;
+    display: inline-block;
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 238px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    padding: 2px 0;
+    position: absolute;
+    z-index: 9;
+    bottom: 120%;
+    left: -350%;
+    margin-left: -40px;
+    font-size: 12px;
+    font-weight: 300;
+}
+
+/* BS-791 */
+.tooltip-normal .tooltiptext-normal {
+    visibility: hidden;
+    width: 238px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    padding: 2px 0;
+    position: absolute;
+    z-index: 9;
+    bottom: 120%;
+    left: -350%;
+    margin-left: -40px;
+    font-size: 12px;
+    font-weight: 300;
+}
+
+/* BS-791 */
+.tooltip .tooltiptext::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -94px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: black transparent transparent transparent;
+}
+
+.tooltip-normal .tooltiptext-normal::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: black transparent transparent transparent;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+}
+
+/* BS-791 */
+.tooltip-normal:hover .tooltiptext-normal {
+    visibility: visible;
+}
+
+.infoicon {
+    width: 15px !important;
+    min-width: 10px;
+    transition: transform 0.2s;
+    cursor: pointer;
+    padding-left: 2px;
+}
+
+.text-centre {
+    text-align: center;
+}
+
+@media screen and (max-width: 767.99px) {
+    .table-auto {
+        width: auto;
+        margin: 20px auto;
+    }
+}
+
+@media screen and (max-width: 279.99px) {
+    .tooltip .tooltiptext {
+        visibility: hidden;
+        width: 225px;
+        background-color: black;
+        color: #fff;
+        text-align: center;
+        padding: 2px 0;
+        position: absolute;
+        z-index: 9;
+        bottom: 103%;
+        left: -430%;
+        margin-left: -40px;
+        font-size: 12px;
+        font-weight: 300;
+    }
+
+    /* BS-791 */
+    .tooltip-normal .tooltiptext-normal {
+        visibility: hidden;
+        width: 225px;
+        background-color: black;
+        color: #fff;
+        text-align: center;
+        padding: 2px 0;
+        position: absolute;
+        z-index: 9;
+        bottom: 103%;
+        left: -430%;
+        margin-left: -40px;
+        font-size: 12px;
+        font-weight: 300;
+    }
+}
+
+/* The container */
+.container {
+    display: initial;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 14px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    font-weight: 300;
+}
+
+/* Hide the browser's default checkbox */
+.container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 18px;
+    width: 18px;
+    background-color: #fff;
+    border: solid 1px #848484;
+    margin-top: 2px;
+}
+/* BS-1636 */
+.checkmark-disable {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 18px;
+    width: 18px;
+    background-color: #e9e9e9;
+    margin-top: 2px;
+    cursor: not-allowed;
+}
+
+/* On mouse-over, add a grey background color */
+.container:hover input ~ .checkmark {
+    border: solid 1px #848484;
+}
+
+/* When the checkbox is checked, add a blue background */
+.container input:checked ~ .checkmark {
+    background-color: #fff;
+    border: solid 1px #848484;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+    content: '';
+    position: absolute;
+    display: none;
+}
+
+/* Show the checkmark when checked */
+.container input:checked ~ .checkmark:after {
+    display: block;
+}
+
+/* Style the checkmark/indicator */
+.container .checkmark:after {
+    left: 6px;
+    top: 1px;
+    width: 5px;
+    height: 10px;
+    border: solid #000;
+    border-width: 0 1px 1px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+.margin-left-container {
+    margin-left: inherit;
+}
+
+.shapeReference {
+    border-top: 1px solid #eae3e3f0;
+    width: 95%;
+    margin-left: 15px;
+}
+
+.shapeTextReference {
+    max-width: 279px;
+    text-align: center;
+    margin: auto;
+}
+
+.quantity-field {
+    height: 35px;
+    left: 0 !important;
+    text-align: center;
+    width: 45px;
+    display: inline-block;
+    margin: 0px 0px 0px;
+    resize: vertical;
+    border: none !important;
+    border-top: 1px solid #d8d8d8 !important;
+    border-bottom: 1px solid #d8d8d8 !important;
+    border-radius: 0px !important;
+}
+
+.quantity-container input:focus-visible {
+    outline: none !important;
+    border-radius: 0px !important;
+}
+
+.quantity-field-checkout {
+    height: 35px;
+    text-align: center;
+    display: inline-block;
+    margin: auto !important;
+    resize: vertical;
+    border: none !important;
+}
+
+.input-group .quantity-field {
+    height: 35px;
+    left: -6px;
+    text-align: center;
+    width: 45px;
+    display: inline-block;
+    margin: 0px 0px 0px;
+    resize: vertical;
+    border: 1px solid black;
+}
+
+.quantity-area {
+    display: grid;
+    grid-area: quantity-area;
+}
+
+.quantity {
+    margin-top: 2%;
+}
+
+.quantity-width {
+    width: 95px !important;
+}
+/* Added as part of BS-917 */
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: landscape) {
+    .quantity-width {
+        margin-left: -25px !important;
+        margin-top: -5px;
+    }
+}
+
+/* Added as part of BS-917 */
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait) {
+    .quantity-width {
+        margin-left: -25px !important;
+        margin-top: -5px;
+        max-width: 60px !important;
+    }
+}
+
+.button-minus-class {
+    height: 35px !important;
+    width: 25px !important;
+    margin-top: 0px !important;
+    border: none !important;
+    background: white !important;
+    border-top: 1px solid #d8d8d8 !important;
+    border-left: 1px solid #d8d8d8 !important;
+    border-bottom: 1px solid #d8d8d8 !important;
+    font-size: 20px;
+    border-radius: 0px !important;
+}
+
+.input-group .button-minus,
+.input-group .button-plus {
+    height: 35px;
+    width: 38px;
+    margin-top: 5px;
+}
+.button-plus {
+    height: 35px !important;
+    width: 25px !important;
+    margin-top: 0px !important;
+    border: none !important;
+    background: white !important;
+    border-top: 1px solid #d8d8d8 !important;
+    border-right: 1px solid #d8d8d8 !important;
+    border-bottom: 1px solid #d8d8d8 !important;
+    font-size: 20px;
+    border-radius: 0px !important;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.error-background {
+    background-color: rgb(255 0 0 / 15%);
+    padding: 12px;
+    margin: 20px auto;
+    font-size: 14px;
+    font-weight: 500;
+    color: #f00;
+}
+
+.instructionTextStyle {
+    font-size: 14px;
+    margin: 15px auto;
+    font-weight: 300;
+    text-align: left;
+}
+
+.shapeEditorHeader {
+    font-size: 22px;
+}
+
+.shapeEditorSubHeaderTextStyling {
+    font-size: 16px;
+}
+
+.shapeEditorContents {
+    font-size: 16px;
+    font-weight: 300;
+}
+
+.shapeEditorButtons {
+    padding: 10px 10px !important;
+}
+
+.customButtons {
+    padding: 10px 2px !important;
+}
+
+.bulletPoint {
+    height: 6px;
+    width: 6px;
+    margin-right: 5px;
+    background-color: #f00000;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.disabledButtonStyling {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.smallPadding {
+    padding: 2px 6px !important;
+}
+
+.tableWidth {
+    width: auto;
+}
+
+.label-width {
+    min-width: 55px;
+}
+
+@media only screen and (max-width: 450px) {
+    .minHeight {
+        min-height: 80px;
+    }
+}
+
+@media only screen and (max-width: 1023px) {
+    .tooltip-normal .tooltiptext-normal {
+        visibility: hidden;
+        width: 238px;
+        background-color: black;
+        color: #fff;
+        padding: 2px 0;
+        position: absolute;
+        z-index: 9;
+        bottom: 120%;
+        left: -350%;
+        margin-left: -40px;
+        font-size: 12px;
+        font-weight: 300;
+    }
+}
+
+@media only screen and (max-width: 360px) {
+    .container {
+        max-width: 138px !important;
+    }
+    .tooltip-normal .tooltiptext-normal {
+        left: -460% !important;
+    }
+}
+
+.sampleStyling {
+    margin-left: 69px !important;
+    text-align: center !important;
+    padding: 0px !important;
+    width: 200px !important;
+}
+
+.customRadioButtonStyling {
+    margin-bottom: 10px !important;
+}
+
+input[type='radio'] {
+    -webkit-transform: scale(1.5);
+    transform: scale(1.5);
+    margin-right: 5px;
+    vertical-align: middle;
+    accent-color: black;
+}
+
+.accentRingImage {
+    max-width: 280px;
+}
+
+.combo-box {
+    display: inline-block;
+    position: absolute;
+    width: 95%;
+}
+
+.options-container {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    z-index: 99;
+    position: absolute;
+    background-color: white;
+    width: 190px;
+    max-height: 175px;
+    overflow-y: scroll;
+}
+
+.color-option {
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 300;
+}
+.options-container .color-option:hover {
+    background: #f4f4f4;
+}
+
+.color-bubble {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.select-color-option-wrap {
+    position: relative;
+}
+
+.select-color-option {
+    border-bottom: solid 1px #ddd;
+    padding: 10px 0px;
+    cursor: pointer;
+    max-width: 190px;
+    font-size: 16px;
+    font-weight: 300;
+}
+
+.select-color-option-dropdown {
+    border-bottom: solid 1px #dddd;
+    width: 100%;
+    padding: 10px 0px;
+    font-size: 16px;
+    font-weight: 300;
+    max-width: 190px;
+}
+.arrow {
+    font-size: 11px;
+    float: right;
+    position: absolute;
+    left: 175px;
+    color: #747474;
+}
+
+.accent_rings_label {
+    font-weight: 300;
+    font-size: 14px;
+}
+@media only screen and (max-width: 64em) {
+    .options-container {
+        width: 100% !important;
+        min-width: 100%;
+        margin-right: 10px;
+        max-height: 175px;
+        overflow-y: scroll;
+    }
+
+    .select-color-option {
+        width: 100% !important;
+        min-width: 100%;
+    }
+
+    .select-color-option:hover {
+        background: none !important;
+    }
+
+    .select-color-option-dropdown {
+        width: 100% !important;
+        min-width: 100%;
+    }
+    .arrow {
+        font-size: 11px;
+        float: right;
+        position: absolute;
+        left: 96%;
+        color: #747474;
+    }
+}
+@media only screen and (max-width: 48em) {
+    .accentRingImage {
+        max-width: 280px;
+        margin: auto;
+    }
+}
+
+@media only screen and (max-width: 64em) and (min-width: 48em) {
+    .accentRingImage {
+        margin-left: 10%;
+    }
+}
+
+.shapeSelectionTitle {
+    float: left;
+}
+
+.orderInformationSummaryFields {
+    margin-top: 15px;
+    border: none;
+    font-weight: 500;
+    font-size: 14px;
+    margin: none;
+    margin-left: -1px;
+    width: 100%;
+}
+
+.orderInformationSummaryFields:focus-visible {
+    outline: none;
+}
+
+.input_wrap label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: 0.2s ease all;
+    -moz-transition: 0.2s ease all;
+    -webkit-transition: 0.2s ease all;
+    pointer-events: none;
+    background: #ffffff;
+    font-weight: 300;
+}
+
+.shapeEditor td {
+    border: solid 1px #d8d8d8;
+    padding: 10px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 500;
+}
+.shapeEditor {
+    margin-top: 10px;
+    max-width: 300px;
+}
+
+.shapeEditor .bg {
+    background: #f4f4f4;
+    font-weight: 300;
+    width: 70px;
+}
+
+.tableauto {
+    width: auto;
+    margin-bottom: 15px;
+}
+
+.glassContainer {
+    width: -webkit-fill-available;
+    max-width: 250px;
+    margin: auto;
+    display: block;
+}
+
+/*BS-999*/
+.error-background {
+    background-color: rgb(255 0 0 / 15%);
+    padding: 20px;
+    font-size: 14px;
+    font-weight: 300;
+    color: #f00;
+}
+/* START: BS-1635 */
+.unset-visibility {
+    display: none;
+}
+
+.set-visibility {
+    display: block;
+}
+/* END: BS-1635 */

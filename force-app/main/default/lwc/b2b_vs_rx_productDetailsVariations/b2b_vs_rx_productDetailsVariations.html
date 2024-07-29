@@ -1,0 +1,728 @@
+<template>
+    <div class="slds-grid slds-wrap">
+        <template if:true={isInitialDataFetched}>
+            <!--BS-1304 -->
+            <template if:true={isVariationsLoadComplete} iterator:item={displaybleVariationCollection}>
+                <div
+                    if:true={item.value.isColorFilter}
+                    key={item.value.id}
+                    class="slds-form-element slds-col slds-size_1-of-1 slds-medium-size_12-of-12 slds-large-size_12-of-12 slds-p-around_xx-small padding-left-none"
+                >
+                    <div key={item.value.id}>
+                        <label class="slds-form-element__label labelStyling arial-font" for={item.value.id}>{item.value.label}</label>
+                        <div class="slds-form-element__control">
+                            <div class="slds-combobox_container">
+                                <div
+                                    class="slds-combobox slds-dropdown-trigger slds-dropdown-trigger_click"
+                                    data-id={item.value.id}
+                                    data-field={item.value.field}
+                                    onclick={toggleVisibility}
+                                >
+                                    <div class="slds-combobox__form-element slds-input-has-icon slds-input-has-icon_right" role="none">
+                                        <button
+                                            type="button"
+                                            class="slds-input_faux slds-combobox__input border"
+                                            aria-labelledby="combobox-label-id-132 combobox-id-59-selected-value"
+                                            id={item.value.id}
+                                            aria-controls="listbox-id-1"
+                                            aria-expanded="false"
+                                            aria-haspopup="listbox"
+                                        >
+                                            <template for:each={item.value.options} for:item="option">
+                                                <span
+                                                    if:true={option.selected}
+                                                    key={option.value}
+                                                    class="slds-truncate selectedOption flex-display"
+                                                    data-index={item.index}
+                                                    data-field={item.value.field}
+                                                    data-value={option.value}
+                                                >
+                                                    <div
+                                                        if:true={item.value.isColorFilter}
+                                                        class="product-color-bubble slds-m-top_x-small slds-m-right_x-small"
+                                                    >
+                                                        <span class="product-color-bubble__upper" style={option.hexFrame}> </span>
+                                                        <span class="product-color-bubble__lower" style={option.hexAccent}> </span>
+                                                    </div>
+                                                    {option.label}
+                                                </span>
+                                            </template>
+                                        </button>
+                                        <span class="slds-icon_container slds-icon-utility-down slds-input__icon slds-input__icon_right">
+                                            <lightning-icon icon-name="utility:chevrondown" alternative-text="down" size="xx-small"> </lightning-icon>
+                                        </span>
+                                    </div>
+                                    <div class="slds-dropdown slds-dropdown_length-5 slds-dropdown_fluid" role="listbox">
+                                        <ul class="slds-listbox slds-listbox_vertical" role="presentation">
+                                            <template for:each={item.value.options} for:item="option">
+                                                <li if:true={option.isProductAvailable} role="presentation" class="slds-listbox__item" key={option.value}>
+                                                    <div
+                                                        class="slds-media slds-listbox__option slds-listbox__option_plain slds-media_small"
+                                                        role="option"
+                                                        aria-disabled={option.disabled}
+                                                        data-field={item.value.field}
+                                                        data-value={option.value}
+                                                        onclick={handleAttributeChange}
+                                                        onmousedown={handleAttributeChange}
+                                                    >
+                                                        <span
+                                                            if:true={item.value.isColorFilter}
+                                                            class="slds-media__figure slds-listbox__option-icon"
+                                                            style={option.disabledOpacity}
+                                                        >
+                                                            <div
+                                                                class="product-color-bubble slds-m-top_xxx-small slds-m-right_xx-small"
+                                                                style={option.label.disabledOpacity}
+                                                            >
+                                                                <span class="product-color-bubble__upper" style={option.hexFrame}> </span>
+                                                                <span class="product-color-bubble__lower" style={option.hexAccent}> </span>
+                                                            </div>
+                                                        </span>
+                                                        <span class="slds-media__body">
+                                                            <span class="slds-truncate" title={option.label}>{option.label}</span>
+                                                        </span>
+                                                    </div>
+                                                </li>
+                                                <li if:false={option.isProductAvailable} role="presentation" class="slds-listbox__item" key={option.value}>
+                                                    <div
+                                                        class="slds-media slds-listbox__option slds-listbox__option_plain slds-media_small disabledStyling"
+                                                        role="option"
+                                                        aria-disabled={option.disabled}
+                                                        data-field={item.value.field}
+                                                        data-value={option.value}
+                                                    >
+                                                        <span
+                                                            if:true={item.value.isColorFilter}
+                                                            class="slds-media__figure slds-listbox__option-icon"
+                                                            style={option.disabledOpacity}
+                                                        >
+                                                            <div
+                                                                class="product-color-bubble slds-m-top_xxx-small slds-m-right_xx-small"
+                                                                style={option.label.disabledOpacity}
+                                                            >
+                                                                <span class="product-color-bubble__upper" style={option.hexFrame}> </span>
+                                                                <span class="product-color-bubble__lower" style={option.hexAccent}> </span>
+                                                            </div>
+                                                        </span>
+                                                        <span class="slds-media__body">
+                                                            <span class="slds-truncate" title={option.label}>{option.label}</span>
+                                                        </span>
+                                                    </div>
+                                                </li>
+                                            </template>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div
+                    if:true={item.value.shapeSizeIcon}
+                    key={item.value.id}
+                    class="slds-form-element slds-col slds-size_1-of-1 slds-medium-size_5-of-12 slds-large-size_5-of-12 slds-p-around_xx-small padding-left-none"
+                >
+                    <div key={item.value.id}>
+                        <label class="slds-form-element__label labelStyling arial-font" for={item.value.id}>{item.value.label}</label>
+                        <div class="slds-form-element__control">
+                            <div class="slds-combobox_container">
+                                <div
+                                    class="slds-combobox slds-dropdown-trigger slds-dropdown-trigger_click"
+                                    data-id={item.value.id}
+                                    data-field={item.value.field}
+                                    onclick={toggleVisibility}
+                                >
+                                    <div class="slds-combobox__form-element slds-input-has-icon slds-input-has-icon_right" role="none">
+                                        <button
+                                            type="button"
+                                            class="slds-input_faux slds-combobox__input border"
+                                            aria-labelledby="combobox-label-id-132 combobox-id-59-selected-value"
+                                            id={item.value.id}
+                                            aria-controls="listbox-id-1"
+                                            aria-expanded="false"
+                                            aria-haspopup="listbox"
+                                        >
+                                            <template for:each={item.value.options} for:item="option">
+                                                <span
+                                                    if:true={option.selected}
+                                                    key={option.value}
+                                                    class="slds-truncate selectedOption flex-display"
+                                                    data-index={item.index}
+                                                    data-field={item.value.field}
+                                                    data-value={option.value}
+                                                >
+                                                    <div
+                                                        if:true={item.value.isColorFilter}
+                                                        class="product-color-bubble slds-m-top_x-small slds-m-right_x-small"
+                                                    >
+                                                        <span class="product-color-bubble__upper" style={option.hexFrame}> </span>
+                                                        <span class="product-color-bubble__lower" style={option.hexAccent}> </span>
+                                                    </div>
+                                                    {option.label}
+                                                </span>
+                                            </template>
+                                        </button>
+                                        <span class="slds-icon_container slds-icon-utility-down slds-input__icon slds-input__icon_right">
+                                            <lightning-icon icon-name="utility:chevrondown" alternative-text="down" size="xx-small"> </lightning-icon>
+                                        </span>
+                                    </div>
+                                    <div class="slds-dropdown slds-dropdown_length-5 slds-dropdown_fluid" role="listbox">
+                                        <ul class="slds-listbox slds-listbox_vertical" role="presentation">
+                                            <template for:each={item.value.options} for:item="option">
+                                                <li if:true={option.isProductAvailable} role="presentation" class="slds-listbox__item" key={option.value}>
+                                                    <div
+                                                        class="slds-media slds-listbox__option slds-listbox__option_plain slds-media_small"
+                                                        role="option"
+                                                        aria-disabled={option.disabled}
+                                                        data-field={item.value.field}
+                                                        data-value={option.value}
+                                                        onclick={handleAttributeChange}
+                                                        onmousedown={handleAttributeChange}
+                                                    >
+                                                        <span
+                                                            if:true={item.value.isColorFilter}
+                                                            class="slds-media__figure slds-listbox__option-icon"
+                                                            style={option.disabledOpacity}
+                                                        >
+                                                            <div
+                                                                class="product-color-bubble slds-m-top_xxx-small slds-m-right_xx-small"
+                                                                style={option.label.disabledOpacity}
+                                                            >
+                                                                <span class="product-color-bubble__upper" style={option.hexFrame}> </span>
+                                                                <span class="product-color-bubble__lower" style={option.hexAccent}> </span>
+                                                            </div>
+                                                        </span>
+                                                        <span class="slds-media__body">
+                                                            <span class="slds-truncate" title={option.label}>{option.label}</span>
+                                                        </span>
+                                                    </div>
+                                                </li>
+                                                <li if:false={option.isProductAvailable} role="presentation" class="slds-listbox__item" key={option.value}>
+                                                    <div
+                                                        class="slds-media slds-listbox__option slds-listbox__option_plain slds-media_small disabledStyling"
+                                                        role="option"
+                                                        aria-disabled={option.disabled}
+                                                        data-field={item.value.field}
+                                                        data-value={option.value}
+                                                    >
+                                                        <span
+                                                            if:true={item.value.isColorFilter}
+                                                            class="slds-media__figure slds-listbox__option-icon"
+                                                            style={option.disabledOpacity}
+                                                        >
+                                                            <div
+                                                                class="product-color-bubble slds-m-top_xxx-small slds-m-right_xx-small"
+                                                                style={option.label.disabledOpacity}
+                                                            >
+                                                                <span class="product-color-bubble__upper" style={option.hexFrame}> </span>
+                                                                <span class="product-color-bubble__lower" style={option.hexAccent}> </span>
+                                                            </div>
+                                                        </span>
+                                                        <span class="slds-media__body">
+                                                            <span class="slds-truncate" title={option.label}>{option.label}</span>
+                                                        </span>
+                                                    </div>
+                                                </li>
+                                            </template>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div if:false={_isVsPdp} key={item.value.id}>
+                    <div
+                        if:true={item.value.renderInTwoColumn}
+                        key={item.value.id}
+                        class="slds-form-element slds-col slds-size_1-of-1 slds-medium-size_5-of-12 slds-large-size_5-of-12 slds-p-around_xx-small padding-left-none"
+                    >
+                        <div key={item.value.id}>
+                            <label class="slds-form-element__label labelStyling arial-font" for={item.value.id}>{item.value.label}</label>
+                            <div class="slds-form-element__control">
+                                <div class="slds-combobox_container">
+                                    <div
+                                        class="slds-combobox slds-dropdown-trigger slds-dropdown-trigger_click"
+                                        data-id={item.value.id}
+                                        data-field={item.value.field}
+                                        onclick={toggleVisibility}
+                                    >
+                                        <div class="slds-combobox__form-element slds-input-has-icon slds-input-has-icon_right" role="none">
+                                            <button
+                                                type="button"
+                                                class="slds-input_faux slds-combobox__input border"
+                                                aria-labelledby="combobox-label-id-132 combobox-id-59-selected-value"
+                                                id={item.value.id}
+                                                aria-controls="listbox-id-1"
+                                                aria-expanded="false"
+                                                aria-haspopup="listbox"
+                                            >
+                                                <template for:each={item.value.options} for:item="option">
+                                                    <span
+                                                        if:true={option.selected}
+                                                        key={option.value}
+                                                        class="slds-truncate selectedOption"
+                                                        data-index={item.index}
+                                                        data-field={item.value.field}
+                                                        style="display: flex"
+                                                        data-value={option.value}
+                                                    >
+                                                        <div
+                                                            if:true={item.value.isColorFilter}
+                                                            class="product-color-bubble slds-m-top_x-small slds-m-right_x-small"
+                                                        >
+                                                            <span class="product-color-bubble__upper" style={option.hexFrame}> </span>
+                                                            <span class="product-color-bubble__lower" style={option.hexAccent}> </span>
+                                                        </div>
+                                                        {option.label}
+                                                    </span>
+                                                </template>
+                                            </button>
+                                            <span class="slds-icon_container slds-icon-utility-down slds-input__icon slds-input__icon_right">
+                                                <lightning-icon icon-name="utility:chevrondown" alternative-text="down" size="xx-small"> </lightning-icon>
+                                            </span>
+                                        </div>
+                                        <div class="slds-dropdown slds-dropdown_length-5 slds-dropdown_fluid" role="listbox">
+                                            <ul class="slds-listbox slds-listbox_vertical" role="presentation">
+                                                <template for:each={item.value.options} for:item="option">
+                                                    <li if:true={option.isProductAvailable} role="presentation" class="slds-listbox__item" key={option.value}>
+                                                        <div
+                                                            class="slds-media slds-listbox__option slds-listbox__option_plain slds-media_small"
+                                                            role="option"
+                                                            aria-disabled={option.disabled}
+                                                            data-field={item.value.field}
+                                                            data-value={option.value}
+                                                            onclick={handleAttributeChange}
+                                                            onmousedown={handleAttributeChange}
+                                                        >
+                                                            <span
+                                                                if:true={item.value.isColorFilter}
+                                                                class="slds-media__figure slds-listbox__option-icon"
+                                                                style={option.disabledOpacity}
+                                                            >
+                                                                <div
+                                                                    class="product-color-bubble slds-m-top_xxx-small slds-m-right_xx-small"
+                                                                    style={option.label.disabledOpacity}
+                                                                >
+                                                                    <span class="product-color-bubble__upper" style={option.hexFrame}> </span>
+                                                                    <span class="product-color-bubble__lower" style={option.hexAccent}> </span>
+                                                                </div>
+                                                            </span>
+                                                            <span class="slds-media__body">
+                                                                <span class="slds-truncate" title={option.label}>{option.label}</span>
+                                                            </span>
+                                                        </div>
+                                                    </li>
+                                                    <li if:false={option.isProductAvailable} role="presentation" class="slds-listbox__item" key={option.value}>
+                                                        <div
+                                                            class="slds-media slds-listbox__option slds-listbox__option_plain slds-media_small disabledStyling"
+                                                            role="option"
+                                                            aria-disabled={option.disabled}
+                                                            data-field={item.value.field}
+                                                            data-value={option.value}
+                                                        >
+                                                            <span
+                                                                if:true={item.value.isColorFilter}
+                                                                class="slds-media__figure slds-listbox__option-icon"
+                                                                style={option.disabledOpacity}
+                                                            >
+                                                                <div
+                                                                    class="product-color-bubble slds-m-top_xxx-small slds-m-right_xx-small"
+                                                                    style={option.label.disabledOpacity}
+                                                                >
+                                                                    <span class="product-color-bubble__upper" style={option.hexFrame}> </span>
+                                                                    <span class="product-color-bubble__lower" style={option.hexAccent}> </span>
+                                                                </div>
+                                                            </span>
+                                                            <span class="slds-media__body">
+                                                                <span class="slds-truncate" title={option.label}>{option.label}</span>
+                                                            </span>
+                                                        </div>
+                                                    </li>
+                                                </template>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- BS-1646 Start -->
+                <div
+                    if:true={item.value.isEESize}
+                    key={item.value.id}
+                    class="slds-form-element slds-col slds-size_1-of-1 slds-medium-size_5-of-12 slds-large-size_5-of-12 slds-p-around_xx-small padding-left-none"
+                >
+                    <div key={item.value.id}>
+                        <label class="slds-form-element__label labelStyling arial-font" for={item.value.id}>{item.value.label}</label>
+                        <div class="slds-form-element__control">
+                            <div class="slds-combobox_container">
+                                <div
+                                    class="slds-combobox slds-dropdown-trigger slds-dropdown-trigger_click"
+                                    data-id={item.value.id}
+                                    data-field={item.value.field}
+                                    onclick={toggleVisibility}
+                                >
+                                    <div class="slds-combobox__form-element slds-input-has-icon slds-input-has-icon_right" role="none">
+                                        <button
+                                            type="button"
+                                            class="slds-input_faux slds-combobox__input border"
+                                            aria-labelledby="combobox-label-id-132 combobox-id-59-selected-value"
+                                            id={item.value.id}
+                                            aria-controls="listbox-id-1"
+                                            aria-expanded="false"
+                                            aria-haspopup="listbox"
+                                        >
+                                            <template for:each={item.value.options} for:item="option">
+                                                <span
+                                                    if:true={option.selected}
+                                                    key={option.value}
+                                                    class="slds-truncate selectedOption"
+                                                    data-index={item.index}
+                                                    data-field={item.value.field}
+                                                    style="display: flex"
+                                                    data-value={option.value}
+                                                >
+                                                    <div
+                                                        if:true={item.value.isColorFilter}
+                                                        class="product-color-bubble slds-m-top_x-small slds-m-right_x-small"
+                                                    >
+                                                        <span class="product-color-bubble__upper" style={option.hexFrame}> </span>
+                                                        <span class="product-color-bubble__lower" style={option.hexAccent}> </span>
+                                                    </div>
+                                                    {option.label}
+                                                </span>
+                                            </template>
+                                        </button>
+                                        <span class="slds-icon_container slds-icon-utility-down slds-input__icon slds-input__icon_right">
+                                            <lightning-icon icon-name="utility:chevrondown" alternative-text="down" size="xx-small"> </lightning-icon>
+                                        </span>
+                                    </div>
+                                    <div class="slds-dropdown slds-dropdown_length-5 slds-dropdown_fluid" role="listbox">
+                                        <ul class="slds-listbox slds-listbox_vertical" role="presentation">
+                                            <template for:each={item.value.options} for:item="option">
+                                                <li if:true={option.isProductAvailable} role="presentation" class="slds-listbox__item" key={option.value}>
+                                                    <div
+                                                        class="slds-media slds-listbox__option slds-listbox__option_plain slds-media_small"
+                                                        role="option"
+                                                        aria-disabled={option.disabled}
+                                                        data-field={item.value.field}
+                                                        data-value={option.value}
+                                                        onclick={handleAttributeChange}
+                                                        onmousedown={handleAttributeChange}
+                                                    >
+                                                        <span
+                                                            if:true={item.value.isColorFilter}
+                                                            class="slds-media__figure slds-listbox__option-icon"
+                                                            style={option.disabledOpacity}
+                                                        >
+                                                            <div
+                                                                class="product-color-bubble slds-m-top_xxx-small slds-m-right_xx-small"
+                                                                style={option.label.disabledOpacity}
+                                                            >
+                                                                <span class="product-color-bubble__upper" style={option.hexFrame}> </span>
+                                                                <span class="product-color-bubble__lower" style={option.hexAccent}> </span>
+                                                            </div>
+                                                        </span>
+                                                        <span class="slds-media__body">
+                                                            <span class="slds-truncate" title={option.label}>{option.label}</span>
+                                                        </span>
+                                                    </div>
+                                                </li>
+                                                <li if:false={option.isProductAvailable} role="presentation" class="slds-listbox__item" key={option.value}>
+                                                    <div
+                                                        class="slds-media slds-listbox__option slds-listbox__option_plain slds-media_small disabledStyling"
+                                                        role="option"
+                                                        aria-disabled={option.disabled}
+                                                        data-field={item.value.field}
+                                                        data-value={option.value}
+                                                    >
+                                                        <span
+                                                            if:true={item.value.isColorFilter}
+                                                            class="slds-media__figure slds-listbox__option-icon"
+                                                            style={option.disabledOpacity}
+                                                        >
+                                                            <div
+                                                                class="product-color-bubble slds-m-top_xxx-small slds-m-right_xx-small"
+                                                                style={option.label.disabledOpacity}
+                                                            >
+                                                                <span class="product-color-bubble__upper" style={option.hexFrame}> </span>
+                                                                <span class="product-color-bubble__lower" style={option.hexAccent}> </span>
+                                                            </div>
+                                                        </span>
+                                                        <span class="slds-media__body">
+                                                            <span class="slds-truncate" title={option.label}>{option.label}</span>
+                                                        </span>
+                                                    </div>
+                                                </li>
+                                            </template>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- BS-1646 End -->
+
+                <!-- BS-960 start -->
+                <div if:true={_isVsPdp} key={item.value.id}>
+                    <div
+                        if:true={item.value.renderInTwoColumn}
+                        key={item.value.id}
+                        class="slds-form-element slds-col slds-size_1-of-1 slds-medium-size_5-of-12 slds-large-size_5-of-12 slds-p-around_small padding-left-none"
+                    >
+                        <div key={item.value.id}>
+                            <label class="slds-form-element__label labelStyling arial-font" for={item.value.id}>{item.value.label}</label>
+                            <div class="slds-form-element__control size-dropdown">
+                                <div class="slds-combobox_container">
+                                    <div
+                                        class="slds-combobox slds-dropdown-trigger slds-dropdown-trigger_click"
+                                        data-id={item.value.id}
+                                        data-field={item.value.field}
+                                        onclick={toggleVisibility}
+                                    >
+                                        <div class="slds-combobox__form-element slds-input-has-icon slds-input-has-icon_right" role="none">
+                                            <button
+                                                type="button"
+                                                class="slds-input_faux slds-combobox__input border"
+                                                aria-labelledby="combobox-label-id-132 combobox-id-59-selected-value"
+                                                id={item.value.id}
+                                                aria-controls="listbox-id-1"
+                                                aria-expanded="false"
+                                                aria-haspopup="listbox"
+                                            >
+                                                <template for:each={item.value.options} for:item="option">
+                                                    <span
+                                                        if:true={option.selected}
+                                                        key={option.value}
+                                                        class="slds-truncate selectedOption"
+                                                        data-index={item.index}
+                                                        data-field={item.value.field}
+                                                        style="display: flex"
+                                                        data-value={option.value}
+                                                    >
+                                                        <div
+                                                            if:true={item.value.isColorFilter}
+                                                            class="product-color-bubble slds-m-top_x-small slds-m-right_x-small"
+                                                        >
+                                                            <span class="product-color-bubble__upper" style={option.hexFrame}> </span>
+                                                            <span class="product-color-bubble__lower" style={option.hexAccent}> </span>
+                                                        </div>
+                                                        {option.label}
+                                                    </span>
+                                                </template>
+                                            </button>
+                                            <span class="slds-icon_container slds-icon-utility-down slds-input__icon slds-input__icon_right">
+                                                <lightning-icon icon-name="utility:chevrondown" alternative-text="down" size="xx-small"> </lightning-icon>
+                                            </span>
+                                        </div>
+                                        <div class="slds-dropdown slds-dropdown_length-5 slds-dropdown_fluid" role="listbox">
+                                            <ul class="slds-listbox slds-listbox_vertical" role="presentation">
+                                                <template for:each={item.value.options} for:item="option">
+                                                    <li if:true={option.isProductAvailable} role="presentation" class="slds-listbox__item" key={option.value}>
+                                                        <div
+                                                            class="slds-media slds-listbox__option slds-listbox__option_plain slds-media_small"
+                                                            role="option"
+                                                            aria-disabled={option.disabled}
+                                                            data-field={item.value.field}
+                                                            data-value={option.value}
+                                                            onclick={handleAttributeChange}
+                                                            onmousedown={handleAttributeChange}
+                                                        >
+                                                            <span
+                                                                if:true={item.value.isColorFilter}
+                                                                class="slds-media__figure slds-listbox__option-icon"
+                                                                style={option.disabledOpacity}
+                                                            >
+                                                                <div
+                                                                    class="product-color-bubble slds-m-top_xxx-small slds-m-right_xx-small"
+                                                                    style={option.label.disabledOpacity}
+                                                                >
+                                                                    <span class="product-color-bubble__upper" style={option.hexFrame}> </span>
+                                                                    <span class="product-color-bubble__lower" style={option.hexAccent}> </span>
+                                                                </div>
+                                                            </span>
+                                                            <span class="slds-media__body">
+                                                                <span class="slds-truncate" title={option.label}>{option.label}</span>
+                                                            </span>
+                                                        </div>
+                                                    </li>
+                                                    <li if:false={option.isProductAvailable} role="presentation" class="slds-listbox__item" key={option.value}>
+                                                        <div
+                                                            class="slds-media slds-listbox__option slds-listbox__option_plain slds-media_small disabledStyling"
+                                                            role="option"
+                                                            aria-disabled={option.disabled}
+                                                            data-field={item.value.field}
+                                                            data-value={option.value}
+                                                        >
+                                                            <span
+                                                                if:true={item.value.isColorFilter}
+                                                                class="slds-media__figure slds-listbox__option-icon"
+                                                                style={option.disabledOpacity}
+                                                            >
+                                                                <div
+                                                                    class="product-color-bubble slds-m-top_xxx-small slds-m-right_xx-small"
+                                                                    style={option.label.disabledOpacity}
+                                                                >
+                                                                    <span class="product-color-bubble__upper" style={option.hexFrame}> </span>
+                                                                    <span class="product-color-bubble__lower" style={option.hexAccent}> </span>
+                                                                </div>
+                                                            </span>
+                                                            <span class="slds-media__body">
+                                                                <span class="slds-truncate" title={option.label}>{option.label}</span>
+                                                            </span>
+                                                        </div>
+                                                    </li>
+                                                </template>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div if:true={_isVsPdp} key={item.value.id} class="slds-grid slds-wrap a">
+                    <div
+                        if:true={item.value.isProductSize}
+                        key={item.value.id}
+                        class="slds-form-element slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12 padding-left-none"
+                    >
+                        <div key={item.value.id}>
+                            <label class="slds-form-element__label labelStyling arial-font" for={item.value.id}>{item.value.label}</label>
+                            <div class="slds-form-element__control size-dropdown">
+                                <div class="slds-combobox_container">
+                                    <div
+                                        class="slds-combobox slds-dropdown-trigger slds-dropdown-trigger_click"
+                                        data-id={item.value.id}
+                                        data-field={item.value.field}
+                                        onclick={toggleVisibility}
+                                    >
+                                        <div class="slds-combobox__form-element slds-input-has-icon slds-input-has-icon_right" role="none">
+                                            <button
+                                                type="button"
+                                                class="slds-input_faux slds-combobox__input border"
+                                                aria-labelledby="combobox-label-id-132 combobox-id-59-selected-value"
+                                                id={item.value.id}
+                                                aria-controls="listbox-id-1"
+                                                aria-expanded="false"
+                                                aria-haspopup="listbox"
+                                            >
+                                                <template for:each={item.value.options} for:item="option">
+                                                    <span
+                                                        if:true={option.selected}
+                                                        key={option.value}
+                                                        class="slds-truncate selectedOption"
+                                                        data-index={item.index}
+                                                        data-field={item.value.field}
+                                                        style="display: flex"
+                                                        data-value={option.value}
+                                                    >
+                                                        <div
+                                                            if:true={item.value.isColorFilter}
+                                                            class="product-color-bubble slds-m-top_x-small slds-m-right_x-small"
+                                                        >
+                                                            <span class="product-color-bubble__upper" style={option.hexFrame}> </span>
+                                                            <span class="product-color-bubble__lower" style={option.hexAccent}> </span>
+                                                        </div>
+                                                        {option.label}
+                                                    </span>
+                                                </template>
+                                            </button>
+                                            <span class="slds-icon_container slds-icon-utility-down slds-input__icon slds-input__icon_right">
+                                                <lightning-icon icon-name="utility:chevrondown" alternative-text="down" size="xx-small"> </lightning-icon>
+                                            </span>
+                                        </div>
+                                        <div class="slds-dropdown slds-dropdown_length-5 slds-dropdown_fluid" role="listbox">
+                                            <ul class="slds-listbox slds-listbox_vertical" role="presentation">
+                                                <template for:each={item.value.options} for:item="option">
+                                                    <li if:true={option.isProductAvailable} role="presentation" class="slds-listbox__item" key={option.value}>
+                                                        <div
+                                                            class="slds-media slds-listbox__option slds-listbox__option_plain slds-media_small"
+                                                            role="option"
+                                                            aria-disabled={option.disabled}
+                                                            data-field={item.value.field}
+                                                            data-value={option.value}
+                                                            data-name={option.label}
+                                                            onclick={handleAttributeChange}
+                                                            onmousedown={handleAttributeChange}
+                                                        >
+                                                            <span
+                                                                if:true={item.value.isColorFilter}
+                                                                class="slds-media__figure slds-listbox__option-icon"
+                                                                style={option.disabledOpacity}
+                                                            >
+                                                                <div
+                                                                    class="product-color-bubble slds-m-top_xxx-small slds-m-right_xx-small"
+                                                                    style={option.label.disabledOpacity}
+                                                                >
+                                                                    <span class="product-color-bubble__upper" style={option.hexFrame}> </span>
+                                                                    <span class="product-color-bubble__lower" style={option.hexAccent}> </span>
+                                                                </div>
+                                                            </span>
+                                                            <span class="slds-media__body">
+                                                                <span class="slds-truncate" title={option.label}>{option.label}</span>
+                                                            </span>
+                                                        </div>
+                                                    </li>
+                                                    <li if:false={option.isProductAvailable} role="presentation" class="slds-listbox__item" key={option.value}>
+                                                        <div
+                                                            class="slds-media slds-listbox__option slds-listbox__option_plain slds-media_small disabledStyling"
+                                                            role="option"
+                                                            aria-disabled={option.disabled}
+                                                            data-field={item.value.field}
+                                                            data-value={option.value}
+                                                            data-name={option.label}
+                                                        >
+                                                            <span
+                                                                if:true={item.value.isColorFilter}
+                                                                class="slds-media__figure slds-listbox__option-icon"
+                                                                style={option.disabledOpacity}
+                                                            >
+                                                                <div
+                                                                    class="product-color-bubble slds-m-top_xxx-small slds-m-right_xx-small"
+                                                                    style={option.label.disabledOpacity}
+                                                                >
+                                                                    <span class="product-color-bubble__upper" style={option.hexFrame}> </span>
+                                                                    <span class="product-color-bubble__lower" style={option.hexAccent}> </span>
+                                                                </div>
+                                                            </span>
+                                                            <span class="slds-media__body">
+                                                                <span class="slds-truncate" title={option.label}>{option.label}</span>
+                                                            </span>
+                                                        </div>
+                                                    </li>
+                                                </template>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div
+                        if:true={item.value.isProductSize}
+                        key={item.value.id}
+                        class="slds-form-element slds-col slds-size_1-of-1 slds-medium-size_8-of-12 slds-large-size_8-of-12 slds-m-top_small"
+                    >
+                        <div key={item.value.id}>
+                            <lightning-input
+                                label={checkBoxLabel}
+                                class="productSizeCheckbox"
+                                type="checkbox"
+                                checked={_showSpecialVariation}
+                                disabled={_isSpecialVariationSelected}
+                                onchange={showSpecialVariants}
+                                onclick={handleAdditionalSizeValues}
+                            >
+                            </lightning-input>
+                        </div>
+                    </div>
+                    <!-- BS-960 end -->
+                </div>
+            </template>
+        </template>
+    </div>
+</template>

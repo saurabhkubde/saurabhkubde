@@ -1,0 +1,337 @@
+.radio {
+    padding-bottom: var(--lwc-spacingXSmall, 0.5rem);
+    display: inline-flex;
+    margin-right: 20px;
+}
+
+.radio-vertical {
+    padding-bottom: var(--lwc-spacingXSmall, 0.5rem);
+    margin-right: 25px;
+}
+input[type='radio'] {
+    -webkit-transform: scale(1.5);
+    transform: scale(1.5);
+    margin-right: 5px;
+    vertical-align: middle;
+    accent-color: black;
+}
+.filterValues {
+    padding-left: 10px;
+    font-weight: 300;
+}
+
+.maxWidth {
+    max-width: 210px;
+}
+
+.lensSelection {
+    font-size: 16px;
+}
+
+.title {
+    width: 100%;
+    font-size: 16px;
+    margin-bottom: 20px;
+    font-weight: 500;
+}
+
+.lensDetails {
+    margin-bottom: 0px !important;
+    margin-top: 5px !important;
+}
+
+.validation {
+    color: #d0021b;
+    font-weight: 300 !important;
+    font-size: 12px !important;
+    padding-bottom: 10px;
+}
+
+/* BS-1019 */
+.userSelectionStyling {
+    font-weight: 300;
+}
+
+.toolTipStyling {
+    width: 100px;
+}
+
+.evilEyeEdgeStyling {
+    text-align: center;
+}
+
+.form-group label:before {
+    content: '';
+    -webkit-appearance: none;
+    background-color: transparent;
+    border: 1px solid #d8d8d8;
+    padding: 9px !important;
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+    cursor: pointer;
+    margin-right: 5px;
+}
+/* BS-1019 */
+
+.lensSelectionTitle {
+    float: left;
+}
+
+.editIcon {
+    float: right;
+    cursor: pointer;
+}
+
+.padRight {
+    padding-right: 60px;
+}
+
+.lensSelectionSummaryFields {
+    margin-top: 10px;
+    border: none;
+    font-weight: 500;
+    font-size: 14px;
+    margin: none;
+    margin-left: -1px;
+    width: 100%;
+}
+
+.lensSelectionSummaryLabels {
+    border: none;
+    font-weight: 300;
+    font-size: 12px;
+}
+
+.lensDetails {
+    margin-bottom: 0px !important;
+    margin-top: 5px !important;
+}
+
+.labelView {
+    font-size: 14px;
+    font-weight: 300;
+    margin-bottom: 5px;
+}
+
+/*BS-1018*/
+.linkout {
+    text-decoration: underline;
+    font-size: 14px;
+    font-weight: 300;
+    margin-bottom: 5px;
+}
+.linkout-table img {
+    min-width: 20px;
+}
+.linkout-table {
+    table-layout: auto;
+    display: block;
+}
+
+/* The container */
+.container {
+    display: flex;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 14px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    font-weight: 300;
+}
+
+/* Hide the browser's default checkbox */
+.container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 18px;
+    width: 18px;
+    background-color: #fff;
+    border: solid 1px #848484;
+    margin-top: 2px;
+}
+
+/* On mouse-over, add a grey background color */
+.container:hover input ~ .checkmark {
+    border: solid 1px #848484;
+}
+
+/* When the checkbox is checked, add a blue background */
+.container input:checked ~ .checkmark {
+    background-color: #fff;
+    border: solid 1px #848484;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+    content: '';
+    position: absolute;
+    display: none;
+}
+
+/* Show the checkmark when checked */
+.container input:checked ~ .checkmark:after {
+    display: block;
+}
+
+/* Style the checkmark/indicator */
+.container .checkmark:after {
+    left: 6px;
+    top: 1px;
+    width: 5px;
+    height: 10px;
+    border: solid #000;
+    border-width: 0 1px 1px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+.margin-left-container {
+    margin-left: inherit;
+}
+
+.tooltip-normal {
+    position: relative;
+    display: inline-block;
+}
+
+/* BS-791 */
+.tooltip-normal .tooltiptext-normal {
+    visibility: hidden;
+    width: 240px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    padding: 3px;
+    position: absolute;
+    z-index: 9;
+    bottom: 120%;
+    right: -75%;
+    margin-left: -40px;
+    font-size: 12px;
+    font-weight: 300;
+}
+
+.tooltip-normal .tooltiptext-normal::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 92%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: black transparent transparent transparent;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+}
+
+/* BS-791 */
+.tooltip-normal:hover .tooltiptext-normal {
+    visibility: visible;
+}
+
+.infoicon {
+    width: 16px !important; /*BS-1637*/
+    min-width: 10px;
+    transition: transform 0.2s;
+    cursor: pointer;
+    padding-left: 2px;
+}
+
+.checkbox-disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+.fnt12 {
+    font-size: 12px;
+}
+.facet-cut-img {
+    max-width: 165px;
+    margin: 0px 0px 20px 0px;
+}
+.facet-cut-label {
+    font-size: 12px;
+    font-weight: 500;
+}
+.baseline {
+    vertical-align: baseline;
+}
+.facet-cut-container {
+    text-align: center;
+}
+@media screen and (max-width: 48em) {
+    .facet-cut-container {
+        text-align: left;
+    }
+}
+
+/* Start BS-1584*/
+.selected-value {
+    font-size: 14px !important;
+    font-weight: 500 !important;
+}
+.selected-header {
+    font-size: 13px !important;
+    font-weight: 300 !important;
+}
+/* End BS-1584*/
+
+/* Start BS-967*/
+.open-link-button {
+    background: none;
+    padding: 0px;
+    border: 0px;
+    text-decoration: underline;
+    font-size: 14px;
+    font-weight: 300;
+    cursor: pointer;
+    padding-left: 10px;
+    padding-top: 10px;
+}
+
+.vision-zone button:disabled {
+    opacity: 30% !important;
+    cursor: default;
+}
+/* End BS-967*/
+
+/* Start : BS-1612*/
+.error-background {
+    background-color: rgb(255 0 0 / 15%);
+    padding: 20px;
+    margin: 20px;
+    font-size: 15px;
+    font-weight: 500;
+    color: #f00;
+}
+/*End : BS-1612*/
+
+/*BS-1637*/
+.label-text {
+    font-weight: 300;
+}
+/*BS-1935*/
+.s-graving-styling {
+    color: #000000 !important;
+}
+
+.s-graving-checkmark {
+    border: solid 1px #000000 !important;
+}

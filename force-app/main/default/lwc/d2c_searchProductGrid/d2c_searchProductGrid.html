@@ -1,0 +1,20 @@
+<template lwc:render-mode="light">
+    <ul class={layoutContainerClass} role="listbox" onkeydown={handleKeyDown}>
+        <template if:true={_dataLoaded} iterator:it={dataArray}>
+            <li key={it.value.id} class="grid-item slds-border_bottom" style={layoutCustomStyles} role="option">
+                <section class={layoutSpacingClasses}>
+                    <c-d2c_search-product-card
+                        class="slds-grid card-item"
+                        data-id={it.value.id}
+                        configuration={cardConfiguration}
+                        display-data={it.value}
+                        model-image-u-r-l={it.value.modelImage}
+                        custom-metadata-colors-map={_customMetadataColorsMap}
+                        onshowproduct={handleNavigateToProductPage}
+                        onaddproducttocart={handleAddToCart}
+                    ></c-d2c_search-product-card>
+                </section>
+            </li>
+        </template>
+    </ul>
+</template>

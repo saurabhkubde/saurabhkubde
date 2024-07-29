@@ -1,0 +1,145 @@
+ul {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.layout-grid li {
+    display: grid;
+    flex-basis: 33%;
+    border-color: transparent;
+}
+
+.layout-list ul {
+    width: 100%;
+}
+
+.layout-list li {
+    width: 100%;
+}
+
+.layout-card {
+    padding: 1rem 0rem;
+}
+
+.slds-accordion__section {
+    padding-bottom: 1.5rem;
+}
+
+@media only screen and (max-width: 47.9375em) {
+    /* SLDS token: mqSmall */
+    ul {
+        display: block;
+        padding: 0;
+    }
+
+    .layout-card {
+        padding: 1rem 0;
+    }
+}
+
+/* tablet screens*/
+@media only screen and (min-width: 48em) and (max-width: 64em) {
+    .layout-card {
+        padding: 1rem 0;
+        margin-right: 5px;
+    }
+}
+
+/*-----END NEUBAU SEARCH LAYOUT--*/
+
+/*-----SH/EE SEARCH LAYOUT--*/
+
+.sh-ee-searchlayout ul {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.sh-ee-searchlayout .layout-grid li {
+    display: grid;
+    flex-basis: 33.3%;
+    border-color: transparent;
+}
+.sh-ee-searchlayout .layout-list ul {
+    width: 100%;
+}
+.sh-ee-searchlayout .layout-list li {
+    width: 100%;
+}
+.sh-ee-searchlayout .layout-card {
+    padding: 0.5rem;
+}
+.sh-ee-searchlayout .slds-accordion__section {
+    padding-bottom: 1.5rem;
+}
+@media only screen and (max-width: 47.9375em) {
+    /* SLDS token: mqSmall */
+    .sh-ee-searchlayout ul {
+        display: block;
+        padding: 0;
+    }
+    .sh-ee-searchlayout .layout-card {
+        padding: 0.5rem 0;
+    }
+}
+/* tablet screens*/
+@media only screen and (min-width: 48em) and (max-width: 64em) {
+    .sh-ee-searchlayout .layout-card {
+        padding: 1rem 0;
+        margin-right: 5px;
+    }
+}
+
+/*--SH/EE clip on --*/
+
+.clip-on ul {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.clip-on .layout-grid li {
+    display: grid;
+    flex-basis: 25%;
+    border-color: transparent;
+}
+
+.clip-on .layout-list ul {
+    width: 100%;
+}
+
+.clip-on .layout-list li {
+    width: 100%;
+}
+
+.clip-on .layout-card {
+    padding: 0.5rem;
+}
+
+.clip-on .slds-accordion__section {
+    padding-bottom: 1.5rem;
+}
+
+@media only screen and (max-width: 47.9375em) {
+    /* SLDS token: mqSmall */
+    .clip-on ul {
+        display: block;
+        padding: 0;
+    }
+
+    .clip-on .layout-card {
+        padding: 1rem 0;
+    }
+}
+
+/* tablet screens*/
+@media only screen and (min-width: 48em) and (max-width: 64em) {
+    .clip-on .layout-card {
+        padding: 1rem 0;
+        margin-right: 5px;
+    }
+}
+
+/*--SH/EE clip on --*/
+
+/*-----END SH/EE SEARCH LAYOUT--*/

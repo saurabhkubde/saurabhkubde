@@ -1,0 +1,30 @@
+<template>
+    <template if:true={displayData}>
+        <lightning-accordion allow-multiple-sections-open onsectiontoggle={handleSectionToggle} active-section-name={activeSections} class="slds-border_top">
+            <lightning-accordion-section name="frame" label={displayData.fieldName}>
+                <div class="slds-form-element__control slds-p-left_large">
+                    <template for:each={displayData.frameData} for:item="filter">
+                        <template if:true={filter.displayFrame}>
+                            <span class="slds-radio slds-p-bottom_x-small" key={filter.frameName}>
+                                <input type="radio" id={filter.frameName} value="radio-61" name="frameFilter" checked={filter.frameChecked} />
+                                <label
+                                    class="slds-radio__label"
+                                    for={filter.frameName}
+                                    style={filter.frameStyle}
+                                    data-id={filter.frameName}
+                                    onclick={handleFrameClick}
+                                >
+                                    <span class="slds-radio_faux"></span>
+                                    <span class="black-color">{filter.frameName}</span>
+                                    <div class="frame-icon">
+                                        <span class={filter.frameIcon}></span>
+                                    </div>
+                                </label>
+                            </span>
+                        </template>
+                    </template>
+                </div>
+            </lightning-accordion-section>
+        </lightning-accordion>
+    </template>
+</template>

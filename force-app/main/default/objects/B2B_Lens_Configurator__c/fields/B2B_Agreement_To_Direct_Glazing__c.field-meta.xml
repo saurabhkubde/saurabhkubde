@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>B2B_Agreement_To_Direct_Glazing__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>It is used to store agreement value which is shown on the centering data page when the user selects directing glazing</description>
+    <externalId>false</externalId>
+    <label>Agreement To Direct Glazing</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

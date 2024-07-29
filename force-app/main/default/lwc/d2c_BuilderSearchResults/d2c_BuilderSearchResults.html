@@ -1,0 +1,32 @@
+<template lwc:render-mode="light">
+    <div>
+        <c-d2c_search-results
+            if:true={searchResults}
+            search-results={searchResults}
+            results-layout={resultsLayout}
+            grid-column-spacing={gridColumnSpacing}
+            grid-row-spacing={gridRowSpacing}
+            grid-max-columns-displayed={gridMaxColumnsDisplayed}
+            list-row-spacing={listRowSpacing}
+            show-product-image={showProductImage}
+            show-negotiated-price={showNegotiatedPrice}
+            show-original-price={showOriginalPrice}
+            show-call-to-action-button={showCallToActionButton}
+            negotiated-price-text-size={negotiatedPriceTextSize}
+            negotiated-price-text-color={negotiatedPriceTextColor}
+            original-price-text-size={originalPriceTextSize}
+            original-price-text-color={originalPriceTextColor}
+            view-options-button-text={viewOptionsButtonText}
+            card-content-mapping={normalizedCardContentMapping}
+            card-background-color={cardBackgroundColor}
+            card-alignment={cardAlignment}
+            card-border-color={cardBorderColor}
+            card-border-radius={cardBorderRadius}
+            card-divider-color={cardDividerColor}
+            current-page={currentPage}
+            onshowproduct={handleNavigateToProductPage}
+            onupdatecurrentpage={handleUpdateCurrentPage}
+        ></c-d2c_search-results>
+    </div>
+    <div class="no-result" if:true={_noProductsToShow}>{_noResultLabel}</div>
+</template>

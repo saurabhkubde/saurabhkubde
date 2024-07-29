@@ -1,0 +1,16 @@
+<template>
+    <div class="slds-grid slds-wrap slds-p-around_x-large slds-m-top_large login-advantage">
+        <c-b2-b_-login-advantages class="login-advantage-text" is-silhouette-store={isSilhouetteStore}> </c-b2-b_-login-advantages>
+    </div>
+
+    <div class="slds-grid slds-gutters slds-wrap slds-m-top_large">
+        <!--left-->
+        <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12 customercontact-link">
+            <a class="silhouetteText black-color title-small" href={redirectUrl}>{label.CustomerContact}</a>
+        </div>
+        <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12 slds-text-align_center">
+            <span class="title-small">{label.SilhouetteAG}</span>
+        </div>
+        <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12 language-switcher"></div>
+    </div>
+</template>

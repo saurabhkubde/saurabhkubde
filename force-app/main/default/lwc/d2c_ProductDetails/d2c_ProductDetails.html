@@ -1,0 +1,41 @@
+<template>
+    <div class="PDP_container">
+        <div if:true={_productImageDataReceived}>
+            <c-d2c_product-images product-images={_productImages} display-data={_displayData}> </c-d2c_product-images>
+        </div>
+        <div if:true={_hasVariations}>
+            <c-d2c_product-details-variations
+                if:true={_hasVariations}
+                color-filter={_colorFilter}
+                variation-product-ids={_variationProdustIds}
+                product-id={recordId}
+                onselectedproductid={getVariationProductId}
+            >
+            </c-d2c_product-details-variations>
+
+            <c-d2c_product-details-display
+                if:true={_displayDetailsData}
+                display-data={_displayData}
+                product-id={recordId}
+                variation-product-ids={_variationProdustIds}
+                onhandleloader={handleLoaderAction}
+            ></c-d2c_product-details-display>
+        </div>
+        <div if:false={_hasVariations} class="top-alignment">
+            <c-d2c_product-details-display
+                if:true={_displayDetailsData}
+                display-data={_displayData}
+                product-id={recordId}
+                variation-product-ids={_variationProdustIds}
+                onhandleloader={handleLoaderAction}
+            ></c-d2c_product-details-display>
+        </div>
+        <lightning-spinner
+            if:true={_showSpinner}
+            alternative-text={_loadingLabel}
+            class="slds-is-absolute slds-align_absolute-center spinner-styling"
+            id="lightningSpinner"
+            size="large"
+        ></lightning-spinner>
+    </div>
+</template>

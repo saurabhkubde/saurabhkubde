@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>B2B_Is_Not_Buyer_Portal_Enabled_User__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>This field has value as true when the portal user is created and the Account doesn&apos;t have buyer access.</description>
+    <externalId>false</externalId>
+    <label>Is Not Buyer Portal Enabled User</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

@@ -1,0 +1,34 @@
+<template>
+    <!-- EvilEye Templete -->
+    <template if:true={_isEvilEyeStore}>
+        <lightning-breadcrumbs class="iterator breadcrumb-color slds-p-around_small breadcrumb-font-size">
+            <template for:each={_breadcrumbCategories} for:item="crumbs">
+                <lightning-breadcrumb
+                    key={crumbs.id}
+                    name={crumbs.id}
+                    data-type={crumbs.type}
+                    data-label={crumbs.label}
+                    label={crumbs.displayLabel}
+                    onclick={handleBreadcrumbCategorySelection}
+                >
+                </lightning-breadcrumb>
+            </template>
+        </lightning-breadcrumbs>
+    </template>
+    <!-- Silhouette Templete -->
+    <template if:false={_isEvilEyeStore}>
+        <lightning-breadcrumbs class="breadcrumb-font-size">
+            <template for:each={_breadcrumbCategories} for:item="crumbs">
+                <lightning-breadcrumb
+                    key={crumbs.id}
+                    name={crumbs.id}
+                    data-type={crumbs.type}
+                    data-label={crumbs.label}
+                    label={crumbs.displayLabel}
+                    onclick={handleBreadcrumbCategorySelection}
+                >
+                </lightning-breadcrumb>
+            </template>
+        </lightning-breadcrumbs>
+    </template>
+</template>

@@ -1,0 +1,370 @@
+:host {
+    --height: 109px;
+    --width: 251px;
+}
+
+.loginflowcontainer {
+    width: 1035px;
+    margin: auto;
+}
+
+/* Small form factor: devices smaller than tablet (i.e. the SLDS mqSmall responsive threshold)*/
+
+@media only screen and (max-width: 47.9375em) {
+    .imageSize {
+        height: var(--height);
+        width: var(--width);
+    }
+
+    .textField {
+        padding-right: 0% !important;
+    }
+
+    .buttonSpacing {
+        margin-top: inherit;
+        float: initial;
+    }
+
+    .loginflowcontainer {
+        width: 100%;
+    }
+}
+
+@media only screen and (max-width: 64em) {
+    .getAccessSpacing {
+        margin-top: 10px;
+        float: right !important;
+    }
+
+    .loginflowcontainer {
+        width: 90%;
+    }
+}
+.loginText {
+    font-size: 23px !important;
+    text-align: center !important;
+    font-weight: 500 !important;
+}
+.silhouetteText {
+    font-size: 15px !important;
+    text-align: center !important;
+    color: black !important;
+}
+
+div {
+    border-style: none;
+    border-top-width: 0px;
+    border-right-width: 0px;
+    border-bottom-width: 0px;
+    border-left-width: 0px;
+}
+
+.button {
+    background: none !important;
+    border: none;
+    padding: 0 !important;
+    color: black;
+    cursor: pointer;
+    text-align: left;
+}
+
+.button:hover {
+    color: black;
+    text-decoration: underline;
+}
+
+.button-icon {
+    color: black;
+    font-weight: 500 !important;
+    --slds-c-icon-color-foreground-default: #000 !important;
+    opacity: 0.7;
+}
+.requestSpacing {
+    margin-top: 10px;
+    float: right !important;
+}
+
+.goback {
+    white-space: nowrap !important;
+}
+
+.width-30 {
+    width: 30px;
+}
+/*Added as a part of BS-1776*/
+.required-label {
+    font-weight: 300 !important;
+    font-size: 14px !important;
+    color: #000;
+}
+.required-star {
+    font-size: 16px;
+    font-weight: 500;
+    color: #000;
+} /*END: BS-1776*/
+
+/* BS-1859 */
+.toolTipStyling {
+    width: 14px;
+    margin-left: 5px;
+}
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+}
+
+.tooltip .text {
+    position: absolute;
+    width: 435px;
+    background-color: black;
+    color: #fff;
+    text-align: left;
+    padding: 4px 4px;
+    z-index: 1;
+    border-radius: 0px;
+    bottom: 110%;
+    left: -20px;
+    margin-left: -188px;
+    opacity: 0;
+    visibility: hidden;
+    font-size: 12px;
+}
+.tooltip .text::after {
+    position: absolute;
+    content: '';
+    border-style: solid;
+    border-width: 5px;
+    border-color: black transparent transparent transparent;
+    top: 100%;
+    left: 50.5%;
+    margin-left: -5px;
+}
+.tooltip:hover .text {
+    visibility: visible;
+    opacity: 1;
+}
+.table-auto {
+    width: 100%;
+}
+
+@media only screen and (max-width: 440px) {
+    .tooltip .text {
+        width: 270px !important;
+        left: -40px !important;
+    }
+    .tooltip .text::after {
+        left: 89% !important;
+    }
+}
+/* BS-1859 */
+
+/* Start: BS-2005 */
+.custom-hr {
+    border-color: #000 !important;
+}
+
+.shHeading {
+    font-size: 24px;
+    line-height: 28px;
+}
+
+.shDescription {
+    font-size: 16px;
+    font-weight: 300;
+}
+
+.customer-service-link {
+    text-decoration-line: underline;
+    font-size: 15px;
+}
+/* End: BS-2005 */
+
+/* START: BS-2095 */
+.p-2 {
+    padding: 2px;
+}
+
+.country-code-popover {
+    position: absolute;
+    left: 168px;
+    top: -176px;
+    font-weight: 300 !important;
+    font-size: 14px !important;
+    text-align: left !important;
+}
+
+.country-code-popover-large {
+    position: absolute;
+    left: 156px;
+    top: -187px;
+    font-weight: 300 !important;
+    font-size: 14px !important;
+    text-align: left !important;
+}
+.fnt-500 {
+    font-weight: 500 !important;
+}
+
+.globe-icon {
+    width: 16px;
+    height: 16px;
+    vertical-align: middle;
+}
+
+.text-underline {
+    text-decoration: underline;
+}
+
+@media only screen and (max-width: 767px) {
+    .country-code-popover .slds-popover_large {
+        min-width: 320px !important;
+    }
+    .country-code-popover {
+        left: -190px;
+        top: 33px;
+    }
+    .country-code-popover .slds-nubbin_left:before,
+    .slds-nubbin--left:before {
+        width: 1rem;
+        height: 1rem;
+        position: absolute;
+        transform: rotate(45deg);
+        content: '';
+        background-color: inherit;
+        top: 0%;
+        left: 15.5rem;
+        margin-top: -0.5rem;
+    }
+    .country-code-popover .slds-nubbin_left:after,
+    .slds-nubbin--left:after {
+        width: 1rem;
+        height: 1rem;
+        position: absolute;
+        transform: rotate(135deg);
+        content: '';
+        background-color: inherit;
+        top: 0%;
+        left: 15.5rem;
+        margin-top: -0.5rem;
+    }
+
+    .country-code-popover-large .slds-popover_large {
+        min-width: 320px !important;
+    }
+    .country-code-popover-large {
+        left: -190px;
+        top: 33px;
+    }
+    .country-code-popover-large .slds-nubbin_left:before,
+    .slds-nubbin--left:before {
+        width: 1rem;
+        height: 1rem;
+        position: absolute;
+        transform: rotate(45deg);
+        content: '';
+        background-color: inherit;
+        top: 0%;
+        left: 15.5rem;
+        margin-top: -0.5rem;
+    }
+    .country-code-popover-large .slds-nubbin_left:after,
+    .slds-nubbin--left:after {
+        width: 1rem;
+        height: 1rem;
+        position: absolute;
+        transform: rotate(135deg);
+        content: '';
+        background-color: inherit;
+        top: 0%;
+        left: 15.5rem;
+        margin-top: -0.5rem;
+    }
+}
+
+@media screen and (min-width: 768px) and (max-device-width: 890px) {
+    .loginflowcontainer .slds-p-horizontal_xx-large {
+        padding-left: 0px !important;
+        padding-right: 0px !important;
+    }
+}
+
+@media only screen and (max-width: 360px) {
+    .country-code-popover .slds-popover_large {
+        min-width: 240px !important;
+        max-width: 280px !important;
+    }
+    .country-code-popover-large .slds-popover_large {
+        min-width: 240px !important;
+        max-width: 280px !important;
+    }
+}
+
+@media only screen and (max-width: 510px) {
+    .country-code-popover {
+        left: -203px;
+        top: 54px;
+    }
+    .country-code-popover-large {
+        left: -203px;
+        top: 54px;
+    }
+}
+
+@media screen and (min-width: 640px) and (max-device-width: 767.99px) {
+    .country-code-popover {
+        left: -130px;
+        top: 33px;
+    }
+    .country-code-popover-large {
+        left: -130px;
+        top: 33px;
+    }
+}
+
+@media screen and (min-width: 768px) and (max-device-width: 1024px) {
+    .country-code-popover {
+        left: 118px;
+        top: -165px;
+    }
+    .country-code-popover-large {
+        left: 118px;
+        top: -176px;
+    }
+}
+
+@media screen and (min-width: 777px) and (max-device-width: 1024px) {
+    .country-code-popover {
+        left: 122px;
+        top: -164px;
+    }
+    .country-code-popover-large {
+        left: 122px;
+        top: -164px;
+    }
+}
+
+.country-code-popover .close-icon {
+    position: absolute;
+    right: 0;
+}
+.country-code-popover-large .close-icon {
+    position: absolute;
+    right: 0;
+}
+
+/* END: BS-2095 */
+
+/* START: BS-1359 */
+
+.left-pad {
+    padding-left: 13px;
+}
+.color-black {
+    color: #000;
+}
+.text-align-right {
+    text-align: right;
+}
+
+/* END: BS-1359 */

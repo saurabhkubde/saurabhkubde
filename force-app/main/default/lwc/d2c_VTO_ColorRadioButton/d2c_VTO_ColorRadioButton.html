@@ -1,0 +1,29 @@
+<template>
+    <!-- DVM21-30 : Start -->
+    <template if:true={colorRadioButtonData}>
+        <div class="sil-colorRadioButton">
+            <template for:each={colorRadioButtonData} for:item="colorRadioButton">
+                <div key={colorRadioButton.fieldName} class="slds-p-bottom_x-small slds-truncate" title={colorRadioButton.fieldLabel}>
+                    <lightning-formatted-rich-text class="filterValues" value={colorRadioButton.fieldLabel}></lightning-formatted-rich-text>
+                </div>
+                <ul key={colorRadioButton.fieldName}>
+                    <li>
+                        <template for:each={colorRadioButton.colorsList} for:item="style">
+                            <span
+                                key={style.colorHex}
+                                class="dot"
+                                data-name={colorRadioButton.fieldName}
+                                data-item={style.colorName}
+                                data-checked={style.colorClicked}
+                                style={style.colorStyle}
+                                title={style.colorLabel}
+                                onclick={handleColorRadioSelection}
+                            ></span>
+                        </template>
+                    </li>
+                </ul>
+            </template>
+        </div>
+    </template>
+    <!-- DVM21-30 : End -->
+</template>

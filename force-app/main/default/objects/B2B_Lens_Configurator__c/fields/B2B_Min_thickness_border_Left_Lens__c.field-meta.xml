@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>B2B_Min_thickness_border_Left_Lens__c</fullName>
+    <description>This field is used to store value of lens thickness at border minimum of left lens obtained from Schneider callout</description>
+    <externalId>false</externalId>
+    <label>Min thickness border Left Lens</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>4</scale>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

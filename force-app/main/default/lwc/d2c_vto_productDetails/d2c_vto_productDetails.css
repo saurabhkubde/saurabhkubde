@@ -1,0 +1,287 @@
+.product-name {
+    font-size: 32px;
+    line-height: 1.3;
+    font-weight: 500;
+    text-align: left;
+    margin-bottom: 5px;
+}
+
+.product-sku {
+    font-size: 14px;
+    line-height: 1.7;
+    font-weight: 300;
+    margin-bottom: 5px;
+}
+
+.dot {
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    display: inline-block;
+    margin: 3px;
+    cursor: pointer;
+    border: 1px solid #d8d8d8;
+    background-repeat: no-repeat !important;
+    background-position: 50% !important;
+    filter: drop-shadow(1px 1px 2px #d8d8d8);
+    vertical-align: middle;
+    margin-left: 0px;
+}
+
+.vertical-align-middle {
+    vertical-align: middle;
+}
+
+.justify-text {
+    text-align: justify;
+}
+
+.descriptionreadmore {
+    height: 48px;
+    line-height: 1.5;
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+
+.descriptionreadless {
+    height: auto;
+}
+
+.readButton {
+    text-decoration: underline;
+    background: #fff !important;
+    border: 0px !important;
+}
+
+.read-more-button {
+    position: absolute;
+    right: 0;
+    bottom: 0px;
+    background: #fff;
+}
+
+.read-less-button {
+    margin-left: -6px !important;
+    overflow: auto !important;
+}
+
+.description-container {
+    font-size: 12px !important;
+    font-weight: 300 !important;
+}
+
+.margin-bottom-8 {
+    margin-bottom: 8px !important;
+}
+
+.font-14-400 {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 24px;
+}
+
+.product-shape-image {
+    height: 20px;
+    width: 20px;
+}
+
+.back-image {
+    height: 15px;
+    width: 15px;
+}
+
+.back-button {
+    cursor: pointer;
+}
+
+.back-button:hover {
+    text-decoration: underline;
+}
+
+.virtual-try-on-container .vto-text:hover {
+    opacity: 70%;
+    cursor: pointer;
+}
+
+.virtual-try-on-icon-size {
+    width: 35px !important;
+    height: 35px !important;
+}
+
+.vto-text {
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.7;
+    vertical-align: middle;
+}
+
+.wishlist-icon {
+    width: 22px !important;
+    height: 22px !important;
+    cursor: pointer;
+    vertical-align: top !important;
+}
+
+.remove-shadow {
+    box-shadow: unset !important;
+    border-bottom: 1px solid #000 !important;
+}
+
+.show-shadow {
+    box-shadow: 0 0 11px rgb(33 33 33 / 20%) !important;
+}
+
+.tab-container {
+    margin-top: -50px;
+    background: #fff;
+}
+
+.tab-container li {
+    color: #000 !important;
+    font-size: 16px !important;
+}
+.tab-container li:hover {
+    cursor: pointer;
+    font-weight: 600 !important;
+}
+
+.details-background {
+    background: #f4f4f4;
+    border: solid 1px transparent;
+}
+
+.font-14-400 {
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.font-14-300 {
+    font-size: 14px;
+    font-weight: 300;
+}
+
+.modal-header-style {
+    font-size: 24px;
+    line-height: 1.3;
+    width: 100%;
+    text-align: center;
+}
+
+.font-16-400 {
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.font-16-300 {
+    font-size: 16px;
+    font-weight: 300;
+}
+
+.flex-container {
+    display: flex;
+}
+
+.modal-image-height {
+    height: 100px;
+    width: 100px;
+}
+
+.silButton {
+    background: #fff;
+    border: 1px solid #000;
+    color: #000;
+    font-weight: 500;
+    letter-spacing: 1px;
+    padding: 10px 30px;
+    font-size: 14px;
+    min-width: 100%;
+}
+
+.silButton:hover {
+    border: 1px solid #000;
+}
+.silButtonInverse {
+    background: #000;
+    border: 1px solid #000;
+    color: #fff;
+    font-weight: 500;
+    letter-spacing: 1px;
+    padding: 10px 30px;
+    font-size: 14px;
+    min-width: 100%;
+}
+
+.silButtonInverse:hover {
+    background: #333;
+    border: 1px solid #000;
+}
+
+.capital {
+    text-transform: uppercase;
+}
+
+.marginBottomStyle {
+    margin-bottom: 53px;
+}
+.features-list ul {
+    list-style: none !important;
+    margin-left: 0px !important;
+}
+
+/* Mobile device media query*/
+@media only screen and (max-width: 47em) {
+    .second-section {
+        padding-left: 0px !important;
+        padding-top: 8px;
+    }
+
+    .modal-header-style {
+        font-size: 22px;
+        font-weight: 400;
+        text-align: center;
+    }
+}
+
+/* iPad device media query*/
+@media only screen and (max-width: 64em) {
+    .modal-header-style {
+        font-size: 22px;
+        font-weight: 400;
+        text-align: center;
+    }
+
+    .modal-image-height {
+        height: 69px;
+        max-width: 90px;
+    }
+}
+
+.size-modal .slds-modal__container {
+    border-radius: 0px !important;
+}
+
+@media only screen and (max-width: 420px) {
+    .size-modal .slds-modal__container {
+        width: 90% !important;
+        margin: auto !important;
+    }
+
+    .modal-image-height {
+        height: 55px !important;
+        max-width: 80px;
+    }
+}
+
+@media screen and (min-height: 1600px) {
+    .size-modal {
+        top: -370px !important;
+    }
+    .slds-is-absolute-desktop {
+        position: absolute !important;
+    }
+}
+
+.padding-style {
+    padding-left: 8px;
+    padding-right: 8px;
+}

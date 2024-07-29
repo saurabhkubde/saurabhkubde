@@ -1,0 +1,19 @@
+<template lwc:render-mode="light">
+    <!-- DVM21-32 : Start -->
+    <div class="sh-searchlayout">
+        <ul role="listbox" class="layout-grid">
+            <template iterator:it={displayData}>
+                <li key={it.Id} class="slds-border_bottom" role="option">
+                    <c-d2c_-v-t-o_-search-product-card
+                        class="layout-card"
+                        data-id={it.id}
+                        display-data={it}
+                        custom-metadata-colors-map={_customMetadataColorsMap}
+                        onshowproduct={handleNavigateToProductPage}
+                    ></c-d2c_-v-t-o_-search-product-card>
+                </li>
+            </template>
+        </ul>
+    </div>
+    <!-- DVM21-32 : End -->
+</template>

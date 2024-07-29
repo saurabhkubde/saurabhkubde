@@ -1,0 +1,66 @@
+<template lwc:render-mode="light">
+    <!-- DVM21-32 : Start -->
+    <!-- Header content Start-->
+    <div if:true={_isSunglasses} class="slds-grid slds-wrap slds-align_absolute-center">
+        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-1">
+            <div class="head-top">{_topHeadlineTextForSunglasses}</div>
+        </div>
+        <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_1-of-1">
+            <div class="head-text">{_headlineTextForSunglasses}</div>
+        </div>
+        <div class="slds-col slds-size_1-of-1 slds-medium-size_8-of-12 slds-large-size_6-of-12">
+            <div class="head-content">{_headlineContentForSunglasses}</div>
+        </div>
+    </div>
+    <div if:true={_isOpticalEyewear} class="slds-grid slds-wrap slds-align_absolute-center">
+        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-1">
+            <div class="head-top">{_topHeadlineTextForOpticalEyewear}</div>
+        </div>
+        <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_1-of-1">
+            <div class="head-text">{_headlineTextForOpticalEyewear}</div>
+        </div>
+        <div class="slds-col slds-size_1-of-1 slds-medium-size_8-of-12 slds-large-size_6-of-12">
+            <div class="head-content">{_headlineContentForOpticalEyewear}</div>
+        </div>
+    </div>
+    <!-- Header content End-->
+    <article class="layout-container">
+        <!-- DVM21-30 : Start -->
+        <aside class="aside-section">
+            <c-d2c_-v-t-o_-search-filters
+                excluded-category-map={_categoryMap}
+                facets-data={searchResults.filtersPanel.facets}
+                current-category-name={searchResults.categoryName}
+                onshowhideproducts={handleProductsDataVisibility}
+            >
+            </c-d2c_-v-t-o_-search-filters>
+        </aside>
+        <!-- DVM21-30 : End -->
+        <section class="main-section">
+            <!-- Product List page Start-->
+            <template if:true={_showData}>
+                <p>{searchResults.total} {_results}</p>
+                <c-d2c_-v-t-o_-search-product-grid
+                    display-data={normalizedSearchResults.cardCollection}
+                    onshowproduct={handleNavigateToProductPage}
+                ></c-d2c_-v-t-o_-search-product-grid>
+            </template>
+            <!-- Product List page End-->
+        </section>
+    </article>
+    <template if:true={_showData}>
+        <!-- Paging Control - paging navigation Start-->
+        <c-d2c_-v-t-o_-search-paging-control
+            class="slds-m-vertical_xx-large slds-align_absolute-center"
+            if:true={showPagingControl}
+            current-page-number={_currentPageNumber}
+            page-size={pageSize}
+            total-item-count={totalItemCount}
+            onpageprevious={handlePreviousPageEvent}
+            onpagenext={handleNextPageEvent}
+            onpagegoto={handleGotoPageEvent}
+        ></c-d2c_-v-t-o_-search-paging-control>
+        <!-- Paging Control - paging navigation End-->
+    </template>
+    <!-- DVM21-32 : End -->
+</template>

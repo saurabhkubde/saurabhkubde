@@ -1,0 +1,50 @@
+<template>
+    <!-- DVM20-15: Creation of home page for VTO/POS for SH and NB Store : Start -->
+    <!-- Container for overlay : Start -->
+    <div class="overlay-container">
+        <!-- Logo section : Start -->
+        <div class="logo">
+            <!-- Neubau logo image : Start -->
+            <img src={_neubauLogo} />
+            <!-- Neubau logo image : End -->
+        </div>
+        <!-- Logo section : End-->
+        <!-- Container for overlay : End -->
+
+        <!-- Login wrapper : Start -->
+        <div class="login-wrap">
+            <!-- QR code section : Start -->
+            <div class="qr-code">
+                <!-- Scan QR code text : Start -->
+                <div class="scan-text">{_scanQRcodeText}</div>
+                <!-- Scan QR code text : End -->
+                <!-- QR code element : Start -->
+                <div class="qrcode2" id="qrcode2" onclick={handleScanQRCode}></div>
+                <!-- QR code element : End -->
+            </div>
+            <!-- QR code section : End -->
+
+            <!-- Vertical line separator : Start -->
+            <div class="verticalLine">
+                <!-- Line : Start -->
+                <div class="line">
+                    <!-- 'OR' text : Start -->
+                    <div class="or">{_orText}</div>
+                    <!-- 'OR' text : End -->
+                </div>
+                <!-- Line : End -->
+            </div>
+            <!-- Vertical line separator : End -->
+
+            <!-- Button container : Start -->
+            <div class="button-container">
+                <!-- Continue button : Start -->
+                <button onclick={handleContinue} class="continue-button">{_continueWithPosScreenText}</button>
+                <!-- Continue button : End -->
+            </div>
+            <!-- Button container : End -->
+        </div>
+        <!-- Login wrapper : End -->
+    </div>
+    <!-- DVM20-15: Creation of home page for VTO/POS for SH and NB Store : End -->
+</template>

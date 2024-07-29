@@ -1,0 +1,205 @@
+.customButton {
+    /* border: 1px solid #ff0000; */
+}
+
+/* myButton.css */
+.slds-button_brand .slds-button--brand {
+    --slds-c-button-brand-color-background: transparent;
+    --slds-c-button-brand-color-background-hover: transparent;
+    --slds-c-button-brand-color-border-hover: transparent;
+    --slds-c-button-brand-color-border: transparent;
+}
+
+.headerBlock {
+    padding: 2%;
+    font-weight: 500 !important;
+    font-size: 16px;
+}
+
+.customButton {
+    float: right;
+}
+
+.inputPadding {
+    padding-top: 5px;
+}
+
+.textStyle {
+    font-size: 16px;
+    line-height: 27px;
+    padding: 2%;
+    font-weight: 300;
+}
+
+.addressChangeRequest {
+    text-align: center;
+    background: #f5f5f5;
+}
+
+.shippingStreet {
+    padding-top: 9px;
+}
+.modelHeader {
+    width: 100%;
+    text-align: center;
+    margin: 6% auto !important;
+}
+
+.addressLeftBlock {
+    margin-top: 3%;
+}
+
+.shippingStateStyling {
+    padding-left: 0px;
+    padding-right: 0px;
+    padding-top: 2px;
+}
+
+.text-small-light {
+    font-weight: 300 !important;
+}
+
+.alertIconStyling {
+    width: 10%;
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    transform: rotate(180deg);
+    margin-bottom: 3%;
+}
+
+.deleteIconStyling {
+    width: 10%;
+    margin-bottom: 4%;
+}
+
+.modelButtonsClass {
+    width: 250px;
+    padding: 11.5px;
+}
+@media only screen and (max-width: 350px) {
+    .modelButtonsClass {
+        width: 225px !important;
+        padding: 11.5px;
+    }
+}
+
+.customModel {
+    margin: 11px !important;
+    height: 320px !important;
+    margin-left: 10% !important;
+    width: 70% !important;
+}
+
+.containerStyling {
+    padding-bottom: 10%;
+}
+
+.closeModelStyling {
+    margin-top: -55px !important;
+}
+
+.editDeleteModel {
+    max-width: 500px;
+    min-height: 500px;
+}
+
+.modelHeaderTop {
+    width: 100%;
+    text-align: center;
+}
+
+.addressRequestLabelStyling {
+    padding-bottom: 5%;
+    font-size: 20px;
+    /* letter-spacing: 2px; */
+    word-spacing: 2px;
+}
+
+.billingAddressChangeRequestModel {
+    max-width: 550px;
+    min-height: 500px;
+}
+
+.popupHeaderStyling {
+    margin-top: -20px;
+    margin-bottom: 20px;
+    font-size: 24px;
+    font-weight: 500;
+}
+
+.changeRequestStyling {
+    margin-top: 4%;
+}
+
+.mediumFont {
+    font-size: 14px;
+}
+
+.largeFont {
+    font-size: 16px;
+}
+
+.iconWithCloseButtonStyling {
+    margin-top: -10px !important;
+}
+
+.headerText {
+    margin-bottom: 1%;
+}
+
+.font-16-500 {
+    font-size: 16px !important;
+    font-weight: 500 !important;
+}
+
+.popup-header-styling-confirmation {
+    margin-bottom: 20px;
+    font-size: 24px;
+    font-weight: 500;
+}
+
+.font-16-500 {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+@media only screen and (max-width: 1023px) {
+    .shippingStateStyling {
+        padding-left: 12px;
+        padding-right: 0px;
+        padding-top: 2px;
+    }
+}
+
+/* Added as a part of BS-914 */
+.billing-button {
+    background: #fff;
+    border: 1px solid #000;
+    color: #000;
+    font-weight: 700;
+    letter-spacing: 1px;
+    padding: 10px 17px !important;
+    word-break: break-word;
+    white-space: break-spaces;
+}
+.billing-button:hover {
+    background: #000;
+    border: 1px solid #000;
+    color: #fff;
+    font-weight: 700;
+    letter-spacing: 1px;
+    padding: 10px 17px;
+    word-break: break-word;
+    white-space: break-spaces;
+}
+
+@media only screen and (max-width: 767px) {
+    .testdemo .slds-radio {
+        width: 100% !important;
+        float: left !important;
+        margin: 6px 0px !important;
+    }
+}
+/* BS-914 END */

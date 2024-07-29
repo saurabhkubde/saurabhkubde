@@ -1,0 +1,371 @@
+<template>
+    <!-- BS-958 & BS-959: My Vision Sensation/RX Component Start -->
+    <div>
+        <!-- Component Loading Section Start -->
+        <template if:true={_isLoading}>
+            <lightning-spinner alternative-text="Loading" class="slds-is-fixed slds-align_absolute-center" variant="brand" size="medium"></lightning-spinner>
+        </template>
+        <!-- Component Loading Section End -->
+
+        <!-- Main Body Section Start -->
+        <div class="slds-tabs_default my-vsrx-container" if:true={_initialLoadComplete}>
+            <!-- Tabs Section Start -->
+            <lightning-tabset class="tabStyling" active-tab-value={_activeTabValue}>
+                <!-- Tab 1: 100% Silhouette Start -->
+                <template if:true={_isEligibleForVS}>
+                    <lightning-tab label={_labelForVS} value={_labelForVS} title={_labelForVS} onactive={handleTabSelection}></lightning-tab>
+                </template>
+                <!-- Tab 1: 100% Silhouette End -->
+
+                <!-- Tab 2: evil eye RX Start -->
+                <template if:true={_isEligibleForRX}>
+                    <lightning-tab label={_labelForRX} value={_labelForRX} title={_labelForRX} onactive={handleTabSelection}></lightning-tab>
+                </template>
+                <!-- Tab 2: evil eye RX End -->
+            </lightning-tabset>
+            <!-- Tabs Section End -->
+
+            <!-- Filters Section Start -->
+            <div class="filterStylingForVSRX">
+                <!-- Dropdown type filters Section Start -->
+                <div class="slds-grid slds-wrap my-vsrx-order-history slds-gutters">
+                    <template for:each={_applicableFiltersCollection} for:item="filter">
+                        <div key={filter.label} if:true={filter.isDropdown} class="slds-col slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_3-of-12">
+                            <lightning-combobox
+                                if:true={filter.isOrderType}
+                                name={filter.apiName}
+                                label={filter.label}
+                                title={filter.label}
+                                value={_selectedOrderType}
+                                options={filter.availableOptions}
+                                onchange={handleFilterSelection}
+                            ></lightning-combobox>
+                            <lightning-combobox
+                                if:true={filter.isStatusType}
+                                name={filter.apiName}
+                                label={filter.label}
+                                value={_selectedStatus}
+                                title={filter.label}
+                                options={filter.availableOptions}
+                                onchange={handleFilterSelection}
+                            ></lightning-combobox>
+                            <lightning-combobox
+                                if:true={filter.isPeriodType}
+                                name={filter.apiName}
+                                label={filter.label}
+                                value={_selectedTimeFrame}
+                                title={filter.label}
+                                options={filter.availableOptions}
+                                onchange={handleFilterSelection}
+                            ></lightning-combobox>
+                        </div>
+                    </template>
+                </div>
+                <!-- Dropdown type filters Section End -->
+
+                <!-- Search textbox and Button Section Start -->
+                <div class="slds-grid slds-wrap filterContainer slds-gutters">
+                    <!-- Search textbox Section Start -->
+                    <template for:each={_applicableFiltersCollection} for:item="filter">
+                        <div
+                            key={filter.label}
+                            if:true={filter.isKeywordSearch}
+                            class="slds-col slds-small-size_8-of-12 slds-medium-size_9-of-12 slds-large-size_6-of-12"
+                        >
+                            <div class="input_wrap slds-m-top_medium">
+                                <input
+                                    type="text"
+                                    class="custom slds-p-top_small"
+                                    name={filter.apiName}
+                                    title={filter.label}
+                                    onkeyup={handleFilterSelection}
+                                    value={_searchKeyword}
+                                    required
+                                />
+                                <label>{filter.label}</label>
+                            </div>
+                        </div>
+                    </template>
+                    <!-- Search textbox Section End -->
+
+                    <!-- Button Section Start -->
+                    <template for:each={_applicableFiltersCollection} for:item="filter">
+                        <div
+                            key={filter.label}
+                            if:true={filter.isButton}
+                            class="slds-col slds-small-size_4-of-12 slds-medium-size_3-of-12 slds-large-size_6-of-12 slds-m-top_large"
+                        >
+                            <!-- BS-2175 -->
+                            <a class="font-size" onclick={handleClearAll} title={_clearAllButtonLabel} value="Back">
+                                <span>
+                                    <img src={refreshIcon} />
+                                </span>
+                                <span> {_clearAllButtonLabel} </span>
+                            </a>
+                        </div>
+                    </template>
+                    <!-- Button Section End -->
+                </div>
+                <!-- Search textbox and Button Section End -->
+            </div>
+            <!-- Filters Section End -->
+
+            <!--Datatable, Paginator, Popup screen Section Start-->
+            <div if:true={_initialLoadComplete} class="slds-m-top_xx-large">
+                <!--Datatable Section Start-->
+                <div if:true={_isDataAvaialble} class="table-horizontal-scroll">
+                    <table aria-multiselectable="true" class="slds-table slds-table_bordered" role="grid" aria-label="">
+                        <!-- Columns Section Start -->
+                        <thead class="border-bottom">
+                            <tr class="border-bottom slds-line-height_reset orderTableHeader">
+                                <template for:each={_applicableColumnsCollection} for:item="column">
+                                    <th key={column.label} class="border-bottom" scope="col">
+                                        <a
+                                            class="slds-th__action slds-text-link_reset arial-font"
+                                            href="javascript:void(0);"
+                                            role="button"
+                                            tabindex="0"
+                                            onclick={handleSort}
+                                            name={column.name}
+                                            title={column.label}
+                                            data-ascending={column.isAscending}
+                                            data-descending={column.isDescending}
+                                            >{column.label}
+                                            <template if:true={column.labelSecondLine}>
+                                                <br />
+                                                {column.labelSecondLine}
+                                            </template>
+
+                                            <lightning-icon
+                                                icon-name="utility:arrowup"
+                                                size="x-small"
+                                                if:true={column.isAscending}
+                                                name={column.name}
+                                                data-ascending={column.isAscending}
+                                                data-descending={column.isDescending}
+                                                onclick={handleSort}
+                                            ></lightning-icon>
+
+                                            <lightning-icon
+                                                icon-name="utility:arrowdown"
+                                                size="x-small"
+                                                if:true={column.isDescending}
+                                                name={column.name}
+                                                data-ascending={column.isAscending}
+                                                data-descending={column.isDescending}
+                                                onclick={handleSort}
+                                            ></lightning-icon>
+                                        </a>
+                                    </th>
+                                </template>
+                            </tr>
+                        </thead>
+                        <!-- Columns Section Start -->
+
+                        <!-- Table Body & Rows Seciton Start -->
+                        <tbody>
+                            <template for:each={configurationRecords} for:item="data">
+                                <tr class="slds-hint-parent bottom-border" key={data}>
+                                    <td class="bottom-border" data-label={data.orderType}>
+                                        <lightning-formatted-text value={data.orderType} title={data.orderType}> </lightning-formatted-text>
+                                    </td>
+
+                                    <td class="bottom-border" data-label={data.customerName}>
+                                        <lightning-formatted-text value={data.customerName} title={data.customerName}> </lightning-formatted-text>
+                                    </td>
+
+                                    <td class="bottom-border" data-label={data.collectionNameAndNumber}>
+                                        <!-- BS-2024 -->
+                                        <lightning-formatted-text value={data.collectionNameAndNumber} title={data.collectionNameAndNumber}>
+                                        </lightning-formatted-text>
+                                    </td>
+
+                                    <td class="bottom-border" data-label={data.lensName}>
+                                        <lightning-formatted-text value={data.lensName} title={data.lensName}> </lightning-formatted-text>
+                                    </td>
+
+                                    <td class="bottom-border" data-label={data.displayableCreatedDate}>
+                                        <lightning-formatted-text value={data.displayableCreatedDate} title={data.displayableCreatedDate}>
+                                        </lightning-formatted-text>
+                                    </td>
+
+                                    <td class="bottom-border" data-label={data.displayableLastModifiedDate}>
+                                        <lightning-formatted-text value={data.displayableLastModifiedDate} title={data.displayableLastModifiedDate}>
+                                        </lightning-formatted-text>
+                                    </td>
+
+                                    <td class="bottom-border" data-label={data.status}>
+                                        <lightning-formatted-text value={data.status} title={data.status}> </lightning-formatted-text>
+                                    </td>
+
+                                    <td class="bottom-border" data-label="Action">
+                                        <div class="actionColumnStyling">
+                                            <!--BS-997 : Added onclick Attribute-->
+                                            <img
+                                                if:false={data.isDisabled}
+                                                data-validity={data.isDisabled}
+                                                class={data.statusStyling}
+                                                src={editIcon}
+                                                title={_editIconLabel}
+                                                data-id={data.recordId}
+                                                onclick={handleEditButtonClick}
+                                            />
+                                            <!--BS-997 : Added onclick Attribute-->
+                                            <img
+                                                if:true={data.isDisabled}
+                                                data-validity={data.isDisabled}
+                                                class={data.statusStyling}
+                                                src={editIcon}
+                                                title={_editIconLabel}
+                                                data-id={data.recordId}
+                                            />
+                                            <!--BS-1587 : Added Delete Functionality for VS-->
+                                            <img
+                                                data-validity={data.isDisabled}
+                                                class="actionicon slds-m-right_small request-document-enabled"
+                                                src={deleteIcon}
+                                                title={_deleteIconLabel}
+                                                data-id={data.recordId}
+                                                onclick={handleShowPopup}
+                                            />
+                                            <img
+                                                data-validity={data.isDisabled}
+                                                name="reorder"
+                                                src={viewIcon}
+                                                title={_viewIconLabel}
+                                                class="actionicon request-document-enabled"
+                                                data-id={data.recordId}
+                                                onclick={navigateToVsRxSummaryPage}
+                                            />
+                                        </div>
+                                    </td>
+                                </tr>
+                            </template>
+                        </tbody>
+                    </table>
+                    <!-- Table Body & Rows Seciton End -->
+                </div>
+                <!-- Datatable Section End -->
+
+                <!-- Paginator Section Start -->
+                <div if:true={_isDataAvaialble}>
+                    <c-b2b_vs_rx_paginator_component
+                        page-number={pageNumber}
+                        page-size={_pageSize}
+                        total-item-count={_totalItemCount}
+                        onprevious={handlePreviousPage}
+                        onnext={handleNextPage}
+                        onpagejump={handlePageJump}
+                    ></c-b2b_vs_rx_paginator_component>
+                </div>
+                <!-- Paginator Section End -->
+
+                <!-- No Data Available Popup Section Start -->
+                <template if:false={_isDataAvaialble}>
+                    <div class="slds-wrap slds-p-around_medium slds-align_absolute-center no-order-background">
+                        <div class="slds-col slds-m-bottom_medium slds-align_absolute-center slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-1">
+                            <img src={closeIcon} class="close-icon-demesions" />
+                        </div>
+
+                        <div class="slds-col slds-m-bottom_medium slds-align_absolute-center slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-1">
+                            <h2 class="h4-font-strong black-color arial-font slds-align_absolute-center slds-text-align_center">{_noDataAvailableLabel}</h2>
+                        </div>
+
+                        <div class="slds-col slds-m-bottom_medium slds-align_absolute-center slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-1">
+                            <div class="black-color arial-font slds-align_absolute-center slds-text-align_center">{_noDataAvailableInformationLabel}</div>
+                        </div>
+
+                        <div>
+                            <button
+                                name={_continueShoppingButtonLabel}
+                                class="slds-align_absolute-center silButton capital arial-font"
+                                title={_continueShoppingButtonLabel}
+                                onclick={handleRedirectToHome}
+                            >
+                                {_continueShoppingButtonLabel}
+                            </button>
+                        </div>
+                    </div>
+                </template>
+                <!-- No Data Available Popup Section End -->
+
+                <!-- BS-979: Popup Screen for Delete Record Section Start -->
+                <template if:true={_showPopUpForDelete}>
+                    <div class="slds-backdrop slds-backdrop_open">
+                        <section role="dialog" tabindex="-1" aria-modal="true" class="slds-modal slds-fade-in-open">
+                            <div class="slds-modal__container">
+                                <div class="popupOnClearCart">
+                                    <div>
+                                        <lightning-button-icon class="closeIcon" icon-name="utility:close" onclick={closePopup}></lightning-button-icon>
+                                    </div>
+
+                                    <div class="slds-align_absolute-center slds-m-top_x-large">
+                                        <img src={_deleteIcon} class="delete-icon" />
+                                    </div>
+
+                                    <div class="slds-align_absolute-center font-24-500 slds-m-top_small">{_warningMessageForDelete}</div>
+
+                                    <div class="slds-m-top_x-small slds-m-bottom_medium slds-p-horizontal_x-small">
+                                        <p class="deleteCartWarningMessage font-18-300">{_informationMessageForDelete}</p>
+                                    </div>
+
+                                    <div class="slds-grid slds-wrap slds-grid_vertical-align-center slds-grid_align-center">
+                                        <div class="slds-m-vertical_small">
+                                            <button class="silButton capital customButtons" onclick={closePopup}>{_cancelButtonLabel}</button>
+                                        </div>
+                                        <div class="slds-m-around_small">
+                                            <button class="silButton capital delete-cart-button customButtons" onclick={handleDeleteRecord}>
+                                                {_deleteButtonLabel}
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </template>
+                <!-- BS-979: Popup Screen for Delete Record Section End -->
+
+                <!-- BS-997: Popup Screen for Edit Record Section Start -->
+                <template if:true={_showPopUpForEdit}>
+                    <div class="slds-backdrop slds-backdrop_open">
+                        <section role="dialog" tabindex="-1" aria-modal="true" class="slds-modal slds-fade-in-open">
+                            <div class="slds-modal__container">
+                                <div class="popupOnClearCart">
+                                    <div>
+                                        <lightning-button-icon class="closeIcon" icon-name="utility:close" onclick={closePopup}></lightning-button-icon>
+                                    </div>
+
+                                    <div class="slds-align_absolute-center slds-m-top_x-large">
+                                        <img src={_editIcon} class="delete-icon" />
+                                    </div>
+
+                                    <div class="slds-align_absolute-center font-24-500 slds-m-top_small">{_warningMessageForDelete}</div>
+
+                                    <div class="slds-m-top_x-small slds-m-bottom_medium slds-p-horizontal_x-small">
+                                        <p class="deleteCartWarningMessage font-18-300">{_editInformationWarningLabel}</p>
+                                    </div>
+
+                                    <div class="slds-grid slds-wrap slds-grid_vertical-align-center slds-grid_align-center">
+                                        <div class="slds-m-vertical_small">
+                                            <button class="silButton capital customButtons" onclick={closePopup}>{_cancelButtonLabel}</button>
+                                        </div>
+                                        <div class="slds-m-around_small">
+                                            <button class="silButton capital delete-cart-button customButtons" onclick={handleEditAction}>
+                                                {_editIconLabel}
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </template>
+                <!-- BS-979: Popup Screen for Edit Record Section End -->
+            </div>
+            <!-- Datatable, Paginator, Popup screen Section End -->
+        </div>
+        <!-- Main Body Section End -->
+    </div>
+    <!-- BS-958 & BS-959: My Vision Sensation/RX Component End -->
+</template>

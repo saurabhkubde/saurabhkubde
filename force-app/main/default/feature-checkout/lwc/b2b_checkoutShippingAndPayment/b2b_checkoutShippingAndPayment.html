@@ -1,0 +1,92 @@
+<template>
+    <lightning-spinner if:false={_stopLoading} class="slds-is-fixed slds-align_absolute-center" variant="brand" size="large"> </lightning-spinner>
+    <template if:true={accountRecord}>
+        <div class="slds-grid slds-wrap slds-gutters">
+            <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+                <div class="slds-col slds-size_1-of-1 slds-p-vertical_medium border-bottom slds-p-horizontal_none">
+                    <div class="title">{labels.partialDelevery}</div>
+                    <template if:true={isPartialDeleveryAllowed}>
+                        <div class="description slds-m-vertical_x-small">{labels.partialDeleveryAllowed}</div>
+                    </template>
+                    <template if:false={isPartialDeleveryAllowed}>
+                        <div class="description slds-m-vertical_x-small">{labels.partialDeleveryNotAllowed}</div>
+                    </template>
+                </div>
+
+                <div class="slds-col slds-size_1-of-1 slds-p-vertical_medium border-bottom slds-p-horizontal_none">
+                    <div class="title">{labels.shippingAddresses}</div>
+                    <div if:true={options} class="slds-m-vertical_x-small orderHistory">
+                        <lightning-radio-group
+                            name="addressType"
+                            label={labels.shipTo}
+                            class="validate"
+                            variant="label-hidden"
+                            options={options}
+                            value={addressInputType}
+                            type="radio"
+                            onchange={handleAddressInputTypeChange}
+                            required="true"
+                        >
+                        </lightning-radio-group>
+                    </div>
+                </div>
+
+                <div class="slds-col slds-size_1-of-1 slds-p-vertical_medium border-bottom slds-p-horizontal_none">
+                    <div class="title">{labels.billingMethod}</div>
+                    <div class="description slds-m-vertical_x-small">{accountRecord.Monthly_Billing__c}</div>
+                </div>
+
+                <div class="slds-col slds-size_1-of-1 slds-p-vertical_medium slds-p-horizontal_none">
+                    <div class="title">
+                        <span>{labels.internalPONumber}</span>
+                        <span class="helptext">
+                            <div class="tooltip">
+                                <span class="tooltiptext">{labels.internalPONumberHelpText}</span>
+                                <img class="infoicon slds-m-left_xx-small" src={infoSVG} />
+                            </div>
+                        </span>
+                    </div>
+                    <lightning-input
+                        type="text"
+                        name="poNumber"
+                        class="width"
+                        data-name="poNumber"
+                        value={purchaseOrderNumber}
+                        onchange={genericOnChange}
+                    ></lightning-input>
+                </div>
+            </div>
+
+            <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+                <div class="slds-col slds-size_1-of-1 slds-p-vertical_medium">
+                    <div class="title border-bottom titlePadding slds-p-horizontal_none">{labels.billingAccount}</div>
+                    <template if:true={billingAddress}>
+                        <table>
+                            <tr if:true={accountRecord.k_Billing_Name__c} class="row-border slds-p-horizontal_none">
+                                <td>{billingAddress.k_Billing_Name__c}</td>
+                                <td>{accountRecord.k_Billing_Name__c}</td>
+                            </tr>
+                            <tr if:true={accountRecord.k_Billing_Street__c} class="row-border slds-p-horizontal_none">
+                                <td>{billingAddress.k_Billing_Street__c}</td>
+                                <td>{accountRecord.k_Billing_Street__c}</td>
+                            </tr>
+                            <tr if:true={accountRecord.k_Billing_Postal_Code__c} class="row-border slds-p-horizontal_none">
+                                <td>{billingAddress.k_Billing_Postal_Code__c}</td>
+                                <td>{accountRecord.k_Billing_Postal_Code__c}</td>
+                            </tr>
+                            <tr if:true={accountRecord.k_Billing_City__c} class="row-border slds-p-horizontal_none">
+                                <td>{billingAddress.k_Billing_City__c}</td>
+                                <td>{accountRecord.k_Billing_City__c}</td>
+                            </tr>
+                            <tr if:true={accountRecord.k_Billing_Country__c} class="row-border slds-p-horizontal_none">
+                                <td>{billingAddress.k_Billing_Country__c}</td>
+                                <td>{accountRecord.k_Billing_Country__c}</td>
+                            </tr>
+                        </table>
+                    </template>
+                </div>
+            </div>
+        </div>
+        <hr class="slds-m-vertical_small" />
+    </template>
+</template>

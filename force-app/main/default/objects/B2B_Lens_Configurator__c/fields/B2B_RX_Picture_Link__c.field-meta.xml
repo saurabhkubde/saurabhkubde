@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>B2B_RX_Picture_Link__c</fullName>
+    <description>This will store the product image for RX solution product when adapter is selected.</description>
+    <externalId>false</externalId>
+    <label>RX Picture Link</label>
+    <length>100</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

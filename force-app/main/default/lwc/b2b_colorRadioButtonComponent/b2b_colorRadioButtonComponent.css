@@ -1,0 +1,30 @@
+.sil-ee-colorRadioButton .dot {
+    height: 28px;
+    width: 28px;
+    border-radius: 50%;
+    display: inline-block;
+    margin: 5px;
+    cursor: pointer;
+    border: 1px solid #d8d8d8;
+    background-repeat: no-repeat !important;
+    background-position: 50% !important;
+    filter: drop-shadow(1px 1px 2px #d8d8d8);
+}
+
+.dot {
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    display: inline-block;
+    margin: 3px;
+    cursor: pointer;
+    border: 1px solid #d8d8d8;
+    background-repeat: no-repeat !important;
+    background-position: 50% !important;
+    filter: drop-shadow(1px 1px 2px #d8d8d8);
+}
+
+.filterValues {
+    font-size: 16px;
+    font-weight: 400;
+}

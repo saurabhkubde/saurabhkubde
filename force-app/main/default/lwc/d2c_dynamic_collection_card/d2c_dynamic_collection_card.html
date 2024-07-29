@@ -1,0 +1,120 @@
+<template>
+    <!-- NBD2C-82 : Loader Component - START  -->
+    <div class="loader" if:false={_dataLoaded}>
+        <lightning-spinner
+            alternative-text={_loadingLabel}
+            class="slds-is-fixed slds-align_absolute-center spinnerStyling"
+            id="lightningSpinner"
+            size="medium"
+        ></lightning-spinner>
+    </div>
+    <!-- NBD2C-82 : Loader Component - END  -->
+
+    <!-- NBD2C-82 : Card Collection Implementation - START -->
+    <template if:true={_initialLoadComplete}>
+        <!-- NBD2C-82 : Section Container- START -->
+        <div class="sectionContainer">
+            <!-- NBD2C-82 : Content Heading Section - START -->
+            <div class="headerStyling" if:true={_headerValue}>
+                <h2>{_headerValue}</h2>
+            </div>
+            <!-- NBD2C-82 : Content Heading Section - END -->
+
+            <!-- NBD2C-82 : Content Body Section - START -->
+            <div class="contentContainer">
+                <!-- NBD2C-82 : Collection Iteration Section - START -->
+                <template for:each={_sectionContentCollection.collectionData} for:item="content">
+                    <!-- NBD2C-82 : Card Container Section - START -->
+                    <div key={content} class="cardContainerStyling">
+                        <!-- NBD2C-82 : Card Container Section For Normal Order - START -->
+                        <div if:false={content.isInverseStylingApplicable} class="slds-grid slds-wrap imageContainerParent">
+                            <!-- NBD2C-82 : Image Container Section - START -->
+                            <div class="imageContainerStyling slds-col">
+                                <a if:true={content.buttonLink} href={content.buttonLink} target="_self">
+                                    <img class="imageStyling" src={content.imageLink} alt={content.imageAlternateText} />
+                                </a>
+                            </div>
+                            <!-- NBD2C-82 : Image Container Section - END -->
+
+                            <!-- NBD2C-82 : Product Content Container Section - START -->
+                            <div class="informationContainerStyling slds-col">
+                                <!-- NBD2C-82 : Content Title Section - START -->
+                                <div if:true={content.title} class="titleContainerStyling">
+                                    <p>{content.title}</p>
+                                </div>
+                                <!-- NBD2C-82 : Content Title Section - END -->
+
+                                <!-- NBD2C-82 : Content Sub-Title Section - START -->
+                                <div if:true={content.subtitle} class="subtitleContainerStyling">
+                                    <p>{content.subtitle}</p>
+                                </div>
+                                <!-- NBD2C-82 : Content Sub-Title Section - END -->
+
+                                <!-- NBD2C-82 : Content Button Section - START -->
+                                <div if:true={content.buttonLabel} class="buttonContainerStyling">
+                                    <a
+                                        if:true={content.buttonLink}
+                                        target="_self"
+                                        class="buttonStyling"
+                                        data-link={content.buttonLink}
+                                        onclick={handleRedirection}
+                                        >{content.buttonLabel}</a
+                                    >
+                                </div>
+                                <!-- NBD2C-82 : Content Button Section - END -->
+                            </div>
+                            <!-- NBD2C-82 : Product Content Container Section - END -->
+                        </div>
+                        <!-- NBD2C-82 : Card Container Section For Normal Order - END -->
+
+                        <!-- NBD2C-82 : Card Container Section For Inverse Order - START -->
+                        <div if:true={content.isInverseStylingApplicable} class="slds-grid slds-wrap reverse imageContainerParent">
+                            <!-- NBD2C-82 : Product Content Container Section - START -->
+                            <div class="informationContainerStyling slds-col">
+                                <!-- NBD2C-82 : Content Title Section - START -->
+                                <div if:true={content.title} class="titleContainerStyling">
+                                    <p>{content.title}</p>
+                                </div>
+                                <!-- NBD2C-82 : Content Title Section - END -->
+
+                                <!-- NBD2C-82 : Content Sub-Title Section - START -->
+                                <div if:true={content.subtitle} class="subtitleContainerStyling">
+                                    <p>{content.subtitle}</p>
+                                </div>
+                                <!-- NBD2C-82 : Content Sub-Title Section - END -->
+
+                                <!-- NBD2C-82 : Content Button Section - START -->
+                                <div if:true={content.buttonLabel} class="buttonContainerStyling">
+                                    <a
+                                        if:true={content.buttonLink}
+                                        class="buttonStyling"
+                                        target="_self"
+                                        data-link={content.buttonLink}
+                                        onclick={handleRedirection}
+                                        >{content.buttonLabel}</a
+                                    >
+                                </div>
+                                <!-- NBD2C-82 : Content Button Section - END -->
+                            </div>
+                            <!-- NBD2C-82 : Product Content Container Section - END -->
+
+                            <!-- NBD2C-82 : Image Container Section - START -->
+                            <div if:true={content.buttonLink} class="imageContainerStyling slds-col">
+                                <a href={content.buttonLink} target="_self"
+                                    ><img if:true={content.imageLink} class="imageStyling" src={content.imageLink} alt={content.imageAlternateText}
+                                /></a>
+                            </div>
+                            <!-- NBD2C-82 : Image Container Section - END -->
+                        </div>
+                        <!-- NBD2C-82 : Card Container Section For Inverse Order - END -->
+                    </div>
+                    <!-- NBD2C-82 : Card Container Section - END -->
+                </template>
+                <!-- NBD2C-82 : Collection Iteration Section - END -->
+            </div>
+            <!-- NBD2C-82 : Content Body Section - END -->
+        </div>
+        <!-- NBD2C-82 : Section Container- END -->
+    </template>
+    <!-- NBD2C-82 : Card Collection Implementation - END -->
+</template>

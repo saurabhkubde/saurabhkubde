@@ -1,0 +1,44 @@
+<template lwc:render-mode="light">
+    <div if:true={_isDesktopDevice} class="slds-grid slds-p-top_xx-large">
+        <template for:each={facets} for:item="facet">
+            <div if:true={facet.isColorField} class="slds-col slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_3-of-12" key={facet.id}>
+                <c-d2c_search-facet
+                    key={facet.id}
+                    display-data={facet}
+                    data-facetid={facet.id}
+                    onfacetvaluetoggle={handleFacetValueToggle}
+                ></c-d2c_search-facet>
+            </div>
+
+            <div if:true={facet.isDesignField} class="slds-col slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_3-of-12" key={facet.id}>
+                <c-d2c_search-facet
+                    key={facet.id}
+                    display-data={facet}
+                    data-facetid={facet.id}
+                    onfacetvaluetoggle={handleFacetValueToggle}
+                ></c-d2c_search-facet>
+            </div>
+
+            <div if:true={facet.isOtherField} class="slds-col slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_2-of-12" key={facet.id}>
+                <c-d2c_search-facet
+                    key={facet.id}
+                    display-data={facet}
+                    data-facetid={facet.id}
+                    onfacetvaluetoggle={handleFacetValueToggle}
+                ></c-d2c_search-facet>
+            </div>
+        </template>
+    </div>
+    <div if:false={_isDesktopDevice} class="facet-container">
+        <template for:each={facets} for:item="facet">
+            <div key={facet.id}>
+                <c-d2c_search-facet
+                    key={facet.id}
+                    display-data={facet}
+                    data-facetid={facet.id}
+                    onfacetvaluetoggle={handleFacetValueToggle}
+                ></c-d2c_search-facet>
+            </div>
+        </template>
+    </div>
+</template>

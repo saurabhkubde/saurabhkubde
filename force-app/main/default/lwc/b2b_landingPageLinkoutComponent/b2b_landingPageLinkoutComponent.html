@@ -1,0 +1,28 @@
+<template>
+    <div class="slds-grid slds-grid_align-end slds-p-around_xxx-small link-container">
+        <div if:true={isShowAcademy} class="slds-col slds-border_right" style="border-color: #000">
+            <a href={_academyLink} class="linkoutText" target="_blank">
+                <img src={linkoutImg} class="slds-p-horizontal_x-small" />
+                {_academyLabel}
+            </a>
+        </div>
+        <div class="slds-col slds-border_right" style="border-color: #000">
+            <a href={_wrapAroundCalculatorLink} class="linkoutText" target="_blank">
+                <img src={linkoutImg} class="slds-p-horizontal_x-small" />
+                {_wrapAroundCalculatorLabel}
+            </a>
+        </div>
+        <div class="slds-col slds-border_left" style="border-color: #000">
+            <a href={_serviceAreaLink} class="linkoutText" target="_blank">
+                <img src={linkoutImg} class="slds-p-horizontal_x-small" />
+                {_serviceAreaLabel}
+            </a>
+        </div>
+        <div class="slds-col slds-border_left" style="border-color: #000">
+            <a href={_mediaHubLink} class="linkoutText" target="_blank">
+                <img src={linkoutImg} class="slds-p-horizontal_x-small" />
+                {_mediaHubLabel}
+            </a>
+        </div>
+    </div>
+</template>

@@ -1,0 +1,19 @@
+<template lwc:render-mode="light">
+    <section class={cardContainerClass}>
+        <div class="slds-text-link_reset product-name">
+            <div>
+                <c-d2c_product-card
+                    slides-data={variations.child}
+                    prices={variations.prices}
+                    model-image={modelImageURL}
+                    onshowproduct={handleProductDetailPageNavigation}
+                    custom-metadata-colors-map={customMetadataColorsMap}
+                    show-negotiated-price={showNegotiatedPrice}
+                    show-original-price={showOriginalPrice}
+                    currency-code={pricingInfo.currencyIsoCode}
+                >
+                </c-d2c_product-card>
+            </div>
+        </div>
+    </section>
+</template>

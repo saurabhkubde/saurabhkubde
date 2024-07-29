@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>POS_Address_retailer_search__c</fullName>
+    <description>Custom address field that displays the POS address in the B2B storefront to the commerce user</description>
+    <externalId>false</externalId>
+    <label>POS Address (retailer search)</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Address</type>
+</CustomField>

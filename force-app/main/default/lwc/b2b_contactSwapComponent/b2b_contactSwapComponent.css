@@ -1,0 +1,17 @@
+.width {
+    width: 3.25rem;
+}
+.border {
+    border: solid 1px #c8bebe;
+}
+.modal_styling {
+    width: 60%;
+    left: 20%;
+    top: 35%;
+    border: solid 1px #c8bebe;
+    bottom: auto;
+}
+
+.no_border {
+    border: none;
+}

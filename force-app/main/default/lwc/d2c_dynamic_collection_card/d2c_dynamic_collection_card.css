@@ -1,0 +1,198 @@
+/* NBD2C-82 : Component Styling - Start */
+.spinnerStyling {
+    background-color: rgba(255, 255, 255, 0.75) !important;
+}
+
+.headerStyling {
+    text-align: center;
+}
+
+.headerStyling h2 {
+    line-height: 0.9;
+    margin-top: 32px;
+    margin-bottom: 40px;
+    font-variant: small-caps;
+    text-transform: lowercase;
+    word-spacing: 0.3ch;
+    letter-spacing: -0.025em;
+    font-weight: 400;
+}
+
+.cardContainerStyling {
+    background-color: #f7f7f8 !important;
+    margin-top: calc(32px + 0.03125 * (100vw - 320px));
+}
+
+.imageStyling {
+    height: 100%;
+    width: 100%;
+}
+
+.informationContainerStyling {
+    padding-left: calc(48px + 48 * (100vw - 320px) / (1024));
+    padding-right: calc(48px + 48 * (100vw - 320px) / (1024));
+    padding-top: calc(24px + 40 * (100vw - 320px) / (1024));
+    padding-bottom: calc(24px + 40 * (100vw - 320px) / (1024));
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    transition: transform 0.6s cubic-bezier(0.215, 0.61, 0.355, 1), -webkit-transform 0.6s cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+.imageContainerStyling {
+    width: 50%;
+    transition: transform 0.6s cubic-bezier(0.215, 0.61, 0.355, 1), -webkit-transform 0.6s cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+.titleContainerStyling {
+    color: #8c8c8c;
+    width: 100%;
+    display: inline-block;
+    font-size: 16px;
+    letter-spacing: -0.025em;
+    font-variant: small-caps;
+    text-transform: lowercase;
+    word-spacing: 0.3ch;
+}
+
+.subtitleContainerStyling p {
+    margin-top: calc(8px + 8 * (100vw - 320px) / (1024));
+    font-size: calc(18px + 3 * ((100vw - 320px) / 1024));
+    line-height: 1.6;
+    text-transform: none;
+    letter-spacing: 0.025em;
+    font-family: 'Adobe Caslon Pro';
+}
+
+.buttonStyling {
+    margin-right: 8px;
+    line-height: 2;
+    padding: 16px 24px 8px;
+    font-size: 16px;
+    white-space: nowrap;
+    background-color: transparent;
+    border: 1px solid #000;
+    color: #000;
+    font-family: 'Adobe Caslon Pro';
+    margin-top: calc(22.4px + 22.4 * (100vw - 320px) / (1024));
+}
+
+.buttonStyling:hover {
+    background-color: black !important;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    text-decoration: none;
+}
+
+.content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    font-family: sans-serif;
+    font-size: 64px;
+    font-weight: bold;
+}
+
+.imageContainerParent {
+    align-items: normal;
+}
+
+.buttonContainerStyling {
+    margin-top: auto;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-flow: column wrap;
+    flex-flow: column wrap;
+    -webkit-box-align: start;
+    -ms-flex-align: start;
+    align-items: flex-start;
+}
+
+@media only screen and (min-width: 280px) and (max-width: 1344px) {
+    .headerStyling {
+        font-size: calc(25.62890625px + 24.1488714904 * ((100vw - 320px) / 1024));
+        padding: 0px !important;
+        margin-bottom: -20px;
+    }
+
+    .titleContainerStyling {
+        font-size: calc(16px + -0.2499999961 * ((100vw - 320px) / 1024));
+    }
+
+    .subtitleContainerStyling {
+        font-size: calc(18px + 3 * ((100vw - 320px) / 1024));
+    }
+
+    .buttonStyling {
+        font-size: calc(16px + -0.2499999961 * ((100vw - 320px) / 1024));
+    }
+}
+
+@media only screen and (min-width: 1344px) {
+    .contentContainer {
+        margin-top: 64px;
+    }
+
+    .informationContainerStyling {
+        padding-left: 96px;
+        padding-right: 96px;
+        padding-top: 64px;
+        padding-bottom: 64px;
+    }
+
+    .buttonStyling {
+        margin-top: 44.8px;
+    }
+
+    .headerStyling {
+        font-size: 50px;
+        margin-bottom: -32px;
+    }
+
+    .titleContainerStyling {
+        font-size: 16px;
+    }
+
+    .buttonStyling {
+        margin-top: 44.8px;
+        padding-left: 30px;
+        padding-right: 30px;
+        padding-bottom: 5px;
+        padding-top: 10px;
+        font-size: 16px;
+    }
+}
+
+@media only screen and (max-width: 800px) {
+    .reverse {
+        display: flex !important;
+        flex-direction: column-reverse !important;
+    }
+
+    .imageContainerStyling {
+        width: 100%;
+    }
+
+    .informationContainerStyling {
+        width: 100%;
+        padding-left: calc(14px + 16 * (100vw - 320px) / (1024));
+        padding-right: calc(14px + 16 * (100vw - 320px) / (1024));
+    }
+
+    .buttonStyling {
+        margin-top: calc(22.4px + 22.4 * (100vw - 320px) / (1024));
+        margin-left: 0;
+        display: inline-block;
+        padding-top: 10px;
+        padding-bottom: 5px;
+        padding-left: calc(16px + 8 * (100vw - 320px) / (1024));
+        padding-right: calc(16px + 8 * (100vw - 320px) / (1024));
+        font-size: calc(16px + -0.2499999961 * ((100vw - 320px) / 1024));
+    }
+}
+/* NBD2C-82 : Component Styling - End */

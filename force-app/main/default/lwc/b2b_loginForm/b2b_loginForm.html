@@ -1,0 +1,137 @@
+<template>
+    <!--login sh-ee-->
+    <div class="loginflowcontainer">
+        <div
+            class="slds-card main-container slds-grid slds-grid_vertical slds-p-left_small slds-p-right_small slds-p-bottom_small black-color marginDiv slds-p-horizontal_xx-large slds-m-top_large"
+        >
+            <template if:true={isSilhouetteStore}>
+                <div class="title-small">{label.LoginHintLine1}</div>
+                <div class="title-large">{label.LoginHintLine2}</div>
+            </template>
+            <template if:false={isSilhouetteStore}>
+                <div class="title-small">{label.LOGIN_HINT_LINE_NB}</div>
+                <div class="title-large arial-font text-large-nb black-color">{label.LoginHintLine2}</div>
+            </template>
+            <template if:true={error}>
+                <div if:false={isNBInactive} class="slds-text-color_error error-msg-container slds-m-vertical_x-small">{errorMessage}</div>
+                <div if:true={isNBInactive} class="slds-text-color_error error-msg-container slds-m-vertical_x-small">
+                    <span>{initialNBInactiveErrorResponseMessage}</span>
+                    <a class="underlineStyling" href={linkForNBInactiveErrorResponseMessage}>{customerServiceLabel}</a>
+                    <span>{endNBInactiveErrorResponseMessage}</span>
+                </div>
+            </template>
+            <span onkeypress={handleKeyInput}>
+                <div class="slds-col slds-var-p-top_small black-color text-medium-nb user-name">
+                    <div class="slds-grid">
+                        <div>
+                            <label class="required-label"> {label.Username} </label>
+                            <span class="slds-p-left_xx-small required-star" title="">*</span>
+                            <div class="tooltip">
+                                <img class="toolTipStyling" src={alertIcon} />
+                                <!-- Start : BS-2097 -->
+                                <template if:true={isSilhouetteStore}>
+                                    <span class="text"> {label.B2B_Partner_Portal_Username_Input_Field_Helptext} </span>
+                                </template>
+                                <template if:false={isSilhouetteStore}>
+                                    <span class="text"> {label.nbUsernameHelpText} </span>
+                                </template>
+                                <!-- End : BS-2097 -->
+                            </div>
+                        </div>
+
+                        <div if:true={isSilhouetteStore} class="slds-col_bump-left slds-is-relative">
+                            <span onclick={toggleTooltip}>
+                                <img class="globe-icon" src={globeIcon} /> <span class="required-label text-underline">{label.SEE_COUNTRY_CODE} </span></span
+                            >
+                            <div if:true={showTooltip} class={_popoverClass}>
+                                <section
+                                    aria-describedby="dialog-body-id-118"
+                                    aria-labelledby="dialog-heading-id-115"
+                                    class="slds-popover slds-nubbin_left slds-popover_large"
+                                    role="dialog"
+                                >
+                                    <div class="close-icon">
+                                        <lightning-button-icon
+                                            class="slds-button slds-button_icon slds-button_icon-small slds-float_right slds-popover__close"
+                                            icon-name="utility:close"
+                                            onclick={closeTooltip}
+                                        ></lightning-button-icon>
+                                    </div>
+
+                                    <div class="slds-popover__body" id="dialog-body-id-110">
+                                        <div class="slds-media">
+                                            <div class="slds-media__body">
+                                                <c-b2b_see-country-code></c-b2b_see-country-code>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--BS-1859-->
+                    <lightning-input
+                        type="text"
+                        label={label.Username}
+                        name="accountNumber"
+                        onchange={handleAccountNumberChange}
+                        value={accountNumber}
+                        variant="label-hidden"
+                        required
+                    ></lightning-input>
+                </div>
+                <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon_right">
+                    <!-- BS-1855 : Added a icon to show and hide the entered values - Start -->
+                    <lightning-icon
+                        size="small"
+                        class="slds-icon slds-input__icon slds-input__icon_right"
+                        icon-name={visibilityControllerIcon}
+                        onclick={handlePreviewClick}
+                    >
+                    </lightning-icon>
+                    <!-- BS-1855 : Added a icon to show and hide the entered values - End -->
+                    <!-- BS-1855 : Made the password field type dynamic(added type={passwordType}) -->
+                    <lightning-input type={passwordFieldType} label={label.Password} name="password" onchange={handlePasswordChange} required>
+                    </lightning-input>
+                </div>
+            </span>
+            <div class="slds-grid slds-var-p-top_small">
+                <!-- <div class="slds-col slds-size_6-of-12 slds-checkbox"> -->
+                <div class="slds-col">
+                    <div class="form-group">
+                        <input type="checkbox" onchange={handleRememberMe} id="rememberMeCheckbox" data-id="rememberMeCheckbox" />
+                        <label class="slds-checkbox__label" for="rememberMeCheckbox">
+                            <span class="slds-checkbox_faux"></span>
+                            <span class="slds-form-element__label slds-var-p-around_small">
+                                <lightning-formatted-rich-text class="black-color silhouetteText text-medium-nb" value={label.RememberMe}>
+                                </lightning-formatted-rich-text>
+                            </span>
+                        </label>
+                    </div>
+                </div>
+                <div class="slds-col slds-var-p-top_small slds-text-align_right">
+                    <div class="stock-div">
+                        <img class="stockIcon" src={forgotPasswordIcon} />
+                    </div>
+                    <a href={forgotPasswordLink} class="black-color silhouetteText title-small text-medium-nb slds-p-left_small"
+                        ><span>{label.ForgotPassword}</span></a
+                    >
+                </div>
+                <!-- </div> -->
+            </div>
+            <div class="slds-col slds-var-p-top_small">
+                <button class="silButton silButtonFull capital" onclick={handleLogin}>{label.LogIn}</button>
+            </div>
+            <!-- Added as part of BS-2004 -->
+            <!-- Start : BS-2018 removed check of silhouette store -->
+            <div>
+                <!-- End: BS-2018 removed check of silhouette store -->
+                <div class="slds-p-top_xx-large slds-p-bottom_large">
+                    <span class="not-registered">{label.notRegisteredYet}</span>
+                    <a class="slds-p-left_small register-here-link" onclick={registerRedirect}>{label.registerHere}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

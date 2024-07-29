@@ -1,0 +1,48 @@
+.category-tree-section,
+.facets-section {
+    border-top-style: solid;
+    border-color: var(--dxp-g-neutral);
+    border-width: var(--dxp-s-form-element-width-border, 1px);
+}
+.filters-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.filters-title {
+    font-weight: var(--dxp-c-strong-text-weight, 700);
+}
+.clear-all {
+    align-self: flex-end;
+}
+
+.facet-container {
+    display: grid;
+    gap: 20px;
+    padding-top: 40px;
+}
+
+/* For desktop view: 5 columns */
+@media screen and (min-width: 1200px) {
+    .facet-container {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr); /* Five columns */
+        gap: 10px;
+    }
+}
+
+/* For medium-sized devices: 3 columns */
+@media screen and (max-width: 1199px) and (min-width: 768px) {
+    .facet-container {
+        grid-template-columns: repeat(1, 1fr); /* Three columns */
+        padding-top: 50px;
+    }
+}
+
+/* For small devices or mobile: 1 column */
+@media screen and (max-width: 767px) {
+    .facet-container {
+        grid-template-columns: repeat(1, 1fr); /* One column */
+        padding-top: 50px;
+    }
+}

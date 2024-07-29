@@ -1,0 +1,10 @@
+.switcher-button {
+    top: -14px !important;
+    background: transparent !important;
+    --slds-c-input-color-background: transparent !important;
+    --slds-c-button-brand-text-color: #fff !important;
+}
+
+.languageValue {
+    color: white !important;
+}

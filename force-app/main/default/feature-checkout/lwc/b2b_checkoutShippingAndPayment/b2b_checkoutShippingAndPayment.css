@@ -1,0 +1,122 @@
+table {
+}
+table td {
+    width: 30%;
+    padding: 10px 0px 10px 10px;
+    border-bottom: solid 1px #d8d8d8;
+    font-size: 16px;
+    font-weight: 500;
+    max-width: 200px !important;
+    display: table-cell;
+}
+
+table td:last-child {
+    font-size: 16px;
+    font-weight: 300 !important;
+}
+
+.titlePadding {
+    padding: 25px 0px 10px;
+}
+
+.title {
+    font-size: 16px;
+    font-weight: 500;
+}
+.description {
+    font-size: 16px;
+    font-weight: 300;
+}
+.border-bottom {
+    border-bottom: solid 1px #d8d8d8;
+}
+
+/*Start BS-488*/
+.helptext {
+    font-size: smaller;
+    margin-left: 1%;
+}
+.tooltip {
+    position: relative;
+    display: inline-block;
+}
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 350px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    padding: 2px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 120%;
+    right: -880%;
+    font-size: 12px;
+    font-weight: 300;
+}
+.tooltip .tooltiptext::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: black transparent transparent transparent;
+}
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+}
+.infoicon {
+    width: 15px !important;
+    transition: transform 0.2s;
+    cursor: pointer;
+}
+/*End BS-488*/
+
+.uppercase {
+    text-transform: uppercase;
+}
+
+.width {
+    max-width: 300px;
+}
+
+@media screen and (max-width: 480px) {
+    .mb-center {
+        text-align: center;
+        display: grid;
+        margin: 10px auto;
+    }
+}
+
+/*Added as a part of BS-488*/
+@media screen and (max-width: 480px) {
+    .tooltip .tooltiptext {
+        visibility: hidden;
+        width: 215px;
+        background-color: black;
+        color: #fff;
+        text-align: center;
+        padding: 2px 0;
+        position: absolute;
+        z-index: 1;
+        bottom: 120%;
+        right: -142px;
+        font-size: 12px;
+        font-weight: 300;
+        margin-right: 130px;
+    }
+
+    .tooltip .tooltiptext::after {
+        content: '';
+        position: absolute;
+        top: 100%;
+        left: 91%;
+        margin-left: -5px;
+        border-width: 5px;
+        border-style: solid;
+        border-color: black transparent transparent transparent;
+    }
+}
+/*END BS-488*/

@@ -1,0 +1,179 @@
+<template>
+    <!-- NBD2C-29 : Loader Component - START  -->
+    <div class="loader" if:false={_dataLoaded}>
+        <lightning-spinner alternative-text={_loadingLabel} class="slds-is-fixed slds-align_absolute-center spinnerStyling" id="lightningSpinner" size="large">
+        </lightning-spinner>
+    </div>
+    <!-- NBD2C-29 : Loader Component - END  -->
+
+    <!-- NBD2C-29 : Implementation of Dynamic Product Card : Start -->
+    <template if:true={_initialLoadComplete}>
+        <!-- NBD2C-29 : Product Card Container Section : Start -->
+        <div class="slds-is-relative productCardContainerStyling" onmouseover={handleMouseOver} onmouseout={handleMouseOut}>
+            <template for:each={_productDetailsCollection.products} for:item="slide">
+                <div key={slide.index} class={slide.stylingClass} data-id={slide.index} id={slide.index}>
+                    <!-- NBD2C-29 : Product Card With Product Image Section : Start -->
+                    <div class={_productImageContainerStyling}>
+                        <!-- NBD2C-29 : Product Title and Subtitle Section : Start -->
+                        <div class="productTitleAndHeaderSectionStyling slds-grid slds-wrap">
+                            <span class="slds-col slds-size_10-of-12 slds-medium-size_10-of-12 slds-large-size_10-of-12">
+                                <!-- NBD2C-29 : Product Title Section : Start -->
+                                <div class="productTitleStyling">
+                                    <span>{slide.title}</span>
+                                </div>
+                                <!-- NBD2C-29 : Product Title Section : End -->
+
+                                <!-- NBD2C-29 : Product Subtitle Section : Start -->
+                                <div class="productSubTitleStyling">{slide.subtitle}</div>
+                                <!-- NBD2C-29 : Product Subtitle Section : End -->
+                            </span>
+
+                            <!-- NBD2C-29 : Virtual Try On Section : Start -->
+                            <span class="slds-col slds-size_2-of-12 slds-medium-size_2-of-12 slds-large-size_2-of-12 virtualTryOnSection">
+                                <div class="virtualTryOnLogoContainerStyling">
+                                    <img src={_virtualTryOnLogoBlack} class="virtualTryOnLogoStyling" />
+                                </div>
+                            </span>
+                            <!-- NBD2C-29 : Virtual Try On Section : End -->
+                        </div>
+                        <!-- NBD2C-29 : Product Title and Subtitle Section : End -->
+
+                        <!-- NBD2C-29 : Product Image Section : Start -->
+                        <div class={_applicableImageStyling}>
+                            <img class="productImageStyling" src={slide.image} data-id={slide.index} key={slide.index} />
+                        </div>
+                        <!-- NBD2C-29 : Product Image Section : End -->
+
+                        <!-- NBD2C-29 : Product Variations in form of color bubbles & Prices Section : Start -->
+                        <div if:false={_hideNavigationDots} class="productVariationsContainer">
+                            <div class="productVariationsAndPricingSectionStyling slds-grid slds-wrap">
+                                <!-- NBD2C-29 : Product Variations in form of color bubbles Section : Start -->
+                                <span class="variationsStyling slds-col slds-size_7-of-12 slds-medium-size_7-of-12 slds-large-size_8-of-12">
+                                    <template for:each={_productDetailsCollection.products} for:item="slide">
+                                        <span
+                                            key={slide.index}
+                                            class={slide.colorBubbleClass}
+                                            style={slide.colorBubble}
+                                            data-id={slide.index}
+                                            onclick={showSlide}
+                                        ></span>
+                                    </template>
+                                </span>
+                                <!-- NBD2C-29 : Product Variations in form of color bubbles Section : End -->
+
+                                <!-- NBD2C-29 : Product pricing Section : Start -->
+                                <span
+                                    if:true={slide.applicablePrice}
+                                    class="pricingStyling slds-col slds-size_5-of-12 slds-medium-size_5-of-12 slds-large-size_4-of-12"
+                                >
+                                    <span key={slide.index} class="priceArea">
+                                        <lightning-formatted-number
+                                            value={slide.applicablePrice}
+                                            format-style="currency"
+                                            currency-code={_currencyISOCode}
+                                            maximum-fraction-digits={_maximumDisplaybleDecimals}
+                                            currency-display-as="code"
+                                        >
+                                        </lightning-formatted-number>
+                                    </span>
+                                </span>
+                                <!-- NBD2C-29 : Product pricing Section : End -->
+                            </div>
+                        </div>
+                        <!-- NBD2C-29 : Product Variations in form of color bubbles & Prices Section : End -->
+
+                        <!-- NBD2C-29 : Explore More Button For Non-Desktop Devices Section : Start -->
+                        <div if:false={_isDesktopDevice} class="exploreButtonContainer">
+                            <button class="exploreMoreButton" data-id={slide.id} onclick={handleExploreMore}>{labels.exploreMoreButtonLabel}</button>
+                        </div>
+                        <!-- NBD2C-29 : Explore More Button For Non-Desktop Devices Section : End -->
+                    </div>
+                    <!-- NBD2C-29 : Product Card With Product Image Section : End -->
+
+                    <!-- NBD2C-29 : Product Card With Model Image Section (For Desktop Only as it's get activated on Hover) : Start -->
+                    <div class={_productModelImageContainerStyling}>
+                        <!-- NBD2C-29 : Showing Title and Subtitle in white color if model image is available - Start -->
+                        <div
+                            if:true={_modelImageSourceURL}
+                            class="productTitleAndHeaderSectionStyling productTitleAndHeaderSectionWithModelImageStyling slds-grid slds-wrap"
+                        >
+                            <!-- NBD2C-29 : Product Title and Subtitle with Model Image Section : Start -->
+                            <span class="slds-col slds-size_10-of-12 slds-medium-size_10-of-12 slds-large-size_10-of-12 section-left">
+                                <div class="productTitleStyling">
+                                    <span>{slide.title}</span>
+                                </div>
+                                <div class="productSubTitleStyling">{slide.subtitle}</div>
+                            </span>
+                            <!-- NBD2C-29 : Product Title and Subtitle with Model Image Section : End -->
+
+                            <!-- NBD2C-29 : Virtual try on with Model Image Section : Start -->
+                            <span class="slds-col slds-size_2-of-12 slds-medium-size_2-of-12 slds-large-size_2-of-12 virtualTryOnSection">
+                                <div class="virtualTryOnLogoContainerStyling">
+                                    <img src={_virtualTryOnLogoWhite} class="virtualTryOnLogoStyling" />
+                                </div>
+                            </span>
+                            <!-- NBD2C-29 : Virtual try on with Model Image Section : End -->
+                        </div>
+                        <!-- NBD2C-29 : Showing Title and Subtitle in white color if model image is available - End -->
+
+                        <!-- NBD2C-29 : Showing Title and Subtitle in black color if model image is not available - Start -->
+                        <div if:false={_modelImageSourceURL} class="productTitleAndHeaderSectionStyling slds-grid slds-wrap">
+                            <span class="slds-col slds-size_10-of-12 slds-medium-size_10-of-12 slds-large-size_10-of-12">
+                                <!-- NBD2C-29 : Product Title Section : Start -->
+                                <div class="productTitleStyling">
+                                    <span>{slide.title}</span>
+                                </div>
+                                <!-- NBD2C-29 : Product Title Section : End -->
+
+                                <!-- NBD2C-29 : Product Subtitle Section : Start -->
+                                <div class="productSubTitleStyling">{slide.subtitle}</div>
+                                <!-- NBD2C-29 : Product Subtitle Section : End -->
+                            </span>
+
+                            <!-- NBD2C-29 : Virtual Try On Section : Start -->
+                            <span class="slds-col slds-size_2-of-12 slds-medium-size_2-of-12 slds-large-size_2-of-12 virtualTryOnSection">
+                                <div class="virtualTryOnLogoContainerStyling">
+                                    <img src={_virtualTryOnLogoBlack} class="virtualTryOnLogoStyling" />
+                                </div>
+                            </span>
+                            <!-- NBD2C-29 : Virtual Try On Section : End -->
+                        </div>
+                        <!-- NBD2C-29 : Showing Title and Subtitle in black color if model image is not available - End -->
+
+                        <!-- NBD2C-29 : Model Image Section : Start -->
+                        <div class="modelImage">
+                            <!-- NBD2C-29 : Showing model image if available - Start -->
+                            <img
+                                if:true={_modelImageSourceURL}
+                                class="model-image"
+                                src={_modelImageSourceURL}
+                                data-id={slide.id}
+                                key={slide.index}
+                                style={maxHeight}
+                            />
+                            <!-- NBD2C-29 : Showing model image if available - End -->
+
+                            <!-- NBD2C-29 : Showing product image if model image is not available - Start -->
+                            <img if:false={_modelImageSourceURL} class="productImageStyling" src={slide.image} data-id={slide.index} key={slide.index} />
+                            <!-- NBD2C-29 : Showing product image if model image is not available - End -->
+
+                            <div if:true={_modelImageSourceURL} class="button-container">
+                                <button class="exploreMoreButton" data-id={slide.id} onclick={handleExploreMore}>{labels.exploreMoreButtonLabel}</button>
+                            </div>
+
+                            <div if:false={_modelImageSourceURL} class="button-container">
+                                <button class="additionalExploreMoreButton exploreMoreButton" data-id={slide.id} onclick={handleExploreMore}>
+                                    {labels.exploreMoreButtonLabel}
+                                </button>
+                            </div>
+                        </div>
+                        <!-- NBD2C-29 : Model Image Section : End -->
+                    </div>
+                    <!-- NBD2C-29 : Product Card With Model Image Section : End -->
+                </div>
+            </template>
+        </div>
+        <!-- NBD2C-29 : Product Card Container Section : End -->
+    </template>
+    <!-- NBD2C-29 : Implementation of Dynamic Product Card : End -->
+</template>

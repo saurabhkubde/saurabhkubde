@@ -1,0 +1,450 @@
+<template>
+    <div if:true={_ShowFeaturerdProducts}>
+        <!-- For Silhouette Store -->
+        <div if:false={cartPage}>
+            <template if:true={showLoadingSpinner}>
+                <lightning-spinner alternative-text={labels.component.altPleaseWait} size="medium"></lightning-spinner>
+            </template>
+        </div>
+        <div class="slds-var-p-around_none featured-spare-parts-wrap" if:true={hasProducts}>
+            <template if:true={showHeading}>
+                <div class="slds-grid slds-gutters container">
+                    <div class="slds-col">
+                        <div class="slds-var-m-bottom_small">
+                            <div if:false={cartPage} class="slds-text-align_center">
+                                <h2 style={headingColor}>{featuredProductsHeading}</h2>
+                            </div>
+                            <div if:true={cartPage} class="slds-text-align_center slds-p-top_xx-large">
+                                <h2>{featureHeaderLabel}</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </template>
+
+            <!-- TILED -->
+            <template if:true={isTiled}>
+                <c-b2b_add-to-cart-modal cart-item-id={_cartItemId}></c-b2b_add-to-cart-modal>
+                <!-- BS-1562 Added cart-item-id={_cartItemId} -->
+                <div class="slds-grid slds-grid_align-center slds-wrap slds-gutters container featuredProductsContainer tiled">
+                    <template for:each={products} for:item="product">
+                        <div class="tile-column slds-col" key={product.id}>
+                            <article class="slds-card highlightedProducts" style={cardStyles}>
+                                <div class="slds-card__body slds-card__body_inner">
+                                    <!-- IMAGE -->
+                                    <div class="featuredProdImage" style={imageContainerHeight}>
+                                        <a href={product.productLink} class="slds-align_absolute-center" data-sku={product.fields.StockKeepingUnit.value}>
+                                            <img
+                                                id={product.defaultImage.id}
+                                                src={product.defaultImage.url}
+                                                alt={product.defaultImage.title}
+                                                style={imageMaxHeight}
+                                                data-sku={product.fields.StockKeepingUnit.value}
+                                            />
+                                        </a>
+                                    </div>
+
+                                    <div class={bodyAlignment}>
+                                        <div class={bodySize}>
+                                            <!-- Start BS-882 -->
+                                            <div>
+                                                <div if:true={product.isEvilEyeLens}>
+                                                    <a key={product.id} href={product.productLink} data-sku={product.fields.StockKeepingUnit.value}>
+                                                        <div if:true={product.modelNumber} key={product.modelNumber} class="productModel">
+                                                            <span
+                                                                ><b
+                                                                    ><lightning-formatted-text
+                                                                        title={product.modelNumber}
+                                                                        value={product.modelNumber}
+                                                                        class="productModel"
+                                                                    ></lightning-formatted-text></b
+                                                            ></span>
+                                                        </div>
+                                                        <div if:true={product.fields.Name.value} key={product.fields.Name.value}>
+                                                            <span
+                                                                ><b
+                                                                    ><lightning-formatted-text
+                                                                        title={product.fields.Name.value}
+                                                                        value={product.fields.Name.value}
+                                                                        class="font-16"
+                                                                    ></lightning-formatted-text></b
+                                                            ></span>
+                                                        </div>
+                                                        <div
+                                                            if:true={product.fields.B2B_Frame_Color_Description__c.value}
+                                                            key={product.fields.B2B_Frame_Color_Description__c.value}
+                                                        >
+                                                            <span
+                                                                ><b
+                                                                    ><lightning-formatted-text
+                                                                        title={product.fields.B2B_Frame_Color_Description__c.value}
+                                                                        value={product.fields.B2B_Frame_Color_Description__c.value}
+                                                                        class="font-16"
+                                                                    ></lightning-formatted-text></b
+                                                            ></span>
+                                                        </div>
+                                                        <div
+                                                            if:true={product.fields.B2B_Design_Family__c.value}
+                                                            key={product.fields.B2B_Design_Family__c.value}
+                                                            class="slds-align_absolute-left"
+                                                        >
+                                                            <span
+                                                                ><lightning-formatted-text
+                                                                    title={product.fields.B2B_Design_Family__c.value}
+                                                                    value={product.fields.B2B_Design_Family__c.value}
+                                                                    class="font-13-300"
+                                                                ></lightning-formatted-text
+                                                            ></span>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                                <div if:false={product.isEvilEyeLens}>
+                                                    <!-- NAME-->
+                                                    <div class="featuredProdNameSH featuredProdName-NB">
+                                                        <span
+                                                            ><b
+                                                                ><lightning-formatted-text
+                                                                    title={product.fields.Name.value}
+                                                                    value={product.fields.Name.value}
+                                                                    class="font-16"
+                                                                ></lightning-formatted-text></b
+                                                        ></span>
+                                                    </div>
+
+                                                    <!-- Model Number -->
+                                                    <span class="attribute-details">
+                                                        <template if:true={showModelNumber}>
+                                                            <div class="featuredProdModelNumber">
+                                                                <p if:true={product.modelNumber} class="featuredProdModelNumber arial-font">
+                                                                    <span
+                                                                        ><b
+                                                                            ><lightning-formatted-text
+                                                                                title={product.modelNumber}
+                                                                                value={product.modelNumber}
+                                                                                class="productModel"
+                                                                            ></lightning-formatted-text></b
+                                                                    ></span>
+                                                                </p>
+                                                                <p if:false={product.modelNumber} class="featuredProdModelNoNumber"></p>
+                                                            </div>
+                                                        </template>
+                                                        <!--Start BS-755-->
+                                                        <template if:true={product.b2bDesignFamily}>
+                                                            <div class="featuredProdModelNumber">
+                                                                <p
+                                                                    if:true={product.b2bDesignFamily}
+                                                                    class="featuredProdModelNumber arial-font display-collection-family"
+                                                                >
+                                                                    <span
+                                                                        ><b
+                                                                            ><lightning-formatted-text
+                                                                                title={product.b2bDesignFamily}
+                                                                                value={product.b2bDesignFamily}
+                                                                                class="productDesignFamily"
+                                                                            ></lightning-formatted-text></b
+                                                                    ></span>
+                                                                </p>
+                                                                <p if:false={product.b2bDesignFamily} class="featuredProdModelNoNumber"></p>
+                                                            </div>
+                                                        </template>
+                                                    </span>
+                                                    <!--End BS-755-->
+                                                </div>
+                                            </div>
+                                            <!-- End BS-882 -->
+                                            <!-- SKU -->
+                                            <template if:true={showSKU}>
+                                                <div class="slds-var-m-vertical_xx-small featuredProdSKU slds-p-horizontal_small" style={skuColor}>
+                                                    <p if:true={product.fields.StockKeepingUnit.value} style={skuColor}>
+                                                        {skuLabel}: {product.fields.StockKeepingUnit.value}
+                                                    </p>
+                                                    <p if:false={product.fields.StockKeepingUnit.value} style={skuColor}></p>
+                                                </div>
+                                            </template>
+
+                                            <!-- DESCRIPTION -->
+                                            <template if:true={showDescription}>
+                                                <div class="slds-var-m-vertical_xx-small featuredProdDescription black-color">
+                                                    <p style={descriptionColor}>{product.fields.Description.value}</p>
+                                                </div>
+                                            </template>
+
+                                            <!-- PRICE -->
+                                            <div if:false={hidePurchasePriceField}>
+                                                <template if:true={includePrices}>
+                                                    <!-- BS-925 -->
+                                                    <!--BS-1951-->
+                                                    <div class="featuredProdPrice" style={priceColor} if:true={product.priceAvailable}>
+                                                        <span class="slds-var-m-right_xx-small">
+                                                            <s>
+                                                                <!--BS-1245 : Added currency-code={_applicableCurrencyCode} -->
+                                                                <lightning-formatted-number
+                                                                    value={product.prices.listPrice}
+                                                                    format-style="currency"
+                                                                    currency-code={_applicableCurrencyCode}
+                                                                    currency-display-as="symbol"
+                                                                    class="fontStyling"
+                                                                >
+                                                                </lightning-formatted-number>
+                                                            </s>
+                                                        </span>
+
+                                                        <span class="calculatedPrice">
+                                                            <b>
+                                                                <!--BS-1245 : Added currency-code={_applicableCurrencyCode} -->
+                                                                <div if:true={product.isFreeProduct}>{freeOfChargeLabel}</div>
+                                                                <div if:false={product.isFreeProduct}>
+                                                                    <lightning-formatted-number
+                                                                        value={product.prices.unitPrice}
+                                                                        format-style="currency"
+                                                                        currency-code={_applicableCurrencyCode}
+                                                                        currency-display-as="symbol"
+                                                                        class="fontStyling"
+                                                                    >
+                                                                    </lightning-formatted-number>
+                                                                </div>
+                                                            </b>
+                                                        </span>
+                                                    </div>
+                                                    <!-- BS-925 -->
+                                                    <!--BS-1951-->
+                                                    <div class="featuredProdPrice" style={priceColor} if:false={product.priceAvailable}>
+                                                        <span class="slds-text-heading_small slds-p-top_xx-small slds-p-bottom_xx-small black-color">
+                                                            <div class="tooltip">
+                                                                <span class="text">{priceUnavailableTitle}</span>
+                                                                <span>{unavailablePrice}</span>
+                                                            </div>
+                                                        </span>
+                                                    </div>
+                                                </template>
+                                            </div>
+
+                                            <div class="price-button-wrap">
+                                                <template if:true={showAddtoCartButton}>
+                                                    <div class="input-group slds-text-align_center">
+                                                        <table class="quantity-wrap">
+                                                            <tr>
+                                                                <td>
+                                                                    <input
+                                                                        type="button"
+                                                                        value="-"
+                                                                        class="button-minus"
+                                                                        data-field="quantity"
+                                                                        data-id={product.id}
+                                                                        onclick={quantityDecrease}
+                                                                    />
+                                                                </td>
+                                                                <td>
+                                                                    <input
+                                                                        type="number"
+                                                                        step="1"
+                                                                        max="9999"
+                                                                        min="1"
+                                                                        value="1"
+                                                                        name="quantity"
+                                                                        class="quantity-field"
+                                                                        data-field={product.id}
+                                                                        onblur={handleQuantityChange}
+                                                                    />
+                                                                </td>
+                                                                <td>
+                                                                    <input
+                                                                        type="button"
+                                                                        value="+"
+                                                                        class="button-plus"
+                                                                        data-field="quantity"
+                                                                        data-id={product.id}
+                                                                        onclick={quantityIncrease}
+                                                                    />
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </div>
+
+                                                    <div>
+                                                        <button
+                                                            class="slds-button_brand silButton capital silButtonFull slds-p-left_none slds-p-right_none"
+                                                            data-id={product.id}
+                                                            disabled={product.productDisable}
+                                                            onclick={handleAction}
+                                                        >
+                                                            {cartLabel}
+                                                        </button>
+                                                    </div>
+                                                </template>
+                                            </div>
+                                            <!-- SHOW BUTTON -->
+
+                                            <!-- Updated as a Part of BS-692 -->
+
+                                            <template if:true={showMoreButton}>
+                                                <div class="slds-p-vertical_small sh-eelink">
+                                                    <a
+                                                        class="silButton silButtonFull capital linkButton arial-font"
+                                                        href={product.productLink}
+                                                        data-sku={product.fields.StockKeepingUnit.value}
+                                                        >{labels.component.buttonLabel}</a
+                                                    >
+                                                </div>
+                                            </template>
+                                        </div>
+                                    </div>
+                                </div>
+                            </article>
+                        </div>
+                    </template>
+                </div>
+            </template>
+
+            <!-- STACKED -->
+            <template if:true={isStacked}>
+                <div class="slds-grid slds-wrap slds-gutters container featuredProductsContainer stacked">
+                    <template for:each={products} for:item="product">
+                        <div class="slds-col slds-size_1-of-1" key={product.id}>
+                            <div class="slds-box" style={cardStyles}>
+                                <div class="slds-grid slds-wrap">
+                                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3">
+                                        <!-- IMAGE -->
+                                        <div class="featuredProdImage">
+                                            <a href={product.productLink} class="slds-align_absolute-center" data-sku={product.fields.StockKeepingUnit.value}>
+                                                <img
+                                                    id={product.defaultImage.id}
+                                                    src={product.defaultImage.url}
+                                                    alt={product.defaultImage.title}
+                                                    data-sku={product.fields.StockKeepingUnit.value}
+                                                />
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                    <div class="slds-col slds-size_1-of-1 slds-medium-size_2-of-3">
+                                        <div class={bodyAlignment}>
+                                            <div class={bodySize}>
+                                                <!-- NAME-->
+                                                <div class="slds-var-m-vertical_small featuredProdName">
+                                                    <div class="slds-text-heading_small black-color">
+                                                        <a href={product.productLink} data-sku={product.fields.StockKeepingUnit.value}>
+                                                            {product.fields.Name.value}
+                                                        </a>
+                                                    </div>
+                                                </div>
+
+                                                <!-- SKU -->
+                                                <template if:true={showSKU}>
+                                                    <div class="slds-var-m-vertical_small featuredProdSKU">
+                                                        <p style={skuColor}>{product.fields.StockKeepingUnit.value}</p>
+                                                    </div>
+                                                </template>
+
+                                                <!-- DESCRIPTION -->
+                                                <template if:true={showDescription}>
+                                                    <div class="slds-var-m-vertical_small featuredProdDescription black-color">
+                                                        <p style={descriptionColor}>{product.fields.Description.value}</p>
+                                                    </div>
+                                                </template>
+
+                                                <!-- PRICE -->
+                                                <template if:true={includePrices}>
+                                                    <div class="featuredProdPrice" style={priceColor} if:true={product.prices}>
+                                                        <span class="slds-var-m-right_xx-small slds-text-body_small basePrice">
+                                                            <s>
+                                                                <!--BS-1245 : Added currency-code={_applicableCurrencyCode} -->
+                                                                <lightning-formatted-number
+                                                                    value={product.prices.listPrice}
+                                                                    format-style="currency"
+                                                                    currency-code={_applicableCurrencyCode}
+                                                                    currency-display-as="symbol"
+                                                                >
+                                                                </lightning-formatted-number>
+                                                            </s>
+                                                        </span>
+
+                                                        <span class="calculatedPrice">
+                                                            <b>
+                                                                <!--BS-1245 : Added currency-code={_applicableCurrencyCode} -->
+                                                                <div if:true={product.isFreeProduct}>{freeOfChargeLabel}</div>
+                                                                <div if:false={product.isFreeProduct}>
+                                                                    <lightning-formatted-number
+                                                                        value={product.prices.unitPrice}
+                                                                        format-style="currency"
+                                                                        currency-code={_applicableCurrencyCode}
+                                                                        currency-display-as="symbol"
+                                                                    >
+                                                                    </lightning-formatted-number>
+                                                                </div>
+                                                            </b>
+                                                        </span>
+                                                    </div>
+                                                </template>
+                                                <template if:true={showAddtoCartButton}>
+                                                    <div class="input-group slds-text-align_center">
+                                                        <input
+                                                            type="button"
+                                                            value="-"
+                                                            class="button-minus"
+                                                            data-field="quantity"
+                                                            data-id={product.id}
+                                                            onclick={quantityDecrease}
+                                                        />
+                                                        <input
+                                                            type="number"
+                                                            step="1"
+                                                            max="9999"
+                                                            min="1"
+                                                            value="1"
+                                                            name="quantity"
+                                                            class="quantity-field"
+                                                            data-field={product.id}
+                                                            onblur={handleQuantityChange}
+                                                        />
+                                                        <input
+                                                            type="button"
+                                                            value="+"
+                                                            class="button-plus"
+                                                            data-field="quantity"
+                                                            data-id={product.id}
+                                                            onclick={quantityIncrease}
+                                                        />
+                                                    </div>
+                                                    <div>
+                                                        <button
+                                                            class="slds-button_brand slds-button_stretch commerce-button add-to-cart-button-feature-product"
+                                                            data-id={product.id}
+                                                            disabled={product.productDisable}
+                                                            onclick={handleAction}
+                                                        >
+                                                            {cartLabel}
+                                                        </button>
+                                                    </div>
+                                                    <c-b2b_add-to-cart-modal cart-item-id={_cartItemId}></c-b2b_add-to-cart-modal>
+                                                    <!-- BS-1562 Added cart-item-id={_cartItemId} -->
+                                                </template>
+                                                <!-- SHOW BUTTON -->
+                                                <template if:true={showMoreButton}>
+                                                    <div class="slds-p-top_small">
+                                                        <a
+                                                            class="slds-button slds-button_neutral slds-button_stretch"
+                                                            href={product.productLink}
+                                                            data-sku={product.fields.StockKeepingUnit.value}
+                                                            >{labels.component.buttonLabel}</a
+                                                        >
+                                                    </div>
+                                                </template>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+            </template>
+
+            <template if:false={hasProducts}>
+                <div class={headingAlignment}>
+                    <div class={headingSize}>{labels.component.noProducts}</div>
+                </div>
+            </template>
+        </div>
+    </div>
+</template>

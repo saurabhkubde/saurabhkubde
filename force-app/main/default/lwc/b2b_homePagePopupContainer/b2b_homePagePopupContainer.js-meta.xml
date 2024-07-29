@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>57.0</apiVersion>
+    <isExposed>true</isExposed>
+    <masterLabel>B2B Home Page Popup Container</masterLabel>
+    <targets>
+        <target>lightningCommunity__Default</target>
+        <target>lightningCommunity__Page</target>
+        <target>lightning__AppPage</target>
+        <target>lightning__RecordPage</target>
+        <target>lightning__HomePage</target>
+      </targets>
+    <targetConfigs>
+        <targetConfig targets="lightningCommunity__Default">
+            <property
+                name="effectiveAccountId"
+                type="String"
+                label="Effective Account Id"
+                description="The ID of the account under which the user is acting"
+                default="{!CurrentUser.effectiveAccountId}"
+            />
+            <property
+                name="pageSource"
+                label="Page Source"
+                description="Defines on which the component is placed"
+                type="String"
+                datasource="Home Page,Cart Page"
+                default="Home Page"
+            />
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

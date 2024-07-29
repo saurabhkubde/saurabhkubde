@@ -1,0 +1,92 @@
+<template>
+    <!--Lightning Accordion Section-->
+    <lightning-accordion
+        class="slds-border_top"
+        allow-multiple-sections-open
+        name="radiobutton"
+        active-section-name={allFilters}
+        onsectiontoggle={handleSectionToggle}
+    >
+        <lightning-accordion-section
+            name={filters.availableFilters.sourceProductField}
+            label={filters.availableFilters.fieldName}
+            title={filters.availableFilters.fieldName}
+            active="true"
+        >
+            <!--Slider Filter Section-->
+            <div slider id="slider-distance" class="sample">
+                <!--Double handle Slider Styling Section-->
+                <div if:true={_secondHandle}>
+                    <!--Double handle Slider track Section-->
+                    <div inverse-left style={_inverseLeftStylingAttribute}></div>
+                    <div inverse-right style={_inverseRightStylingAttribute}></div>
+                    <div range style={_rangeStylingAttribute}></div>
+
+                    <!--Dual handles of Slider-->
+                    <span thumb style={_thumbLeftStylingAttribute}></span>
+                    <span thumb style={_thumbRightStylingAttribute}></span>
+
+                    <!--On hover, Selected left handle values-->
+                    <div sign style={_signLeftStylingAttribute}>
+                        <span id="value1">{_sliderLeftHandleValue}</span>
+                    </div>
+
+                    <!--On hover, Selected right handle values-->
+                    <div sign style={_signRightStylingAttribute}>
+                        <span id="value">{_sliderRightHandleValue}</span>
+                    </div>
+                </div>
+
+                <!--Single handle Slider Styling Section-->
+                <div if:false={_secondHandle}>
+                    <!--Single handle Slider track Section-->
+                    <div inverse-left style={_inverseLeftStylingAttribute}></div>
+                    <div inverse-right style={_inverseRightStylingAttribute}></div>
+                    <div range style={_rangeStylingAttribute}></div>
+
+                    <!--Single handles of Slider-->
+                    <span thumb style={_thumbRightStylingAttribute}></span>
+
+                    <!--On hover, Selected right handle values-->
+                    <div sign style={_signRightStylingAttribute}>
+                        <span id="value3">{_sliderRightHandleValue}</span>
+                    </div>
+                </div>
+
+                <!-- Double Handle Slider-->
+                <input
+                    if:true={_secondHandle}
+                    type="range"
+                    value={_sliderLeftHandleValue}
+                    max={_sliderMaximumRangeValue}
+                    min={_sliderMinimumRangeValue}
+                    step={_sliderIncrementValue}
+                    data-name="doubleHandleSlider"
+                    oninput={handleSliderLeftValueChange}
+                    onmouseup={handleSearchProductOnSliderValueSelection}
+                    ontouchend={handleSearchProductOnSliderValueSelection}
+                />
+                <!-- Single Handle Slider-->
+                <input
+                    type="range"
+                    value={_sliderRightHandleValue}
+                    max={_sliderMaximumRangeValue}
+                    min={_sliderMinimumRangeValue}
+                    step={_sliderIncrementValue}
+                    data-name="singleHandleSlider"
+                    oninput={handleSliderRightValueChange}
+                    onmouseup={handleSearchProductOnSliderValueSelection}
+                    ontouchend={handleSearchProductOnSliderValueSelection}
+                />
+
+                <!--Slider Minimum and Maximum Permissible Range-->
+                <div class="sliderRange">
+                    <span class="sliderLeftValue"> {_sliderMinimumRangeValue} </span>
+                    <span class="sliderRightValue"> {_sliderMaximumRangeValue} </span>
+                </div>
+                <br />
+                <div class="fieldSection">{fieldName}`</div>
+            </div>
+        </lightning-accordion-section>
+    </lightning-accordion>
+</template>

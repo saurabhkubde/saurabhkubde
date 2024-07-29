@@ -1,0 +1,332 @@
+.product-details-label {
+    font-weight: bold;
+    font-size: 18px !important;
+    font-family: 'Adobe Caslon Pro' !important;
+}
+
+.product-details-values {
+    font-size: 18px !important;
+    padding-bottom: 16px;
+    font-family: 'Adobe Caslon Pro' !important;
+    padding-right: 14px;
+}
+
+.product-details-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.slds-accordion__summary-content {
+    font-weight: bold !important;
+    font-size: 20px !important;
+}
+
+.popUpOnSizeIcon {
+    margin: auto;
+    background-color: white;
+    padding: 40px 20px;
+    max-width: 400px;
+}
+
+.popUpOnIncludedIcon {
+    margin: auto;
+    background-color: white;
+    padding: 24px 12px;
+    max-width: 400px;
+    min-width: 280px;
+    min-height: 200px;
+}
+
+.image-alignment img {
+    max-width: 100%;
+}
+
+.border-none .slds-button:focus {
+    border: none !important;
+}
+
+.modal-button {
+    float: right !important;
+    border: 0px !important;
+    margin-right: 10px !important;
+    margin-top: -30px !important;
+}
+
+.modal-button .slds-button {
+    border: none !important;
+}
+
+.modal-button .slds-button_icon-border {
+    border: none !important;
+}
+
+.display-flex {
+    display: inline-flex;
+    flex-direction: row;
+}
+
+.size-popupmessage .slds-modal__container {
+    width: auto !important;
+}
+
+.font-18 {
+    font-size: 16px;
+    margin-left: 3px;
+}
+
+.font-24 {
+    font-size: 24px;
+    letter-spacing: 0.25rem;
+    word-spacing: 0.25rem;
+    margin-bottom: 16px;
+    font-family: 'SweetSansProLight' !important;
+}
+
+.pop-up-text {
+    font-family: 'Adobe Caslon Pro' !important;
+    font-size: 16px;
+}
+
+.fitting-guide {
+    text-decoration: underline !important;
+    font-size: 16px;
+    margin-top: 20px;
+    display: inline-flex;
+    font-family: 'Adobe Caslon Pro' !important;
+    color: #000 !important;
+    cursor: pointer !important;
+}
+
+.slds-modal__close {
+    border: none !important;
+}
+
+.btn-try-on {
+    border: solid 1px #000;
+    width: 100%;
+    padding: 12px 15px;
+    background: none;
+    font-size: 16px;
+}
+
+.btn-try-on:hover {
+    border: solid 1px #000;
+    color: #fff;
+    background-color: #000;
+}
+
+.btn-add-to-cart {
+    border: solid 1px #000;
+    width: 100%;
+    padding: 15px;
+    background: none;
+    font-size: 16px;
+    color: #fff;
+    background-color: #000;
+}
+
+.btn-add-to-cart:hover {
+    border: solid 1px #000;
+    color: #000;
+    background-color: #fff;
+}
+
+.margin-left {
+    margin-left: 10px !important;
+}
+
+.pricing-details-font-style {
+    font-family: 'Adobe Caslon Pro' !important;
+}
+
+.icon-sub-text {
+    font-family: 'Adobe Caslon Pro' !important;
+    margin-top: 7px !important;
+    font-size: 18px;
+}
+
+/*All Icons styling - START*/
+
+.questionIcon-image-size {
+    width: 16px !important;
+    cursor: pointer;
+    margin-bottom: 5px;
+}
+.pop-up-glass-width-icon-size {
+    width: 75px !important;
+    height: 70px !important;
+}
+.pop-up-temple-length-icon-size {
+    width: 90px !important;
+    height: 70px !important;
+}
+.pop-up-bridge-icon-size {
+    width: 100px !important;
+    height: 70px !important;
+}
+
+.deliver-free-icon {
+    width: 25px;
+    margin-right: 27px;
+    margin-top: 7px;
+}
+
+/* END */
+
+.display-deliver-free-info {
+    display: flex;
+    flex-direction: row;
+}
+
+.margin-alignment {
+    margin-top: 15px;
+    margin-bottom: 10px;
+}
+
+.align-margin-right {
+    margin-right: 40px;
+    margin-top: 9px;
+}
+
+.text-style {
+    text-decoration: underline !important;
+    color: black !important;
+}
+
+.text-below-button-alignment {
+    margin-top: 15px !important;
+}
+
+.lens-content-style {
+    font-family: 'Adobe Caslon Pro' !important;
+    font-size: 18px;
+}
+
+.features-content-style {
+    display: flow-root;
+}
+
+.top-alignment {
+    margin-top: -3px !important;
+}
+
+.align-button-margin {
+    margin-bottom: 5px;
+}
+
+/* NBD2C-74 : Styling for disabled button*/
+.disabled-button {
+    opacity: 0.2;
+    cursor: not-allowed;
+}
+
+@media only screen and (max-width: 767px) {
+    .display-flex {
+        display: inline-flex;
+    }
+
+    .alignment-right {
+        width: 50% !important;
+    }
+
+    .product-details-label {
+        font-size: 15px !important;
+    }
+
+    .product-details-values {
+        padding-right: 10px;
+        font-size: 15px !important;
+    }
+
+    .pricing-details {
+        justify-content: center;
+        font-weight: 400 !important;
+        font-size: 24px !important;
+        display: flex;
+        flex-direction: row;
+        font-family: 'Adobe Caslon Pro' !important;
+    }
+
+    .mobile-alignment-center {
+        text-align: center !important;
+    }
+
+    .text-below-button-alignment {
+        margin-top: 10px !important;
+    }
+
+    .questionIcon-image-size {
+        width: 14px !important;
+        cursor: pointer;
+        margin-bottom: 3px;
+    }
+
+    .lens-content-style {
+        font-size: 16px;
+    }
+
+    .top-alignment {
+        margin-top: -2px !important;
+    }
+
+    .align-margin-right {
+        margin-right: 10px;
+    }
+
+    .popUpOnIncludedIcon {
+        min-height: auto;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    .display-flex {
+        display: inline-flex;
+        flex-direction: row;
+    }
+
+    .alignment-right {
+        width: 25% !important;
+    }
+
+    .pricing-details {
+        font-weight: 400 !important;
+        font-size: 28px !important;
+        display: flex;
+        flex-direction: row;
+        font-family: 'Adobe Caslon Pro' !important;
+    }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1024px) {
+    .alignment-right {
+        width: 50% !important;
+    }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 850px) {
+    .align-margin-right {
+        margin-right: 18px;
+    }
+
+    .product-details-values {
+        font-size: 16px !important;
+    }
+}
+
+@media only screen and (max-width: 360px) {
+    .image-alignment {
+        text-align: center !important;
+        margin: auto;
+    }
+
+    .align-container {
+        margin: 12px !important;
+    }
+}
+
+@media screen and (max-height: 600px) and (orientation: landscape) {
+    .image-alignment img {
+        max-height: 170px;
+    }
+}

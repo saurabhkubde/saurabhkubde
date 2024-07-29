@@ -1,0 +1,23 @@
+<template lwc:render-mode="light">
+    <section style={customCssProperties}>
+        <!-- Product Grid - shows results as product cards in a grid  -->
+        <c-d2c_search-product-grid
+            if:true={showData}
+            configuration={resultsConfiguration.layoutConfiguration}
+            display-data={normalizedSearchResults.cardCollection}
+            onshowproduct={handleNavigateToProductPage}
+        ></c-d2c_search-product-grid>
+
+        <!-- Paging Control - paging navigation -->
+        <c-d2c_search-paging-control
+            class="slds-p-top_x-large slds-p-bottom_medium"
+            if:true={showPagingControl}
+            current-page-number={_currentPageNumber}
+            page-size={pageSize}
+            total-item-count={totalItemCount}
+            onpageprevious={handlePreviousPageEvent}
+            onpagenext={handleNextPageEvent}
+            onpagegoto={handleGotoPageEvent}
+        ></c-d2c_search-paging-control>
+    </section>
+</template>

@@ -1,0 +1,74 @@
+<template>
+    <div if:true={_isInitialLoadComplete} class="vs_rx_addToCartContainer">
+        <div class="slds-grid slds-wrap">
+            <div class="slds-col slds-size_1-of-1 slds-medium-size_9-of-12 slds-large-size_12-of-12 mainBody">
+                <div class="headerStyling slds-border_bottom">{_headerLabel}</div>
+
+                <div if:true={schneiderCalloutFailed}>
+                    <div class="error-background">
+                        <lightning-formatted-rich-text value={responseMessage}></lightning-formatted-rich-text>
+                    </div>
+                </div>
+
+                <div class="slds-grid slds-wrap optionsStyling">
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_4-of-12 mainBody">
+                        <lightning-combobox
+                            name={_specialHandlingLabel}
+                            class=""
+                            label={_specialHandlingLabel}
+                            value={_selectedSpecialHandlingOption}
+                            title={_specialHandlingLabel}
+                            options={_specialHandlingOptionsCollection}
+                            onchange={handleSpecialHandingOptionSelection}
+                        ></lightning-combobox>
+                    </div>
+                    <!--BS-1064-->
+                    <div if:true={_isClonedOrder} class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12 notesStyling">
+                        <p><label for={_noteFieldLabel}>{_noteFieldLabel}</label></p>
+                        <input class="textAreaStyling" name={_noteFieldLabel} value={_relatedOrder} variant="label-hidden" disabled />
+                    </div>
+                    <div if:true={_isClonedOrder} class="slds-col slds-size_1-of-1 slds-medium-size_5-of-12 slds-large-size_5-of-12 m-top-20">
+                        <textarea
+                            class="textAreaStyling custom-height"
+                            name={_noteFieldLabel}
+                            rows="1"
+                            cols="5"
+                            value={_userInputForNoteField}
+                            onkeyup={handleUserInput}
+                        >
+                                {_userInputForNoteField}
+                            </textarea
+                        >
+                    </div>
+                    <div if:false={_isClonedOrder} class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_8-of-12 notesStyling">
+                        <p><label for={_noteFieldLabel}>{_noteFieldLabel}</label></p>
+                        <textarea class="textAreaStyling" name={_noteFieldLabel} rows="1" cols="5" value={_userInputForNoteField} onkeyup={handleUserInput}>
+                            {_userInputForNoteField}
+                        </textarea>
+                    </div>
+                </div>
+
+                <div class="slds-col instructionStyling">
+                    <div class="form-group">
+                        <input
+                            type="checkbox"
+                            onclick={handleCustomerServicePreference}
+                            id="customerServicePreference"
+                            data-id="customerServicePreference"
+                            checked={_customerServicePrefernceChoice}
+                        />
+                        <label class="slds-checkbox__label" for="customerServicePreference">
+                            <span class="slds-checkbox_faux"></span>
+                            <span class="slds-form-element__label slds-var-p-around_small">
+                                <lightning-formatted-rich-text class="black-color silhouetteText text-medium-nb" value={_instructionsLabel}>
+                                </lightning-formatted-rich-text>
+                                <span data-tooltip="Tooltips are used to provide information about an element on a web page."></span>
+                                <div class="tooltip"><img class="toolTipStyling" src={alertIcon} /> <span class="text">{_helpTextInstructionLabel}</span></div>
+                            </span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

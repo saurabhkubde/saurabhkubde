@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>B2B_SVS_Customer_Service_Agent__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>Responsible person to handle Customer Service requests for SVS (100%, ee RX) coming from the Partner Portal.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Responsible person to handle Customer Service requests for SVS (100%, ee RX) coming from the Partner Portal.</inlineHelpText>
+    <label>SVS Customer Service Agent</label>
+    <referenceTo>User</referenceTo>
+    <relationshipName>SVS_Customer_Service_Agent</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Lookup</type>
+</CustomField>

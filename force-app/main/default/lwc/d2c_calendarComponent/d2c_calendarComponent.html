@@ -1,0 +1,88 @@
+<template>
+    <!-- NBD2C-96 : Calendar Component Section  - Start -->
+    <div class="container">
+        <!-- NBD2C-96 : Calendar Header Section - Start -->
+        <div class="calendar-header">
+            <!-- NBD2C-96 : Calendar Month - Start -->
+            <div class="calendarMonth">
+                <!-- NBD2C-96 : Back Button Section - Start -->
+                <lightning-icon
+                    icon-name="utility:chevronleft"
+                    size="xx-small"
+                    onclick={handleLeftButtonClick}
+                    class="previousButton"
+                    value={_back}
+                ></lightning-icon>
+
+                <!-- NBD2C-96 : Back Button Section - End -->
+
+                <!-- NBD2C-96 : Month Name Section - Start -->
+                <div class="header-text">{_headerText}</div>
+                <!-- NBD2C-96 : Month Name Section - End -->
+
+                <!-- NBD2C-96 : Next Button Section - Start -->
+                <lightning-icon
+                    icon-name="utility:chevronright"
+                    size="xx-small"
+                    onclick={handleRightButtonClick}
+                    value={_next}
+                    class="nextButton"
+                ></lightning-icon>
+                <!-- NBD2C-96 : Next Button Section - End -->
+            </div>
+            <!-- NBD2C-96 : Calendar Month - End -->
+
+            <!-- NBD2C-96 : Calendar Year Section - Start -->
+            <div class="calendarYear">
+                <!-- NBD2C-96 : Time Slot Options Dispaly Section - Start -->
+                <div class="slds-form-element">
+                    <!-- NBD2C-96 : Time Slots Options Section - Start -->
+                    <div class="slds-form-element__control">
+                        <!-- NBD2C-96 : Select Section - Start -->
+                        <select
+                            id="yearOfCurrentAppointment"
+                            name="yearOfCurrentAppointment"
+                            value={_calendarYear}
+                            onchange={handleCalendarYearChange}
+                            class="year slds-select input select-option"
+                        >
+                            <!-- NBD2C-96 : Display Retailer Time Slots Section - Start -->
+                            <template for:each={calendarYearOptions} for:item="year">
+                                <option key={year.value} value={year.value}>{year.label}</option>
+                            </template>
+                            <!-- NBD2C-96 : Display Retailer Time Slots Section - End -->
+                        </select>
+                        <!-- NBD2C-96 : Select Section - End -->
+                    </div>
+                    <!-- NBD2C-96 : Time Slots Options Section - End -->
+                </div>
+                <!-- NBD2C-96 : Time Slot Options Display Section - End -->
+            </div>
+            <!-- NBD2C-96 : Calendar Year Section - End -->
+        </div>
+        <!-- NBD2C-96 : Calendar Header Section - End -->
+
+        <!-- NBD2C-96 : Calendar Section - Start -->
+        <div class="monthly-calendar">
+            <!-- NBD2C-96 : Weekday Name Container Section - Start -->
+            <template for:each={weekDays} for:item="weekday">
+                <!-- NBD2C-96 : Weekday Name Section - Start -->
+                <span key={weekday} class="current-month">{weekday}</span>
+                <!-- NBD2C-96 : Weekday Name Section - End -->
+            </template>
+            <!-- NBD2C-96 : Weekday Name Container Section - End -->
+
+            <!-- NBD2C-96 : Month Days Section - Start -->
+            <template for:each={_calendarEntries} for:item="calenderDate">
+                <!-- NBD2C-96 : Week Date Section - Start -->
+                <span class={calenderDate.classString} key={calenderDate.key} onclick={handleCalendarEntryClick} data-date={calenderDate.fullDate}>
+                    {calenderDate.date}
+                </span>
+                <!-- NBD2C-96 : Week Date Section - End -->
+            </template>
+            <!-- NBD2C-96 : Month Days Section - End -->
+        </div>
+        <!-- NBD2C-96 : Calendar Section - End -->
+    </div>
+    <!-- NBD2C-96 : Calendar Component Section - End -->
+</template>

@@ -1,0 +1,155 @@
+/* DVM21-32 : Start */
+.dot {
+    height: 16px !important;
+    width: 16px !important;
+    border-radius: 50% !important;
+    cursor: pointer;
+    background-color: #bbb;
+    margin: 0px 8px 0px 0px;
+    display: inline-block;
+}
+
+.active,
+.dot:hover {
+    background-color: #717171;
+    border: 2px solid #fff !important;
+    outline: #000 solid 1.5px;
+    height: 18px !important;
+    width: 18px !important;
+    margin-top: 0px !important;
+    transition: all 0.6s cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+.fade {
+    animation-name: fade;
+    animation-duration: 1.5s;
+}
+
+.sh-search-card :host {
+    display: grid;
+    --card-box-shadow: 'none';
+    --card-border-solid: 'solid 1px #D8D8D8';
+}
+.sh-search-card {
+    transition: transform 0.2s;
+}
+.sh-search-card:hover {
+    box-shadow: var(--card-box-shadow);
+    border: var(--card-border-solid);
+}
+
+.sh-search-card .color-bubbles {
+    display: grid;
+    grid-area: color-bubbles;
+    text-align: center;
+    padding-bottom: 10px;
+}
+
+.sh-search-card .product-name {
+    display: grid;
+    grid-area: product-name;
+    text-align: center;
+    cursor: pointer;
+}
+
+.sh-search-card .productimage {
+    display: grid;
+    grid-area: image-area;
+    padding-top: 5%;
+    padding-bottom: 5%;
+    align-content: space-around;
+    text-align: center;
+    cursor: pointer;
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+    min-height: 160px;
+}
+.sh-search-card .productimage img {
+    max-height: 140px;
+    height: auto;
+    margin: auto;
+}
+
+@media only screen and (max-width: 1023.99px) and (min-width: 767.99px) {
+    .sh-search-card .productimage img {
+        max-width: 100% !important;
+        height: auto;
+        max-height: 140px;
+    }
+}
+
+.sh-search-card .slds-box {
+    border: none !important;
+}
+
+.sh-search-card figure img {
+    width: 100%;
+    top: 50%;
+    cursor: pointer;
+}
+
+.sh-search-card .card-layout-grid {
+    display: grid;
+    border-style: solid;
+    overflow: hidden;
+    grid-template-rows: min-content min-content auto min-content;
+    flex-grow: 1;
+}
+
+.sh-search-card .card-layout-grid figure {
+    /* making the image container 1:1 aspect ratio */
+    position: relative;
+    padding-top: 100%;
+    width: 100%;
+}
+
+.card-layout-grid {
+    display: grid;
+    padding: 0.5rem;
+    border-style: solid;
+    overflow: hidden;
+    grid-template-rows: min-content min-content auto min-content;
+    grid-template-areas:
+        'image-area'
+        'color-bubbles'
+        'product-name';
+    flex-grow: 1;
+}
+
+.card-layout-grid figure {
+    /* making the image container 1:1 aspect ratio */
+    position: relative;
+    padding-top: 100%;
+    width: 100%;
+}
+
+.previous,
+.next {
+    color: black;
+    width: auto;
+    cursor: pointer;
+    width: 10px;
+}
+
+.previous {
+    margin-left: 5px;
+    margin-right: 13px;
+    cursor: pointer;
+}
+
+.next {
+    margin-right: 5px;
+    margin-left: 5px;
+    cursor: pointer;
+}
+
+.product-container {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+}
+
+/* DVM21-32 : End */

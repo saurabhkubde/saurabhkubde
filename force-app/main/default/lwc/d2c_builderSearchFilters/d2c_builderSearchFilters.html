@@ -1,0 +1,24 @@
+<template lwc:render-mode="light">
+    <lightning-spinner
+        if:true={_isLoading}
+        alternative-text={_loadingLabel}
+        class="slds-is-fixed slds-align_absolute-center spinnerStyling"
+        id="lightningSpinner"
+        size="large"
+    ></lightning-spinner>
+
+    <div if:false={_noProductsToShow} class="filterContainer">
+        <c-d2c_search-filters
+            search-results={searchResults}
+            color-metadata={customMetadataColorsMap}
+            category-name-label={_categoryLabel}
+            category-name-description={_categoryNameDescription}
+            onfacetvalueupdate={handleFacetValueUpdateEvent}
+            onclearallfilters={handleClearAllFiltersEvent}
+            oncategoryupdate={handleCategoryUpdateEvent}
+            onfiltervalueselection={handleFilterValueSelection}
+            onopenmodal={handleOpenFiltersModal}
+            onloadedcontent={handleContentLoaded}
+        ></c-d2c_search-filters>
+    </div>
+</template>

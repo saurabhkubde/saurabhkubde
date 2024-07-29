@@ -1,0 +1,17 @@
+.facet-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.facet-name {
+    display: inline-block;
+    align-self: flex-start;
+    font-size: 16px;
+}
+.expand-button {
+    align-self: flex-end;
+}
+
+.facet-body {
+    padding-top: 10px;
+}

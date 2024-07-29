@@ -1,0 +1,352 @@
+<template>
+    <div if:true={isLoginPage} class="slds-text-align_center slds-p-bottom_large slds-m-top_medium">
+        <img src={imageLogo} class="logoImage imageSize" onclick={goBack} />
+    </div>
+    <div if:false={isSilhouetteLogin}>
+        <b>{labels.needHelp}</b>
+    </div>
+    <div if:true={isSilhouetteLogin}>
+        <div class="slds-align_absolute-center loginText slds-m-top_large">{_needHelpH1}</div>
+        <div class="slds-align_absolute-center title-small">{_needHelpH2}</div>
+    </div>
+    <div if:true={isSilhouetteLogin} class="contactCustomerSupport">
+        <lightning-radio-group
+            class="validate radio-combo-inline slds-p-top_large black-color"
+            name="accountBrand"
+            data-name="contactSupportForm"
+            label={labels.brandLabel}
+            options={brandOptions}
+            required="true"
+            onchange={genericOnChange}
+            type="radio"
+        ></lightning-radio-group>
+    </div>
+    <div if:true={isSilhouetteLogin}>
+        <div if:true={isLoginPage}>
+            <div class="slds-grid slds-gutters slds-wrap slds-m-top_small">
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12">
+                    <div class="slds-grid slds-gutters slds-wrap">
+                        <div class="slds-col slds-size_1-of-1 slds-m-bottom_medium">
+                            <lightning-input
+                                type="text"
+                                name="accountNumber"
+                                data-name="contactSupportForm"
+                                label={labels.accountNumber}
+                                onchange={genericOnChange}
+                                required="true"
+                            ></lightning-input>
+                        </div>
+                        <div class="slds-col slds-size_1-of-1 slds-m-bottom_medium">
+                            <lightning-input
+                                type="text"
+                                name="contactName"
+                                data-name="contactSupportForm"
+                                class="validate"
+                                label={labels.contactName}
+                                required="true"
+                                onchange={genericOnChange}
+                            ></lightning-input>
+                        </div>
+                        <div class="slds-col slds-size_1-of-1 slds-m-bottom_medium">
+                            <lightning-input
+                                type="email"
+                                name="accountEmail"
+                                data-name="contactSupportForm"
+                                class="validate"
+                                label={labels.accountEmail}
+                                required="true"
+                                onchange={genericOnChange}
+                            ></lightning-input>
+                        </div>
+                    </div>
+                </div>
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12">
+                    <div class="slds-grid slds-gutters slds-wrap">
+                        <div class="slds-col slds-size_1-of-1 slds-m-bottom_medium">
+                            <lightning-input
+                                type="text"
+                                name="accountName"
+                                data-name="contactSupportForm"
+                                class="validate"
+                                label={labels.accountName}
+                                required="true"
+                                onchange={genericOnChange}
+                            ></lightning-input>
+                        </div>
+                        <div class="slds-col slds-size_1-of-1 slds-m-bottom_medium">
+                            <lightning-input
+                                type="text"
+                                name="phone"
+                                data-name="contactSupportForm"
+                                class="validate"
+                                label={labels.phone}
+                                required="true"
+                                onchange={genericOnChange}
+                            ></lightning-input>
+                        </div>
+                        <div class="slds-col slds-size_1-of-1 slds-m-bottom_medium">
+                            <lightning-combobox
+                                name="storeCountry"
+                                data-name="contactSupportForm"
+                                class="validate"
+                                label={labels.billingCountryLabel}
+                                placeholder={labels.countryPlaceholderLabel}
+                                options={countryOptions}
+                                onchange={genericOnChange}
+                                required={isStoreCountryRequired}
+                            ></lightning-combobox>
+                        </div>
+                    </div>
+                </div>
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12">
+                    <div class="slds-grid slds-gutters slds-wrap">
+                        <div class="slds-col slds-size_1-of-1 slds-m-bottom_medium">
+                            <lightning-combobox
+                                name="request"
+                                data-name="contactSupportForm"
+                                class="validate"
+                                label={labels.selectRequest}
+                                value={value}
+                                required="true"
+                                options={_optionList}
+                                onchange={genericOnChange}
+                            ></lightning-combobox>
+                        </div>
+                        <div class="slds-col slds-size_1-of-1 slds-m-bottom_medium">
+                            <lightning-textarea
+                                class="validate slds-p-bottom_small describeText"
+                                name="requestMessage"
+                                data-name="contactSupportForm"
+                                label={labels.describeRequest}
+                                onchange={genericOnChange}
+                                required
+                            ></lightning-textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div if:false={isLoginPage}>
+            <div class="slds-grid slds-gutters slds-wrap slds-m-top_small">
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12">
+                    <div class="slds-grid slds-gutters slds-wrap">
+                        <div class="slds-col slds-size_1-of-1 slds-m-bottom_medium">
+                            <lightning-input
+                                type="text"
+                                name="contactName"
+                                data-name="contactSupportForm"
+                                class="validate"
+                                label={labels.contactName}
+                                onchange={genericOnChange}
+                            ></lightning-input>
+                        </div>
+                    </div>
+                </div>
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12">
+                    <div class="slds-grid slds-gutters slds-wrap">
+                        <div class="slds-col slds-size_1-of-1 slds-m-bottom_medium">
+                            <lightning-input
+                                type="email"
+                                name="contactEmail"
+                                data-name="contactSupportForm"
+                                label={labels.contactEmail}
+                                onchange={genericOnChange}
+                            ></lightning-input>
+                        </div>
+                    </div>
+                </div>
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12">
+                    <div class="slds-grid slds-gutters slds-wrap">
+                        <div class="slds-col slds-size_1-of-1 slds-m-bottom_medium">
+                            <lightning-combobox
+                                name="request"
+                                data-name="contactSupportForm"
+                                class="validate"
+                                label={labels.selectRequest}
+                                value={value}
+                                options={_optionList}
+                                onchange={genericOnChange}
+                            ></lightning-combobox>
+                        </div>
+                    </div>
+                </div>
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_8-of-12 slds-large-size_8-of-12">
+                    <div class="slds-grid slds-gutters slds-wrap">
+                        <div class="slds-col slds-size_1-of-1 slds-m-bottom_medium">
+                            <lightning-textarea
+                                class="validate slds-p-bottom_small describeText"
+                                name="requestMessage"
+                                data-name="contactSupportForm"
+                                label={labels.describeRequest}
+                                onchange={genericOnChange}
+                                required
+                            ></lightning-textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- BS-836 Start -->
+        <div class="slds-m-bottom_medium">
+            <lightning-input type="file" label={fileSectionLabel} accept={labels.B2B_ContactCustomerSupportAcceptedFileFormats} onchange={handleFilesChange}>
+            </lightning-input>
+            <template if:true={_showUploadedFileName}> {fileName} </template>
+        </div>
+        <!-- BS-836 End -->
+    </div>
+    <div if:false={isSilhouetteLogin}>
+        <div if:true={isLoginPage}>
+            <lightning-input
+                type="text"
+                name="accountNumber"
+                data-name="contactSupportForm"
+                label={labels.accountNumber}
+                onchange={genericOnChange}
+                required="true"
+            ></lightning-input>
+            <lightning-input
+                type="text"
+                name="contactName"
+                data-name="contactSupportForm"
+                class="validate"
+                label={labels.contactName}
+                required="true"
+                onchange={genericOnChange}
+            ></lightning-input>
+            <lightning-input
+                type="email"
+                name="accountEmail"
+                data-name="contactSupportForm"
+                class="validate"
+                label={labels.accountEmail}
+                required="true"
+                onchange={genericOnChange}
+            ></lightning-input>
+            <lightning-input
+                type="text"
+                name="accountName"
+                data-name="contactSupportForm"
+                class="validate"
+                label={labels.accountName}
+                required="true"
+                onchange={genericOnChange}
+            ></lightning-input>
+            <lightning-input
+                type="text"
+                name="phone"
+                data-name="contactSupportForm"
+                class="validate"
+                label={labels.phone}
+                required="true"
+                onchange={genericOnChange}
+            ></lightning-input>
+            <lightning-combobox
+                name="storeCountry"
+                data-name="contactSupportForm"
+                class="validate"
+                label={labels.billingCountryLabel}
+                placeholder={labels.countryPlaceholderLabel}
+                options={countryOptions}
+                onchange={genericOnChange}
+                required={isStoreCountryRequired}
+            ></lightning-combobox>
+            <lightning-combobox
+                name="request"
+                data-name="contactSupportForm"
+                class="validate"
+                label={labels.selectRequest}
+                value={value}
+                options={_optionList}
+                onchange={genericOnChange}
+                required="true"
+            ></lightning-combobox>
+            <lightning-textarea
+                class="validate slds-p-bottom_small"
+                name="requestMessage"
+                data-name="contactSupportForm"
+                label={labels.describeRequest}
+                onchange={genericOnChange}
+                required="true"
+            ></lightning-textarea>
+        </div>
+        <div if:false={isLoginPage}>
+            <lightning-input
+                type="text"
+                name="contactName"
+                data-name="contactSupportForm"
+                class="validate"
+                required="true"
+                label={labels.contactName}
+                onchange={genericOnChange}
+            ></lightning-input>
+            <lightning-input
+                type="email"
+                name="contactEmail"
+                data-name="contactSupportForm"
+                label={labels.contactEmail}
+                onchange={genericOnChange}
+            ></lightning-input>
+            <lightning-combobox
+                name="request"
+                data-name="contactSupportForm"
+                class="validate"
+                label={labels.selectRequest}
+                value={value}
+                options={_optionList}
+                onchange={genericOnChange}
+                required="true"
+            ></lightning-combobox>
+            <lightning-textarea
+                class="validate slds-p-bottom_small"
+                name="requestMessage"
+                data-name="contactSupportForm"
+                label={labels.describeRequest}
+                onchange={genericOnChange}
+                required="true"
+            ></lightning-textarea>
+        </div>
+        <!-- BS-836 Start -->
+        <div class="slds-m-bottom_medium">
+            <lightning-input type="file" label={fileSectionLabel} accept={acceptedFormat} onchange={handleFilesChange}> </lightning-input>
+            <template if:true={_showUploadedFileName}> {fileName} </template>
+        </div>
+        <!-- BS-836 End -->
+    </div>
+    <div if:true={isLoginPage} class="slds-grid slds-wrap">
+        <div class="slds-col slds-size_xxx-small">
+            <lightning-input type="checkbox" class="validate" name="privacyInput" data-name="contactSupportForm" variant="label-hidden" required="true">
+            </lightning-input>
+        </div>
+        <template if:true={isSilhouetteLogin}>
+            <div class="slds-col slds-size_10-of-12">
+                <lightning-formatted-rich-text class="title-small" value={labels.policySHEE}></lightning-formatted-rich-text>
+            </div>
+        </template>
+        <template if:false={isSilhouetteLogin}>
+            <div class="slds-col slds-size_10-of-12">
+                <lightning-formatted-rich-text value={labels.policyNB}></lightning-formatted-rich-text>
+            </div>
+        </template>
+    </div>
+    <div if:true={isLoginPage}>
+        <hr />
+    </div>
+    <div if:true={isSilhouetteLogin}>
+        <!--BS-2034 Removed back to login button-->
+        <div if:true={isLoginPage} class="silhouetteText">
+            <button type="button" class="slds-float_right small silButton uppercase" data-id="requestBtn" onclick={handleRequest}>{labels.send}</button>
+        </div>
+        <button if:false={isLoginPage} class="small silButton uppercase" data-id="requestBtn" slot="footer" onclick={handleRequest}>{labels.send}</button>
+    </div>
+    <div if:false={isSilhouetteLogin}>
+        <div if:true={isLoginPage} class="slds-m-top_large">
+            <button type="button" class="slds-float_right slds-m-bottom_large buttonStyle commerce-button" data-id="requestBtn" onclick={handleRequest}>
+                {labels.send}
+            </button>
+        </div>
+        <button if:false={isLoginPage} class="buttonStyle commerce-button" data-id="requestBtn" slot="footer" onclick={handleRequest}>{labels.send}</button>
+    </div>
+    <template if:true={isLoading}>
+        <lightning-spinner alternative-text="Loading" size="small"></lightning-spinner>
+    </template>
+</template>

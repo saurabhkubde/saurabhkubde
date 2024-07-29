@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>D2C_VTO_POS_Session__c</fullName>
+    <description>This lookup field is linkage between POS Session and POS Session Activity record</description>
+    <externalId>false</externalId>
+    <label>POS Session</label>
+    <referenceTo>D2C_VTO_POS_Session__c</referenceTo>
+    <relationshipLabel>POS Session Activities</relationshipLabel>
+    <relationshipName>D2C_VTO_POS_Session_Activities</relationshipName>
+    <relationshipOrder>0</relationshipOrder>
+    <reparentableMasterDetail>false</reparentableMasterDetail>
+    <trackTrending>false</trackTrending>
+    <type>MasterDetail</type>
+    <writeRequiresMasterRead>false</writeRequiresMasterRead>
+</CustomField>

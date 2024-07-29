@@ -1,0 +1,89 @@
+<template>
+    <!--SH/EE Template -->
+    <template if:true={_isSilhouetteStore}>
+        <div if:false={clipOnLayout} class="sh-ee-searchlayout">
+            <ul role="listbox" class={layoutContainerClass}>
+                <template iterator:it={displayData}>
+                    <li key={it.value.id} class="slds-border_bottom" role="option">
+                        <!-- BS-2142 added date-format -->
+                        <c-b2b_search-card
+                            display-data={it.value}
+                            config={config.cardConfig}
+                            demo-vs-chassis-obj-list={demoVsChassisProductMap}
+                            show-chassis-buttons={showChassisButton}
+                            country-code={countryCode}
+                            shipping-picklist-values={shippingPicklistValues}
+                            hide-prices-from-tiles={hidePricesFromTiles}
+                            class="layout-card"
+                            page-source={pageSource}
+                            is-evil-eye={isEvilEye}
+                            effective-account-id={effectiveAccountId}
+                            order-source={orderSource}
+                            applicable-currency-code={applicableCurrencyCode}
+                            date-format={dateFormat}
+                            hide-purchase-price-field-value={hidePurchasePriceField}
+                            hide-suggested-retail-price-field-value={hideSuggestedRetailPriceField}
+                            product-id-vs-colour-count-and-size={productIdVsColourCountAndSize}
+                            product-id-vs-bridge-temple-count={productIdVsBridgeTempleCount}
+                        >
+                            <!-- BS-1245 : Added applicable-currency-code={applicableCurrencyCode} -->
+                        </c-b2b_search-card>
+                    </li>
+                </template>
+            </ul>
+        </div>
+        <div if:true={clipOnLayout} class="clip-on">
+            <ul role="listbox" class={layoutContainerClass}>
+                <template iterator:it={displayData}>
+                    <li key={it.value.id} class="slds-border_bottom" role="option">
+                        <c-b2b_search-card
+                            display-data={it.value}
+                            config={config.cardConfig}
+                            demo-vs-chassis-obj-list={demoVsChassisProductMap}
+                            show-chassis-buttons={showChassisButton}
+                            country-code={countryCode}
+                            shipping-picklist-values={shippingPicklistValues}
+                            hide-prices-from-tiles={hidePricesFromTiles}
+                            class="layout-card"
+                            page-source={pageSource}
+                            effective-account-id={effectiveAccountId}
+                            order-source={orderSource}
+                            applicable-currency-code={applicableCurrencyCode}
+                            hide-purchase-price-field-value={hidePurchasePriceField}
+                            hide-suggested-retail-price-field-value={hideSuggestedRetailPriceField}
+                        >
+                            <!-- BS-1245 : Added applicable-currency-code={applicableCurrencyCode} -->
+                        </c-b2b_search-card>
+                    </li>
+                </template>
+            </ul>
+        </div>
+    </template>
+    <!--NB Template -->
+    <template if:false={_isSilhouetteStore}>
+        <ul role="listbox" class={layoutContainerClass}>
+            <template iterator:it={displayData}>
+                <li key={it.value.id} class="slds-border_bottom" role="option">
+                    <c-b2b_search-card
+                        display-data={it.value}
+                        config={config.cardConfig}
+                        demo-vs-chassis-obj-list={demoVsChassisProductMap}
+                        show-chassis-buttons={showChassisButton}
+                        country-code={countryCode}
+                        shipping-picklist-values={shippingPicklistValues}
+                        hide-prices-from-tiles={hidePricesFromTiles}
+                        class="layout-card"
+                        page-source={pageSource}
+                        effective-account-id={effectiveAccountId}
+                        order-source={orderSource}
+                        applicable-currency-code={applicableCurrencyCode}
+                        hide-purchase-price-field-value={hidePurchasePriceField}
+                        hide-suggested-retail-price-field-value={hideSuggestedRetailPriceField}
+                    >
+                        <!-- BS-1245 : Added applicable-currency-code={applicableCurrencyCode} -->
+                    </c-b2b_search-card>
+                </li>
+            </template>
+        </ul>
+    </template>
+</template>

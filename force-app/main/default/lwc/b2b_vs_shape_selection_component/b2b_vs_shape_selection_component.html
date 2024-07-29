@@ -1,0 +1,943 @@
+<template>
+    <!-- Component Loading Section - Start -->
+    <template if:true={_isLoading}>
+        <lightning-spinner alternative-text="Loading" class="slds-is-fixed slds-align_absolute-center" variant="brand" size="medium"></lightning-spinner>
+    </template>
+    <!-- Component Loading Section - End -->
+    <div if:true={_isReadOnly} class="slds-p-bottom_small">
+        <div class="slds-grid slds-wrap">
+            <div class="title slds-border_bottom slds-p-vertical_medium slds-m-bottom_small">
+                <div class="shapeSelectionTitle">{_shapeSelectionHeaderLabel}</div>
+
+                <div class="editIcon">
+                    <img src={editIcon.icon} onclick={handleShapeSelectionEdit} width="20" height="20" />
+                </div>
+            </div>
+        </div>
+
+        <div class="slds-grid slds-wrap slds-m-top_small">
+            <div class="title slds-p-top_medium">{_glassLabel}</div>
+        </div>
+        <!--Lens Shape Lens Size-->
+        <div if:true={lensConfiguratorCollection.shapeSelectionData}>
+            <div class="slds-grid slds-wrap slds-gutters">
+                <div class="slds-form-element slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+                    <div class="slds-grid slds-wrap slds-gutters">
+                        <!-- Lens Shape Section - Start -->
+                        <div class="slds-form-element slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12 slds-var-m-top_small">
+                            <label class="accent_rings_label">{_lensShapeLabel}</label>
+                            <input
+                                type="text"
+                                class="orderInformationSummaryFields"
+                                value={lensConfiguratorCollection.shapeSelectionData.lensShape}
+                                title={_lensShapeLabel}
+                                readonly
+                            />
+                        </div>
+                        <!-- Lens Shape Section - End -->
+                        <!-- Lens Size Section - Start -->
+                        <div class="slds-form-element slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12 slds-var-m-top_small">
+                            <label class="accent_rings_label">{_lensSizeLabel}</label>
+                            <input
+                                type="text"
+                                class="orderInformationSummaryFields"
+                                value={lensConfiguratorCollection.shapeSelectionData.lensSize}
+                                title={_lensShapeLabel}
+                                readonly
+                            />
+                        </div>
+
+                        <div class="slds-col slds-size_1-of-1 slds-m-vertical_medium">
+                            <label class="container"
+                                >{_showAllShapesLabel}
+                                <input
+                                    type="checkbox"
+                                    checked={lensConfiguratorCollection.shapeSelectionData.showAllShapes}
+                                    onclick={handleLensShapeFiltering}
+                                    disabled
+                                />
+                                <span class="checkmark"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div
+                    class="slds-form-element slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12 slds-var-m-top_small"
+                    if:true={lensConfiguratorCollection.shapeSelectionData.showWithAccentRing}
+                >
+                    <div class="slds-p-bottom_medium accent_rings_label">{_withAccentRingLabel}</div>
+                    <div class="customRadioButtonStyling">
+                        <!-- Radio Button -->
+                        <input type="radio" class="filterRadioButton accent_rings_label" name="withAccentRing" data-field="withAccentRing" checked readonly />
+                        <!-- Label -->
+                        <span if:true={lensConfiguratorCollection.shapeSelectionData.withAccentRingValue} class="black-color filterValues accent_rings_label">
+                            {_yesLabel}
+                        </span>
+                        <span if:false={lensConfiguratorCollection.shapeSelectionData.withAccentRingValue} class="black-color filterValues accent_rings_label">
+                            {_noLabel}
+                        </span>
+                    </div>
+                    <div if:true={lensConfiguratorCollection.shapeSelectionData.showAccentRingColor} class="slds-p-bottom_medium accent_rings_label">
+                        {_accentRingColorLabel}
+                    </div>
+                    <div if:true={lensConfiguratorCollection.shapeSelectionData.showAccentRingColor}>
+                        <table class="tableauto">
+                            <tr>
+                                <td>
+                                    <div
+                                        class="color-bubble accent_rings_label"
+                                        style={lensConfiguratorCollection.shapeSelectionData.accentRingColorStyling}
+                                    ></div>
+                                </td>
+                                <td>
+                                    <span if:true={lensConfiguratorCollection.shapeSelectionData.showAccentRingColor}>
+                                        {lensConfiguratorCollection.shapeSelectionData.accentRingColorLabel}</span
+                                    >
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div if:false={lensConfiguratorCollection.shapeSelectionData.showAccentRingColor} class="slds-p-bottom_medium accent_rings_label">
+                        {_removeGrooveLabel}
+                    </div>
+                    <div if:false={lensConfiguratorCollection.shapeSelectionData.showAccentRingColor}>
+                        <div class="customRadioButtonStyling">
+                            <!-- Radio Button -->
+                            <input type="radio" class="filterRadioButton accent_rings_label" name="removeGroove" data-field="removeGroove" checked readonly />
+                            <!-- Label -->
+                            <span if:true={lensConfiguratorCollection.shapeSelectionData.removeGrooveValue} class="black-color filterValues accent_rings_label">
+                                {_yesLabel}
+                            </span>
+                            <span
+                                if:false={lensConfiguratorCollection.shapeSelectionData.removeGrooveValue}
+                                class="black-color filterValues accent_rings_label"
+                            >
+                                {_noLabel}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div
+                    class="slds-form-element slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12 slds-var-m-top_small"
+                    if:true={lensConfiguratorCollection.shapeSelectionData.showWithColorGroove}
+                >
+                    <div class="slds-p-bottom_medium accent_rings_label">{_withColorGrooveLabel}</div>
+
+                    <div class="customRadioButtonStyling">
+                        <!-- Radio Button -->
+                        <input type="radio" class="filterRadioButton accent_rings_label" name="withColorGroove" data-field="withColorGroove" checked readonly />
+                        <!-- Label -->
+                        <span if:true={lensConfiguratorCollection.shapeSelectionData.withColorGrooveValue} class="black-color filterValues accent_rings_label">
+                            {_yesLabel}
+                        </span>
+                        <span if:false={lensConfiguratorCollection.shapeSelectionData.withColorGrooveValue} class="black-color filterValues accent_rings_label">
+                            {_noLabel}
+                        </span>
+                    </div>
+
+                    <div if:true={lensConfiguratorCollection.shapeSelectionData.showColorGrooveColor} class="slds-p-bottom_medium accent_rings_label">
+                        {_colorGrooveColorLabel}
+                    </div>
+                    <div if:true={lensConfiguratorCollection.shapeSelectionData.showColorGrooveColor}>
+                        <table class="tableauto">
+                            <tr>
+                                <td>
+                                    <div
+                                        class="color-bubble accent_rings_label"
+                                        style={lensConfiguratorCollection.shapeSelectionData.colorGrooveColorStyling}
+                                    ></div>
+                                </td>
+                                <td>
+                                    <span if:true={lensConfiguratorCollection.shapeSelectionData.showColorGrooveColor}>
+                                        {lensConfiguratorCollection.shapeSelectionData.colorGrooveColorLabel}</span
+                                    >
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                <div
+                    if:true={lensConfiguratorCollection.shapeSelectionData.showRemoveDrill}
+                    class="slds-form-element slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-large-size_3-of-12 slds-var-m-top_small"
+                >
+                    <div class="slds-p-bottom_medium accent_rings_label">{_removeDrillsLabel}</div>
+                    <div class="customRadioButtonStyling">
+                        <!-- Radio Button -->
+                        <input type="radio" class="filterRadioButton accent_rings_label" name="removeDrill" data-field="removeDrill" checked readonly />
+                        <!-- Label -->
+                        <span if:true={lensConfiguratorCollection.shapeSelectionData.removeDrills} class="black-color filterValues accent_rings_label">
+                            {_yesLabel}
+                        </span>
+                        <span if:false={lensConfiguratorCollection.shapeSelectionData.removeDrills} class="black-color filterValues accent_rings_label">
+                            {_noLabel}
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slds-grid slds-wrap">
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12 slds-text-align_left">
+                    <div class="slds-grid slds-wrap">
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+                            <canvas class="glassContainer" lwc:dom="manual" data-id="c"></canvas>
+                        </div>
+                        <div class="slds-col slds-size_1-of-1 slds-p-left_medium slds-medium-size_6-of-12 slds-large-size_6-of-12">
+                            <div class="slds-m-top_large">
+                                <table class="table-auto">
+                                    <tr>
+                                        <td><div class="originalShape"></div></td>
+                                        <td>{_originalShapeLabel}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><div class="scaledShape"></div></td>
+                                        <td>{_scaledShapeLabel}</td>
+                                    </tr>
+                                </table>
+
+                                <table class="slds-m-vertical_small table-auto">
+                                    <tr>
+                                        <td>{_heightLabel}</td>
+                                        <td>: {lensConfiguratorCollection.shapeSelectionData.height} {_measurementUnitLabel}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{_widthLabel}</td>
+                                        <td>: {lensConfiguratorCollection.shapeSelectionData.width} {_measurementUnitLabel}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12 slds-text-align_left">
+                    <div if:false={lensConfiguratorCollection.shapeSelectionData.showWithAccentRing} class="shapeEditorHeader">{_shapeEditorHeader}</div>
+                    <div
+                        if:false={lensConfiguratorCollection.shapeSelectionData.showWithAccentRing}
+                        class="black-color silhouetteText shapeEditorSubHeaderTextStyling"
+                    >
+                        {_shapeEditorSubHeader}
+                    </div>
+
+                    <table class="shapeEditor" if:false={lensConfiguratorCollection.shapeSelectionData.showWithAccentRing}>
+                        <tr>
+                            <td class="bg">{_aLabel}</td>
+                            <td>{lensConfiguratorCollection.shapeSelectionData.a}</td>
+                            <td class="bg">{_b1Label}</td>
+                            <td>{lensConfiguratorCollection.shapeSelectionData.b1}</td>
+                        </tr>
+                        <tr>
+                            <td class="bg">{_bLabel}</td>
+                            <td>{lensConfiguratorCollection.shapeSelectionData.b}</td>
+                            <td class="bg">{_b2Label}</td>
+                            <td>{lensConfiguratorCollection.shapeSelectionData.b2}</td>
+                        </tr>
+                        <tr>
+                            <td class="bg">{_sfLabel}</td>
+                            <td>{lensConfiguratorCollection.shapeSelectionData.sf}</td>
+                            <td class="bg">{_dhpLabel}</td>
+                            <td>{lensConfiguratorCollection.shapeSelectionData.blp}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <div class="slds-grid slds-wrap slds-gutters">
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+                    <div if:true={lensConfiguratorCollection.shapeSelectionData.showAccentRingImage} class="accentRingImage slds-text-align_center">
+                        <img class="slds-m-left_xx-small" src={lensConfiguratorCollection.shapeSelectionData.accentRingImage} />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Lens Shape Lens Size-->
+
+    <template if:false={_isReadOnly}>
+        <!-- Shape Selection Screen - Start -->
+        <template if:true={_initialSetupDone}>
+            <!-- Header Label - Start -->
+            <div class="title slds-border_bottom slds-p-vertical_medium slds-m-bottom_small">{_shapeSelectionHeaderLabel}</div>
+            <!-- Header Label - End -->
+            <div class="slds-grid slds-wrap slds-m-top_small">
+                <div class="title slds-p-top_medium">{_glassLabel}</div>
+            </div>
+            <!-- Lens Shape and Lens Size Selection Section - Start -->
+            <div class="slds-grid slds-wrap slds-gutters">
+                <!--Lens Shape Lens Size-->
+                <!-- Start : BS-1635-->
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12" if:true={_initialSetupDone}>
+                    <div class="slds-grid slds-wrap slds-gutters">
+                        <div class="slds-form-element slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12 slds-var-m-top_small">
+                            <div class="slds-form-element">
+                                <div class="slds-form-element__control shape-selection">
+                                    <lightning-input
+                                        label={_lensShapeLabel}
+                                        type="text"
+                                        onfocus={showLensShapeOptions}
+                                        onchange={searchLensShapeAccordingToSearchTerm}
+                                        value={_searchTerm}
+                                        onclick={setVisibility}
+                                        disabled={_isNotRimlessFrame}
+                                    >
+                                    </lightning-input>
+                                    <div
+                                        if:true={searchResults}
+                                        class="slds-dropdown slds-dropdown_length-5 slds-dropdown_fluid"
+                                        role="listbox"
+                                        data-id={_shapeFieldId}
+                                    >
+                                        <ul class="slds-listbox slds-listbox_vertical" role="presentation">
+                                            <template for:each={searchResults} for:item="searchResult">
+                                                <li
+                                                    key={searchResult.value}
+                                                    data-value={searchResult.value}
+                                                    role="presentation"
+                                                    onclick={handleLensShapeSelection}
+                                                    class="slds-listbox__item"
+                                                >
+                                                    <div class="slds-media slds-listbox__option slds-listbox__option_plain slds-media_small" role="option">
+                                                        <span class="slds-media__body">
+                                                            <span class="slds-truncate" title={searchResult.label}> {searchResult.label} </span>
+                                                        </span>
+                                                    </div>
+                                                </li>
+                                            </template>
+                                        </ul>
+                                    </div>
+                                    <div if:true={_isLensShapeInValid} class="errorMessage slds-p-bottom_small">{_fieldErrorMessage}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Lens Size Section - Start -->
+                        <!-- End : BS-1635-->
+                        <div
+                            if:true={_showLensSize}
+                            class="slds-form-element slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12 slds-var-m-top_small"
+                        >
+                            <template if:true={_initialSetupDone}>
+                                <template if:true={_showLensOptions}>
+                                    <lightning-combobox
+                                        if:true={_lensSizeOptions}
+                                        name={_lensSizeLabel}
+                                        label={_lensSizeLabel}
+                                        value={_selectedLensSize}
+                                        options={_lensSizeOptions}
+                                        onchange={handleLensSizeSelection}
+                                        disabled={_isNotRimlessFrame}
+                                    ></lightning-combobox>
+                                </template>
+                                <div if:true={_isLensSizeInValid} class="errorMessage slds-p-bottom_small">{_fieldErrorMessage}</div>
+                            </template>
+                        </div>
+                    </div>
+                </div>
+                <!--Lens Shape Lens Size-->
+
+                <div if:true={_showAccentRingSection} class="slds-form-element slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12">
+                    <div if:true={_showAccentRingSection} class="slds-p-vertical_medium accent_rings_label">{_withAccentRingLabel}</div>
+                    <div class="slds-grid">
+                        <template for:each={_withAccentRingOptions} for:item="option">
+                            <div key={option} class="slds-col slds-medium-size_6-of-12 slds-large-size_4-of-12">
+                                <div key={option} class="customRadioButtonStyling">
+                                    <!-- Radio Button -->
+                                    <input
+                                        type="radio"
+                                        id={option.label}
+                                        class="filterRadioButton accent_rings_label"
+                                        name="withAccentRing"
+                                        data-field="withAccentRing"
+                                        value={option.value}
+                                        onclick={handleWithAccentRingChange}
+                                        title={option.label}
+                                        checked={option.isChecked}
+                                        onselect={handleWithAccentRingChange}
+                                    />
+                                    <!-- Label -->
+                                    <span class="black-color filterValues accent_rings_label" title={option.label}> {option.label} </span>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                    <div if:true={_withAccentRingValue} class="slds-p-top_medium accent_rings_label">{_accentRingColorLabel}</div>
+
+                    <div if:true={_withAccentRingValue} onfocusout={toggleAccentRingDropdownOptions}>
+                        <div class="select-color-option-wrap">
+                            <div
+                                if:false={_isAccentRingColorSelected}
+                                onfocusout={toggleAccentRingDropdownOptions}
+                                onclick={toggleAccentRingDropdownOptions}
+                                class="select-color-option"
+                            >
+                                {_selectColorOptionLabel} <span class="arrow">&#9660;</span>
+                            </div>
+
+                            <div
+                                if:true={_isAccentRingColorSelected}
+                                class="color-option select-color-option-dropdown"
+                                onclick={toggleAccentRingDropdownOptions}
+                            >
+                                <div if:true={_selectedAccentRingColor} class="color-bubble accent_rings_label" style={_selectedAccentRingColor.styling}></div>
+                                <span> {_selectedAccentRingColor.label}</span>
+                                <span class="arrow">&#9660;</span>
+                            </div>
+                        </div>
+                        <div if:true={_showAccentRingColorOptions} class="combo-box">
+                            <div if:true={_accentRingColorOptions} onfocusout={toggleAccentRingDropdownOptions} class="options-container">
+                                <template for:each={_accentRingColorOptions} for:item="color">
+                                    <div
+                                        key={color}
+                                        class="color-option"
+                                        onclick={handleColorOptionClick}
+                                        data-color={color.label}
+                                        data-style={color.styling}
+                                        data-sku={color.accentRingColorSku}
+                                        data-productid={color.productId}
+                                    >
+                                        <div class="color-bubble" style={color.styling}></div>
+                                        <span>{color.label}</span>
+                                    </div>
+                                </template>
+                            </div>
+                        </div>
+                        <div if:true={_isAccentRingColorInvalid} class="errorMessage slds-p-bottom_small accent_rings_label">{_fieldErrorMessage}</div>
+                    </div>
+                    <div if:false={_withAccentRingValue} class="slds-p-vertical_medium accent_rings_label">{_removeGrooveLabel}</div>
+                    <div if:false={_withAccentRingValue} class="slds-grid">
+                        <template for:each={_removeGrooveOptions} for:item="option">
+                            <div key={option} class="slds-col slds-medium-size_6-of-12 slds-large-size_4-of-12">
+                                <div key={option} class="customRadioButtonStyling">
+                                    <!-- Radio Button -->
+                                    <input
+                                        type="radio"
+                                        id={option.label}
+                                        class="filterRadioButton"
+                                        name="removeGroove"
+                                        data-field="removeGroove"
+                                        value={option.value}
+                                        onclick={handleRemoveGrooveSelection}
+                                        title={option.label}
+                                        checked={option.isChecked}
+                                        onselect={handleRemoveGrooveSelection}
+                                    />
+                                    <!-- Label -->
+                                    <span class="black-color filterValues accent_rings_label" title={option.label}> {option.label} </span>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+                <div if:true={_showColoredGrooveSection} class="slds-form-element slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12">
+                    <div if:true={_showColoredGrooveSection} class="slds-p-vertical_medium accent_rings_label">
+                        {_withColorGrooveLabel}
+                        <span class="tooltip-normal">
+                            <span class="tooltiptext-normal">{_selectColorGrooveColorHelpText}</span>
+                            <img class="infoicon slds-m-left_xx-small" src={_infoSVG} />
+                        </span>
+                    </div>
+                    <div class="slds-grid">
+                        <template for:each={_withColoredGrooveOptions} for:item="option">
+                            <div key={option} class="slds-col slds-medium-size_6-of-12 slds-large-size_4-of-12">
+                                <div key={option} class="customRadioButtonStyling">
+                                    <!-- Radio Button -->
+                                    <input
+                                        type="radio"
+                                        id={option.label}
+                                        class="filterRadioButton accent_rings_label"
+                                        name="withColoredGroove"
+                                        data-field="withColoredGroove"
+                                        value={option.value}
+                                        onclick={handleWithColoredGrooveChange}
+                                        title={option.label}
+                                        checked={option.isChecked}
+                                        onselect={handleWithColoredGrooveChange}
+                                    />
+                                    <!-- Label -->
+                                    <span class="black-color filterValues accent_rings_label" title={option.label}> {option.label} </span>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                    <div if:true={_withColoredGrooveValue} class="slds-p-top_medium accent_rings_label">{_colorGrooveColorLabel}</div>
+
+                    <div if:true={_withColoredGrooveValue} onfocusout={toggleColoredGrooveColorOptions}>
+                        <div class="select-color-option-wrap">
+                            <div
+                                if:false={_isColoredGrooveColorSelected}
+                                onfocusout={toggleColoredGrooveColorOptions}
+                                onclick={toggleColoredGrooveColorOptions}
+                                class="select-color-option"
+                            >
+                                {_selectColorOptionLabel} <span class="arrow">&#9660;</span>
+                            </div>
+
+                            <div
+                                if:true={_isColoredGrooveColorSelected}
+                                class="color-option select-color-option-dropdown"
+                                onclick={toggleColoredGrooveColorOptions}
+                            >
+                                <div
+                                    if:true={_selectedColoredGrooveColor}
+                                    class="color-bubble accent_rings_label"
+                                    style={_selectedColoredGrooveColor.styling}
+                                ></div>
+                                <span> {_selectedColoredGrooveColor.label}</span>
+                                <span class="arrow">&#9660;</span>
+                            </div>
+                        </div>
+                        <div if:true={_showColoredGrooveColorOptions} class="combo-box">
+                            <div if:true={_coloredGrooveColorOptions} onfocusout={toggleColoredGrooveColorOptions} class="options-container">
+                                <template for:each={_coloredGrooveColorOptions} for:item="color">
+                                    <div
+                                        key={color}
+                                        class="color-option"
+                                        onclick={handleColoredGooveColorSelection}
+                                        data-color={color.label}
+                                        data-style={color.styling}
+                                        data-sku={color.label}
+                                        data-productid={color.productId}
+                                    >
+                                        <div class="color-bubble" style={color.styling}></div>
+                                        <span>{color.label}</span>
+                                    </div>
+                                </template>
+                            </div>
+                        </div>
+                        <div if:true={_isColoredGrooveColorInvalid} class="errorMessage slds-p-bottom_small accent_rings_label">{_fieldErrorMessage}</div>
+                    </div>
+                </div>
+
+                <div class="slds-form-element slds-col slds-size_1-of-1 slds-medium-size_4-of-12 slds-large-size_4-of-12" if:true={_showRemoveDrills}>
+                    <div if:true={_showRemoveDrills} class="slds-p-vertical_medium accent_rings_label">{_removeDrillsLabel}</div>
+                    <div class="slds-grid">
+                        <template for:each={_removeDrillsOptions} for:item="option">
+                            <div key={option} class="slds-col slds-medium-size_6-of-12 slds-large-size_4-of-12">
+                                <div key={option} class="customRadioButtonStyling">
+                                    <!-- Radio Button -->
+                                    <input
+                                        type="radio"
+                                        id={option.label}
+                                        class="filterRadioButton"
+                                        name="removeDrills"
+                                        data-field="removeDrills"
+                                        value={option.value}
+                                        onclick={handleRemoveDrillsSelection}
+                                        title={option.label}
+                                        checked={option.isChecked}
+                                        onselect={handleRemoveDrillsSelection}
+                                    />
+                                    <!-- Label -->
+                                    <span class="black-color filterValues accent_rings_label" title={option.label}> {option.label} </span>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+            </div>
+            <!-- Lens Shape and Lens Size Selection Section - End -->
+            <!-- Show All Shapes Section - Start -->
+            <div class="slds-grid slds-gutters slds-size_6-of-12 slds-m-vertical_medium margin-left-container">
+                <label class="container"
+                    >{_showAllShapesLabel}
+                    <input type="checkbox" checked={_showAllValue} onclick={handleLensShapeFiltering} disabled={_isNotRimlessFrame} />
+                    <span class={_checkboxStyle}></span>
+                </label>
+                <span class="tooltip-normal">
+                    <span class="tooltiptext-normal">{_showAllShapesHelpText}</span>
+                    <img class="infoicon slds-m-left_xx-small" src={_infoSVG} />
+                </span>
+            </div>
+            <!-- Show All Shapes Section - End -->
+            <!-- BS-999 : Added OMA Callout Failure user friendly response message-->
+            <div if:true={_omaCalloutFailed} class="error-background">
+                <lightning-formatted-rich-text value={_responseMessage}></lightning-formatted-rich-text>
+            </div>
+            <!-- Lens Shape Image and Shape Editor Section - Start -->
+            <div if:true={_showLensShapeImage} class="slds-grid slds-wrap shapeediter-container slds-m-vertical_large">
+                <!-- Lens Shape Image Section - Start -->
+                <div class="slds-p-horizontal_small slds-col slds-size_1-of-1 slds-large-size_6-of-12 slds-p-vertical_large">
+                    <div class="slds-grid slds-wrap">
+                        <div if:true={_onLoad} class="slds-col slds-size_1-of-1 slds-medium-size_7-of-12 slds-large-size_7-of-12 slds-text-align_center">
+                            <canvas class="glassContainer" lwc:dom="manual" data-id="c"></canvas>
+                        </div>
+                        <div if:false={_onLoad} class="slds-col slds-size_1-of-1 slds-medium-size_7-of-12 slds-large-size_7-of-12 slds-text-align_center">
+                            <canvas class="glassContainer" lwc:dom="manual" data-id="c"></canvas>
+                        </div>
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_5-of-12 slds-large-size_5-of-12 shapeediter-fnt14 slds-p-around_x-small">
+                            <div class="slds-m-top_large">
+                                <table class="table-auto">
+                                    <tr>
+                                        <td><div class="originalShape"></div></td>
+                                        <td>{_originalShapeLabel}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><div class="scaledShape"></div></td>
+                                        <td>{_scaledShapeLabel}</td>
+                                    </tr>
+                                </table>
+
+                                <table class="slds-m-vertical_small table-auto">
+                                    <tr>
+                                        <td>{_heightLabel}</td>
+                                        <td>: {_height} {_measurementUnitLabel}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{_widthLabel}</td>
+                                        <td>: {_width} {_measurementUnitLabel}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div if:true={_showAccentRingImage} class="accentRingImage slds-text-align_center">
+                        <img class="slds-m-left_xx-small" src={_accentRingImage} />
+                    </div>
+                </div>
+                <!-- Lens Shape Image Section - End -->
+
+                <!-- Shape Editor Section - Start -->
+                <div class="slds-p-horizontal_small slds-col slds-size_1-of-1 slds-large-size_6-of-12 slds-p-vertical_small slds-p-vertical_large">
+                    <div class="slds-grid slds-wrap">
+                        <div if:false={_showAccentRingSection} class="slds-col slds-size_1-of-1 slds-medium-size_12-of-12 slds-large-size_12-of-12">
+                            <!-- Open Shape Editor Button Section - Start -->
+                            <button
+                                if:true={_openShapeEditorButtonActive}
+                                class="commerce-button capital"
+                                onclick={handleShapeEditorButtonClick}
+                                value={_openShapeEditorButtonLabel}
+                            >
+                                {_openShapeEditorButtonLabel}
+                            </button>
+                            <!-- Open Shape Editor Button Section - End -->
+
+                            <!-- Show Shape Editor Section - Start -->
+                            <div if:true={_showShapeEditor} if:false={_openShapeEditorButtonActive}>
+                                <!-- Shape Editor Header Text -->
+                                <div>
+                                    <lightning-formatted-rich-text
+                                        class="black-color silhouetteText shapeEditorHeader"
+                                        value={_shapeEditorHeader}
+                                    ></lightning-formatted-rich-text>
+                                </div>
+                                <!-- Shape Editor Header Text -->
+
+                                <!-- Shape Editor SubHeader Text -->
+                                <div>
+                                    <lightning-formatted-rich-text
+                                        class="black-color silhouetteText shapeEditorSubHeaderTextStyling"
+                                        value={_shapeEditorSubHeader}
+                                    ></lightning-formatted-rich-text>
+                                </div>
+                                <!-- Shape Editor SubHeader Text -->
+
+                                <!-- Shape Editor validation section - Start -->
+                                <div if:true={_showValidationMessage} class="error-background">
+                                    <template for:each={_validationAdjustementAttributesCollection} for:item="item">
+                                        <div key={item.attributeName}>
+                                            <span class="bulletPoint"></span>
+                                            <span>{item.validationMessage}</span>
+                                        </div>
+                                    </template>
+                                </div>
+                                <!-- Shape Editor validation section - End -->
+
+                                <!-- Shape Editor fields section - Start -->
+                                <div class="slds-grid slds-wrap">
+                                    <div
+                                        class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_5-of-12 slds-p-vertical_small shapeEditorContents"
+                                    >
+                                        <!-- First Column Start -->
+                                        <template for:each={_shapeEditorCollection} for:item="shape">
+                                            <div key={shape.label} if:true={shape.isFirstColumn}>
+                                                <table class="slds-m-vertical_xx-small">
+                                                    <tr>
+                                                        <!-- Shape Editor Field Name and helptext section - Start -->
+                                                        <td class="label-width">
+                                                            <span>{shape.label}</span>
+                                                            <span class="tooltip">
+                                                                <span class="tooltiptext sampleStyling">{shape.helpText}</span>
+                                                                <img class="infoicon slds-m-left_xx-small" src={_infoSVG} />
+                                                            </span>
+                                                        </td>
+                                                        <!-- Shape Editor Field Name and helptext section - End -->
+
+                                                        <!-- Number Editor section - Start -->
+                                                        <td>
+                                                            <span class="quantity quantity-area slds-m-top_small align-text-centre">
+                                                                <div class="slds-text-align_center margin-auto">
+                                                                    <table class="quantity-width">
+                                                                        <tr>
+                                                                            <!-- Minus Button Section Start-->
+                                                                            <td>
+                                                                                <div>
+                                                                                    <input
+                                                                                        if:false={shape.isAdjustable}
+                                                                                        name={shape.label}
+                                                                                        data-id={shape.label}
+                                                                                        type="button"
+                                                                                        value="-"
+                                                                                        class="button-minus-class disabledButtonStyling"
+                                                                                        data-field={shape.label}
+                                                                                        data-quantity={shape.modifiedValue}
+                                                                                        data-item-id={shape.label}
+                                                                                        onclick={manipulateShapeAdjustmentValuesChangeOnButtonClick}
+                                                                                        disabled
+                                                                                    />
+                                                                                    <input
+                                                                                        if:true={shape.isAdjustable}
+                                                                                        name={shape.label}
+                                                                                        data-id={shape.label}
+                                                                                        type="button"
+                                                                                        value="-"
+                                                                                        class="button-minus-class"
+                                                                                        data-field={shape.label}
+                                                                                        data-quantity={shape.modifiedValue}
+                                                                                        data-item-id={shape.label}
+                                                                                        onclick={manipulateShapeAdjustmentValuesChangeOnButtonClick}
+                                                                                    />
+                                                                                </div>
+                                                                            </td>
+                                                                            <!-- Minus Button Section  End-->
+
+                                                                            <!-- Input box for Number Section Start-->
+                                                                            <td class="align-text-centre quantity-container">
+                                                                                <input
+                                                                                    if:false={shape.isAdjustable}
+                                                                                    class="slds-text-align_center quantity-field disabledButtonStyling"
+                                                                                    data-item-id={shape.label}
+                                                                                    max={shape.maximumAllowedValue}
+                                                                                    min={shape.minimumAllowedValue}
+                                                                                    type="number"
+                                                                                    value={shape.modifiedValue}
+                                                                                    onblur={manipulateShapeAdjustmentValuesChangeOnBlur}
+                                                                                    title={shape.label}
+                                                                                    disabled
+                                                                                />
+                                                                                <input
+                                                                                    if:true={shape.isAdjustable}
+                                                                                    class="slds-text-align_center quantity-field"
+                                                                                    data-item-id={shape.label}
+                                                                                    max={shape.maximumAllowedValue}
+                                                                                    min={shape.minimumAllowedValue}
+                                                                                    type="number"
+                                                                                    value={shape.modifiedValue}
+                                                                                    onblur={manipulateShapeAdjustmentValuesChangeOnBlur}
+                                                                                    title={shape.label}
+                                                                                />
+                                                                            </td>
+                                                                            <!-- Input box for Number Section End-->
+
+                                                                            <!-- Plus Button Section Start-->
+                                                                            <td>
+                                                                                <div>
+                                                                                    <input
+                                                                                        if:false={shape.isAdjustable}
+                                                                                        type="button"
+                                                                                        value="+"
+                                                                                        class="button-plus disabledButtonStyling"
+                                                                                        data-field="quantity"
+                                                                                        data-quantity={shape.modifiedValue}
+                                                                                        data-item-id={shape.label}
+                                                                                        onclick={manipulateShapeAdjustmentValuesChangeOnButtonClick}
+                                                                                        disabled
+                                                                                    />
+                                                                                    <input
+                                                                                        if:true={shape.isAdjustable}
+                                                                                        type="button"
+                                                                                        value="+"
+                                                                                        class="button-plus"
+                                                                                        data-field="quantity"
+                                                                                        data-quantity={shape.modifiedValue}
+                                                                                        data-item-id={shape.label}
+                                                                                        onclick={manipulateShapeAdjustmentValuesChangeOnButtonClick}
+                                                                                    />
+                                                                                </div>
+                                                                            </td>
+                                                                            <!-- Plus Button Section End-->
+                                                                        </tr>
+                                                                    </table>
+                                                                </div>
+                                                            </span>
+                                                        </td>
+                                                        <!-- Number Editor section - End -->
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </template>
+                                        <!-- First Column End -->
+                                    </div>
+                                    <div
+                                        class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_5-of-12 slds-p-vertical_small shapeEditorContents"
+                                    >
+                                        <!-- Second Column Start -->
+                                        <template for:each={_shapeEditorCollection} for:item="shape">
+                                            <div key={shape.label} if:true={shape.isSecondColumn}>
+                                                <table class="slds-m-vertical_xx-small">
+                                                    <tr>
+                                                        <td class="label-width">
+                                                            <span>{shape.label}</span>
+                                                            <span class="tooltip">
+                                                                <span class="tooltiptext sampleStyling">{shape.helpText}</span>
+                                                                <img class="infoicon slds-m-left_xx-small" src={_infoSVG} />
+                                                            </span>
+                                                        </td>
+                                                        <td>
+                                                            <span>
+                                                                <section class="quantity quantity-area slds-m-top_small align-text-centre">
+                                                                    <div class="slds-text-align_center margin-auto">
+                                                                        <table class="quantity-width">
+                                                                            <tr>
+                                                                                <td>
+                                                                                    <div>
+                                                                                        <input
+                                                                                            if:false={shape.isAdjustable}
+                                                                                            name={shape.label}
+                                                                                            data-id={shape.label}
+                                                                                            type="button"
+                                                                                            value="-"
+                                                                                            class="button-minus-class disabledButtonStyling"
+                                                                                            data-field={shape.label}
+                                                                                            data-quantity={shape.modifiedValue}
+                                                                                            data-item-id={shape.label}
+                                                                                            onclick={manipulateShapeAdjustmentValuesChangeOnButtonClick}
+                                                                                            disabled
+                                                                                        />
+                                                                                        <input
+                                                                                            if:true={shape.isAdjustable}
+                                                                                            name={shape.label}
+                                                                                            data-id={shape.label}
+                                                                                            type="button"
+                                                                                            value="-"
+                                                                                            class="button-minus-class"
+                                                                                            data-field={shape.label}
+                                                                                            data-quantity={shape.modifiedValue}
+                                                                                            data-item-id={shape.label}
+                                                                                            onclick={manipulateShapeAdjustmentValuesChangeOnButtonClick}
+                                                                                        />
+                                                                                    </div>
+                                                                                </td>
+                                                                                <td class="align-text-centre quantity-container">
+                                                                                    <input
+                                                                                        if:false={shape.isAdjustable}
+                                                                                        class="slds-text-align_center quantity-field disabledButtonStyling"
+                                                                                        data-item-id={shape.label}
+                                                                                        max={shape.maximumAllowedValue}
+                                                                                        min={shape.minimumAllowedValue}
+                                                                                        type="number"
+                                                                                        value={shape.modifiedValue}
+                                                                                        onblur={manipulateShapeAdjustmentValuesChangeOnBlur}
+                                                                                        title={shape.label}
+                                                                                        disabled
+                                                                                    />
+                                                                                    <input
+                                                                                        if:true={shape.isAdjustable}
+                                                                                        class="slds-text-align_center quantity-field"
+                                                                                        data-item-id={shape.label}
+                                                                                        max={shape.maximumAllowedValue}
+                                                                                        min={shape.minimumAllowedValue}
+                                                                                        type="number"
+                                                                                        value={shape.modifiedValue}
+                                                                                        onblur={manipulateShapeAdjustmentValuesChangeOnBlur}
+                                                                                        title={shape.label}
+                                                                                    />
+                                                                                </td>
+                                                                                <td>
+                                                                                    <div>
+                                                                                        <input
+                                                                                            if:false={shape.isAdjustable}
+                                                                                            type="button"
+                                                                                            value="+"
+                                                                                            class="button-plus disabledButtonStyling"
+                                                                                            data-field="quantity"
+                                                                                            data-quantity={shape.modifiedValue}
+                                                                                            data-item-id={shape.label}
+                                                                                            onclick={manipulateShapeAdjustmentValuesChangeOnButtonClick}
+                                                                                            disabled
+                                                                                        />
+                                                                                        <input
+                                                                                            if:true={shape.isAdjustable}
+                                                                                            type="button"
+                                                                                            value="+"
+                                                                                            class="button-plus"
+                                                                                            data-field="quantity"
+                                                                                            data-quantity={shape.modifiedValue}
+                                                                                            data-item-id={shape.label}
+                                                                                            onclick={manipulateShapeAdjustmentValuesChangeOnButtonClick}
+                                                                                        />
+                                                                                    </div>
+                                                                                </td>
+                                                                            </tr>
+                                                                        </table>
+                                                                    </div>
+                                                                </section>
+                                                            </span>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </template>
+                                        <!-- Second Column End -->
+                                    </div>
+                                </div>
+                                <!-- Shape Editor fields section - End -->
+
+                                <!-- Visualize Adjusted Shape and Rest Adjustements Button Section - Start -->
+                                <table class="tableWidth">
+                                    <tr>
+                                        <!-- Visualize Adjusted Shape Button Section - Start -->
+                                        <td>
+                                            <button
+                                                if:true={_visualizeShapeButtonDisable}
+                                                class="commerce-button capital customButtons slds-m-right_x-small minHeight"
+                                                onclick={handleVisualiseAdjustedShapeButtonClick}
+                                                disabled
+                                            >
+                                                {_visualizeShapeButtonLabel}
+                                            </button>
+                                            <button
+                                                if:false={_visualizeShapeButtonDisable}
+                                                class="commerce-button capital customButtons slds-m-right_x-small minHeight"
+                                                onclick={handleVisualiseAdjustedShapeButtonClick}
+                                            >
+                                                {_visualizeShapeButtonLabel}
+                                            </button>
+                                        </td>
+                                        <!-- Visualize Adjusted Shape Button Section - End -->
+
+                                        <!-- Rest Adjustements Button Section - Start -->
+                                        <td>
+                                            <button class="commerce-button capital customButtons minHeight" onclick={handleResetAdjustments}>
+                                                {_restAdjustmentsButtonLabel}
+                                            </button>
+                                        </td>
+                                        <!-- Rest Adjustements Button Section - End -->
+                                    </tr>
+                                </table>
+                                <!-- Visualize Adjusted Shape and Rest Adjustements Button Section - End -->
+                            </div>
+                            <!-- Show Shape Editor Section - End -->
+                        </div>
+                    </div>
+                </div>
+                <!-- Shape Editor Reference Image and text section - Start -->
+                <div if:true={_showShapeEditor} class="slds-col slds-size_1-of-1 slds-large-size_12-of-12 slds-p-vertical_large shapeReference">
+                    <div class="slds-grid slds-wrap">
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_5-of-12 slds-large-size_5-of-12 slds-text-align_center">
+                            <img class="slds-m-left_xx-small" src={_shapeEditorReferenceImage} />
+                        </div>
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_7-of-12 slds-large-size_7-of-12 instructionTextStyle">
+                            <p>{_shapeEditorInstructionText}</p>
+                            <p>{_shapeEditorInstructionSubText}</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Shape Editor Reference Image and text section - End -->
+                <!-- Shape Editor Section - End -->
+            </div>
+            <!-- Lens Shape Image and Shape Editor Section - End -->
+        </template>
+        <!-- Shape Selection Screen - End -->
+    </template>
+</template>

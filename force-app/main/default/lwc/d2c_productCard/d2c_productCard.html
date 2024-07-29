@@ -1,0 +1,191 @@
+<template>
+    <div>
+        <!-- header and product image section -->
+        <div if:true={_isDesktopDevice} class="product-image-container">
+            <template for:each={slides} for:item="slide">
+                <div class={slide.slideClass} key={slide.index}>
+                    <div>
+                        <div class="title-image" key={slide.index}>
+                            <div class="product-name">
+                                <span class="headerStyling">
+                                    <h3 class="header-font-size" onclick={handleProductDetailPageNavigation} data-id={slide.id} data-name={slide.title}>
+                                        {slide.name}
+                                    </h3>
+                                    <p
+                                        class="collectionFlag normal-font-size font-adobe-pro"
+                                        onclick={handleProductDetailPageNavigation}
+                                        data-id={slide.id}
+                                        data-name={slide.title}
+                                    >
+                                        {slide.collectionFlag}
+                                    </p>
+                                </span>
+                                <span class="wishlistStyling">
+                                    <img src={_wishlistIconBlack} alt="wishlist" class="wishlist-icon" />
+                                </span>
+                            </div>
+                            <div key={slide.index} class="product-container">
+                                <img
+                                    class="product-image"
+                                    src={slide.image}
+                                    alt={slide.description}
+                                    onclick={handleProductDetailPageNavigation}
+                                    data-id={slide.id}
+                                    data-name={slide.title}
+                                />
+                            </div>
+                        </div>
+                        <div class="model-Image-container" key={slide.index} data-id={slide.index} id={slide.index} onclick={handleProductDetailPageNavigation}>
+                            <div if:true={overlayPoster} class="title-container">
+                                <div class="text-section">
+                                    <div class="slds-grid">
+                                        <div class="slds-col slds-size_9-of-12 slds-medium-size_9-of-12 slds-large-size_9-of-12">
+                                            <span class="headerStyling">
+                                                <h3
+                                                    class="header-font-size"
+                                                    onclick={handleProductDetailPageNavigation}
+                                                    data-id={slide.id}
+                                                    data-name={slide.title}
+                                                >
+                                                    {slide.name}
+                                                </h3>
+                                                <p
+                                                    class="collectionFlag normal-font-size font-adobe-pro"
+                                                    onclick={handleProductDetailPageNavigation}
+                                                    data-id={slide.id}
+                                                    data-name={slide.title}
+                                                >
+                                                    {slide.collectionFlag}
+                                                </p>
+                                            </span>
+                                        </div>
+                                        <div class="slds-col slds-size_3-of-12 slds-medium-size_3-of-12 slds-large-size_3-of-12">
+                                            <span class="wishlistStyling">
+                                                <img src={_wishlistIconWhite} alt="wishlist" class="wishlist-icon" />
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <img src={modelImage} alt="Background Image" class="background-image" />
+                                <div class="button-container slds-text-align_center">
+                                    <button class="bottom-center-button button-font-style" data-id={slide.id} id={slide.index} onclick={handleExploreMore}>
+                                        {_exploreMoreLabel}
+                                    </button>
+                                </div>
+                            </div>
+                            <div if:false={overlayPoster} class="title-container">
+                                <div class="product-name">
+                                    <span class="headerStyling">
+                                        <h3 class="header-font-size" onclick={handleProductDetailPageNavigation} data-id={slide.id} data-name={slide.title}>
+                                            {slide.name}
+                                        </h3>
+                                        <p
+                                            class="collectionFlag normal-font-size font-adobe-pro"
+                                            onclick={handleProductDetailPageNavigation}
+                                            data-id={slide.id}
+                                            data-name={slide.title}
+                                        >
+                                            {slide.collectionFlag}
+                                        </p>
+                                    </span>
+                                    <span class="wishlistStyling">
+                                        <img src={_wishlistIconBlack} alt="wishlist" class="wishlist-icon" />
+                                    </span>
+                                </div>
+                                <div key={slide.index} class="product-container">
+                                    <img
+                                        class="product-image"
+                                        src={slide.image}
+                                        alt={slide.description}
+                                        onclick={handleProductDetailPageNavigation}
+                                        data-id={slide.id}
+                                        data-name={slide.title}
+                                    />
+                                </div>
+                                <div class="button-container-overlay slds-text-align_center">
+                                    <button
+                                        class="bottom-center-button-overlay button-font-style"
+                                        data-id={slide.id}
+                                        id={slide.index}
+                                        onclick={handleExploreMore}
+                                    >
+                                        {_exploreMoreLabel}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </template>
+        </div>
+        <div if:false={_isDesktopDevice}>
+            <template for:each={slides} for:item="slide">
+                <div class={slide.slideClass} key={slide.index}>
+                    <div>
+                        <div class="title-image" key={slide.index}>
+                            <div class="product-name">
+                                <span class="headerStyling">
+                                    <h3 class="header-font-size" onclick={handleProductDetailPageNavigation} data-id={slide.id} data-name={slide.title}>
+                                        {slide.name}
+                                    </h3>
+                                    <p
+                                        class="collectionFlag normal-font-size font-adobe-pro"
+                                        onclick={handleProductDetailPageNavigation}
+                                        data-id={slide.id}
+                                        data-name={slide.title}
+                                    >
+                                        {slide.collectionFlag}
+                                    </p>
+                                </span>
+                                <span class="wishlistStyling">
+                                    <img src={_wishlistIconBlack} alt="wishlist" class="wishlist-icon" />
+                                </span>
+                            </div>
+                            <div key={slide.index} class="slds-grid product-container">
+                                <img if:true={slide.showPreviousButton} src={_previousButton} class="previous" onclick={slideBackward} />
+                                <div if:false={slide.showPreviousButton} class="previous"></div>
+                                <div key={slide.index} class="product-container">
+                                    <img
+                                        class="product-image"
+                                        src={slide.image}
+                                        alt={slide.description}
+                                        onclick={handleExploreMore}
+                                        data-id={slide.id}
+                                        data-name={slide.title}
+                                    />
+                                </div>
+                                <img if:true={slide.showNextButton} src={_nextButton} class="next" onclick={slideForward} />
+                                <div if:false={slide.showNextButton} class="next"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </template>
+        </div>
+        <!-- pricing and color section -->
+        <div class="product-color">
+            <div class="slds-grid">
+                <div class="slds-col slds-size_8-of-12 slds-medium-size_8-of-12 slds-large-size_8-of-12">
+                    <span class="color-bubbles">
+                        <template for:each={slides} for:item="slide">
+                            <span key={slide.index} class={slide.dotClass} style={slide.colorBubble} data-id={slide.index} onclick={showSlide}></span>
+                        </template>
+                    </span>
+                </div>
+                <div class="slds-col slds-size_4-of-12 slds-medium-size_4-of-12 slds-large-size_4-of-12">
+                    <span if:true={pricingInfo.showPrice} class="pricing-component font-adobe-pro">
+                        <p>
+                            <lightning-formatted-number
+                                class="normal-font-size"
+                                value={pricingInfo.negotiatedPrice}
+                                format-style="currency"
+                                currency-code={pricingInfo.currencyIsoCode}
+                                currency-display-as="code"
+                            ></lightning-formatted-number>
+                        </p>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

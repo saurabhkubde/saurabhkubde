@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>B2B_Terms_And_Conditions__c</fullName>
+    <description>This field stores the URL for terms and conditions for the specified country.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Add the link for T&amp;C to which the user is redirected to when he clicks on Terms &amp; Condition on footer of Partner Portal.
+Example : &apos;https://example.com&apos;</inlineHelpText>
+    <label>B2B Terms And Conditions</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Url</type>
+</CustomField>

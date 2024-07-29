@@ -1,0 +1,9 @@
+:host {
+    display: flex;
+    flex-direction: column;
+}
+
+.hide-price-icon {
+    float: right;
+    max-width: 25px;
+}

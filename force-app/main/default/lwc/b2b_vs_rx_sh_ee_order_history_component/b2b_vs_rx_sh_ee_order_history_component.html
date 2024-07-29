@@ -1,0 +1,738 @@
+<template>
+    <!-- SH/EE/NB order history template-->
+    <lightning-card class="black-color no-border">
+        <span class="slds-align_absolute-center model-text-24 arial-font">{labels.orderhistory}</span>
+        <template if:true={isLoading}>
+            <lightning-spinner alternative-text="Loading" size="small"></lightning-spinner>
+        </template>
+        <div class="orderHistoryTab">
+            <lightning-tabset>
+                <!-- Tab 1: SH/EE Start -->
+                <lightning-tab label={_labelForSHEE} value={_labelForSHEE} onactive={handleTabSelection}></lightning-tab>
+                <!-- Tab 1: SH/EE end -->
+                <!-- Tab 2: 100% Silhouette Start -->
+                <template if:true={isEligibleForVS}>
+                    <lightning-tab label={_labelForSHVS} value={_labelForSHVS} onactive={handleTabSelection}></lightning-tab>
+                </template>
+                <!-- Tab 2: 100% Silhouette end -->
+                <!-- Tab 3: evil eye RX Start -->
+                <template if:true={isEligibleForRX}>
+                    <lightning-tab label={_labelForEERX} value={_labelForEERX} onactive={handleTabSelection}></lightning-tab>
+                </template>
+                <!-- Tab 3: evil eye RX end -->
+            </lightning-tabset>
+        </div>
+
+        <div if:false={_selectedVSRX}>
+            <div class="slds-grid slds-gutters slds-wrap slds-m-vertical_medium order-history">
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_3-of-12">
+                    <lightning-combobox
+                        name="timeframe"
+                        label={labels.timeframe}
+                        value={selectedTimeframe}
+                        options={timeframeOptions}
+                        onchange={handleTimeframeChange}
+                        class="model-text-14"
+                    ></lightning-combobox>
+                </div>
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_3-of-12">
+                    <lightning-combobox
+                        name="status"
+                        label={labels.status}
+                        value={selectedStatus}
+                        placeholder={labels.selectstatus}
+                        options={orderStatuses}
+                        onchange={handleStatusChange}
+                        class="model-text-14"
+                    ></lightning-combobox>
+                </div>
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_3-of-12">
+                    <lightning-combobox
+                        name="source"
+                        label={labels.source}
+                        value={selectedSource}
+                        placeholder={labels.selectsource}
+                        options={orderSources}
+                        onchange={handleSourceChange}
+                        class="model-text-14"
+                    ></lightning-combobox>
+                </div>
+            </div>
+            <div class="slds-grid slds-gutters slds-wrap filterContainer slds-m-vertical_medium slds-m-top_medium">
+                <!-- Search textbox Section Start -->
+                <div class="slds-col slds-small-size_12-of-12 slds-medium-size_12-of-12 slds-large-size_6-of-12">
+                    <div class="input_wrap slds-m-top_medium slds-p-bottom_medium">
+                        <input type="text" class="custom slds-p-top_small" name="search" title={enterKeyword} onkeyup={handleSearch} value={_searchKeyword} />
+                        <label>{enterKeyword}</label>
+                    </div>
+                </div>
+                <!-- Search textbox Section End -->
+
+                <!-- Button Section Start -->
+                <!-- BS-2175 -->
+                <div class="slds-col slds-small-size_4-of-12 slds-medium-size_3-of-12 slds-large-size_6-of-12 slds-m-top_large">
+                    <a class="font-size" onclick={handleResetFilters} title={labels.orderresetfilters} value="Back">
+                        <span>
+                            <img src={refreshIcon} />
+                        </span>
+                        <span> {labels.orderresetfilters} </span>
+                    </a>
+                </div>
+                <!-- Button Section End -->
+            </div>
+        </div>
+        <!--BS-1161-->
+        <div if:true={_showFiltersForVS}>
+            <div class="slds-grid slds-gutters slds-wrap slds-m-vertical_medium order-history">
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_3-of-12">
+                    <lightning-combobox
+                        name="ordertype"
+                        label={orderType}
+                        value={_configurationTypeVs}
+                        options={_orderType}
+                        onchange={handleOrderTypeChange}
+                        class="model-text-14"
+                    ></lightning-combobox>
+                </div>
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_3-of-12">
+                    <lightning-combobox
+                        name="timeframe"
+                        label={labels.timeframe}
+                        value={selectedTimeframeVs}
+                        options={timeframeOptions}
+                        onchange={handleTimeframeChangeVsRx}
+                        class="model-text-14"
+                    ></lightning-combobox>
+                </div>
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_3-of-12">
+                    <lightning-combobox
+                        name="status"
+                        label={labels.status}
+                        value={selectedStatusVs}
+                        placeholder={labels.selectstatus}
+                        options={orderStatuses}
+                        onchange={handleStatusChangeVsRx}
+                        class="model-text-14"
+                    ></lightning-combobox>
+                </div>
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_3-of-12">
+                    <!-- source filter start -->
+                    <div>
+                        <label class="slds-form-element__label">{labels.source}</label>
+                        <div class="slds-form-element__control">
+                            <div class="slds-combobox_container">
+                                <div
+                                    class="slds-combobox slds-dropdown-trigger slds-dropdown-trigger_click"
+                                    data-id="VS-Source"
+                                    onclick={toggleVisibility}
+                                    onfocusout={toggleVisibility}
+                                >
+                                    <div class="slds-combobox__form-element slds-input-has-icon slds-input-has-icon_right" role="none">
+                                        <button
+                                            type="button"
+                                            class="slds-input_faux slds-combobox__input border"
+                                            aria-labelledby="combobox-label-id-132 combobox-id-59-selected-value"
+                                            aria-controls="listbox-id-2"
+                                            aria-expanded="false"
+                                            aria-haspopup="listbox"
+                                        >
+                                            <template if:true={_orderSourcesVs} for:each={_orderSourcesVs} for:item="source">
+                                                <span
+                                                    if:true={source.selected}
+                                                    key={source.value}
+                                                    class="slds-truncate selectedOption flex-display option-text"
+                                                    data-value={source.value}
+                                                    >{source.label}
+                                                </span>
+                                            </template>
+                                        </button>
+                                        <span class="slds-input__icon-group slds-input__icon-group_right">
+                                            <lightning-icon
+                                                class="slds-input__icon slds-input__icon_right slds-icon-utility-down slds-icon_container"
+                                                icon-name="utility:down"
+                                                alternative-text="down"
+                                                size="xx-small"
+                                            >
+                                            </lightning-icon>
+                                        </span>
+                                    </div>
+                                    <div class="slds-dropdown slds-dropdown_length-6 slds-dropdown_fluid" role="listbox">
+                                        <ul class="slds-listbox slds-listbox_vertical" role="presentation">
+                                            <template for:each={_orderSourcesVs} for:item="source">
+                                                <li role="presentation" class="slds-listbox__item" key={source.value}>
+                                                    <div
+                                                        class="slds-media slds-listbox__option slds-media_center slds-media_small slds-listbox__option_plain"
+                                                        role="vs-source"
+                                                        aria-disabled={source.disabled}
+                                                        data-value={source.value}
+                                                        data-disabled={source.disabled}
+                                                        onclick={handleSourceChangeVsRx}
+                                                        onmousedown={handleSourceChangeVsRx}
+                                                    >
+                                                        <span class="slds-media__figure slds-listbox__option-icon">
+                                                            <lightning-icon
+                                                                if:true={source.selected}
+                                                                class="slds-input__icon slds-icon-utility-check slds-icon_container"
+                                                                icon-name="utility:check"
+                                                                alternative-text="check"
+                                                                size="x-small"
+                                                                data-value={source.value}
+                                                            >
+                                                            </lightning-icon>
+                                                        </span>
+                                                        <span class="slds-media__body">
+                                                            <span
+                                                                class="slds-truncate"
+                                                                data-value={source.value}
+                                                                data-disabled={source.disabled}
+                                                                title={source.label}
+                                                                >{source.label}</span
+                                                            >
+                                                        </span>
+                                                    </div>
+                                                </li>
+                                            </template>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- source filter end -->
+                </div>
+            </div>
+            <!-- Search textbox and Button Section Start -->
+            <div class="slds-grid slds-gutters slds-wrap filterContainer slds-m-vertical_medium slds-m-top_medium">
+                <!-- Search textbox Section Start -->
+                <div class="slds-col slds-small-size_12-of-12 slds-medium-size_12-of-12 slds-large-size_6-of-12">
+                    <div class="input_wrap slds-m-top_medium slds-p-bottom_medium">
+                        <input type="text" class="custom slds-p-top_small" name="search" title={enterKeyword} onkeyup={handleSearch} value={_searchKeywordVs} />
+                        <label>{enterKeyword}</label>
+                    </div>
+                </div>
+                <!-- Search textbox Section End -->
+
+                <!-- Button Section Start -->
+                <!-- BS-2175 -->
+                <div class="slds-col slds-small-size_4-of-12 slds-medium-size_3-of-12 slds-large-size_6-of-12 slds-m-top_large">
+                    <a class="font-size" onclick={handleResetFilters} title={labels.orderresetfilters} value="Back">
+                        <span class="clear-icon">
+                            <img src={refreshIcon} />
+                        </span>
+                        <span> {labels.orderresetfilters} </span>
+                    </a>
+                </div>
+                <!-- Button Section End -->
+            </div>
+        </div>
+        <div if:true={_showFiltersForRX}>
+            <div class="slds-grid slds-gutters slds-wrap slds-m-vertical_medium order-history">
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_3-of-12">
+                    <lightning-combobox
+                        name="ordertype"
+                        label={orderType}
+                        value={_configurationTypeRx}
+                        options={_orderType}
+                        onchange={handleOrderTypeChange}
+                        class="model-text-14"
+                    ></lightning-combobox>
+                </div>
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_3-of-12">
+                    <lightning-combobox
+                        name="timeframe"
+                        label={labels.timeframe}
+                        value={selectedTimeframeRx}
+                        options={timeframeOptions}
+                        onchange={handleTimeframeChangeVsRx}
+                        class="model-text-14"
+                    ></lightning-combobox>
+                </div>
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_3-of-12">
+                    <lightning-combobox
+                        name="status"
+                        label={labels.status}
+                        value={selectedStatusRx}
+                        placeholder={labels.selectstatus}
+                        options={orderStatuses}
+                        onchange={handleStatusChangeVsRx}
+                        class="model-text-14"
+                    ></lightning-combobox>
+                </div>
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_3-of-12">
+                    <!-- source filter start -->
+                    <div>
+                        <label class="slds-form-element__label">{labels.source}</label>
+                        <div class="slds-form-element__control">
+                            <div class="slds-combobox_container">
+                                <div
+                                    class="slds-combobox slds-dropdown-trigger slds-dropdown-trigger_click"
+                                    data-id="RX-Source"
+                                    onclick={toggleVisibility}
+                                    onfocusout={toggleVisibility}
+                                >
+                                    <div class="slds-combobox__form-element slds-input-has-icon slds-input-has-icon_right" role="none">
+                                        <button
+                                            type="button"
+                                            class="slds-input_faux slds-combobox__input border"
+                                            aria-labelledby="combobox-label-id-132 combobox-id-59-selected-value"
+                                            aria-controls="listbox-id-2"
+                                            aria-expanded="false"
+                                            aria-haspopup="listbox"
+                                        >
+                                            <template if:true={_orderSourcesRx} for:each={_orderSourcesRx} for:item="source">
+                                                <span
+                                                    if:true={source.selected}
+                                                    key={source.value}
+                                                    class="slds-truncate flex-display option-text"
+                                                    data-value={source.value}
+                                                    >{source.label}
+                                                </span>
+                                            </template>
+                                        </button>
+                                        <span class="slds-input__icon-group slds-input__icon-group_right">
+                                            <lightning-icon
+                                                class="slds-input__icon slds-input__icon_right slds-icon-utility-down slds-icon_container"
+                                                icon-name="utility:down"
+                                                alternative-text="down"
+                                                size="xx-small"
+                                            >
+                                            </lightning-icon>
+                                        </span>
+                                    </div>
+                                    <div class="slds-dropdown slds-dropdown_length-6 slds-dropdown_fluid" role="listbox">
+                                        <ul class="slds-listbox slds-listbox_vertical" role="presentation">
+                                            <template for:each={_orderSourcesRx} for:item="source">
+                                                <li role="presentation" class="slds-listbox__item" key={source.value}>
+                                                    <div
+                                                        class="slds-media slds-listbox__option slds-media_center slds-media_small slds-listbox__option_plain"
+                                                        role="rx-source"
+                                                        aria-disabled={source.disabled}
+                                                        data-value={source.value}
+                                                        data-disabled={source.disabled}
+                                                        onclick={handleSourceChangeVsRx}
+                                                        onmousedown={handleSourceChangeVsRx}
+                                                    >
+                                                        <span class="slds-media__figure slds-listbox__option-icon">
+                                                            <lightning-icon
+                                                                if:true={source.selected}
+                                                                class="slds-input__icon slds-icon-utility-check slds-icon_container"
+                                                                icon-name="utility:check"
+                                                                alternative-text="check"
+                                                                size="x-small"
+                                                                data-value={source.value}
+                                                            >
+                                                            </lightning-icon>
+                                                        </span>
+                                                        <span class="slds-media__body">
+                                                            <span
+                                                                class="slds-truncate"
+                                                                data-value={source.value}
+                                                                data-disabled={source.disabled}
+                                                                title={source.label}
+                                                                >{source.label}</span
+                                                            >
+                                                        </span>
+                                                    </div>
+                                                </li>
+                                            </template>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- source filter end -->
+                </div>
+            </div>
+            <!-- Search textbox and Button Section Start -->
+            <div class="slds-grid slds-gutters slds-wrap filterContainer slds-m-vertical_medium slds-m-top_medium">
+                <!-- Search textbox Section Start -->
+                <div class="slds-col slds-small-size_12-of-12 slds-medium-size_12-of-12 slds-large-size_6-of-12">
+                    <div class="input_wrap slds-m-top_medium slds-p-bottom_medium">
+                        <input type="text" class="custom slds-p-top_small" name="search" title={enterKeyword} onkeyup={handleSearch} value={_searchKeywordRx} />
+                        <label>{enterKeyword}</label>
+                    </div>
+                </div>
+                <!-- Search textbox Section End -->
+
+                <!-- Button Section Start -->
+                <!-- BS-2175 -->
+                <div class="slds-col slds-small-size_4-of-12 slds-medium-size_3-of-12 slds-large-size_6-of-12 slds-m-top_large">
+                    <a class="font-size" onclick={handleResetFilters} title={labels.orderresetfilters} value="Back">
+                        <span class="clear-icon">
+                            <img src={refreshIcon} />
+                        </span>
+                        <span> {labels.orderresetfilters} </span>
+                    </a>
+                </div>
+                <!-- Button Section End -->
+            </div>
+        </div>
+        <lightning-spinner if:true={_isLoading} class="slds-is-fixed slds-align_absolute-center" variant="brand" size="medium"> </lightning-spinner>
+        <template if:true={hasOrders}>
+            <div class="table-horizontal-scroll order_history slds-m-top_large">
+                <table aria-multiselectable="true" class="slds-table slds-table_bordered" role="grid" aria-label="Order History Table">
+                    <thead class="border-bottom">
+                        <tr class="border-bottom slds-line-height_reset">
+                            <th class="border-bottom no-left-margin orderTableHeader" scope="col">
+                                <a
+                                    class="slds-th__action slds-text-link_reset arial-font"
+                                    href="javascript:void(0);"
+                                    role="button"
+                                    tabindex="0"
+                                    onclick={onHandleSort}
+                                    name="B2B_ERP_Order_Id__c"
+                                >
+                                    {labels.ordernumber}
+                                    <lightning-icon
+                                        icon-name="utility:arrowup"
+                                        size="x-small"
+                                        if:true={orderNumberAsc}
+                                        name="B2B_ERP_Order_Id__c"
+                                    ></lightning-icon>
+                                    <lightning-icon
+                                        icon-name="utility:arrowdown"
+                                        size="x-small"
+                                        if:true={orderNumberDesc}
+                                        name="B2B_ERP_Order_Id__c"
+                                    ></lightning-icon>
+                                </a>
+                            </th>
+                            <th class="border-bottom arial-font no-left-margin orderTableHeader" scope="col">
+                                <a
+                                    class="slds-th__action slds-text-link_reset"
+                                    href="javascript:void(0);"
+                                    role="button"
+                                    tabindex="0"
+                                    onclick={onHandleSort}
+                                    name="OrderedDate"
+                                >
+                                    {labels.orderdate}
+                                    <lightning-icon icon-name="utility:arrowup" size="x-small" if:true={orderDateAsc} name="OrderedDate"></lightning-icon>
+                                    <lightning-icon icon-name="utility:arrowdown" size="x-small" if:true={orderDateDesc} name="OrderedDate"></lightning-icon>
+                                </a>
+                            </th>
+                            <th if:true={_selectedVSRX} class="border-bottom no-left-margin orderTableHeader" scope="col">
+                                <a class="slds-th__action slds-text-link_reset" href="javascript:void(0);" role="button" tabindex="0" name="OrderType">
+                                    {orderType}
+                                </a>
+                            </th>
+                            <!-- BS-1726 -->
+                            <th if:true={_selectedVSRX} class="border-bottom no-left-margin orderTableHeader" scope="col">
+                                <a class="slds-th__action slds-text-link_reset" href="javascript:void(0);" role="button" tabindex="0" name="CustomerName">
+                                    {endConsumerLabel}
+                                    <br />
+                                    <template if:true={referenceLabel}>{referenceLabel}</template>
+                                </a>
+                            </th>
+                            <th if:true={_selectedVSRX} class="border-bottom no-left-margin orderTableHeader" scope="col">
+                                <a
+                                    class="slds-th__action slds-text-link_reset"
+                                    href="javascript:void(0);"
+                                    role="button"
+                                    tabindex="0"
+                                    onclick={onHandleSort}
+                                    name="ClerkName"
+                                >
+                                    {labels.clerkName}
+                                    <lightning-icon icon-name="utility:arrowup" size="x-small" if:true={clerkNameAsc} name="ClerkName"></lightning-icon>
+                                    <lightning-icon icon-name="utility:arrowdown" size="x-small" if:true={clerkNameDesc} name="ClerkName"></lightning-icon>
+                                </a>
+                            </th>
+                            <!-- Start of BS-1955 -->
+                            <th if:true={_selectedVSRX} class="border-bottom orderTableHeader" scope="col">
+                                <a class="slds-th__action slds-text-link_reset" href="javascript:void(0);" role="button" tabindex="0" name="specialHandling">
+                                    {labels.SPECIAL_HANDLING}
+                                </a>
+                            </th>
+                            <!-- End of BS-1955 -->
+                            <th class="border-bottom no-left-margin orderTableHeader" scope="col">
+                                <a
+                                    class="slds-th__action slds-text-link_reset arial-font"
+                                    href="javascript:void(0);"
+                                    role="button"
+                                    tabindex="0"
+                                    onclick={onHandleSort}
+                                    name="Status"
+                                >
+                                    {labels.status}
+                                    <lightning-icon icon-name="utility:arrowup" size="x-small" if:true={statusAsc} name="Status"></lightning-icon>
+                                    <lightning-icon icon-name="utility:arrowdown" size="x-small" if:true={statusDesc} name="Status"></lightning-icon>
+                                </a>
+                            </th>
+                            <th if:false={_selectedVSRX} class="border-bottom no-left-margin orderTableHeader" scope="col">
+                                <a
+                                    class="slds-th__action slds-text-link_reset arial-font"
+                                    href="javascript:void(0);"
+                                    role="button"
+                                    tabindex="0"
+                                    onclick={onHandleSort}
+                                    name="Order_Source__c"
+                                >
+                                    {labels.source}
+                                    <lightning-icon icon-name="utility:arrowup" size="x-small" if:true={sourceAsc} name="Order_Source__c"></lightning-icon>
+                                    <lightning-icon icon-name="utility:arrowdown" size="x-small" if:true={sourceDesc} name="Order_Source__c"></lightning-icon>
+                                </a>
+                            </th>
+                            <th class="border-bottom no-left-margin orderTableHeader" scope="col">
+                                <a class="slds-th__action slds-text-link_reset slds-truncate arial-font" href="#" role="button" tabindex="0">
+                                    {labels.otherAction}
+                                </a>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <template for:each={orderRecords} for:item="order">
+                            <tr class="slds-hint-parent bottom-border" key={order.Id}>
+                                <td class="bottom-border no-left-margin" data-label="Order Number">{order.B2B_ERP_Order_Id__c}</td>
+                                <td class="bottom-border no-left-margin" data-label="Order Date">
+                                    <lightning-formatted-text value={order.displayableOrderedDate}> </lightning-formatted-text>
+                                </td>
+                                <td if:true={_selectedVSRX} class="bottom-border no-left-margin" data-label="Order Type">{order.B2B_Configuration_Type__c}</td>
+                                <td if:true={_selectedVSRX} class="bottom-border no-left-margin" data-label="Customer Name">{order.B2B_Customer_Name__c}</td>
+                                <td if:true={_selectedVSRX} class="bottom-border no-left-margin" data-label="Clerk Name">{order.B2B_Clerk__c}</td>
+                                <!-- Start of BS-1955 -->
+                                <td if:true={_selectedVSRX} class="bottom-border" data-label="Special Handling">
+                                    <template if:true={order.B2B_Special_Handling__c}> {order.B2B_Special_Handling__c} </template>
+                                    <template if:false={order.B2B_Special_Handling__c}> </template>
+                                </td>
+                                <!-- End of BS-1955 -->
+                                <td class="bottom-border no-left-margin" data-label="Status">{order.Status}</td>
+                                <td if:false={_selectedVSRX} class="bottom-border no-left-margin" data-label="Source">{order.Order_Source__c}</td>
+
+                                <td class="bottom-border" data-label="Order Number">
+                                    <div>
+                                        <img
+                                            if:true={order.isFromB2bShop}
+                                            class={order.showOrderDetailDisabled}
+                                            data-record-id={order.Id}
+                                            data-disabled={order.showOrderDetailDisabled}
+                                            src={externalLink}
+                                            title={labels.orderDetails}
+                                            onclick={showOrderDetail}
+                                        />
+                                        <img
+                                            data-order-document-request-disabled={order.documentRequestDisabled}
+                                            data-id={order.Id}
+                                            data-erp-order={order.B2B_ERP_Order_Id__c}
+                                            data-status={order.Status}
+                                            data-source={order.Order_Source__c}
+                                            data-disabled={order.documentRequestDisabled}
+                                            src={infoSVG}
+                                            title={labels.requestDocument}
+                                            class={order.documentRequestDisabled}
+                                            onclick={openModal}
+                                        />
+                                        <!--Added as part of BS-523-->
+                                        <span if:false={_selectedVSRX}>
+                                            <img
+                                                if:true={order.isFromB2bShop}
+                                                name="reorder"
+                                                src={reorderIcon}
+                                                data-record-id={order.Id}
+                                                data-order-number={order.B2B_ERP_Order_Id__c}
+                                                class="actionicon request-document-enabled slds-m-right_small"
+                                                title={labels.reorder}
+                                                onclick={handleRedirection}
+                                            />
+                                        </span>
+                                        <!--BS-1064-->
+                                        <span if:true={_selectedVSRX}>
+                                            <img
+                                                if:true={order.isFromB2bShop}
+                                                name="reorder"
+                                                src={reorderIcon}
+                                                data-record-id={order.Id}
+                                                data-order-number={order.B2B_ERP_Order_Id__c}
+                                                data-disabled={order.reorderDisabled}
+                                                class={order.reorderDisabled}
+                                                title={labels.reorder}
+                                                onclick={handleOrderPopup}
+                                            />
+                                        </span>
+                                        <!--Start of BS-2207 -->
+                                        <img
+                                            name="printOrderDetails"
+                                            src={printSVG}
+                                            data-record-id={order.Id}
+                                            class={order.printDisabled}
+                                            data-disabled={order.printDisabled}
+                                            title={printLabel}
+                                            onclick={handlePrintClick}
+                                        />
+                                        <!--End of BS-2207 -->
+                                    </div>
+                                </td>
+                            </tr>
+                        </template>
+                    </tbody>
+                </table>
+            </div>
+        </template>
+        <template if:true={hasOrders}>
+            <c-b2b_search-paginator
+                page-number={pageNumber}
+                page-size={_pageSize}
+                total-item-count={_totalItemCount}
+                onprevious={handlePreviousPage}
+                onnext={handleNextPage}
+                onpagejump={handlePageJump}
+            ></c-b2b_search-paginator>
+        </template>
+        <template if:false={hasOrders}>
+            <div class="slds-wrap slds-p-around_medium slds-align_absolute-center no-order-background">
+                <div class="slds-col slds-m-bottom_medium slds-align_absolute-center slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-1">
+                    <img src={closeIcon} class="close-icon-demesions" />
+                </div>
+                <div class="slds-col slds-m-bottom_medium slds-align_absolute-center slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-1">
+                    <h2 class="h4-font-strong black-color arial-font slds-align_absolute-center slds-text-align_center">{labels.noorders}</h2>
+                </div>
+                <div>
+                    <button name="continueShopping" class="slds-align_absolute-center silButton capital arial-font" onclick={handleRedirectToHome}>
+                        {_continueShoppingButtonLabel}
+                    </button>
+                </div>
+            </div>
+        </template>
+    </lightning-card>
+    <template if:true={showModal}>
+        <section aria-modal="true" class="slds-align_absolute-center slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <h2 class="slds-m-top_medium model-text-24 black-color arial-font">{labels.furtherinfos} {selectedOrderNumber}</h2>
+                    <div class="slds-modal__close general-close" onclick={closeModal}></div>
+                </header>
+                <div class="slds-modal__content slds-var-p-around_small">
+                    <div class="slds-border_bottom">
+                        <template if:true={showTrackingNumber}>
+                            <p class="slds-align_absolute-center slds-m-bottom_x-small model-text-18 black-color">{labels.trackinglinks}</p>
+                            <template if:true={hasTrackingLinks}>
+                                <template for:each={trackingReferences} for:item="trackingReference">
+                                    <div key={trackingReference.id} class="slds-col slds-var-p-vertical_xx-small">
+                                        <div class="slds-m-bottom_x-small slds-align_absolute-center slds-col black-color model-text-16">
+                                            {trackingReference.B2B_Order_Reference_Link__c}
+                                        </div>
+                                    </div>
+                                </template>
+                            </template>
+                            <template if:false={hasTrackingLinks}>
+                                <div class="slds-align_absolute-center model-text-16 slds-m-bottom_x-small slds-col black-color">{labels.nolinks}</div>
+                            </template>
+                        </template>
+                        <template if:true={isOrderConfirmation}>
+                            <p class="slds-align_absolute-center slds-m-bottom_x-small model-text-18 black-color">{labels.orderconfirmationlinks}</p>
+                            <div>
+                                <button
+                                    class="slds-align_absolute-center slds-m-bottom_x-small silButton capital buttonWidth arial-font"
+                                    data-name="Order Confirmation"
+                                    onclick={handleSend}
+                                >
+                                    {labels.sendorderconfirmation}
+                                </button>
+                                <div if:true={isOrderConfirmationSent}>
+                                    <div class="model-text-14 slds-m-bottom_x-small slds-align_absolute-center text-align-center">
+                                        {labels.orderConfirmationMessage}
+                                    </div>
+                                    <div class="model-text-14-font-weight slds-m-bottom_x-small slds-align_absolute-center text-align-center">
+                                        "{accountEmail}"
+                                    </div>
+                                </div>
+                            </div>
+                            <br />
+                        </template>
+                        <template for:each={orderRecords} for:item="order">
+                            <div key={order.Id} if:true={order.isFromOldShop}>
+                                <p class="slds-align_absolute-center slds-m-bottom_x-small model-text-18 black-color">{labels.orderDetailLinks}</p>
+                                <div>
+                                    <button
+                                        class="slds-align_absolute-center slds-m-bottom_x-small silButton capital buttonWidth arial-font"
+                                        data-name="Order Details"
+                                        onclick={handleOrderDetailSend}
+                                    >
+                                        {labels.requestOrderDetails}
+                                    </button>
+                                </div>
+                                <br />
+                            </div>
+                        </template>
+                    </div>
+                    <div class="slds-border_bottom">
+                        <template if:true={isDeleveryNote}>
+                            <p class="slds-align_absolute-center slds-m-vertical_small model-text-18 black-color">{labels.deliverylinks}</p>
+                            <div class="slds-col slds-var-p-vertical_xx-small">
+                                <button
+                                    class="slds-align_absolute-center slds-m-bottom_x-small silButton capital buttonWidth arial-font"
+                                    data-name="Delivery Note"
+                                    onclick={handleSend}
+                                >
+                                    {labels.senddelivery}
+                                </button>
+                                <div if:true={isDeleveryNoteSent}>
+                                    <div class="model-text-14 slds-align_absolute-center text-align-center">{labels.deliveryNoteMessage}</div>
+                                    <div class="model-text-14-font-weight slds-m-bottom_x-small slds-align_absolute-center text-align-center">
+                                        "{accountEmail}"
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                    <div>
+                        <template if:true={isOrderInvoice}>
+                            <p class="slds-align_absolute-center slds-m-top_small model-text-18 black-color">{labels.invoicelinks}</p>
+                            <div class="slds-col slds-var-p-vertical_xx-small sendinvoice-btnwrap">
+                                <!-- BS-1146 START-->
+                                <template if:true={isNoInvoiceRequested}>
+                                    <div class="sendinvoice tooltip">
+                                        <button title="" class="silButton capital buttonWidth arial-font arial-font btn-100" data-name="Invoice" disabled>
+                                            {labels.sendinvoice}
+                                        </button>
+                                        <span class="tooltiptext">{labels.disableSendInvoice}</span>
+                                    </div>
+                                </template>
+
+                                <template if:false={isNoInvoiceRequested}>
+                                    <div class="sendinvoice">
+                                        <button class="silButton capital buttonWidth arial-font arial-font btn-100" data-name="Invoice" onclick={handleSend}>
+                                            {labels.sendinvoice}
+                                        </button>
+                                    </div>
+                                </template>
+                                <!-- BS-1146 END-->
+                                <div if:true={isOrderInvoiceSent}>
+                                    <div class="model-text-14 slds-align_absolute-center text-align-center">{labels.invoiceMessage}</div>
+                                    <div class="model-text-14-font-weight slds-align_absolute-center text-align-center email-font-weight">"{accountEmail}"</div>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+                <!-- Commented as part of BS-687
+                    <footer class="slds-modal__footer">
+                    <button class="slds-align_absolute-center silButton capital" onclick={closeModal}>{labels.close}</button>
+                    </footer>
+                -->
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+    <!--BS-1064-->
+    <template if:true={_showReorderModal}>
+        <section aria-modal="true" class="slds-align_absolute-center slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <h2 class="slds-m-top_large model-text-24-normal black-color arial-font">
+                        {_reorderMessageFirstPart} <br />
+                        {_reorderMessageSecondPart}
+                    </h2>
+                    <div class="close-button-right slds-modal__close general-close" onclick={closeReorderModal}></div>
+                </header>
+                <div class="slds-modal__header slds-var-p-around_small">
+                    <button if:true={isEligibleForVS} class="silButton margin-8" data-name="SH_VS" onclick={handleReorderForVS}>{_reorderForVS}</button>
+                    <button if:true={isEligibleForRX} class="silButton margin-8" data-name="EE_RX" onclick={handleReorderForRX}>{_reorderForRX}</button>
+                    <button class="silButton" data-name="Invoice" onclick={closeReorderModal}>{labels.cancel}</button>
+                </div>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+</template>

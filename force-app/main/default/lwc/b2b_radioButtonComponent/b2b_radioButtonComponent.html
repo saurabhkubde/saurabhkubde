@@ -1,0 +1,48 @@
+<!--BS-442: Reusable Radio Button Component-->
+<template>
+    <!--SH/EE radiobutton -->
+    <div class="sh-ee-radioButton filter-scroller">
+        <template if:true={_filterOptions}>
+            <div class="slds-form-element" if:true={isSearchableFilter}>
+                <!-- BS-1540 : Improve usage of longer picklist value lists by adding search field -->
+                <lightning-input
+                    type="text"
+                    variant="label-hidden"
+                    label=""
+                    placeholder={searchLabel}
+                    onchange={handleSearch}
+                    value={searchTerm}
+                ></lightning-input>
+            </div>
+
+            <!-- Available filter options in form of Radio Button -->
+            <template for:each={_filterOptions.availableFilters.filterValues.picklistValues} for:item="value">
+                <div class="slds-grid slds-wrap" if:true={value.picklistValue} key={value}>
+                    <!-- Radio Button -->
+                    <!--Added slds-is-relative as part of BS-1416-->
+                    <div class="slds-size_10-of-12 slds-medium-size_10-of-12 slds-large-size_10-of-12 slds-is-relative" key={value}>
+                        <!-- Removed name attribute to have multiselect options enabled -->
+                        <input
+                            type="radio"
+                            id={value.picklistValue}
+                            class="filterRadioButton radio-custom"
+                            data-name={_filterOptions.availableFilters.sourceProductField}
+                            value={value.picklistValue}
+                            data-api-name={value.apiName}
+                            onclick={handleSelection}
+                            checked={value.isValueChecked}
+                            title={value.picklistValue}
+                            onselect={handleSelection}
+                        />
+                        <label for={value.picklistValue} class="black-color filterValues radio-custom-label">{value.picklistValue}</label><br />
+                    </div>
+
+                    <!-- Filter icon -->
+                    <div if:true={value.filterIcon} class="frame-icon slds-size_2-of-12 slds-medium-size_2-of-12 slds-large-size_2-of-12">
+                        <span class={value.filterIcon} style="float: right"></span>
+                    </div>
+                </div>
+            </template>
+        </template>
+    </div>
+</template>

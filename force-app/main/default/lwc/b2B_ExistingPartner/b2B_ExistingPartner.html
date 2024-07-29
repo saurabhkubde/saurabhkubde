@@ -1,0 +1,17 @@
+<template>
+    <div
+        class="slds-card main-container slds-grid slds-grid_vertical slds-p-left_small slds-p-right_small slds-p-bottom_small black-color marginDiv slds-p-horizontal_xx-large slds-m-top_large margin-top-30"
+    >
+        <div if:true={isSilhouetteLogin}>
+            <div class="title-small">{label.ExistingPartnerH1}</div>
+            <div class="title-large">{label.ExistingPartnerH2}</div>
+        </div>
+        <div if:false={isSilhouetteLogin}>
+            <div class="title-small header-subtext-nb">{label.existingPartnerNBH1}</div>
+            <div class="title-large arial-font text-large-nb black-color">{label.existingPartnerNBH2}</div>
+        </div>
+        <div class="slds-col slds-p-top_medium">
+            <button class="slds-p-horizontal_x-small silButton capital silButtonFull" onclick={registerRedirect}>{label.AccessBtn}</button>
+        </div>
+    </div>
+</template>

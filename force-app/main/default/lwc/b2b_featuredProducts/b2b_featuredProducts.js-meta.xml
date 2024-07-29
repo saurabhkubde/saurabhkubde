@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>55.0</apiVersion>
+    <isExposed>true</isExposed>
+    <masterLabel>B2B Featured Products</masterLabel>
+    <description>Showcase for your B2B Commerce products. *Products shown in preview may not reflect actual products in your community.</description>
+    <targets>
+        <target>lightning__AppPage</target>
+        <target>lightning__RecordPage</target>
+        <target>lightning__HomePage</target>
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Default</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightningCommunity__Default">
+            <property
+                name="recordId"
+                type="String"
+                label="Record Id"
+                description="Automatically bind the page's record id to the component variable"
+                default="{!recordId}"
+            />
+            <property
+                name="productSource"
+                label="Products Source"
+                description="Display products via list of SKUs or a designated category ID"
+                type="String"
+                datasource="Category ID,Product Link"
+                default="Product Link"
+            />
+            <property
+                name="linkType"
+                label="Relation Type"
+                description="The relation type of the product link to fetch products"
+                type="String"
+                datasource="apex://B2B_FeaturedProductTypes"
+            />
+            <property
+                name="categoryId"
+                label="Category External ID"
+                description="The external ID of the category to from which to populate products"
+                type="String"
+            />
+            <property
+                name="effectiveAccountId"
+                label="Effective Account Id"
+                description="The ID of the account under which the user is acting"
+                type="String"
+                default="{!CurrentUser.effectiveAccountId}"
+            />
+            <property
+                name="maxNumberOfProducts"
+                label="Maximum Number of Products"
+                description="The maximum number of featured products to show."
+                type="Integer"
+                default="4"
+                max="24"
+            />
+             <property
+                name="pageSource"
+                label="Page Source"
+                description="Defines on which the component is placed"
+                type="String"
+                datasource="Home Page,Cart Page"
+                default="Home Page"
+            />
+            <property name="featuredProductStyle" label="Style" type="String" datasource="Stacked,Tiled" default="Tiled" />
+            <property name="showHeading" label="Show Heading" type="Boolean" default="true" />
+            <property name="showMoreButton" label="Show more button" type="Boolean" default="true" />
+            <property name="featuredProductsHeading" label="Heading" description="Heading text to display above the component" type="String" />
+            <property name="featuredProductsBodySize" label="Body Size" type="String" datasource="Small,Regular" default="Regular" />
+            <property name="showSKU" label="Show SKU" description="Toggle the display of product SKU" type="Boolean" default="true" />
+
+            <!-- Added as a Part of BS-645 -->
+            <property name="showModelNumber" label="Show Model Number" description="Toggle the display of Model Number" type="Boolean" default="true" />
+            <property name="showDescription" label="Show Description" description="Toggle the display of product description" type="Boolean" default="false" />
+            <property name="includePrices" label="Show Prices" description="Toggle the display of pricing information" type="Boolean" default="true" />
+            <property name="featuredProductsSkuColor" label="SKU Color" type="Color" default="rgba(0, 0, 0, 1)" />
+            <property name="featuredProductsDescriptionColor" label="Description Color" type="Color" default="rgba(0, 0, 0, 1)" />
+            <property name="featuredProductsPriceColor" label="Price Color" type="Color" default="rgba(0, 0, 0, 1)" />
+            <property
+                name="showAddtoCartButton"
+                label="Show Add To Cart button"
+                description="Show the Add To Cart button on feature product component"
+                type="Boolean"
+                default="false"
+            />
+            <!--Added as part of BS-645-->
+            <property type="Boolean" name="isSilhouetteStore" label="Silhouette Store ?" default="true" />
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

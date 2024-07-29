@@ -1,0 +1,200 @@
+.section-title {
+    float: left;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+input[type='radio'] {
+    -webkit-transform: scale(1.5);
+    transform: scale(1.5);
+    margin-right: 5px;
+    vertical-align: middle;
+    accent-color: black;
+}
+
+.filterValues {
+    font-weight: 300;
+    margin-left: 10px;
+    font-size: 14px;
+}
+
+.actionicon {
+    width: 20px !important;
+    transition: transform 0.2s;
+    cursor: pointer;
+}
+
+.infoicon {
+    width: 15px !important;
+    transition: transform 0.2s;
+    cursor: pointer;
+}
+
+.silhouetteText {
+    font-size: 14px;
+    color: black;
+    text-decoration: underline;
+}
+
+.input-cell {
+    padding: 0px 5px;
+    border: 1px solid #d0d0d0;
+    height: 50px;
+}
+
+.heading-cell {
+    width: 130px; /* BS-1129*/
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.input-border {
+    border: none !important;
+}
+
+.input-border:hover {
+    border: none !important;
+}
+
+/* width */
+::-webkit-scrollbar {
+    height: 8px;
+}
+
+.prescription-value-container table {
+    border-collapse: separate;
+    border-spacing: 0 5px;
+    margin-top: -20px;
+    max-width: 900px;
+}
+
+.prescription-value-container table th {
+    text-align: center;
+    padding-top: 40px;
+}
+
+.prescription-value-container .slds-input {
+    text-align: center;
+    border: none !important;
+}
+
+.prescription-value-container .disabled {
+    background-color: #d8d8d8;
+    /* Added as a part of BS-1632 */
+}
+
+.prescription-value-container .slds-radio_faux {
+    -ms-transform: scale(1.5) !important; /* IE 9 */
+    -webkit-transform: scale(1.5) !important; /* Chrome, Safari, Opera */
+    transform: scale(1.5) !important;
+    width: 15px !important;
+    height: 15px !important;
+}
+.prescription-value-container .slds-radio [type='radio']:checked + .slds-radio_faux:after,
+.prescription-value-container .slds-radio [type='radio']:checked + .slds-radio--faux:after,
+.prescription-value-container .slds-radio [type='radio']:checked ~ .slds-radio_faux:after,
+.prescription-value-container .slds-radio [type='radio']:checked ~ .slds-radio--faux:after,
+.prescription-value-container .slds-radio [type='radio']:checked + .slds-radio__label .slds-radio_faux:after,
+.prescription-value-container .slds-radio [type='radio']:checked + .slds-radio__label .slds-radio--faux:after {
+    width: 0.6rem !important;
+    height: 0.6rem !important;
+}
+
+.td-radio-width {
+    width: 120px; /* BS-1129*/
+}
+
+.table-horizontal-scroll {
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+}
+
+.table-horizontal-scroll table {
+    min-width: 917px;
+}
+
+.prescription-radio-button {
+    margin: 15px 0px;
+}
+
+.lighter-text {
+    font-weight: 400;
+}
+
+.editIcon {
+    float: right;
+    cursor: pointer;
+}
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 60px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    padding: 2px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 120%;
+    left: 100%;
+    margin-left: -40px;
+    font-size: 12px;
+    font-weight: 300;
+}
+
+.tooltip .tooltiptext::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: black transparent transparent transparent;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+}
+
+.prism-base-col-width {
+    min-width: 95px;
+}
+
+.linkout {
+    text-decoration: underline;
+    font-size: 14px;
+    font-weight: 300;
+    margin-bottom: 5px;
+}
+.linkout-table img {
+    min-width: 20px;
+}
+.linkout-table {
+    table-layout: auto;
+    display: block;
+}
+
+/*BS-2139 start*/
+.error-background {
+    background-color: rgb(255 0 0 / 15%);
+    padding: 20px;
+    font-size: 15px;
+    font-weight: 500;
+    color: #f00;
+}
+
+.center-dot {
+    font-size: 30px;
+    padding: 8px;
+    font-weight: 900;
+    line-height: 0px;
+    vertical-align: text-top;
+    color: #000;
+}
+/*BS-2139 end*/

@@ -1,0 +1,162 @@
+<template>
+    <template if:true={_showModal}>
+        <section role="dialog" tabindex="-1" aria-modal="true" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <div class="slds-modal__content slds-p-horizontal_medium slds-p-top_medium" id="modal-content-id-1">
+                    <button
+                        class="slds-button slds-p-vertical_medium slds-button_icon slds-modal__close slds-button_icon-inverse slds-float_right"
+                        title="Close"
+                        onclick={handleDialogClose}
+                    >
+                        <img src={_closeIcon} />
+                    </button>
+                    <div
+                        if:true={_validationError}
+                        class="slds-m-top_large text-medium-light text-align slds-text-align_left slds-p-around_small error-comment"
+                    >
+                        <div if:true={_currentQuestion.hasOptions}>{_errorLabel.optionError}</div>
+                        <div if:true={_currentQuestion.isText}>{_errorLabel.commentError}</div>
+                    </div>
+                    <template if:true={_showSurveyOpening}>
+                        <div class="slds-var-m-top_x-large slds-var-p-horizontal_medium text-medium-light">
+                            <div class="slds-text-align_center slds-p-around_medium">{_surveyOpeningLabel.thanksLabel}</div>
+                            <div class="slds-text-align_center slds-p-bottom_medium">{_surveyOpeningLabel.informationLabel}</div>
+                            <div class="slds-text-align_center slds-p-bottom_medium link-to-survey">
+                                <a onclick={openSurvey}> {_surveyOpeningLabel.linkToSurvey} </a>
+                            </div>
+                            <div class="slds-var-p-horizontal_small slds-p-bottom_x-small text-tiny">{_surveyOpeningLabel.footerInfo}</div>
+                            <div class="slds-var-p-horizontal_small slds-p-bottom_x-small text-tiny">{_surveyOpeningLabel.footerNote}</div>
+                            <div class="slds-var-p-horizontal_small slds-p-bottom_xx-large text-tiny">{_surveyOpeningLabel.footerFurtherInformation}</div>
+                        </div>
+                    </template>
+                    <template if:true={_showSurvey}>
+                        <template if:true={_currentQuestion}>
+                            <div
+                                if:true={_currentQuestion.question}
+                                class="slds-p-vertical_medium text-medium-light text-align slds-text-align_center slds-p-left_large"
+                            >
+                                {_currentQuestion.question}
+                            </div>
+                            <div if:true={_currentQuestion.hasOptions} class="rating-container">
+                                <div
+                                    if:true={_currentQuestion.questionOptionsList}
+                                    for:each={_currentQuestion.questionOptionsList}
+                                    for:item="option"
+                                    key={option.optionId}
+                                    class="slds-p-horizontal_xxx-small slds-p-vertical_medium"
+                                >
+                                    <div key={option.optionId}>
+                                        <img
+                                            if:false={option.isSelected}
+                                            data-id={option.optionId}
+                                            src={option.imageURL}
+                                            data-score-value={option.score}
+                                            data-question-id={_currentQuestion.questionId}
+                                            data-survey-question-id={_currentQuestion.surveyQuestionId}
+                                            label={option.label}
+                                            title={option.label}
+                                            onclick={handleQuestionScore}
+                                            class="image-width bounce-top"
+                                        />
+                                        <img
+                                            if:true={option.isSelected}
+                                            data-id={option.optionId}
+                                            src={option.imageURL}
+                                            data-score-value={option.score}
+                                            data-question-id={_currentQuestion.questionId}
+                                            data-survey-question-id={_currentQuestion.surveyQuestionId}
+                                            label={option.label}
+                                            title={option.label}
+                                            onclick={handleQuestionScore}
+                                            class="image-width selected-score"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <template if:true={_showTextArea}>
+                                <div
+                                    if:true={_currentQuestion.isText}
+                                    class="slds-align_absolute-center slds-p-bottom_medium slds-p-horizontal_xxx-small survey-textarea"
+                                >
+                                    <lightning-textarea
+                                        name="response"
+                                        type="text"
+                                        placeholder={_reponseLabel}
+                                        data-question-id={_currentQuestion.questionId}
+                                        data-survey-question-id={_currentQuestion.surveyQuestionId}
+                                        rows="2"
+                                        class="text-small-light slds-p-bottom_xx-small text-area"
+                                        value={_currentQuestion.answerObject.answer}
+                                        onchange={populateQuestionResponse}
+                                        onkeydown={populateQuestionResponse}
+                                    >
+                                    </lightning-textarea>
+                                </div>
+                                <div if:false={_currentQuestion.isText} class="slds-align_absolute-center slds-p-horizontal_xxx-small survey-textarea">
+                                    <lightning-textarea
+                                        name="comment"
+                                        data-question-id={_currentQuestion.questionId}
+                                        data-survey-question-id={_currentQuestion.surveyQuestionId}
+                                        placeholder={_commentLabel}
+                                        rows="2"
+                                        value={_currentQuestion.answerObject.comment}
+                                        type="text"
+                                        class="text-small-light slds-p-bottom_medium text-area"
+                                        onchange={handleComment}
+                                        onkeydown={handleComment}
+                                    >
+                                    </lightning-textarea>
+                                </div>
+                            </template>
+                        </template>
+                    </template>
+                    <template if:true={_showSurveyClosing}>
+                        <div class="slds-var-m-top_x-large text-medium-light">
+                            <div class="slds-text-align_center slds-p-around_medium">{_closingLabel.thanksLabel}</div>
+                            <div class="slds-text-align_center slds-p-bottom_medium">{_closingLabel.appreciationLabel}</div>
+                            <div if:true={_isSilhouetteStore} class="slds-text-align_center slds-p-bottom_xx-large">{_closingLabel.silhouetteClosingLabel}</div>
+                            <div if:false={_isSilhouetteStore} class="slds-text-align_center slds-p-bottom_xx-large">{_closingLabel.neubauClosingLabel}</div>
+                        </div>
+                    </template>
+                </div>
+                <template if:true={_showSurvey}>
+                    <div class="slds-modal__footer no-border slds-p-bottom_large">
+                        <!-- Add Buttons for back and next and submit-->
+                        <button
+                            if:true={_showBack}
+                            class="commerce-button capital slds-float_left"
+                            onclick={handleBack}
+                            value={_backButtonLabel}
+                            label={_backButtonLabel}
+                            data-id={_currentQuestion.questionId}
+                        >
+                            {_backButtonLabel}
+                        </button>
+                        <button
+                            if:true={_showNext}
+                            class="commerce-button capital slds-float_right"
+                            onclick={handleNext}
+                            value={_nextButtonLabel}
+                            label={_nextButtonLabel}
+                            data-id={_currentQuestion.questionId}
+                            disabled={_isNextDisabled}
+                        >
+                            {_nextButtonLabel}
+                        </button>
+                        <button
+                            if:true={_showSubmit}
+                            class="commerce-button capital slds-float_right"
+                            onclick={handleSubmit}
+                            value={_submitButtonLabel}
+                            label={_submitButtonLabel}
+                            data-id={_currentQuestion.questionId}
+                        >
+                            {_submitButtonLabel}
+                        </button>
+                    </div>
+                </template>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
+    </template>
+</template>

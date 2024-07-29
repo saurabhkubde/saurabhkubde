@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>B2B_Product_Media_Type__c</fullName>
+    <externalId>false</externalId>
+    <label>B2B Product Media Type</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>OMA Files</fullName>
+                <default>false</default>
+                <label>OMA Files</label>
+            </value>
+            <value>
+                <fullName>Catalogue Page</fullName>
+                <default>false</default>
+                <label>Catalogue Page</label>
+            </value>
+            <value>
+                <fullName>Mounting Instructions (VH)</fullName>
+                <default>false</default>
+                <label>Mounting Instructions (VH)</label>
+            </value>
+            <value>
+                <fullName>Mounting Instructions (Video)</fullName>
+                <default>false</default>
+                <label>Mounting Instructions (Video)</label>
+            </value>
+            <value>
+                <fullName>Drilling Coordinates</fullName>
+                <default>false</default>
+                <label>Drilling Coordinates</label>
+            </value>
+            <value>
+                <fullName>Conformity Confirmation</fullName>
+                <default>false</default>
+                <label>Conformity Confirmation</label>
+            </value>
+            <value>
+                <fullName>Related Clip-Ons</fullName>
+                <default>false</default>
+                <label>Related Clip-Ons</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

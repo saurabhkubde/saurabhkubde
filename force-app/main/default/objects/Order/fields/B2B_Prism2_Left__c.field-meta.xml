@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>B2B_Prism2_Left__c</fullName>
+    <description>This field is used to store the value of Prism 2 for Left Eye.</description>
+    <externalId>false</externalId>
+    <label>Prism 2 - Left Eye</label>
+    <precision>16</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackHistory>false</trackHistory>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

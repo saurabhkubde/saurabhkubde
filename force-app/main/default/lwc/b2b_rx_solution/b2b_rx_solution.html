@@ -1,0 +1,156 @@
+<template>
+    <template if:true={_isRxPage}>
+        <!-- Read Only Mode Section -->
+        <div if:true={_isReadOnly} class="slds-p-bottom_small">
+            <div class="slds-grid slds-wrap">
+                <div class="title slds-border_bottom slds-p-vertical_medium slds-m-bottom_small">
+                    <div class="rxSolutionTitle">{_rxSolutionHeaderLabel}</div>
+
+                    <div class="editIcon">
+                        <img src={editIcon.icon} onclick={handleRxSolutionEdit} width="20" height="20" />
+                    </div>
+                </div>
+
+                <div class="rxReadOnlyScreen">
+                    <!-- Radio Button -->
+                    <input type="radio" class="filterRadioButton" name="Rx-Solution" value={_selectedRXSolution} title={_selectedRXSolution} checked readonly />
+                    <!-- RX Solution Label -->
+                    <span class="black-color filterValues" title={_selectedRXSolutionValue}> {_selectedRXSolutionValue}</span>
+                </div>
+                <div if:true={_selectedRXTypeProduct}>
+                    <div>
+                        <label class="rxSolutionSummaryLabels">{_RXTypeLabel}</label>
+                    </div>
+                    <div>
+                        <input type="text" class="rxSolutionSummaryFields" value={_selectedRXTypeProduct} title={_selectedRXTypeProduct} readonly required />
+                    </div>
+                </div>
+
+                <div if:true={colorSelected}>
+                    <div>
+                        <label class="rxSolutionSummaryLabels">{_colorLabel}</label>
+                    </div>
+                    <div>
+                        <input type="text" class="rxSolutionSummaryFields" value={colorSelected} title={colorSelected} readonly required />
+                    </div>
+                </div>
+                <!--This for Checkbox-->
+                <div if:true={_hideLensOnlyCheckbox} class="readCheckBox">
+                    <lightning-input label={_lensOnlyForClipInLabel} class="" type="checkbox" checked={isLensOnlyChecked} disabled="true"> </lightning-input>
+                </div>
+                <div if:true={_hideLensesWithoutAdapter} class="readCheckBox">
+                    <lightning-input label={_lensesWithoutAdpaterLabel} type="checkbox" checked={isLensesWithoutAdapterChecked} disabled="true">
+                    </lightning-input>
+                </div>
+                <!--end checkbox-->
+            </div>
+        </div>
+
+        <!-- Read Only Mode Section End -->
+        <div if:false={_isReadOnly}>
+            <!-- Input type Radio Buttons values for Order Type field Selection Section Start-->
+            <div class="slds-grid slds-wrap slds-m-top_small">
+                <div class="title slds-border_bottom slds-p-vertical_medium slds-m-bottom_small">{_rxSolutionHeaderLabel}</div>
+                <template for:each={_rxSolutionSummaryCollection} for:item="field">
+                    <div
+                        is:true={field.isVisible}
+                        key={field}
+                        class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_4-of-12 customRadioButtonStyling"
+                    >
+                        <div>
+                            <!-- Radio Button -->
+                            <input
+                                type="radio"
+                                id={field.label}
+                                class="filterRadioButton"
+                                name="Rx-Solution"
+                                onclick={handleSelection}
+                                value={field.label}
+                                title={field.label}
+                                checked={field.isChecked}
+                            />
+                            <!-- RX Solution Label -->
+                            <span class="black-color filterValues" title={field.label}> {field.label} </span>
+                        </div>
+                    </div>
+                </template>
+                <div if:true={_isRXSolutionInValid} class="errorMessage slds-p-bottom_small">{_fieldErrorMessage}</div>
+            </div>
+
+            <!--Start RX Type-->
+            <div if:true={_hideRXTypeColor} class="slds-grid slds-wrap">
+                <div
+                    class="slds-form-element slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_4-of-12 slds-var-m-top_small slds-p-right_x-large"
+                >
+                    <lightning-combobox
+                        name={_RXTypeLabel}
+                        label={_RXTypeLabel}
+                        value={_selectedRXTypeProduct}
+                        options={rxTypeProductOptions}
+                        onchange={handleRXTypeOptionsSelection}
+                    ></lightning-combobox>
+                    <div if:true={_isRXTypeInValid} class="errorMessage slds-p-bottom_small">{_fieldErrorMessage}</div>
+                </div>
+
+                <!--End RX Type-->
+                <!--This for color-->
+                <div
+                    if:true={_hideColor}
+                    class="slds-form-element slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_4-of-12 slds-var-m-top_small slds-p-right_x-large"
+                >
+                    <template if:true={_hideColor}>
+                        <lightning-combobox
+                            name={_colorLabel}
+                            label={_colorLabel}
+                            value={_selectedColorProduct}
+                            options={colorProductOptions}
+                            onchange={handleColorOptionsSelection}
+                        ></lightning-combobox>
+                        <!--End Color-->
+                        <div if:true={_isRXColorInValid} class="errorMessage slds-p-bottom_small">{_fieldErrorMessage}</div>
+                    </template>
+                </div>
+
+                <div
+                    if:true={_showTransparentColor}
+                    class="slds-form-element slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_4-of-12 slds-var-m-top_small slds-p-right_x-large"
+                >
+                    <label class="rxSolutionSummaryLabels">{_colorLabel}</label>
+                    <div>
+                        <input type="text" class="rxSolutionSummaryFields" value={colorSelected} title={colorSelected} readonly required />
+                    </div>
+                </div>
+                <!--This for Checkbox-->
+                <div
+                    if:true={_hideLensOnlyCheckbox}
+                    class="slds-form-element slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_4-of-12 slds-var-m-top_small slds-p-right_x-large slds-p-bottom_medium"
+                >
+                    <lightning-input
+                        label={_lensOnlyForClipInLabel}
+                        class="lensCheckbox"
+                        type="checkbox"
+                        checked={isLensOnlyChecked}
+                        onchange={handleLensClipInCheckbox}
+                    >
+                    </lightning-input>
+                </div>
+                <!--end checkbox-->
+                <!--This for Checkbox-->
+                <div
+                    if:true={_hideLensesWithoutAdapter}
+                    class="slds-form-element slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_4-of-12 slds-var-m-top_small slds-p-right_x-large slds-p-bottom_medium"
+                >
+                    <lightning-input
+                        label={_lensesWithoutAdpaterLabel}
+                        class="lensCheckbox"
+                        type="checkbox"
+                        checked={isLensesWithoutAdapterChecked}
+                        onchange={handleLensAdapterCheckbox}
+                    >
+                    </lightning-input>
+                </div>
+                <!--end checkbox-->
+            </div>
+        </div>
+    </template>
+</template>

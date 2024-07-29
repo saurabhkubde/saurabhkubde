@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Lens_Product__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>This is the lookup field for lens product</description>
+    <externalId>false</externalId>
+    <label>Lens Product</label>
+    <referenceTo>Product2</referenceTo>
+    <relationshipLabel>B2B Lens Configurator (Lens Product)</relationshipLabel>
+    <relationshipName>B2B_Lens_Configurator3</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

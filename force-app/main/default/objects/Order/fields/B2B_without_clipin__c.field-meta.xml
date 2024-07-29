@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>B2B_without_clipin__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Applicable option if order type is lens only for RX</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Applicable option if order type is lens only for RX</inlineHelpText>
+    <label>Without Clip-in?</label>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

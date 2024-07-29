@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>59.0</apiVersion>
+    <decisions>
+        <name>Check_if_Account_Contact_is_populated</name>
+        <label>Check if Account/Contact is populated</label>
+        <locationX>314</locationX>
+        <locationY>323</locationY>
+        <defaultConnectorLabel>Related Contact/Account does not exists</defaultConnectorLabel>
+        <rules>
+            <name>Related_Contact_Account_exists</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.ContactId</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Contact.AccountId</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_User_Record</targetReference>
+            </connector>
+            <label>Related Contact/Account exists</label>
+        </rules>
+    </decisions>
+    <description>This field populates below values from Account
+
+This block assigns below values on Account from user : 
+
+k_Account_Status_Silhouette__c - B2B_SH_Account_Status__c 
+Acct_Stat_EE__c - B2B_EE_Account_Status__c
+k_Account_Status_Neubau__c - B2B_NB_Account_Status__c
+k_Country_Code_ARIS_ID__c - B2B_Country_Code_ARIS_ID__c</description>
+    <environments>Default</environments>
+    <interviewLabel>B2B Populate Account Brand Status on User {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>B2B Populate Account Brand Status on User</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordCreates>
+        <name>Create_Commerce_Log</name>
+        <label>Create Commerce Log</label>
+        <locationX>314</locationX>
+        <locationY>539</locationY>
+        <inputAssignments>
+            <field>B2B_Message_Details__c</field>
+            <value>
+                <elementReference>$Flow.FaultMessage</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>B2B_Message__c</field>
+            <value>
+                <stringValue>Flow failed : B2B Populate Account Brand Status on User</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>B2B_Process__c</field>
+            <value>
+                <stringValue>CommerceSetup</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>B2B_Related_Record_Id__c</field>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>B2B_Type__c</field>
+            <value>
+                <stringValue>Error</stringValue>
+            </value>
+        </inputAssignments>
+        <object>B2B_CommerceLog__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordUpdates>
+        <name>Update_User_Record</name>
+        <label>Update User Record</label>
+        <locationX>50</locationX>
+        <locationY>431</locationY>
+        <faultConnector>
+            <targetReference>Create_Commerce_Log</targetReference>
+        </faultConnector>
+        <inputAssignments>
+            <field>B2B_Country_Code_ARIS_ID__c</field>
+            <value>
+                <elementReference>$Record.Contact.Account.k_Country_Code_ARIS_ID__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>B2B_EE_Account_Status__c</field>
+            <value>
+                <elementReference>$Record.Contact.Account.Acct_Stat_EE__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>B2B_NB_Account_Status__c</field>
+            <value>
+                <elementReference>$Record.Contact.Account.k_Account_Status_Neubau__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>B2B_SH_Account_Status__c</field>
+            <value>
+                <elementReference>$Record.Contact.Account.k_Account_Status_Silhouette__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>188</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Check_if_Account_Contact_is_populated</targetReference>
+        </connector>
+        <object>User</object>
+        <recordTriggerType>Create</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>
