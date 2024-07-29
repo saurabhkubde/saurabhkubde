@@ -1,0 +1,1785 @@
+/* NBD2C-24 : Header Section Styling - Start */
+
+body {
+    font-family: 'SweetSansProLight';
+    overflow-x: hidden!important;
+}
+/* Store Logo CSS (d2c_Store_logo)- Start  */
+
+.search-bottom {
+    border-bottom: 1px solid #b8b8b8!important;
+}
+
+.color-white {
+    color: #f7f7f8!important;
+}
+
+.color-black {
+    color: black!important;
+}
+
+.overflow-y-hidden {
+    overflow-y: hidden!important;
+}
+
+.border-bottom-white {
+    border-bottom: 1px solid #f7f7f8!important;
+}
+
+.padding-left-10 {
+    padding-left: 10px!important;
+}
+
+.border-bottom-black {
+    border-bottom: 1px solid black!important;
+}
+
+.background-transperant {
+    background: transparent!important;
+}
+
+.border-bottom-none {
+    border: none!important;
+}
+
+.text-uppercase {
+    text-transform: uppercase!important;
+}
+
+.fill-white {
+    fill: #f7f7f8!important;
+    left: 95%!important;
+}
+
+.fill-black {
+    fill: #2c2c2c!important;
+    left: 95%!important;
+}
+
+.hamburger-menu-hover-white {
+    --dxp-g-neutral-3: #f7f7f8;
+}
+
+.hamburger-menu-hover-black {
+    --dxp-g-neutral-3: black;
+}
+
+.navigation-white {
+    --slds-c-icon-color-foreground: #f7f7f8;
+}
+
+.navigation-black {
+    --slds-c-icon-color-foreground: black;
+}
+
+/* Store Logo CSS (d2c_Store_logo) - End  */
+/* Header Section Styling - Start  */
+
+/* Header Styling - Start */
+
+
+header {
+    background-color: transparent !important;
+    font-family: 'SweetSansProLight' !important;
+    text-transform: uppercase;
+}
+
+.customHeaderCSS {
+    min-height: 90px !important;
+    background-color: transparent;
+}
+
+.headerBackground {
+    display: inline-block;
+    background-color: black;
+    margin-top: 0px !important;
+    height: 80px !important;
+    width: 100% !important;
+}
+
+.background-white {
+    display: inline-block;
+    background-color: #f7f7f8 !important;
+    margin-top: 0px !important;
+    height: 80px !important;
+    width: 100% !important;
+}
+
+[data-id='back']{
+    padding-left: 10px!important;
+}
+
+.header-logo {
+    width: 14%;
+}
+
+.header-badge-icons {
+    width: 6% ;
+}
+
+.header-navigation {
+    width: 65% ;
+}
+
+.header-search {
+    width: 15% ;
+}
+
+/* Header Styling - End  */
+
+/* Navigation Bar Styling - Start  */
+
+.header-navigation a, .header-navigation button {
+    padding-bottom: 3px!important;
+    background-color: transparent!important;
+    text-transform: uppercase!important;
+    border-style: none!important;
+}
+
+nav .slide-down ul {
+    color: #000!important;
+    background-color: white!important;
+}
+
+nav .slide-down li a {
+    color: #000!important;
+    border: none!important;
+}
+
+nav .slide-down {
+    background-color: white!important;
+}
+
+nav .slide-down li:hover{
+    background-color: #f7f7f8!important;
+}
+nav a, nav button {
+    padding: 0!important;
+    text-transform: uppercase!important;
+}
+
+nav li {
+    padding: 0.75rem;
+}
+
+nav ul {
+    justify-content: center;
+}
+
+.header-navigation ul {
+    font-size: 14px!important;
+}
+
+.header-content {
+    margin: 0px!important;
+}
+
+.header-navigation .close-button-wrapper .close-button {
+    color: black!important;
+}
+
+/* Navigation Bar Styling - End  */
+
+
+/* SeachBar Styling - Start  */
+.search-input-without-button {
+    padding: 0px!important;
+}
+
+input {
+    -webkit-appearance: none!important;
+    border-radius: 0!important;
+}
+
+button {
+    -webkit-appearance: none!important;
+    border-radius: 0!important;
+}
+
+.visibleSearch .input-icon-container {
+    display: none!important;
+}
+
+.active {
+    border: none!important;
+    box-shadow: none !important;
+}
+/* SearchBar Styling - End  */
+
+/* Wishlist Cart Icon Styling - Start  */
+.badgeIcon {
+    opacity: 1!important;
+    color: black;
+    background: #e4e2e2!important;
+    left: 13;
+}
+
+.storeLogoStyling {
+    height: 17px;
+    width: 160px;
+    vertical-align: baseline;
+}
+
+.wishListIcon {
+    height: 21px;
+    width: 30px;
+}
+
+.wishListIcon:hover {
+    cursor: pointer!important;
+}
+
+.cartIcon {
+    height: 22px;
+    width: 30px;
+}
+
+.cartIcon:hover {
+    cursor: pointer!important;
+}
+/* 
+.customHeaderCSS header {
+    margin-top: 5px;
+} */
+
+
+/* Wishlist Cart Icon Styling - End  */
+/* Header Section Styling - End  */
+
+/* NBD2C-34 Home Page Banner Section - Start  */
+
+.bannerStyle {
+    display: inline-block;
+    position: relative;
+    height: calc(100vh + 10px);
+    width: 100vw;
+    overflow: hidden;
+    margin-top: -90px;
+}
+
+.bannerContent {
+    margin-top: 0px !important;
+    min-width: 100% !important;
+    min-height: 100% !important;
+    width: auto !important;
+    height: 100% !important;
+    position: absolute !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    object-fit: cover;
+}
+
+.bannerContainer {
+    padding: 0px!important;
+}
+
+.bannerContainer .columns-content{
+    margin: 0%!important;
+    min-width: 100% !important;
+}
+
+/* NBD2C-34 Home Page Banner Section - End  */
+
+/* NBD2C-30 Retailer Search Banner Section - Start  */
+
+.retailerSearchContainer .background-image-overlay {
+    background-image: linear-gradient(to right, rgb(0, 0, 0) 0%, rgba(0, 0, 0, 0.3) 100%);
+}
+
+.retailerSearchContainer {
+    height: 30vh;
+    max-height: 200px!important;
+}
+
+.retailerTextContainer h2 {
+    font-family: 'Adobe Caslon Pro'!important;
+}
+
+.retailerSearchContainer .col-large-7-of-12 {
+    width:100vw;
+    display: inline-block;
+}
+
+.retailerSearchContainer .col-large-5-of-12 {
+    width:10vw;
+    display: inline-block;
+}
+
+.retailerSearchContainer .columns-content {
+    flex-direction: row!important;
+    margin: 0;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.retailerSearchContainer .columns-content community_layout-column:nth-child(1) {
+    width: 90vw;
+}
+
+.retailerSearchContainer .columns-content community_layout-column:nth-child(3) {
+    width: 10vw;
+    padding-top: 1vh;
+}
+
+.retailerSearchButton {
+    width: 2.5rem;
+    margin-left: auto;
+    margin-right: 30px;
+}
+
+/* NBD2C-30 Retailer Search Banner Section - End  */
+
+/* NBD2C-33 : Footer Section Styling - Start  */
+.companyContent .cb-outputRichText-container, .informationContent .cb-outputRichText-container, .customerSupportContent .cb-outputRichText-container{
+    overflow-y: hidden!important;
+}
+
+.footerTitle .cb-outputRichText-container, .companyHeader .cb-outputRichText-container, .informationHeader .cb-outputRichText-container, .customerSupportHeader .cb-outputRichText-container{
+    overflow-y: hidden!important;
+}
+
+.companyHeader span, .informationHeader span, .customerSupportHeader span {
+    font-family: 'SweetSansProLight'!important;
+    text-transform: uppercase!important;
+}
+
+.locale-country {
+    color: black!important;
+}
+
+.companyContent, .informationContent, .customerSupportContent {
+    padding-right: 10px!important;
+}
+
+.commerce-country-picker-button-icon {
+    --sds-c-icon-color-foreground-default: #f7f7f8 !important;
+}
+
+.companyContent span, .informationContent a, .customerSupportContent a, .countrySelectorCSS button {
+    font-family: 'Adobe Caslon Pro'!important;
+}
+
+.footerBottom .cb-outputRichText-container {
+    overflow-y: hidden!important;
+}
+
+.footerTitle, .companyHeader, .informationHeader, .customerSupportHeader {
+    overflow-y: hidden!important;
+}
+
+.countrySelectorCSS .slds-panel {
+    background: #f7f7f8!important;
+}
+
+.footerContainer {
+    max-width: 1300px !important;
+}
+
+.footer {
+    max-width: 1300px !important;
+}
+/* Styles for screens up to 320px wide */
+@media only screen and (max-width: 321px) {
+
+    /* NBD2C-24 : Header Section Styling - Start  */
+    .header-logo {
+        width: 50%;
+    }
+
+    .header-navigation {
+        width: 5%;
+    }
+
+    .header-badge-icons {
+        width: 25%;
+        top: 10px!important;
+    }
+
+    .header-wishlist{
+        margin-right: 5px;
+    }
+
+    .input-wrapper svg {
+        left: 95% !important;
+    }
+
+    .input-wrapper input {
+        padding-right: 6% !important;
+        padding-left: 1% !important;
+    }
+
+    .header-search {
+        margin-top: 0px!important;
+        width: 100%;
+    }
+
+    nav a {
+        color: black!important;
+    }
+
+    /* Header Section Styling - End  */
+
+    /* NBD2C-30 Retailer Search Banner Section - Start  */
+
+    .retailerTextContainer h2 {
+        font-size: 15px;
+    }
+
+    .retailerSearchButton {
+        width: 2rem;
+    }
+
+    /* NBD2C-30 Retailer Search Banner Section - End  */
+
+
+    /* NBD2C-33 : Footer Section Styling - Start  */
+    .footerContent .columns-content {
+        flex-direction: column!important;
+    }
+
+    .footerContent {
+        width: 100%!important;
+        margin-bottom: 0px!important;
+    }
+
+    .footerTitle {
+        margin-bottom: 0px!important;
+        height: 20px!important;
+    }
+
+    .informationContent {
+        display: flex!important;
+        flex-wrap: wrap!important;
+        justify-content: space-between!important;
+    }
+
+    .companyContent .cb-outputRichText-container.ql-editor, .informationContent .cb-outputRichText-container.ql-editor, .customerSupportContent .cb-outputRichText-container.ql-editor {
+        line-height: 1!important;
+    }
+
+    .companyHeader span, .informationHeader span, .customerSupportHeader span {
+        margin-top: 10px;
+        font-size: 14px!important;
+    }
+
+    .companyContent span, .informationContent a, .customerSupportContent a {
+        margin-top: 10px;
+        font-size: 12px!important;
+        font-family: 'Adobe Caslon Pro'!important;
+    }
+
+    .footerTitle span {
+        color: #f7f7f8!important;
+        font-size: 12px!important;
+        background-color: rgba(9, 30, 66, 0.06)!important;
+        font-weight: 100!important;
+        text-transform: uppercase!important;
+        letter-spacing: 2px!important;
+        font-family: 'SweetSansProLight' !important;
+    }
+
+    .socialMediaStyling img {
+        height: 45px;
+        padding: 15px !important;
+    }
+
+    footer .comm-section-container {
+        padding: 0px !important;
+    }
+
+    .socialMediaStyling .cb-outputRichText-container.ql-editor {
+        line-height: 2 !important;
+    }
+
+    .footerBottom span {
+        font-family: 'Adobe Caslon Pro'!important;
+        font-size: 12px!important;
+    }
+
+    .locale-country {
+        color: black!important;
+    }
+
+    .informationContent p {
+        display: inline-block;
+        width: 50%!important;
+    }
+
+    .customerSupportContent p {
+        display: inline-block;
+        width: 33%!important;
+    }
+
+    .commerce-country-picker-button {
+        color: #f7f7f8 !important;
+        font-size: 10px !important;
+        align-items: baseline!important;
+        padding-left: 0px!important;
+    }
+
+    .companyContent, .informationContent {
+        height: 60px;
+    }
+
+    .customerSupportContent {
+        height: 20px;
+    }
+
+    .countrySelectorCSS {
+        margin-bottom: 15px;
+    }
+
+    .customerSupportContent p:nth-child(2) {
+        padding-left: 4%!important;
+        width: 28%!important;
+    }
+
+    .footerBottom {
+        padding-top: 10px;
+    }
+
+    .footerContent {
+        margin-top: 20px;
+    }
+
+    :root {
+        --dxp-g-root: rgba(255, 255, 255, 1)!important;
+        --dxp-g-spacing-small: 1rem;
+    }
+    /*NBD2C-33 : Footer Section Styling - End  */
+}
+
+/* Styles for screens up to 420px wide */
+@media only screen and (min-width: 321px) and (max-width: 421px) {
+
+    /* NBD2C-24 : Header Section Styling - Start  */
+    .header-navigation {
+        width: 5%;
+    }
+
+    .customHeaderCSS .header-badge-icons {
+        width: 25%;
+        position: absolute;
+        right: 0;
+        top: 10px!important;
+        height: auto;
+    }
+
+    .header-wishlist{
+        margin-right: 5px;
+    }
+
+    .input-wrapper svg {
+        left: 95% !important;
+    }
+
+    .header-logo {
+        width: 45%;
+    }
+
+    .input-wrapper svg {
+        left: 96% !important;
+    }
+
+    .input-wrapper input {
+        padding-right: 5% !important;
+        padding-left: 1% !important;
+    }
+
+    .header-search {
+        margin-top: 0px!important;
+        width: 100%;
+    }
+
+    nav a {
+        color: black!important;
+    }
+    /* Header Section Styling - End  */
+
+    /* NBD2C-30 Retailer Search Banner Section - Start  */
+
+    .retailerTextContainer h2 {
+        font-size: 16px;
+    }
+
+    /* NBD2C-30 Retailer Search Banner Section - End  */
+
+    /* NBD2C-33 : Footer Section Styling - Start  */
+    .footerContent .columns-content {
+        width: 100%!important;
+        flex-direction: column !important;
+    }
+
+    .footerContent {
+        width: 100%;
+    }
+
+    .informationContent p {
+        display: inline-block;
+        width: 50%!important;
+    }
+
+    .customerSupportContent p {
+        display: inline-block;
+        width: 33%!important;
+    }
+
+    .companyContent .cb-outputRichText-container.ql-editor, .informationContent .cb-outputRichText-container.ql-editor, .customerSupportContent .cb-outputRichText-container.ql-editor {
+        line-height: 1.5!important;
+    }
+
+    .companyContent span, .informationContent a, .customerSupportContent a {
+        font-size: 12px!important;
+        font-family: 'Adobe Caslon Pro'!important;
+    }
+
+    .companyHeader, .informationHeader {
+        padding-bottom: 5px!important;
+    }
+
+    .companyHeader, .informationHeader, .customerSupportHeader, .countrySelectorCSS {
+        margin-bottom: 0px !important;
+        cursor: default;
+    }
+
+    .companyHeader span, .informationHeader span, .customerSupportHeader span {
+        font-family: 'SweetSansProLight'!important;
+        font-size: 16px!important;
+    }
+
+    .commerce-country-picker-button {
+        color: #f7f7f8 !important;
+        font-size: 14px !important;
+        align-items: baseline!important;
+        padding-left: 0px!important;
+        padding-right: 0px!important;
+    }
+
+    .footerBottom span {
+        font-family: 'Adobe Caslon Pro'!important;
+        font-size: 13px!important;
+    }
+
+    .locale-country {
+        color: black!important;
+    }
+
+    .socialMediaStyling img {
+        height: 50px;
+        padding: 15px !important;
+    }
+
+    .footerContent  {
+        padding-top: 0px!important;
+        margin-bottom: 0px!important;
+        padding-bottom: 0px!important;
+    }
+
+    .footerTitle {
+        margin-bottom: 0px!important;
+    }
+
+    .footerTitle span {
+        color: #f7f7f8!important;
+        font-size: 30px!important;
+        background-color: rgba(9, 30, 66, 0.06)!important;
+        font-weight: 100!important;
+        text-transform: uppercase!important;
+        letter-spacing: 1px!important;
+        font-family: 'SweetSansProLight' !important;
+    }
+
+
+    .companyContent, .informationContent {
+        height: 90px;
+    }
+
+    .customerSupportContent {
+        height: 40px;
+    }
+
+    :root {
+        --dxp-g-root: rgba(255, 255, 255, 1)!important;
+    }
+
+    .customerSupportContent p:nth-child(2) {
+        padding-left: 5%!important;
+    }
+
+    /* Footer Section Styling - End  */
+}
+
+/* Styles for screens up to 600px wide */
+@media only screen and (min-width: 421px) and (max-width: 600px) {
+
+    /* NBD2C-24 : Header Section Styling - Start  */
+    .header-logo {
+        width: 40%;
+    }
+
+    .header-badge-icons {
+        width: 20%;
+        top: 10px!important;
+    }
+
+    .header-wishlist{
+        margin-right: 5px;
+    }
+
+    .header-navigation {
+        width: 5%;
+    }
+
+    .header-search {
+        margin-top: 0px!important;
+        width: 100%;
+    }
+
+    .input-wrapper input {
+        padding-right: 5% !important;
+        padding-left: 1% !important;
+    }
+
+    .input-wrapper svg {
+        left: 96% !important;
+    }
+
+    nav a {
+        color: black!important;
+    }
+    /* Header Section Styling - End  */
+
+    /* NBD2C-30 Retailer Search Banner Section - Start  */
+
+    .retailerTextContainer h2 {
+        font-size: 18px;
+    }
+
+    /* NBD2C-30 Retailer Search Banner Section - End  */
+
+    /* NBD2C-33 : Footer Section Styling - Start  */
+    .footerBottom span {
+        font-family: 'Adobe Caslon Pro';
+        font-size: 12px !important;
+    }
+
+    .socialMediaStyling img {
+        height: 60px;
+        padding: 18px !important;
+    }
+
+    .footerContent .columns-content .col-large-size_3-of-12 {
+        width: 100%!important;
+    }
+
+    .footerContent .columns-content {
+        flex-direction: column!important;
+    }
+
+    .footerContent {
+        width: 100%!important;
+        padding-bottom: 0px!important;
+        border-bottom: 0px!important;
+        padding-top: 0px!important;
+        padding-bottom: 0px!important;
+        margin-bottom: 0px!important;
+    }
+
+    .informationContent p {
+        display: inline-block;
+        width: 50%!important;
+    }
+
+    .customerSupportContent p {
+        display: inline-block;
+        width: 33%!important;
+    }
+
+    .companyHeader, .informationHeader, .customerSupportHeader {
+        margin-bottom: 0px !important;
+        cursor: default;
+        height: 35px;
+    }
+
+    .countrySelectorCSS {
+        margin-bottom: 0px!important;
+    }
+
+    .footer .com-section-container {
+        padding-top: 0px!important;
+    }
+
+    .companyHeader span, .informationHeader span, .customerSupportHeader span {
+        font-family: 'SweetSansProLight'!important;
+        font-size: 18px!important;
+    }
+
+    .companyContent span, .informationContent a, .customerSupportContent a {
+        font-size: 14px!important;
+    }
+
+    .companyContent, .informationContent {
+        height: 100px;
+    }
+
+    .customerSupportContent {
+        height: 40px;
+    }
+
+    .companyHeader, .informationHeader {
+        padding-bottom: 0px !important;
+    }
+
+    .commerce-country-picker-button {
+        color: #f7f7f8 !important;
+        font-size: 16px !important;
+        align-items: baseline!important;
+        padding-left: 0px!important;
+        padding-right: 0px!important;
+    }
+
+    .footerTitle {
+        margin-bottom: 0px;
+        margin-top: 20px!important;
+    }
+
+    .footerTitle span {
+        color: #f7f7f8!important;
+        font-size: 26px!important;
+        background-color: rgba(9, 30, 66, 0.06)!important;
+        font-weight: 100!important;
+        text-transform: uppercase!important;
+        letter-spacing: 1px!important;
+        font-family: 'SweetSansProLight' !important;
+    }
+
+
+    :root {
+        --dxp-g-root: rgba(255, 255, 255, 1)!important;
+    }
+
+    .customerSupportContent p:nth-child(2), .customerSupportContent p:nth-child(3) {
+        padding-left: 5%!important;
+    }
+
+    /* Footer Section Styling - End  */
+}
+
+/* Styles for screens minimum 600px wide */
+@media only screen and (min-width: 600px) and (max-width: 768px) {
+
+    /* NBD2C-24 : Header Section Styling - Start  */
+    .header-logo {
+        width: 40%;
+    }
+
+    .header-badge-icons {
+        width: 20% ;
+    }
+
+    .header-navigation {
+        width: 5% ;
+    }
+
+    .header-search {
+        width: 100% ;
+    }
+
+    .input-wrapper svg {
+        left: 98% !important;
+    }
+
+    .input-wrapper input {
+        padding-left: 1%!important;
+        padding-right: 3%!important;
+    }
+
+    .header .header-badge-icons {
+        position: absolute!important;
+        right: 0!important;
+        top: 0px!important;
+        height: auto!important;
+    }
+
+    .header-search {
+        margin-top: 0px!important;
+    }
+    /* Header Section Styling - End  */
+
+    /* NBD2C-30 Retailer Search Banner Section - Start  */
+
+    .retailerTextContainer h2 {
+        font-size: 20px;
+    }
+
+    /* NBD2C-30 Retailer Search Banner Section - End  */
+
+    /* NBD2C-33 : Footer Section Styling - Start  */
+
+    .footerTitle {
+        margin-bottom: 0px!important;
+        margin-top: 12px;
+    }
+
+    .footer .comm-section-container {
+        padding-top: 0px!important;
+    }
+
+    .companyContent .cb-outputRichText-container.ql-editor, .informationContent .cb-outputRichText-container.ql-editor, .customerSupportContent .cb-outputRichText-container.ql-editor {
+        line-height: 1.5!important;
+        height: 100%;
+    }
+
+    .companyHeader, .informationHeader, .customerSupportHeader {
+        height: 45px!important;
+    }
+
+    .companyContent {
+        height: 90px;
+    }
+
+    .countrySelectorCSS button {
+        font-size: 16px!important;
+    }
+
+    .footerBottom span {
+        font-family: 'Adobe Caslon Pro';
+        font-size: 14px!important;
+    }
+
+    .commerce-country-picker-button {
+        color: #f7f7f8 !important;
+        font-size: 13px !important;
+        align-items: baseline!important;
+        padding-left: 0px!important;
+        padding-right: 0px!important;
+    }
+
+    .customerSupportHeader .cb-outputRichText-container.ql-editor {
+        margin-bottom: 0px !important;
+        line-height: 1 !important;
+        padding-top: 5px !important;
+        padding-bottom: 0px !important;
+    }
+
+    .socialMediaStyling img {
+        height: 60px;
+        padding: 18px !important;
+    }
+
+    .footerContent {
+        width: 100%!important;
+        padding-top: 0px!important;
+        margin-bottom: 0px!important;
+        padding-bottom: 0px!important;
+    }
+
+    .footerContent .columns-content .col-large-size_3-of-12 {
+        width: 100%!important;
+    }
+
+    .informationContent p {
+        display: inline-block;
+        width: 50%!important;
+    }
+
+    .customerSupportContent p {
+        display: inline-block;
+        width: 33%!important;
+    }
+
+    .customerContent span, .informationContent a, .customerSupportContent a {
+        font-size: 14px!important;
+    }
+
+    .customerHeader span, .informationHeader span, .customerSupportContent span {
+        font-size: 20px!important;
+    }
+
+    .customerContent, .informationContent {
+        height: 100px;
+    }
+
+    .customerSupportContent {
+        height: 40px;
+    }
+
+    .footerTitle span {
+        color: #f7f7f8!important;
+        font-size: 26px!important;
+        background-color: rgba(9, 30, 66, 0.06)!important;
+        font-weight: 100!important;
+        text-transform: uppercase!important;
+        letter-spacing: 1px!important;
+        font-family: 'SweetSansProLight' !important;
+    }
+
+
+    :root {
+        --dxp-g-root: rgba(255, 255, 255, 1)!important;
+    }
+    /* Footer Section Styling - End  */
+}
+
+@media only screen and (min-width: 768px) and (max-width: 843px){
+    :root {
+        --dxp-g-root: rgba(255, 255, 255, 1)!important;
+    }
+}
+
+/* Styles for screens minimum 768px wide */
+@media only screen and (min-width: 768px) and (max-width: 920px) {
+    /* NBD2C-24 :  Header Section Styling - Start  */
+
+    .header-search {
+        width: 98%;
+        margin-left: 2%;
+        margin-top: -3%!important;
+    }
+
+    .header-logo {
+        width: 25%;
+    }
+
+    .header-navigation {
+        width: 65%;
+    }
+
+    .input-container {
+        margin-top: 1% !important;
+    }
+
+    .header .header-badge-icons {
+        position: absolute !important;
+        right: 0 !important;
+        top: 4px !important;
+        height: auto !important;
+    }
+
+    .header-badge-icons {
+        width: 12%;
+    }
+
+    .header-wishlist{
+        margin-right: 5px;
+    }
+
+    .input-wrapper svg {
+        left: 98% !important;
+    }
+
+    .input-wrapper input {
+        padding-right: 3%!important;
+        padding-left: 1%!important;
+    }
+    /* Header Section Styling - End  */
+
+    /* NBD2C-30 Retailer Search Banner Section - Start  */
+
+    .retailerTextContainer h2 {
+        font-size: 25px;
+    }
+
+    /* NBD2C-30 Retailer Search Banner Section - End  */
+    /* NBD2C-33 : Footer Section Styling - Start  */
+
+    /* Footer Section Styling - Start  */
+    .socialMediaStyling img {
+        height: 60px;
+        padding: 18px !important;
+    }
+
+    .footerContent {
+        width: 100%!important;
+    }
+
+    .footerContent .columns-content .col-large-size_3-of-12 {
+        width: 25%!important;
+    }
+
+    .footerContent .columns-content {
+        width: 100%!important;
+        flex-direction: row !important;
+    }
+
+    .footerContent{
+        margin-bottom: 0px!important;
+    }
+
+    .countrySelectorCSS{
+        margin-top: 15px;
+    }
+
+    .countrySelectorCSS button {
+        font-family: 'Adobe Caslon Pro'!important;
+        font-size: 14px!important;
+    }
+
+    .footerTitle {
+        margin-bottom: 0px!important;
+        margin-top: 12px;
+    }
+
+    .footer .comm-section-container {
+        padding-top: 0px!important;
+    }
+
+    .companyHeader span, .informationHeader span, .customerSupportHeader span {
+        font-family: 'SweetSansProLight'!important;
+        font-size: 18px!important;
+    }
+
+    .companyHeader, .informationHeader, .customerSupportHeader {
+        margin-top: 15px;
+    }
+
+    .companyHeader, .informationHeader, .customerSupportHeader {
+        height: 55px;
+    }
+
+    .customerSupportContent p {
+        display: inline-block;
+        width: 100% !important;
+    }
+
+    .companyContent span, .informationContent a, .customerSupportContent a {
+        font-size: 14px!important;
+    }
+
+    .companyContent, .informationContent, .customerSupportContent{
+        height: 180px;
+    }
+
+    .commerce-country-picker-button {
+        color: #f7f7f8 !important;
+        font-size: 12px !important;
+        align-items: baseline!important;
+    }
+
+    .footerBottom span {
+        font-size: 14px!important;
+        font-family: 'Adobe Caslon Pro'!important;
+    }
+
+    .informationContent p {
+        display: inline-block;
+        width: 100% !important;
+    }
+
+    :root {
+        --dxp-g-root: rgba(255, 255, 255, 1)!important;
+    }
+    /* Footer Section Styling - End  */
+
+}
+
+@media only screen and (min-width: 920px) and (max-width: 992px) {
+    .header-search {
+        width: 98%;
+        margin-left: 2%;
+        margin-top: -3%!important;
+    }
+
+    .header-logo {
+        width: 25%;
+    }
+
+    .header-navigation {
+        width: 65%;
+    }
+
+    .input-container {
+        margin-top: 1% !important;
+    }
+
+    .header .header-badge-icons {
+        position: absolute !important;
+        right: 0 !important;
+        top: 4px !important;
+        height: auto !important;
+    }
+
+    .header-badge-icons {
+        width: 12%;
+    }
+
+    .header-wishlist{
+        margin-right: 5px;
+    }
+
+    .input-wrapper svg {
+        left: 98% !important;
+    }
+
+    .input-wrapper input {
+        padding-right: 3%!important;
+        padding-left: 1%!important;
+    }
+    /* Header Section Styling - End  */
+
+    /* Footer Section Styling - Start  */
+    .socialMediaStyling img {
+        height: 60px;
+        padding: 18px !important;
+    }
+
+    .footerContent {
+        width: 100%!important;
+    }
+
+    .footerContent .columns-content .col-large-size_3-of-12 {
+        width: 25%!important;
+    }
+
+    .footerContent .columns-content {
+        width: 100%!important;
+        flex-direction: row !important;
+    }
+
+    .footerContent{
+        margin-bottom: 0px!important;
+    }
+
+    .countrySelectorCSS{
+        margin-top: 15px;
+    }
+
+    .countrySelectorCSS button {
+        font-family: 'Adobe Caslon Pro'!important;
+        font-size: 16px!important;
+    }
+
+    .footerTitle {
+        margin-bottom: 0px!important;
+        margin-top: 12px;
+    }
+
+    .footer .comm-section-container {
+        padding-top: 0px!important;
+    }
+
+    .companyHeader span, .informationHeader span, .customerSupportHeader span {
+        font-family: 'SweetSansProLight'!important;
+        font-size: 18px!important;
+    }
+
+    .companyHeader, .informationHeader, .customerSupportHeader {
+        margin-top: 15px;
+    }
+
+    .companyHeader, .informationHeader, .customerSupportHeader {
+        height: 30px;
+    }
+
+    .customerSupportContent p {
+        display: inline-block;
+        width: 100% !important;
+    }
+
+    .companyContent span, .informationContent a, .customerSupportContent a {
+        font-size: 14px!important;
+    }
+
+    .companyContent, .informationContent, .customerSupportContent{
+        height: 180px;
+    }
+
+    .commerce-country-picker-button {
+        color: #f7f7f8 !important;
+        font-size: 12px !important;
+        align-items: baseline!important;
+    }
+
+    .footerBottom span {
+        font-size: 14px!important;
+        font-family: 'Adobe Caslon Pro'!important;
+    }
+
+    .informationContent p {
+        display: inline-block;
+        width: 100% !important;
+    }
+    /* Footer Section Styling - End  */
+}
+
+/* Styles for screens minimum 992px wide */
+@media only screen and (min-width: 992px) and (max-width: 1200px) {
+
+    /* NBD2C-24 : Header Section Styling - Start  */
+    .header-logo {
+        width: 15%;
+        top: 20px!important;
+    }
+
+    .header-badge-icons {
+        width: 10% ;
+        top: 20px!important;
+    }
+
+    .header-wishlist{
+        margin-right: 5px;
+    }
+
+    .header-navigation {
+        width: 60% ;
+    }
+
+    .header-search {
+        width: 15% ;
+    }
+
+    .header-search {
+        margin-top: 0px!important;
+    }
+    /* Header Section Styling - End  */
+
+    /* NBD2C- 34 : Home Page Banner - Start  */
+
+    .bannerStyle {
+        display: inline-block;
+        position: relative;
+        height: calc(100vh + 10px);
+        width: 100vw;
+        overflow: hidden;
+        margin-top: -80px;
+    }
+
+    nav a, nav button {
+        color: #f7f7f8;
+    }
+
+    /* NBD2C- 34 : Home Page Banner - Start  */
+
+    /* NBD2C-30 Retailer Search Banner Section - Start  */
+
+    .retailerTextContainer h2 {
+        font-size: 30px;
+    }
+
+    /* NBD2C-30 Retailer Search Banner Section - End  */
+
+    /* NBD2C-33 : Footer Section Styling - Start */
+    .socialMediaStyling img {
+        height: 60px;
+        padding: 20px !important;
+    }
+
+    .companyContent, .customerSupportContent {
+        height: 100px;
+    }
+
+    .companyHeader, .informationHeader {
+        height: 25px;
+    }
+
+    .informationContent {
+        height: 180px;
+    }
+    .footerContent {
+        padding-top: 0px!important;
+        margin-bottom: 0px!important;
+        padding-bottom: 0px!important;
+    }
+
+    .footerTitle {
+        margin-bottom: 0px!important;
+        margin-top: 10px!important;
+    }
+
+    .footerTitle span {
+        color: #f7f7f8!important;
+        font-size: 44px!important;
+        background-color: rgba(9, 30, 66, 0.06)!important;
+        font-weight: 100!important;
+        text-transform: uppercase!important;
+        letter-spacing: 2px!important;
+        font-family: 'SweetSansProLight' !important;
+    }
+
+
+    .footerTitle .comm-section-container:nth-child(1) {
+        padding: 0px !important;
+        padding-bottom: 30px!important;
+    }
+
+    .companyHeader span, .informationHeader span, .customerSupportHeader span {
+        font-size: 18px!important;
+    }
+
+    .companyContent span, .informationContent a, .customerSupportContent a {
+        font-size: 14px!important;
+    }
+
+    .footerBottom span {
+        font-family: 'Adobe Caslon Pro'!important;
+        font-size: 14px!important;
+    }
+
+    .commerce-country-picker-button {
+        color: #f7f7f8 !important;
+        font-size: 14px !important;
+        align-items: baseline!important;
+        padding-left: 0px!important;
+        padding-right: 0px!important;
+    }
+
+    .footerContent {
+        width: 100%!important;
+    }
+
+    .footerContent .columns-content .col-large-size_3-of-12 {
+        width: 25%!important;
+    }
+
+    .footerContent .columns-content {
+        flex-direction: row!important;
+        max-width: var(--dxp-c-section-columns-max-width-tablet, var(--dxp-c-m-max-content-width, var(--dxp-s-section-columns-max-width-mobile)))!important;
+    }
+    /* Footer Styling Section - End  */
+}
+
+/* Styles for screens minimum 1200px wide */
+@media only screen and (min-width: 1200px) and (max-width: 1441px) {
+
+    /* NBD2C-24 : Header Section Styling - Start  */
+
+    .companyContent, .customerSupportContent,.informationContent {
+        height: 190px;
+    }
+
+    .header-logo {
+        width: 14%;
+    }
+
+    .header-badge-icons {
+        width: 6% ;
+    }
+
+    .header-navigation {
+        width: 65% ;
+    }
+
+    .header-search {
+        width: 15% ;
+    }
+
+    .header-navigation ul {
+        font-size: 14px !important;
+    }
+
+    .header .header-badge-icons {
+        position: absolute!important;
+        right: 0!important;
+        top: 9px!important;
+        height: auto!important;
+    }
+
+    .header .header-search {
+        margin-top: 0px!important;
+    }
+
+    .input-wrapper svg {
+        left: 92%!important;
+    }
+
+    .input-wrapper input {
+        padding-right: 15%!important;
+        padding-left: 2% !important;
+    }
+
+    .header-wishlist {
+        margin-right: 6px!important;
+    }
+
+    nav a, nav button {
+        color: #f7f7f8;
+    }
+    /* Header Section Styling - End  */
+
+    /* NBD2C-30 Retailer Search Banner Section - Start  */
+
+    .retailerTextContainer h2 {
+        font-size: 32px;
+    }
+
+    .retailerSearchButton {
+        width: 3rem;
+    }
+
+    /* NBD2C-30 Retailer Search Banner Section - End  */
+
+
+    /* NBD2C-33 : Footer Section Styling - Start  */
+
+    footer .comm-section-container {
+        padding: 0px!important;
+    }
+
+    .commerce-country-picker-button {
+        color: #f7f7f8 !important;
+        font-size: 16px !important;
+        align-items: baseline!important;
+        padding-left: 0px!important;
+        padding-right: 0px!important;
+    }
+
+    .cb-outputRichText-container.ql-editor {
+        line-height: 2!important;
+    }
+
+    .socialMediaStyling img {
+        height: 60px!important;
+        padding: 18px !important;
+    }
+
+    .informationContent span {
+        display: inline-block!important;
+        width: 100%!important;
+    }
+
+    .companyHeader, .informationHeader, .customerSupportHeader, .countrySelectorCSS {
+        margin-bottom: 0px!important;
+        margin-top: 50px!important;
+        cursor: default;
+    }
+
+    .companyHeader span, .informationHeader span, .customerSupportHeader span {
+        font-family: 'SweetSansProLight'!important;
+        font-size: 18px!important;
+    }
+
+    .companyHeader, .informationHeader, .customerSupportHeader {
+        height: 40px !important;
+    }
+
+    .companyContent span, .informationContent a, .customerSupportContent a, .countrySelectorCSS button {
+        font-family: 'Adobe Caslon Pro'!important;
+        font-size: 16px!important;
+    }
+
+    .footerContent {
+        width: 100%!important;
+    }
+
+    .footerContent .columns-content .col-large-size_3-of-12 {
+        width: 25%!important;
+    }
+
+    .footerContent .columns-content {
+        flex-direction: row!important;
+        max-width: var(--dxp-c-section-columns-max-width-tablet, var(--dxp-c-m-max-content-width, var(--dxp-s-section-columns-max-width-mobile)))!important;
+    }
+
+    .footerBottom {
+        margin-top: 20px;
+        margin-bottom: 0px;
+    }
+
+    .locale-country {
+        color: black!important;
+    }
+
+    .footerTitle span {
+        color: #f7f7f8!important;
+        font-size: 44px!important;
+        background-color: rgba(9, 30, 66, 0.06)!important;
+        font-weight: 100!important;
+        text-transform: uppercase!important;
+        letter-spacing: 2px!important;
+        font-family: 'SweetSansProLight' !important;
+    }
+
+
+    .footerTitle {
+        height: 90px;
+        margin-bottom: 0px !important;
+        margin-top: 20px;
+        font-size: 44px!important;
+    }
+
+
+    .footerBottom span {
+        font-family: 'Adobe Caslon Pro'!important;
+        font-size: 16px!important;
+    }
+
+    .companyContent .cb-outputRichText-container.ql-editor, .informationContent .cb-outputRichText-container.ql-editor, .customerSupportContent .cb-outputRichText-container.ql-editor {
+        line-height: 1.5!important;
+    }
+    /* Footer Section Styling - End  */
+}
+
+@media only screen and (min-width: 1441px){
+
+    /* NBD2D-24 : Header Section Styling  - Start*/
+    .header-logo {
+        width: 10%;
+        top: 20px!important;
+    }
+
+    .header-badge-icons {
+        width: 5% ;
+        top: 20px!important;
+    }
+
+    .header-navigation {
+        width: 68% ;
+    }
+
+    .header-search {
+        width: 15% ;
+    }
+
+    nav ul {
+        justify-content: center!important;
+    }
+
+    .header-content {
+        margin: 0px;
+    }
+
+    .layout-header-desktop {
+        width: 100vw;
+    }
+
+    .header-search .input-container {
+        width: 70%!important;
+    }
+
+    nav a, nav button {
+        color: #f7f7f8;
+    }
+
+    /* Header Section Styling - End */
+
+    /* NBD2C-30 Retailer Search Banner Section - Start  */
+
+    .retailerTextContainer h2 {
+        font-size: 36px;
+    }
+
+    .retailerSearchButton {
+        width: 3.5rem;
+    }
+
+    .retailerSearchContainer {
+        margin-left: auto!important;
+        margin-right: auto!important;
+        max-width: 1300px;
+    }
+
+    /* NBD2C-30 Retailer Search Banner Section - End  */
+
+    /* NBD2C-33 : Footer Section Styling - Start  */
+    .footerTitle span {
+        font-size: 44px!important;
+        font-family: 'SweetSansProLight' !important;
+        text-transform: uppercase!important;
+    }
+
+    .socialMediaStyling img {
+        height: 50px;
+        padding: 15px !important;
+    }
+
+    .commerce-country-picker-button {
+        color: #f7f7f8 !important;
+        font-size: 13px !important;
+        align-items: baseline!important;
+        padding-left: 0px!important;
+        padding-right: 0px!important;
+    }
+
+    .companyHeader, .informationHeader, .customerSupportHeader{
+        margin-bottom: 20px;
+    }
+
+    .companyContent, .informationContent, .customerSupportContent{
+        height: 180px;
+    }
+
+    .footerTitle{
+        margin-bottom: 0px;
+        margin-top: 20px;
+    }
+
+    .footerContent {
+        margin-bottom: 0px!important;
+        padding-bottom: 0px!important;
+    }
+
+    .footerBottom span {
+        font-family: 'Adobe Caslon Pro'!important;
+        font-size: 14px!important;
+    }
+
+    .countrySelectorCSS {
+        margin: 0;
+        margin-right: auto;
+        margin-left: auto;
+    }
+    /* NBD2C-33 : Footer Section Styling - End  */
+}
+
+/* NBD2C-24 : Header Section Styling - End */
+
+
+/* NBD2C-39 : Start */
+
+.font-adobe-pro {
+    font-family: 'Adobe Caslon Pro'!important;
+}
+
+.f-16 {
+    font-size: 16px!important;
+}
+
+.f-18 {
+    font-size: 18px!important;
+}
+
+.f-22 {
+    font-size: 22px!important;
+}
+
+.font-weight-500 {
+    font-weight: 500!important;
+}
+
+.font-weight-600 {
+    font-weight: 600!important;
+}
+
+@media screen and (min-width: 1300px) {
+    .plp-card-container .col-large-size_12-of-12 {
+        max-width: 1300px;
+        margin: auto;
+    }
+}
+/* NBD2C-39 : End */
+
+/* NBD2C-29 : Styling for Our Favourites Section - Start */
+.ourFavouritesHeaderStyling p {
+    text-transform: UPPERCASE !important;
+    font-family: SweetSansProLight !important;
+}
+
+.ourFavouritesContainerStyling .columns-content {
+    max-width: 1300px !important;
+    margin: auto !important;
+}
+
+
+@media screen and (min-width: 551px) and (max-width : 1024px) {
+    .ourFavouritesContainerStyling .columns-content .columns {
+        display: flex;
+        flex-direction: row!important;
+        flex-grow: 1;
+    }
+    .ourFavouritesContainerStyling .columns-content .columns .col-large-size_4-of-12 {
+        width:34%!important;
+        margin-left:10px!important;
+    }
+}
+/*  NBD2C-29 : STyling for Our Favourites Section - End */

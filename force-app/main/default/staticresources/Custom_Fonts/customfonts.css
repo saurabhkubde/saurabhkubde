@@ -1,0 +1,9 @@
+@font-face {
+    font-family: 'SweetSansProLight';
+    src: url('fonts/SweetSansProLight.eot');
+    src: url('fonts/SweetSansProLight.eot') format('embedded-opentype'),
+         url('fonts/SweetSansProLight.woff2') format('woff2'),
+         url('fonts/SweetSansProLight.woff') format('woff'),
+         url('fonts/SweetSansProLight.ttf') format('truetype'),
+         url('fonts/SweetSansProLight.svg#SweetSansProLight') format('svg');
+}

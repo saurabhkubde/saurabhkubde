@@ -1,0 +1,348 @@
+body {
+    overflow-x: hidden !important;
+    font-family: 'Lato' !important;
+}
+
+/* DVM21-6: vto needs to start in fullscreen mode */
+.fullscreenVto {
+    padding: 0 !important;
+    overflow: hidden;
+    height: 100vh;
+    width: 100vw;
+}
+
+
+/* DVM21-6: fitmix container config */
+#my-fitmix-container {
+    height: 100vh;
+    width: 100vw;
+}
+
+/*  DVM21-34 : Setup header for the Silhouette D2C Store on PLP page - Start */
+
+.header {
+    background: #fff;
+}
+
+.headernav li {
+    padding: 5px 28px;
+}
+
+.headernav li a {
+    padding: 15px 0px !important;
+}
+
+.headernav li a:hover {
+    background-color: transparent !important;
+}
+
+.headernav .slds-button.slds-button_icon.slds-button_icon-bare {
+    box-shadow: none !important;
+    border: 0 !important;
+    outline: none !important;
+}
+
+.header .headernav ul a {
+    font-size: 100% !important;
+}
+
+.headernav nav li a {
+    background: #fff !important;
+}
+
+.headernav li a:focus-visible {
+    outline: none !important;
+}
+
+/*  DVM21-34 : Setup header for the Silhouette D2C Store on PLP page - End */
+
+/*  DVM21-15: Creation of home page for VTO/POS for SH and NB Store : Start */
+@media only screen and (max-width: 767px) {
+    .countrySwitcher .commerce-country-picker-button {
+        margin: auto !important;
+    }
+}
+
+@media only screen and (max-width: 47.9375em) {
+
+    .commerce-country-picker-button .button-content {
+        font-size: 12px !important;
+    }
+}
+
+@media only screen and (min-width: 64.0625em) {
+
+    .commerce-country-picker-button .button-content {
+        font-size: 15px !important;
+
+    }
+}
+
+.commerce-country-picker-button .button-content {
+    color: black !important;
+    display: inline-block !important;
+
+}
+
+.countrySwitcher .slds-button:focus,
+.countrySwitcher .slds-button:focus-visible {
+    box-shadow: none !important;
+}
+
+.commerce-country-picker-button-icon .slds-icon {
+    fill: black !important;
+}
+
+.commerce-country-picker-button .slds-button:focus-visible {
+    outline: 1px solid transparent !important;
+}
+
+.commerce-country-picker-button .slds-button:focus {
+    text-decoration: none !important;
+    outline: 1px solid transparent !important;
+}
+
+
+.commerce-country-picker-button .slds-button {
+    text-decoration: none !important;
+    padding: 0px !important;
+
+}
+
+.countrySwitcher .commerce-country-picker-button .button-content {
+    font-weight: 100 !important;
+}
+
+.commerce-country-picker-button .slds-button:focus-visible {
+    outline: 1px solid transparent !important;
+}
+
+.commerce-country-picker-button .slds-button:focus {
+    text-decoration: none !important;
+    outline: 1px solid transparent !important;
+}
+
+.commerce-country-picker-button .slds-button {
+    text-decoration: none !important;
+    padding: 0px !important;
+
+}
+
+.countrySwitcher .locale:focus,
+.locale:focus-visible {
+    outline: 1px solid transparent !important;
+}
+
+.countrySwitcher .locale:active {
+    border: none !important;
+}
+
+.countrySwitcher .locale-flag {
+    color: black !important;
+}
+
+.countrySwitcher .locale-country {
+    color: black !important;
+}
+
+.homePageCountrySwitcher .commerce-country-picker-button .button-content {
+    font-size: 15px !important;
+    font-weight: bold !important;
+}
+
+.homePageCountrySwitcher .commerce-country-picker-button-icon .slds-icon {
+    width: 22px !important;
+}
+
+.backgroundImageStyle .column-content {
+    display: block !important;
+    flex-direction: column !important;
+    flex: 1 !important;
+    min-width: 0 !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    position: relative !important;
+    max-width: 600px !important;
+}
+
+.footer-countrySelector {
+    background: #fff;
+    border-top: solid 1px #ddd;
+    margin: auto;
+    max-width: 600px;
+    display: block;
+    padding: 20px;
+}
+
+
+/*  DVM21-15: Creation of home page for VTO/POS for SH and NB Store : End */
+
+/* Start : DVM21-45 */
+.font-weight-bold {
+    font-weight: bold !important;
+}
+
+.sh-ee-tabs .slds-tabs_default__link {
+    text-align: center;
+}
+
+.sh-ee-tabs .slds-tabs_default__link {
+    text-align: center;
+}
+
+.sh-ee-tabs .slds-tabs_default__item {
+    min-width: 50% !important;
+    border: none;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.sh-ee-tabs .slds-tabs_default__content {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+}
+
+.sh-ee-tabs .slds-tabs_default__item:hover:after,
+.slds-tabs--default__item:hover:after {
+    background-color: black !important;
+}
+
+.sh-ee-tabs .slds-tabs_default__item.slds-is-active:after {
+    background-color: #000;
+}
+
+.sh-ee-tabs .slds-tabs_default__item:after {
+    background-color: transparent !important;
+}
+
+.sh-ee-tabs .slds-tabs_default__item:after {
+    background-color: transparent !important;
+}
+
+.sh-ee-tabs .slds-tabs_default__item::after {
+    background-color: black !important;
+}
+
+.sh-ee-tabs .slds-combobox__input .slds-tabs_default__content button:hover {
+    background: unset !important;
+    color: unset !important;
+}
+
+.sh-ee-tabs .slds-tabs_default__item .remove-shadow {
+    background-color: black !important;
+}
+
+.sh-ee-tabs .slds-tabs_default__nav {
+    border-bottom-color: #000 !important;
+}
+
+/* End : DVM21-45 */
+
+/* START : DVM21-30 */
+
+.filtersHeader .slds-accordion__section {
+    padding-bottom: 0px !important;
+}
+
+.filtersHeader .slds-form-element {
+    margin-bottom: 0px !important;
+}
+
+.accordion-parent .slds-accordion__section {
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.accordion-parent .slds-button.slds-accordion__summary-action {
+    color: #000;
+    font-size: 16px;
+    width: 100%;
+    border: none;
+    box-shadow: none;
+    outline: none;
+}
+
+.accordion-parent .slds-is-open .slds-accordion__summary-action svg {
+    transform: rotate(0deg);
+    fill: #000;
+}
+
+.accordion-parent .slds-button.slds-accordion__summary-action {
+    float: right;
+    display: block;
+    min-width: 100%;
+}
+
+.accordion-parent .slds-accordion__summary-action svg {
+    margin-right: 0px;
+    float: right;
+    margin-top: 10px;
+    transform: rotate(270deg);
+}
+
+.accordion-parent .slds-accordion__summary-action:focus,
+.slds-accordion__summary-action:hover {
+    max-width: none;
+    outline: none;
+    border: 0px;
+}
+
+/* END : DVM21-30 */
+
+/* Start : DVM21-45 */
+.font-weight-bold {
+    font-weight: bold !important;
+}
+
+/* End : DVM21-45 */
+
+/* DVM21-45 : Start */
+.features-list .slds-rich-text-editor__output ul,
+.slds-rich-text-editor__textarea ul {
+    margin-left: 0px !important;
+    list-style: none !important;
+}
+
+.size-modal .slds-modal__container>.slds-modal__content:last-child,
+.slds-modal__content_footless,
+.slds-modal__content_has-hidden-footer {
+    border-radius: 0px !important;
+}
+
+.header .component-wrapper-spacer {
+    margin-bottom: 0px !important;
+}
+
+
+
+@media only screen and (max-width: 420px) {
+    .paddingForMobileView {
+        padding-left: 10px;
+        padding-right: 10px
+    }
+
+/* DVM21-45 : End */
+
+/* START : DVM21-48 */
+
+.newsletter .column-content {
+    background: #f7f7f8 !important;
+    padding: 50px 25px 50px 25px !important;
+}
+
+.sh-field-name .slds-form-element__label {
+    color: #8C8C8C !important;
+    font-family: 'lato' !important;
+    font-weight: 500;
+    font-size: 18px !important;
+    margin-bottom: 5px !important;
+}
+.sh-field-name .slds-form-element__control {
+    display: flex;
+}
+
+.sh-field-name .slds-radio_faux {
+    margin-bottom: 8px;
+}
+
+/* END : DVM21-48 */

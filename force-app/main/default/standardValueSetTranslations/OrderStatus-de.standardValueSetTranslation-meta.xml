@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<StandardValueSetTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <valueTranslation>
+        <masterLabel>Activated</masterLabel>
+        <translation>Aktiviert</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Cancelled</masterLabel>
+        <translation><!-- Cancelled --></translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Delivered</masterLabel>
+        <translation><!-- Delivered --></translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Draft</masterLabel>
+        <translation><!-- Draft --></translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Not Payed</masterLabel>
+        <translation><!-- Not Payed --></translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>On Hold</masterLabel>
+        <translation><!-- On Hold --></translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Open</masterLabel>
+        <translation><!-- Open --></translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Order blocked</masterLabel>
+        <translation>Auftrag gesperrt</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Order cancelled</masterLabel>
+        <translation>Auftrag storniert</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Order imported to ERP</masterLabel>
+        <translation>Auftrag an ERP übermittelt</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Order in production</masterLabel>
+        <translation>Auftrag in Arbeit</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Order invoiced</masterLabel>
+        <translation>Auftrag in Rechung gestellt</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Order sent</masterLabel>
+        <translation>Auftrag übermittelt</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Order shipped</masterLabel>
+        <translation>Auftrag geliefert</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Order submitted</masterLabel>
+        <translation>Auftrag übermittelt</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Payment refunded</masterLabel>
+        <translation><!-- Payment refunded --></translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Pending</masterLabel>
+        <translation><!-- Pending --></translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Pending Prepayment</masterLabel>
+        <translation><!-- Pending Prepayment --></translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Processing</masterLabel>
+        <translation>Verarbeitung läuft</translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Remind Prepayment</masterLabel>
+        <translation><!-- Remind Prepayment --></translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Returned</masterLabel>
+        <translation><!-- Returned --></translation>
+    </valueTranslation>
+    <valueTranslation>
+        <masterLabel>Shipped</masterLabel>
+        <translation><!-- Shipped --></translation>
+    </valueTranslation>
+</StandardValueSetTranslation>

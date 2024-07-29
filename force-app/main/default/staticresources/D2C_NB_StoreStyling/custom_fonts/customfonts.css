@@ -1,0 +1,18 @@
+@font-face {
+    font-family: 'SweetSansProLight';
+    src: url('fonts/SweetSansProLight.eot');
+    src: url('fonts/SweetSansProLight.eot') format('embedded-opentype'),
+         url('fonts/SweetSansProLight.woff2') format('woff2'),
+         url('fonts/SweetSansProLight.woff') format('woff'),
+         url('fonts/SweetSansProLight.ttf') format('truetype'),
+         url('fonts/SweetSansProLight.svg#SweetSansProLight') format('svg');
+}
+@font-face {
+    font-family: 'Adobe Caslon Pro';
+    src: url('fonts/ACaslonPro-Regular.eot');
+    src: url('fonts/ACaslonPro-Regular.eot?#iefix') format('embedded-opentype'),
+        url('fonts/ACaslonPro-Regular.woff2') format('woff2'),
+        url('fonts/ACaslonPro-Regular.woff') format('woff'),
+        url('fonts/ACaslonPro-Regular.ttf') format('truetype'),
+        url('fonts/ACaslonPro-Regular.svg#ACaslonPro-Regular') format('svg');
+}

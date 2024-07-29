@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>B2B_Shop_Username__c</fullName>
+    <description>B2B shop username of related Account.</description>
+    <externalId>false</externalId>
+    <formula>Contact.Account.k_B2B_Shop_Username__c</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>B2B Shop Username</label>
+    <required>false</required>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

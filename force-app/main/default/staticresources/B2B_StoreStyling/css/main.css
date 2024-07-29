@@ -1,0 +1,231 @@
+.radio-combo-inline .slds-form-element__control .slds-radio {
+    display: inline-block !important;
+}
+
+.forceCommunityLanguagePicker {
+    background-color: white !important;
+    width: fit-content;
+    float: right;
+    margin-top: -50px;
+}
+
+.logoImage {
+    width: 20%;
+    cursor: pointer;
+}
+
+.filter-shape-ss04 {
+    background-image: url('https://www.silhouette.com/images/icons/artboard/filter/shape/aviator.svg');
+    display: block;
+    min-height: 20px;
+    min-width: 20px;
+    background-repeat: no-repeat;
+}
+
+.filter-shape-ss02 {
+    background-image: url('https://www.silhouette.com/images/icons/artboard/filter/shape/butterfly.svg');
+    display: block;
+    min-height: 20px;
+    min-width: 20px;
+    background-repeat: no-repeat;
+}
+
+.filter-shape-ss05 {
+    background-image: url('https://www.silhouette.com/images/icons/artboard/filter/shape/rectangular.svg');
+    display: block;
+    min-height: 20px;
+    min-width: 20px;
+    background-repeat: no-repeat;
+}
+
+.filter-shape-ss01 {
+    background-image: url('https://www.silhouette.com/images/icons/artboard/filter/shape/panto.svg');
+    display: block;
+    min-height: 20px;
+    min-width: 20px;
+    background-repeat: no-repeat;
+}
+
+.filter-shape-ss03 {
+    background-image: url('https://www.silhouette.com/images/icons/artboard/filter/shape/cateye.svg');
+    display: block;
+    min-height: 20px;
+    min-width: 20px;
+    background-repeat: no-repeat;
+}
+
+.filter-sbRimType-fullrim {
+    background-image: url('https://www.silhouette.com/images/icons/artboard/filter/sbRimType/fullrim.svg');
+    display: block;
+    min-height: 20px;
+    min-width: 30px;
+    background-repeat: no-repeat;
+}
+
+.filter-sbRimType-nylor {
+    background-image: url('https://www.silhouette.com/images/icons/artboard/filter/sbRimType/halfrim.svg');
+    display: block;
+    min-height: 20px;
+    min-width: 30px;
+    background-repeat: no-repeat;
+}
+
+.filter-sbRimType-rimless {
+    background-image: url('https://www.silhouette.com/images/icons/artboard/filter/sbRimType/rimless.svg');
+    display: block;
+    min-height: 20px;
+    min-width: 30px;
+    background-repeat: no-repeat;
+}
+
+.filter-faceType-sg05 {
+    background-image: url('https://www.silhouette.com/images/icons/artboard/filter/faceType/triangle.svg');
+    display: block;
+    min-height: 20px;
+    min-width: 20px;
+    background-repeat: no-repeat;
+}
+
+.filter-faceType-sg03 {
+    background-image: url('https://www.silhouette.com/images/icons/artboard/filter/faceType/round.svg');
+    display: block;
+    min-height: 20px;
+    min-width: 20px;
+    background-repeat: no-repeat;
+}
+
+.filter-faceType-sg02 {
+    background-image: url('https://www.silhouette.com/images/icons/artboard/filter/faceType/rectangular.svg');
+    display: block;
+    min-height: 20px;
+    min-width: 20px;
+    background-repeat: no-repeat;
+}
+
+.filter-faceType-sg01 {
+    background-image: url('https://www.silhouette.com/images/icons/artboard/filter/faceType/oval.svg');
+    display: block;
+    min-height: 20px;
+    min-width: 20px;
+    background-repeat: no-repeat;
+}
+
+.filter-faceType-sg04 {
+    background-image: url('https://www.silhouette.com/images/icons/artboard/filter/faceType/square.svg');
+    display: block;
+    min-height: 20px;
+    min-width: 20px;
+    background-repeat: no-repeat;
+}
+
+.quantity-price-remove .slds-m-left_large {
+    flex-basis: auto;
+}
+
+.h5-font-light {
+    font-weight: 300;
+    font-size: 20px;
+    line-height: 30.8px;
+}
+
+.layover-button {
+    width: 30%;
+    background-color: #fff;
+    border: 1px solid #000;
+    color: #000;
+    font-weight: 700;
+    letter-spacing: 1px;
+    font-size: smaller;
+    line-height: 2;
+}
+
+.layover-button:hover {
+    width: 30%;
+    background-color: black;
+    border: 1px solid #000;
+    color: #fff;
+    font-weight: 700;
+    letter-spacing:1px;   
+    line-height: 2;
+    font-size: smaller;
+}
+
+.layover-button:disabled {
+    width: 30%;
+    background-color: #c9c7c5;
+    border: 1px solid #c9c7c5;
+    color: #fff;
+    font-weight: 700;
+    letter-spacing: 1px;   
+    line-height: 2;
+    font-size: smaller;
+}
+
+.opacity50 {
+    opacity: 0.5;
+}
+
+.siteforceContentArea {
+    min-height: calc(100vh - 270px) !important;
+}
+
+.no-border {
+    --lwc-borderWidthThin : 0 !important;
+}
+
+/* BS-893 start*/
+.comm-page-my-account .tabs__content .tooltipIcon {
+    display:none!important;
+}
+/* BS-893 end*/
+
+/* BS-954 Start*/
+.themeNotifications{
+    display: none;
+}
+/* BS-954 End*/
+
+/* Start : BS-1607 */
+.filterWrap .slds-accordion__summary-content{
+    font-size: 16px!important;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.filterWrap  ::-webkit-scrollbar {
+    width: 5px;
+}
+
+.filterWrap .slds-accordion__summary-action svg {
+    margin-right: 0px;
+    float: right;
+    margin-top: 15px;
+    transform: rotate(270deg);
+}
+
+.filterWrap .slds-is-open .slds-accordion__summary-action svg {
+    transform: rotate(0deg);
+}
+
+/* End : BS-1607 */
+/* Start : BS-2088 */
+
+.navBarContainer{
+    max-width:1170px;
+    margin:auto;
+}
+.forceCommunityThemeHeaderB2B .centerContainer{
+    max-width:1170px;
+    margin:auto;
+}
+.comm-page-list-1Os .contentRegion {
+    padding-right:0px!important;
+    padding-left:12px!important;
+}
+/* End : BS-2088 */
+/* Start: BS-2150 */
+.customer-service-link a{
+    color: #fff !important;
+    text-decoration: underline;
+}
+/* End: BS-2150 */

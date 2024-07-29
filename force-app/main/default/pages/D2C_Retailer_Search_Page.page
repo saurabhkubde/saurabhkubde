@@ -1,0 +1,1029 @@
+<!--
+ * @author Sachin V
+ * @email  Sachin.vispute@theblueflamelabs.com
+ * @desc   This visualforce page contains a retailer search functionality with Google Maps & Retailer Information
+ * NBD2C-65 : Created as part of NBD2C-65
+ **/
+-->
+<apex:page showHeader="false" sidebar="false" Controller="D2C_Retailer_Search_Controller" language="{!$CurrentPage.parameters.language}">
+    <!-- NBD2C-65 : Head Section Start -->
+
+    <head>
+        <!-- NBD2C-65 : Scripting Section for Google Maps Section Start -->
+        <script>
+            // Below function is provided by Google Maps in the documentation hence keeping it as is
+            // Google documentation link -> https://developers.google.com/maps/documentation/javascript/overview#bootstrap_loader
+            ((g) => {
+                var h,
+                    a,
+                    k,
+                    p = 'The Google Maps JavaScript API',
+                    c = 'google',
+                    l = 'importLibrary',
+                    q = '__ib__',
+                    m = document,
+                    b = window;
+                b = b[c] || (b[c] = {});
+                var d = b.maps || (b.maps = {}),
+                    r = new Set(),
+                    e = new URLSearchParams(),
+                    u = () =>
+                        h ||
+                        (h = new Promise(async (f, n) => {
+                            await (a = m.createElement('script'));
+                            e.set('libraries', [...r] + '');
+                            for (k in g)
+                                e.set(
+                                    k.replace(/[A-Z]/g, (t) => '_' + t[0].toLowerCase()),
+                                    g[k]
+                                );
+                            e.set('callback', c + '.maps.' + q);
+                            a.src = `https://maps.${c}apis.com/maps/api/js?` + e;
+                            d[q] = f;
+                            a.onerror = () => (h = n(Error(p + ' could not load.')));
+                            a.nonce = m.querySelector('script[nonce]')?.nonce || '';
+                            m.head.append(a);
+                        }));
+                d[l] ? console.warn(p + ' only loads once. Ignoring:', g) : (d[l] = (f, ...n) => r.add(f) && u().then(() => d[l](f, ...n)));
+            })({
+                key: '{!$Label.D2C_GoogleMapApiKey}', // Google Maps API Key
+                v: 'weekly',
+                l: 'places,visualization,marker',
+                callback: 'initMap'
+            });
+        </script>
+
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+
+        <!-- NBD2C-65 : Scripting Section for Google Maps Section End -->
+
+        <!-- NBD2C-65 : Section for importing Custom Fonts and CSS  Start -->
+        <apex:stylesheet value="{!URLFOR($Resource.D2C_NB_StoreStyling, 'custom_fonts/customfonts.css')}" />
+        <apex:stylesheet value="{!URLFOR($Resource.D2C_NB_StoreStyling, 'css/retailerSearchCSS.css')}" />
+        <!-- NBD2C-65 : Section for importing Custom Fonts and CSS  End -->
+    </head>
+    <!-- NBD2C-65 : Head Section End -->
+
+    <!-- NBD2C-65 : Body Section Start -->
+
+    <body>
+        <!-- NBD2C-65 - Retailer Search Container - Start -->
+        <div class="container">
+            <!-- NBD2C-65 - Retailer Search List Container - Start -->
+            <div class="list-container">
+                <!-- NBD2C-65 - Retailer Search List Arrow For non-desktop devies - Start -->
+                <div class="mapSidebar__arrow">
+                    <!-- Below SVG is for Up-ward arrow. Keeping it in markup as uploading it into static resource causing a breaking of functionality and styling -->
+                    <apex:image url="{!URLFOR($Resource.D2C_NB_StoreStyling, 'icons/upArrow.svg')}" height="50%" width="50%" />
+                </div>
+                <!-- NBD2C-65 - Retailer Search List Arrow For non-desktop devies - End -->
+
+                <!-- NBD2C-65 - Retailer Search List Heading - Start -->
+                <h2 class="list-heading"></h2>
+                <!-- NBD2C-65 - Retailer Search List Heading - End -->
+
+                <!-- NBD2C-65 - Retailer Search List - Start -->
+                <div class="mapSidebarList">
+                    <ul id="location-list"></ul>
+                </div>
+                <!-- NBD2C-65 - Retailer Search List - End -->
+            </div>
+            <!-- NBD2C-65 - Retailer Search List Container - End -->
+
+            <!-- NBD2C-65 - Retailer Search Map  - Start -->
+            <div id="map" class="map-container"></div>
+            <!-- NBD2C-65 - Retailer Search Map  - End -->
+
+            <!-- NBD2C-65 - Retailer Search Map  Search Bar - Start -->
+            <input id="mapSearch" class="controls" type="text" />
+
+            <div id="infowindow-content">
+                <span id="place-name" class="title"></span><br />
+                <span id="place-address"></span>
+            </div>
+            <!-- NBD2C-65 - Retailer Search Map Search Bar  - End -->
+        </div>
+        <!-- NBD2C-65 - Retailer Search Container - End -->
+
+        <!-- NBD2C-65 - Scripting Section - Start -->
+        <script type="text/javascript">
+
+            let currentInfowindow;
+            let markers = [];
+            let retailersCollection;
+            let centerCoordinates; //Used to calculate the distance of a retailer from current user location or store location
+
+            // NBD2C-95 - Start
+            let selectedRetailer = ''; // NBD2C-95 : Variable is used to check the current retailer either automatically or by user
+            let currentUserSelectedRetailer; // NBD2C-95 :  Varibale is used to store the value of the user selected retailer
+            let firstRetailer = true; // NBD2C-95 :  If user is newly on the page then the first retailer is set as default retailer.
+            let setSelectedRetailerAsCenter = true; // NBD2C-95 : If user has returned to retailer search step from any other step then let them see their selected retlaier at the center of the map
+            let retailerName = '';
+            let retailerLocation = '';
+            // NBD2C-95 - End
+
+            // NBD2C-65 : constants - Start
+            const ADDRESS = 'address'
+            const BLACK = 'black';
+            const BR = 'br';
+            const CLICK = "click";
+            const DISABLE_DEFAULT_UI = true;
+            const DISTANCE = 'distance';
+            const DRAG_START = 'dragstart';
+            const FF0000 = '#FF0000';
+            const FORMATTED_ADDRESS = "formatted_address";
+            const GEOLOCATION_NOT_AVAILABLE = 'Geolocation is not supported by this browser.';
+            const GEOMETRY = "geometry";
+            const IDLE = 'idle';
+            const KM = ' KM';
+            const LATITUDE = 59.9412996;
+            const LI = "li";
+            const LIST_CONTAINER = '.list-container';
+            const LIST_HEADING = '.list-heading';
+            const LIST_TOP = 'list-top';
+            const LOCATION_ACCESS_DENIED = 'Location access denied.';
+            const LOCATION_LIST = "location-list";
+            const LONGITUDE = 30.3043729;
+            const MAP = 'map';
+            const MAP_SEARCH_ID = '#mapSearch';
+            const MAP_SIDEBAR_ARROW = '.mapSidebar__arrow';
+            const MAPS = "maps";
+            const MARKER = "marker";
+            const MOBILE_DEVICES = 800;
+            const MOUSE_ENTER = "mouseenter";
+            const MOUSE_LEAVE = 'mouseleave';
+            const NAME = "name";
+            const PAC_CARD = "pac-card";
+            const POINTER = 'pointer';
+            const PREMIUM = 'premium';
+            // Keeping the premium and standard marker icons at const as the AdvancedMarkerElement requires stringified
+            // If it's moved to Static resource then, it returns a link of the resource and not the strigified format that caused issue of pointing the marker
+            const PREMIUM_ICON = '<svg width="42" height="50" viewBox="0 0 42 50" fill="none" xmlns="http://www.w3.org/2000/svg"><g filter="url(#filter0_d_346_20)"><path d="M21 41.9998C21 42.0542 37 30.3268 37 18.3265C37 9.3096 29.8366 2 21 2C12.1634 2 5 9.3096 5 18.3265C5 30.5532 21 41.9998 21 41.9998Z" fill="black"/><path d="M21.3813 41.0951C21.2322 41.2106 21.1058 41.3066 21.0047 41.3822C20.9011 41.3046 20.7712 41.2062 20.6175 41.0879C20.1852 40.755 19.5659 40.2647 18.8222 39.6379C17.334 38.3837 15.351 36.586 13.3696 34.4114C9.38474 30.0381 5.5 24.2413 5.5 18.3265C5.5 9.57618 12.4491 2.5 21 2.5C29.5509 2.5 36.5 9.57618 36.5 18.3265C36.5 24.1275 32.6163 29.9374 28.6291 34.3484C26.6471 36.541 24.6637 38.3617 23.1755 39.6309C22.4318 40.2653 21.8129 40.7608 21.3813 41.0951Z" stroke="black"/></g><path d="M28 15L23.1016 14.3628L21 10L18.898 14.3628L14 15L17.6011 18.2637L16.6719 22.999L21 20.6738L25.3291 22.999L24.3984 18.2637L28 15Z" fill="white"/><defs><filter id="filter0_d_346_20" x="0" y="0" width="42" height="50" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"><feFlood flood-opacity="0" result="BackgroundImageFix"/><feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/><feOffset dy="3"/><feGaussianBlur stdDeviation="2.5"/><feComposite in2="hardAlpha" operator="out"/><feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0"/><feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_346_20"/><feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_346_20" result="shape"/></filter></defs></svg>';
+            const STANDARD_ICON = '<svg width="42" height="50" viewBox="0 0 42 50" fill="none" xmlns="http://www.w3.org/2000/svg"><g filter="url(#filter0_d_341_60)"><path d="M21 41.9998C21 42.0542 37 30.3268 37 18.3265C37 9.3096 29.8366 2 21 2C12.1634 2 5 9.3096 5 18.3265C5 30.5532 21 41.9998 21 41.9998Z" fill="black"/><path d="M21.3813 41.0951C21.2322 41.2106 21.1058 41.3066 21.0047 41.3822C20.9011 41.3046 20.7712 41.2062 20.6175 41.0879C20.1852 40.755 19.5659 40.2647 18.8222 39.6379C17.334 38.3837 15.351 36.586 13.3696 34.4114C9.38474 30.0381 5.5 24.2413 5.5 18.3265C5.5 9.57618 12.4491 2.5 21 2.5C29.5509 2.5 36.5 9.57618 36.5 18.3265C36.5 24.1275 32.6163 29.9374 28.6291 34.3484C26.6471 36.541 24.6637 38.3617 23.1755 39.6309C22.4318 40.2653 21.8129 40.7608 21.3813 41.0951Z" stroke="black"/></g><circle cx="21" cy="17.2308" r="5" fill="white"/><defs><filter id="filter0_d_341_60" x="0" y="0" width="42" height="50" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"><feFlood flood-opacity="0" result="BackgroundImageFix"/><feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/><feOffset dy="3"/><feGaussianBlur stdDeviation="2.5"/><feComposite in2="hardAlpha" operator="out"/><feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0"/><feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_341_60"/><feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_341_60" result="shape"/></filter></defs></svg>';
+            const ROTATE_180 = 'rotate-180';
+            const SPAN = 'span';
+            const USE_LOCATION_BIAS = "use-location-bias";
+            const USE_STRICT_BOUNDS = "use-strict-bounds";
+            const WRONG_HEADING = 'Wrong heading label.'
+            const ZOOM = 4;
+            const ZOOM_CONTROL = true;
+            const UTILITY_LABEL = '{!$Label.D2C_NB_Retailer_Search_Utility_Labels}';
+            const UTILITY_LABEL_LIST = UTILITY_LABEL.split(';');
+            const SEARCH_BY_ADDRESS = UTILITY_LABEL_LIST[0];
+            const BEST_RETAILER_IN_YOUR_AREA = UTILITY_LABEL_LIST[1];
+            const MAP_ID = UTILITY_LABEL_LIST[2];
+            const CONTACT_LINK = UTILITY_LABEL_LIST[3];
+            const CONTACT = UTILITY_LABEL_LIST[4];
+            const WEBSITE = UTILITY_LABEL_LIST[5];
+            // NBD2C-65 : constants - End
+
+            // NBD2C-69 : constants - Start
+            const PLACES = "places"; //NBD2C-69
+            const NO_RETAILERS_FOUND_MESSAGE_TITLE = UTILITY_LABEL_LIST[6];
+            const NO_RETAILERS_FOUND_MESSAGE_CONTENT = UTILITY_LABEL_LIST[7];
+            const NO_RETAILER_FOUND_CONTENT_STYLING = 'noRetailerFoundContent';
+            const NO_RETAILER_FOUND_TITLE_STYLING = 'noRetailerFoundTitle';
+            const NO_RETAILER_FOUND_STYLING = 'noRetailerFoundStyling';
+            const DIV_TAG = 'div';
+            const PARAGRAPH_TAG = 'p';
+            const INFO_WINDOW_CONTENT = "infowindow-content";
+            const BOUNDS = "bounds";
+            const PLACES_CHANGED_EVENT = "place_changed";
+            const SUCCESS_STATUS = 'OK';
+            const STAR = "*";
+            const KEY_DOWN_EVENT = 'keydown';
+            const ENTER_KEY = 'Enter';
+            const AUTO_SUGGESTION_BOX_SELECTION_VALUE = '.pac-item-selected';
+            const ARROW_DOWN = 'ArrowDown';
+            const EMPTY_VALUE_PATTERN_ANALYSER = /^\s*$/;
+            // NBD2C-69 : constants - End
+
+            // NBD2C-95 : constants - Start
+            const FALSE = 'false';
+            const CHECKOUT = "{!$CurrentPage.parameters.isCheckout}" == FALSE ? false : true;
+            const COUNTRY = 'country';
+            const EMPTY_STRING = '';
+            const FAILED_TO_RETRIEVE_PLACE_INFORMATION = 'Failed to get place details';
+            const INPUT = 'input';
+            const INPUT_CONTAINER = 'inputContainer';
+            const NO_INFROMATION_ABOUT_SELECTED_RETAILER = 'No information about the selected retailer';
+            const NO_PLACE_FOUND = 'Failed to find place from query';
+            const NULL = 'null';
+            const OPENING_HOURS = 'opening_hours';
+            const PLACE_ID = 'place_id';
+            const PLUS = '+';
+            const PREMIUM_PLUS = 'premium-plus';
+            const PREMIUM_PLUS_YES = 'premium-plus-yes';
+            const RADIO = 'radio';
+            const RADIO_BUTTON_CONTAINER = 'radioButtonContainer';
+            const RETAILER = 'retailer';
+            const RETAILER_ADDRESS_INVALID = 'No retailer address information provided';
+            const RETAILER_FROM_PARENT = JSON.parse('{!$CurrentPage.parameters.retailerData}');
+            const RETAILER_INFORMATION = 'retailerinformation';
+            const RETAILER_SELECTOR = 'retailerSelector';
+            const TABLE = 'table';
+            const TD = 'td';
+            const IPAD_WIDTH = 1024;
+            const TITLE_CONTAINER = 'titleContainer';
+            const TR = 'tr';
+            // NBD2C-95 : constants - End
+
+            /**
+             * NBD2C-65
+             * @param northPadding : The amount of padding from north
+             * @param southPadding : The amount of padding from south
+             * @param eastPadding : The amount of padding from east
+             * @param westPadding : The amount of padding from west
+             * @description This method accepts map and paddings to be added to each side, then returns new map with padded bounds
+             * @author Sachin V
+             */
+            function paddedBounds(northPadding, southPadding, eastPadding, westPadding, map) {
+                if (map) {
+                    var southWest = map.getBounds().getSouthWest();
+                    var northEast = map.getBounds().getNorthEast();
+                    var topRight = map.getProjection().fromLatLngToPoint(northEast);
+                    var bottomLeft = map.getProjection().fromLatLngToPoint(southWest);
+                    var scale = Math.pow(2, map.getZoom());
+
+                    //Calculate the new SouthWest Point after adding the padding
+                    var southWestToPoint = map.getProjection().fromLatLngToPoint(southWest);
+                    var southWestPoint = new google.maps.Point(((southWestToPoint.x - bottomLeft.x) * scale) + westPadding, ((southWestToPoint.y - topRight.y) * scale) - southPadding);
+                    var southWestWorld = new google.maps.Point(southWestPoint.x / scale + bottomLeft.x, southWestPoint.y / scale + topRight.y);
+                    var southWestPointer = map.getProjection().fromPointToLatLng(southWestWorld);
+
+                    //Calculate the new NorthWest Point after adding the padding
+                    var northEastTopPoint = map.getProjection().fromLatLngToPoint(northEast);
+                    var northEastPoint = new google.maps.Point(((northEastTopPoint.x - bottomLeft.x) * scale) - eastPadding, ((northEastTopPoint.y - topRight.y) * scale) + northPadding);
+                    var northEastWorld = new google.maps.Point(northEastPoint.x / scale + bottomLeft.x, northEastPoint.y / scale + topRight.y);
+                    var northEastPointer = map.getProjection().fromPointToLatLng(northEastWorld);
+
+                    //Return the new map
+                    return new google.maps.LatLngBounds(southWestPointer, northEastPointer);
+                }
+            }
+
+            /**
+             * NBD2C-65
+             * @description This function is linked to the window.initMap so when the google api callback is executed it executes this method
+             * @author Sachin V
+             */
+            async function initMap() {
+
+                //Set the heading for the list of retailers
+                if (BEST_RETAILER_IN_YOUR_AREA) {
+                    heading = BEST_RETAILER_IN_YOUR_AREA.split(PLUS);
+
+                    if (heading.length == 2) {
+                        let headingDiv = document.querySelector(LIST_HEADING);
+                        headingDiv.innerHTML += heading[0];
+
+                        let headinglineBreak = document.createElement(BR);
+                        headingDiv.appendChild(headinglineBreak);
+
+                        headingDiv.innerHTML += heading[1];
+                    } else {
+                        console.error(WRONG_HEADING);
+                    }
+                }
+
+                // Center for the map in case user has not provided any location
+                const center = {
+                    "lat": LATITUDE,
+                    "lng": LONGITUDE
+                };
+
+                //Import Maps and Geometry libraries
+                const { Map } = await google.maps.importLibrary(MAPS);
+                const { spherical } = await google.maps.importLibrary(GEOMETRY);
+                const { places } = await google.maps.importLibrary(PLACES); //NBD2C-69
+                let { marker } = await google.maps.importLibrary(MARKER); //NBD2C-69
+
+                // Initialize a new map with some default parameters set
+                map = new google.maps.Map(document.getElementById(MAP), {
+                    disableDefaultUI: DISABLE_DEFAULT_UI,
+                    zoomControl: ZOOM_CONTROL,
+                    center: center,
+                    zoom: ZOOM,
+                    mapId: MAP_ID
+                });
+
+                //Set the placeholder text for search input
+                let searchBarInput = document.querySelector(MAP_SEARCH_ID); //NBD2C-69
+                const infowindow = new google.maps.InfoWindow(); //NBD2C-69
+                const infowindowContent = document.getElementById(INFO_WINDOW_CONTENT); //NBD2C-69
+                searchBarInput.placeholder = SEARCH_BY_ADDRESS;
+                markersForPopover = {!retailerInformation};
+
+                const options = {
+                    fields: [FORMATTED_ADDRESS, GEOMETRY, NAME],
+                    strictBounds: false,
+                };
+
+                //NBD2C-69
+                let autocomplete = new google.maps.places.Autocomplete(searchBarInput, options);
+
+                marker = new google.maps.marker.AdvancedMarkerElement({
+                    map,
+                });
+
+                retailersCollection = {!retailerInformation}
+
+                //NBD2C-69 - Start
+                autocomplete.bindTo(BOUNDS, map);
+
+                // Capturing Search bar component
+                let inputElement = searchBarInput;
+
+                // Following code block will execute on any keyboard activity on search bar input box
+                searchBarInput.addEventListener(KEY_DOWN_EVENT, (event) => {
+                    if (event.key && event.key != ENTER_KEY) {
+                        return;
+                    } else {
+                        // If the user already selected a result using the arrow keys then avoiding overriding of that selected value
+                        if (document.querySelector(AUTO_SUGGESTION_BOX_SELECTION_VALUE)) {
+                            return;
+                        }
+                        //If user has cleared te search term in search box, and hit Enter key, then resetting the map
+                        if (event && event.key && event.key == ENTER_KEY && (EMPTY_VALUE_PATTERN_ANALYSER.test(searchBarInput.value))) {
+                            map.setZoom(2);
+                            map.setCenter(center)
+                        } else {
+                            // Simulating ArrowDown key to select the first autocomplete suggestion
+                            searchBarInput.dispatchEvent(
+                                new KeyboardEvent(KEY_DOWN_EVENT, {
+                                    key: ARROW_DOWN,
+                                    code: ARROW_DOWN,
+                                    // NOTE: Google Maps checks `keyCode`, `key` , `code` that are only included for future proofing
+                                    keyCode: 40
+                                })
+                            );
+                        }
+                    }
+                });
+
+                autocomplete = new google.maps.places.Autocomplete(inputElement);
+
+                autocomplete.addListener(PLACES_CHANGED_EVENT, () => {
+                    infowindow.close();
+                    marker.setMap(null);
+
+                    const place = autocomplete.getPlace();
+
+                    if (!place.geometry || !place.geometry.location) {
+                        return;
+                    }
+
+                var rangeBounds = paddedBounds(0, 0, 0, 0, map);
+
+                    markers = [];
+
+                    // Using bounds get all the locations within it and display it into the list
+                    if (retailersCollection && retailersCollection.length > 0) {
+                        for (let index = 0; index < retailersCollection.length; index++) {
+                            currentLocation = new google.maps.LatLng(retailersCollection[index].location.lat, retailersCollection[index].location.lng);
+                            if (rangeBounds.contains(currentLocation)) {
+                                const retailerTitle = retailersCollection[index].title ? retailersCollection[index].title : null;
+                                const retailerDescription = retailersCollection[index].description ? retailersCollection[index].description : null;
+                                const retailerPhoneNumber = retailersCollection[index].phone ? retailersCollection[index].phone : null;
+                                const retailerWebsite = retailersCollection[index].website ? retailersCollection[index].website : null;
+                                let retailerAddress = retailerTitle + ' ' + retailerDescription;
+
+                                // Dynamically forming the HTML string that needs to be provided as input to Google Maps
+                                // Keeping it here in script as moving it into label or const causing a breaking of functionality
+                                const contentString = "<div class=\"infoWindowDiv\"><h4 if:true={retailerTitle}><strong>" +
+                                    retailerTitle + "</strong> </h4>" +
+                                    "<p if:true{retailerDescription}>" + retailerDescription + "</p>" +
+                                    (retailerPhoneNumber ? "<a href='tel:" + retailerPhoneNumber + "' id='telephone' style='outline:none' target='_blank'>" + retailerPhoneNumber + "</a>" : "") + " <hr>" +
+                                    "<a href='" + CONTACT_LINK + "' target='_blank' style='margin-right:10px;outline:none'>" + CONTACT + "</a>" +
+                                    (retailerWebsite ? "<a href='" + retailerWebsite + "' style='outline:none' target='_blank'>" + WEBSITE + "</a>" : "") + "</div>";
+                                const infowindow = new google.maps.InfoWindow({
+                                    content: contentString,
+                                    ariaLabel: markersForPopover[index].title,
+                                });
+
+                                var markerPin = EMPTY_STRING;
+                                if (markersForPopover[index].premium) {
+                                    markerPin = PREMIUM_ICON;
+                                } else {
+                                    markerPin = STANDARD_ICON;
+                                }
+
+                                const parser = new DOMParser();
+                                const mapPin = parser.parseFromString(
+                                    markerPin,
+                                    "image/svg+xml",
+                                ).documentElement;
+
+                                let marker = new google.maps.marker.AdvancedMarkerElement({
+                                    position: markersForPopover[index].location,
+                                    map,
+                                    content: mapPin,
+                                    title: markersForPopover[index].title
+                                });
+
+                                marker.addListener(CLICK, () => {
+                                    if (currentInfowindow) {
+                                        currentInfowindow.close();
+                                    }
+                                    currentInfowindow = infowindow;
+                                    infowindow.open({
+                                        anchor: marker,
+                                        map,
+                                    });
+                                });
+
+                                let locationItem = document.createElement(LI);
+                                locationItem.style.cursor = POINTER;
+
+                                if (centerCoordinates) {
+                                    let distance = document.createElement(SPAN);
+                                    distance.classList.add(DISTANCE);
+                                    distance.textContent = (google.maps.geometry.spherical.computeDistanceBetween(centerCoordinates, marker.position) / 1000).toFixed(2) + KM;
+                                    locationItem.appendChild(distance);
+                                }
+
+                                let address = document.createElement(SPAN);
+                                address.classList.add(ADDRESS);
+                                address.textContent = markersForPopover[index].description;
+
+                                locationItem.appendChild(address);
+
+                                // If mouse enter the li then open the infowindow for that location
+                                if (window.innerWidth > IPAD_WIDTH) {
+                                    locationItem.addEventListener(MOUSE_ENTER, () => {
+                                        if (currentInfowindow) {
+                                            currentInfowindow.close();
+                                        }
+                                        currentInfowindow = infowindow;
+                                        infowindow.open({
+                                            anchor: marker,
+                                            map,
+                                        });
+                                    });
+
+                                }
+                                locationItem.style.margin = 0;
+
+                                if ( window.innerWidth <= MOBILE_DEVICES ) {
+                                    locationItem.addEventListener( CLICK, () => {
+                                        var arrowIcon = document.querySelector(MAP_SIDEBAR_ARROW);
+                                        var list_container = document.querySelector(LIST_CONTAINER);
+                                        if (arrowIcon.classList.contains(ROTATE_180)) {
+                                            arrowIcon.classList.remove(ROTATE_180);
+                                            list_container.classList.remove(LIST_TOP);
+                                        }
+                                    })
+                                }
+
+                                markersForPopover[index].premium ?
+                                    CHECKOUT ?
+                                        locationItem.classList.add(PREMIUM_PLUS) :
+                                        locationItem.classList.add(PREMIUM) :
+                                EMPTY_STRING;
+
+                                // Retrieve the ul and append the li to it
+                                document.getElementById(LOCATION_LIST).appendChild(locationItem);
+                                markers.push(marker);
+                            }
+                        }
+                    } else {
+                        setupNoRetailerFoundSection();
+                    }
+
+                    // If the place has a geometry, then present it on a map.
+                    if (place.geometry.viewport) {
+                        map.fitBounds(place.geometry.viewport);
+                    } else {
+                        map.setZoom(17);
+                    }
+                });
+                //NBD2C-69 - End
+
+                // Ask user for user location permission
+                getUserLocation();
+                retailersCollection = JSON.parse(JSON.stringify(markersForPopover));
+
+                markersForPopover = {!retailerInformation};
+                //Sort the markers based on premium markers first
+                markersForPopover.sort((mark1, mark2) => {
+
+                    // Premium locations come before non-premium ones
+                    if (mark1.premium && !mark2.premium) {
+                        return -1; // mark1 comes before mark2
+                    } else if (!mark1.premium && mark2.premium) {
+                        return 1; // mark2 comes before mark1
+                    } else {
+                        return 0; // leave them in the original order
+                    }
+                });
+
+                // If user moves the map update the list accordingly to new locations
+                google.maps.event.addListener(map, IDLE, function () {
+
+                    firstRetailer = true;
+
+                    // Retrieve the ul for the list items
+                    var list = document.getElementById(LOCATION_LIST);
+
+                    // Remove all the current childrens
+                    while (list.hasChildNodes()) {
+                        list.removeChild(list.firstChild);
+                    }
+
+                    markers = [];
+
+                    var bounds = paddedBounds(0, 0, 0, 0, map);
+
+                    //Using bounds get all the locations within it and display it into the list
+                    if (retailersCollection && retailersCollection.length > 0) {
+                        for (let index = 0; index < markersForPopover.length; index++) {
+                            currentLocation = new google.maps.LatLng(markersForPopover[index].location.lat, markersForPopover[index].location.lng);
+                            if (bounds.contains(currentLocation)) {
+                                const retailerTitle = markersForPopover[index].title ? markersForPopover[index].title : null;
+                                const retailerDescription = markersForPopover[index].description ? markersForPopover[index].description : null;
+                                const retailerPhoneNumber = markersForPopover[index].phone ? markersForPopover[index].phone : null;
+                                const retailerWebsite = markersForPopover[index].website ? markersForPopover[index].website : null;
+
+                                let retailerAddress = retailerTitle + ' ' + retailerDescription; // NBD2C-95 : Set the location for the current retailer to retrieve the information from places library
+
+                                // NBD2C-95 : if user have already selected a retailer then keep it default after user return
+                                // to this page back from any other step within the process
+                                if(RETAILER_FROM_PARENT != null && RETAILER_FROM_PARENT != undefined && RETAILER_FROM_PARENT.retailerAddress) {
+                                    setCenterToRetailerLocation();
+                                    selectedRetailer = RETAILER_FROM_PARENT.retailerAddress;
+                                    sendDataToParent(RETAILER_FROM_PARENT);
+                                }
+                                // NBD2C-95 : if user have not selected the retailer but the default retailer was selected when user clicked the NEXT
+                                // button then we can override the default with the current retailer(only first)
+                                else if(firstRetailer && RETAILER_FROM_PARENT && RETAILER_FROM_PARENT.userSelection == false) {
+                                    firstRetailer = false;
+                                    selectedRetailer = RETAILER_FROM_PARENT;
+                                    getOpeningHours(selectedRetailer + ";" + retailerTitle + ";" + retailerDescription, true)
+                                }
+                                // NBD2C-95 : check if during the session user has selected any retailer and in case they have then set the value of the
+                                // selectedRetailer variable to the same
+                                else if(currentUserSelectedRetailer && currentUserSelectedRetailer.retailerAddress) {
+                                    firstRetailer = false;
+                                    selectedRetailer = currentUserSelectedRetailer.retailerAddress;
+                                }
+                                // NBD2C-95 : if the selectedRetailer have some value init and as its default value we will overide it with the current
+                                // lists first retailer
+                                else if(selectedRetailer && firstRetailer) {
+                                    firstRetailer = false;
+                                    selectedRetailer = retailerAddress;
+                                    getOpeningHours(selectedRetailer + ";" + retailerTitle + ";" + retailerDescription, true)
+                                }
+                                // NBD2C-95 : if all the above conditions are false then we just set the first retailer as default
+                                else if(firstRetailer ) {
+                                    firstRetailer = false;
+                                    selectedRetailer = retailerAddress;
+                                    getOpeningHours(selectedRetailer + ";" + retailerTitle + ";" + retailerDescription, true)
+
+                                }
+
+                                // Dynamically forming the HTML string that needs to be provided as input to Google Maps
+                                // Keeping it here in script as moving it into label or const causing a breaking of functionality
+                                const contentString = "<div class=\"infoWindowDiv\"><h4 if:true={retailerTitle} style='outline:none'><strong>" +
+                                    retailerTitle + "</strong> </h4>" +
+                                    "<p if:true{retailerDescription}>" + retailerDescription + "</p>" +
+                                    (retailerPhoneNumber ? "<a href='tel:" + retailerPhoneNumber + "' style='outline:none' id='telephone' target='_blank'>" + retailerPhoneNumber + "</a>" : "") + " <hr>" +
+                                    "<a href='" + CONTACT_LINK + "' target='_blank' style='margin-right:10px;outline:none'>" + CONTACT + "</a>" +
+                                    (retailerWebsite ? "<a href='" + retailerWebsite + "' style='outline:none' target='_blank'>" + WEBSITE + "</a>" : "") + "</div>";
+                                const infowindow = new google.maps.InfoWindow({
+                                    content: contentString,
+                                    ariaLabel: markersForPopover[index].title,
+                                });
+
+                                var markerPin = EMPTY_STRING;
+                                if (markersForPopover[index].premium) {
+                                    markerPin = PREMIUM_ICON;
+                                } else {
+                                    markerPin = STANDARD_ICON;
+                                }
+
+                                const parser = new DOMParser();
+                                const mapPin = parser.parseFromString(
+                                    markerPin,
+                                    "image/svg+xml",
+                                ).documentElement;
+
+                                let marker = new google.maps.marker.AdvancedMarkerElement({
+                                    position: markersForPopover[index].location,
+                                    map,
+                                    content: mapPin,
+                                    title: markersForPopover[index].title,
+                                });
+
+                                marker.addListener(CLICK, () => {
+                                    if (currentInfowindow) {
+                                        currentInfowindow.close();
+                                    }
+                                    currentInfowindow = infowindow;
+                                    infowindow.open({
+                                        anchor: marker,
+                                        map,
+                                    });
+                                });
+
+                                let locationItem = document.createElement(LI);
+                                locationItem.style.cursor = POINTER;
+
+                                if (centerCoordinates) {
+                                    let distance = document.createElement(SPAN);
+                                    distance.classList.add(DISTANCE);
+                                    distance.textContent = (google.maps.geometry.spherical.computeDistanceBetween(centerCoordinates, marker.position) / 1000).toFixed(2) + KM;
+                                    locationItem.appendChild(distance);
+                                }
+
+                                let titleContainer = document.createElement(DIV_TAG);
+                                titleContainer.classList.add(INPUT_CONTAINER);
+                                titleContainer.innerHTML += markersForPopover[index].title;
+
+                                let inputRadioButton = document.createElement(INPUT);
+                                inputRadioButton.onclick = handleRetailerSelection;
+                                inputRadioButton.type = RADIO;
+                                inputRadioButton.value = retailerAddress + ';' +retailerTitle + ';' + retailerDescription;
+                                inputRadioButton.classList.add(RETAILER_SELECTOR);
+                                inputRadioButton.name = RETAILER;
+
+                                if (CHECKOUT) {
+                                    let table = document.createElement(TABLE);
+                                    let tabelRow = document.createElement(TR);
+                                    let tableDataTitle = document.createElement(TD);
+                                    let tableDataStar = document.createElement(TD);
+                                    let tableDataRadioButton = document.createElement(TD);
+                                    tableDataTitle.classList.add(TITLE_CONTAINER);
+                                    tableDataRadioButton.classList.add(RADIO_BUTTON_CONTAINER);
+                                    tableDataTitle.appendChild(titleContainer);
+                                    tableDataStar.classList.add(PREMIUM_PLUS_YES)
+                                    tabelRow.appendChild(tableDataTitle)
+                                    tabelRow.appendChild(tableDataStar)
+
+                                    if (selectedRetailer == retailerAddress) {
+                                        inputRadioButton.checked  = true;
+                                    } else {
+                                        inputRadioButton.checked = false;
+                                    }
+
+                                    tableDataRadioButton.appendChild(inputRadioButton)
+                                    tabelRow.appendChild(tableDataRadioButton)
+                                    table.appendChild(tabelRow);
+                                    locationItem.appendChild(table);
+                                } else {
+                                    locationItem.innerHTML += markersForPopover[index].title ;
+                                }
+
+                                let address = document.createElement(SPAN);
+                                address.classList.add(ADDRESS);
+                                address.textContent = markersForPopover[index].description;
+
+                                locationItem.appendChild(address);
+
+                                // If mouse enter the li then open the infowindow for that location
+                                if (window.innerWidth > IPAD_WIDTH) {
+                                    locationItem.addEventListener(MOUSE_ENTER, () => {
+                                        if (currentInfowindow) {
+                                            currentInfowindow.close();
+                                        }
+                                        currentInfowindow = infowindow;
+                                        infowindow.open({
+                                            anchor: marker,
+                                            map,
+                                        });
+                                    });
+                                }
+
+                                locationItem.style.margin = 0;
+
+                                if ( window.innerWidth <= MOBILE_DEVICES ) {
+                                    locationItem.addEventListener( CLICK, () => {
+                                        var arrowIcon = document.querySelector(MAP_SIDEBAR_ARROW);
+                                        var list_container = document.querySelector(LIST_CONTAINER);
+                                        if (arrowIcon.classList.contains(ROTATE_180)) {
+                                            arrowIcon.classList.remove(ROTATE_180);
+                                            list_container.classList.remove(LIST_TOP);
+                                        }
+                                    })
+                                }
+
+                                markersForPopover[index].premium ?
+                                CHECKOUT ?
+                                locationItem.classList.add(PREMIUM_PLUS) :
+                                locationItem.classList.add(PREMIUM) :
+                                false;
+
+                                // Retrieve the ul and append the li to it
+                                document.getElementById(LOCATION_LIST).appendChild(locationItem);
+                                markers.push(marker);
+                            }
+                        }
+
+                        if (markers && markers.length == 0) {
+                            selectedRetailer = EMPTY_STRING;
+                            sendDataToParent(selectedRetailer)
+                            setupNoRetailerFoundSection();
+                        }
+                    } else {
+                        setupNoRetailerFoundSection();
+                    }
+                });
+
+                google.maps.event.addListener(map, DRAG_START, function () {
+
+                    //NBD2C-69 - Start
+                    let searchBarInput = document.querySelector(MAP_SEARCH_ID);
+                    if (searchBarInput) {
+                        searchBarInput.placeholder = SEARCH_BY_ADDRESS;
+                        searchBarInput.value = EMPTY_STRING;
+                    }
+                    //NBD2C-69 - End
+                });
+
+                if (window.innerWidth <= MOBILE_DEVICES) {
+                    setupRetailerStyling();
+                }
+
+                var loadingComplete = true;
+                // Send message to parent window that loading of Retailer Search Page is completed successfully
+                parent.postMessage(loadingComplete, STAR);
+            }
+
+            /**
+             * NBD2C-95
+             * @description : This method accepts retailer address and then returns the information about the retailer asynchronously
+             * @param retailerAddressInformation(String)   : This is the Retailer's name + Retailer's address string
+             * @author Sachin V
+             */
+             function getRetailerInformationFromGooglePlaceAPI(retailerAddressInformation) {
+                return new Promise((resolve) => {
+                    if (retailerAddressInformation) {
+                        const request = {
+                            fields: [FORMATTED_ADDRESS, GEOMETRY, NAME, PLACE_ID, OPENING_HOURS],
+                            query: retailerAddressInformation,
+                        };
+
+                        let placesService = new google.maps.places.PlacesService(map);
+
+                        placesService.findPlaceFromQuery(request, (results, status) => {
+                            if (status === google.maps.places.PlacesServiceStatus.OK) {
+                                const placeId = results[0].place_id;
+                                placesService.getDetails({
+                                    placeId: placeId
+                                }, (place, status) => {
+                                    if (status === google.maps.places.PlacesServiceStatus.OK && place.opening_hours) {
+                                        resolve(place);
+                                    } else {
+                                        resolve({}); // Return empty object if no opening hours found
+                                    }
+                                });
+                            } else {
+                                resolve({}); // Return empty object if no place found
+                            }
+                        });
+                    } else {
+                        resolve({}); // Return empty object if no information about selected retailer
+                    }
+                });
+            }
+
+            /**
+             * NBD2C-95
+             * @description : This method calls the getRetailerInformationFromGooglePlaceAPI method and from the data returned creates an object
+             * and calls the sendDataToParent method
+             * @param retailerAddress(String)   : This is the Retailer's name + Retailer's address
+             * @param isAutomatic(Boolean)  : This value indicates if the selected retailer is either selected by the user or the first retailer on the list
+             * If true, the retailer is the first retailer from the list of available retailers
+             * If false, the retailer is selected by the user
+             * @author Sachin V
+             */
+            async function getOpeningHours(retailerCompleteAddress, isAutomatic) {
+                try {
+
+                    let retailerAddress = retailerCompleteAddress.split(';')[0];
+                    retailerName = retailerCompleteAddress.split(';')[1];
+                    retailerLocation = retailerCompleteAddress.split(';')[2];
+                    let retailerInformationFromGoogle = await getRetailerInformationFromGooglePlaceAPI(retailerAddress);
+
+                    let retailerData;
+                    if (retailerInformationFromGoogle && retailerInformationFromGoogle.opening_hours) {
+                        const openingHours = retailerInformationFromGoogle.opening_hours;
+                        retailerData = {
+                            retailerAddress: retailerAddress,
+                            retailerName: retailerName,
+                            retailerLocation: retailerLocation,
+                            openingHours: openingHours,
+                            userSelection: !isAutomatic
+                        };
+                    } else {
+                        retailerData = {
+                            retailerAddress: retailerAddress ,
+                            retailerName: retailerName,
+                            retailerLocation: retailerLocation,
+                            openingHours: EMPTY_STRING,
+                            userSelection: !isAutomatic
+                        };
+                    }
+                    sendDataToParent(retailerData);
+                } catch (error) {
+                    console.error(error.message);
+                }
+            }
+
+            /**
+             * NBD2C-95
+             * @description : This method is used to set the center of the map to the user-selected retailer location
+             * when the user returns to the Retailer Search step from another step during the checkout process
+             * @author Sachin V
+             */
+             async function setCenterToRetailerLocation() {
+                try {
+                    if (RETAILER_FROM_PARENT && RETAILER_FROM_PARENT.retailerAddress && setSelectedRetailerAsCenter) {
+                        setSelectedRetailerAsCenter = false;
+                        let retailerInformationFromGoogle = await getRetailerInformationFromGooglePlaceAPI(RETAILER_FROM_PARENT.retailerAddress);
+                        map.setCenter(retailerInformationFromGoogle.geometry.location);
+                    } else {
+                        console.error(RETAILER_ADDRESS_INVALID);
+                    }
+                } catch (error) {
+                    console.error(error.message);
+                }
+            }
+
+
+            /**
+             * NBD2C-95
+             * @description : This method is used to check the origin of the data (user-selected, automatic)
+             * then we check if the current data value is automatic and we have user-selected retailer then we do not override the value
+             * if the user-selected value does not exist then the current data is set as the selectedRetailer for further operations
+             * @param retailerInformation : JSON object or a string
+             * example - {
+             *              retailerAddress : {key : value},
+             *              openingHours : {key : value}
+             *              userSelection : Boolean,
+             *              }
+             * @author Sachin V
+             */
+            function sendDataToParent(retailerInformation) {
+                currentUserSelectedRetailer = retailerInformation && retailerInformation.retailerAddress && retailerInformation.userSelection ?
+                                            retailerInformation :
+                                            RETAILER_FROM_PARENT && RETAILER_FROM_PARENT.retailerAddress && RETAILER_FROM_PARENT.userSelection ?
+                                            RETAILER_FROM_PARENT :
+                                            currentUserSelectedRetailer && currentUserSelectedRetailer.retailerAddress && currentUserSelectedRetailer.userSelection ?
+                                            currentUserSelectedRetailer :
+                                            EMPTY_STRING ;
+                let dataForParent = currentUserSelectedRetailer ? currentUserSelectedRetailer :
+                                    retailerInformation ? retailerInformation : EMPTY_STRING;
+                parent.postMessage({
+                        event_id: RETAILER_INFORMATION,
+                        data: {
+                            retailerData: JSON.stringify(dataForParent)
+                        }
+                    },
+                    STAR
+                );
+            }
+
+            /**
+             * NBD2C-95
+             * @description This method is called when the user clicks on the radio button
+             * used to call getOpeningHours which then calls sendDataToParent
+             * method to save the selected retailer to local storage with its data
+             * @author Sachin V
+             */
+             function handleRetailerSelection(event) {
+                getOpeningHours(event.target.value, false);
+            }
+
+            /**
+             * NBD2C-65
+             * @description This method is used to setup the styling of retailers list
+             * @author Sachin V
+             */
+            function setupRetailerStyling() {
+                var arrowIcon = document.querySelector(MAP_SIDEBAR_ARROW);
+                var list_heading = document.querySelector(LIST_HEADING);
+
+                list_heading.addEventListener(CLICK, () => {
+                    arrowIcon.classList.toggle(ROTATE_180);
+                    var listContainer = document.querySelector(LIST_CONTAINER);
+                    listContainer.classList.toggle(LIST_TOP);
+                });
+
+                // Add a click event listener to the SVG element
+                arrowIcon.addEventListener(CLICK, function () {
+                    // Toggle the 'rotate-180' class to rotate the arrow icon
+                    var listContainer = document.querySelector(LIST_CONTAINER);
+                    listContainer.classList.toggle(LIST_TOP);
+                    this.classList.toggle(ROTATE_180);
+                });
+            }
+
+            /**
+             * NBD2C-65
+             * @description This method is used to handle the content on UI when no retailers are available on visible area of Map
+             * @author Sachin V
+             */
+            function setupNoRetailerFoundSection() {
+                let locationItem = document.createElement(LI);
+                locationItem.classList.add(NO_RETAILER_FOUND_STYLING);
+
+                let noRetailerFoundTitle = document.createElement(DIV_TAG);
+                noRetailerFoundTitle.classList.add(NO_RETAILER_FOUND_TITLE_STYLING);
+                noRetailerFoundTitle.innerHTML += NO_RETAILERS_FOUND_MESSAGE_TITLE;
+
+                locationItem.appendChild(noRetailerFoundTitle);
+
+                let noRetailersContent = document.createElement(PARAGRAPH_TAG);
+                noRetailersContent.classList.add(NO_RETAILER_FOUND_CONTENT_STYLING);
+                noRetailersContent.textContent = NO_RETAILERS_FOUND_MESSAGE_CONTENT
+
+                locationItem.appendChild(noRetailersContent);
+
+                if (window.innerWidth <= MOBILE_DEVICES) {
+                    locationItem.addEventListener(CLICK, () => {
+                        var arrowIcon = document.querySelector(MAP_SIDEBAR_ARROW);
+                        var list_container = document.querySelector(LIST_CONTAINER);
+                        if (arrowIcon.classList.contains(ROTATE_180)) {
+                            arrowIcon.classList.remove(ROTATE_180);
+                            list_container.classList.remove(LIST_TOP);
+                        }
+                    })
+                }
+
+                // Retrieve the list container and append the list items to it
+                document.getElementById(LOCATION_LIST).appendChild(locationItem);
+            }
+
+            /**
+             * NBD2C-65
+             * @description This method fetches the co-ordinates of the store's current country
+             * @author Sachin V
+             */
+            function getStoreCountryCoordinates() {
+                // Initialize a geocoder object
+                var geocoder = new google.maps.Geocoder();
+
+                // Define the country code
+                var countryCode = "{!$CurrentPage.parameters.country}";
+
+                // Construct the address string with the country code
+                var addressString = countryCode;
+
+                // Make a geocoding request
+                geocoder.geocode({ 'address': addressString }, function (results, status) {
+                    if (status && status === SUCCESS_STATUS) {
+                        // Check if results are returned and if the first result is a country
+                        if (results && results.length > 0 && results[0].types.includes(COUNTRY)) {
+                            // Get the location (latitude and longitude) of the country
+                            var countryLocation = results[0].geometry.location;
+                            var countryLatitude = countryLocation.lat();
+                            var countryLongitude = countryLocation.lng();
+
+                            const storeLocation = {
+                                lat: countryLatitude,
+                                lng: countryLongitude
+                            };
+                            map.setCenter(storeLocation);
+                            centerCoordinates = storeLocation;
+
+                        }
+                    } else {
+                        console.error(status);
+                    }
+                });
+            }
+
+            /**
+            * NBD2C-65
+            * @description This method fetches the user's location
+            * @author Sachin V
+            */
+            function getUserLocation() {
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(
+                        (position) => {
+                            const userLocation = {
+                                lat: position.coords.latitude,
+                                lng: position.coords.longitude
+                            };
+                            map.setCenter(userLocation);
+                            map.setZoom(10);
+                            centerCoordinates = userLocation;
+                        },
+                        () => {
+                            getStoreCountryCoordinates();
+                            console.error(LOCATION_ACCESS_DENIED);
+                        }
+                    );
+                } else {
+                    getStoreCountryCoordinates();
+                    console.error(GEOLOCATION_NOT_AVAILABLE);
+                }
+            }
+            window.initMap = initMap();
+        </script>
+    </body>
+    <!-- NBD2C-65 : Body Section End -->
+</apex:page>

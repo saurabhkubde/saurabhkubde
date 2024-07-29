@@ -1,0 +1,44 @@
+<!--
+ * @author Shrikant Dangi
+ * @email  shrikant.dangi@theblueflamelabs.com
+ * @desc   This Apex page starts VTO with a frame available either in url or from polling.
+ **/
+-->
+<apex:page showHeader="false">
+    <html>
+        <head>
+            <script src="//vto-advanced-integration-api.fittingbox.com/index.js" type="text/javascript" />
+            <apex:stylesheet value="{!URLFOR($Resource.D2C_NB_StoreStyling, 'css/main.css')}" />
+            <apex:stylesheet value="{!URLFOR($Resource.D2C_VTO_SH_StoreStyling, 'css/main.css')}" />
+            <title>VTO</title>
+        </head>
+        <body>
+            <div id="my-fitmix-container"></div>
+            <script>
+                var myFitmixWidget;
+                let frame = '{!$CurrentPage.parameters.frameSKU}';
+                let lang = '{!$CurrentPage.parameters.language}';
+
+                function intializeFitMixWidget(sku) {
+                    myFitmixWidget = FitMix.createWidget(
+                        'my-fitmix-container',
+                        {
+                            apiKey: '{!$Label.D2C_VTO_ApiKey}',
+                            defaultMode: 'live',
+                            lang: lang,
+                            frame: sku
+                        },
+                        function () {
+                            myFitmixWidget.startVto('live');
+                        }
+                    );
+                }
+
+                // Initialize FitMix widget when the page loads
+                window.onload = function () {
+                    intializeFitMixWidget(frame);
+                };
+            </script>
+        </body>
+    </html>
+</apex:page>

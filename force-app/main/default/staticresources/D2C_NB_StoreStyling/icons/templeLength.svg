@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="119px" height="81px" viewBox="0 0 119 81">
+  <title>Group 3</title>
+  <desc>Created with Sketch.</desc>
+  <defs>
+    <path d="M42.2769296,1.79132727 C54.5365884,2.1090504 73.594606,1.9504923 73.594606,1.9504923 C78,1.9504923 83.5,3.5 88,6.5 C92.5,9.5 115.5,27 116.5,28 C118.5,29.5 119.851266,31.2784804 118,33.5 C116.148734,35.7215196 113.838521,33.8132291 112,32.5 C94.6666667,18.3966454 85.1666667,11.0116348 83.5,10.3449681 C81,9.34496809 80,8.5 75,8.5 C70.6421733,8.81772313 66,9 58,9.5 C50,10 45.301465,9.9873399 38.5,10.3449681 C31.2726825,10.7353672 18.7798566,10.7423733 1.0215224,10.3659862 L1.02152235,10.3659888 C0.47761625,10.3544607 0.0427100875,9.91023904 0.0427100875,9.36621079 L0.0427423727,1.04841585 C0.0427423727,0.496148929 0.490443168,0.0484481336 1.04271009,0.0484481336 C1.05845546,0.0484481336 1.07419863,0.0488200206 1.08992644,0.0495634836 C21.2346423,1.00181635 34.9636434,1.58240428 42.2769296,1.79132727 Z" id="path-1"></path>
+  </defs>
+  <g id="↳-Desktop/Mobile-·-Product-·-Detail-·-Shapes/Sizes-🔶-" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+    <g id="SILH-neubau-product-desktop-optical-sizes-overlay" transform="translate(-801.000000, -1079.000000)">
+      <g id="sizes-overlay" transform="translate(475.000000, 896.000000)">
+        <g id="Group-3" transform="translate(325.000000, 183.000000)">
+          <g id="icon" transform="translate(1.000000, 0.000000)">
+            <mask id="mask-2" fill="white">
+              <use xlink:href="#path-1"></use>
+            </mask>
+            <use id="Mask" fill="#1C1C1B" fill-rule="nonzero" xlink:href="#path-1"></use>
+          </g>
+          <path d="M1.5,61.5 L1.5,79.6107703" id="Line" stroke="#1C1C1B" stroke-linecap="square"></path>
+          <path d="M118.5,61.5 L118.5,79.6107703" id="Line-Copy" stroke="#1C1C1B" stroke-linecap="square"></path>
+          <path d="M1.5,74.5 L118.5,74.5" id="Line-2" stroke="#1C1C1B" stroke-linecap="square"></path>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

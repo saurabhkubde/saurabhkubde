@@ -1,0 +1,28 @@
+<!--
+ * @author  Saurabh Kubde
+ * @email   saurabh.kubde@theblueflamelabs.com
+ * @desc    This Visualforce page serves as the entry point for the LWC Component "d2C_VTO_Screensaver", which generates a screensaver page for VTO/POS.
+ -->
+
+<apex:page showHeader="false">
+    <!-- DVM20-9: Creation of a screensaver page for VTO/POS  : Start -->
+    <!-- It disables indexing for search engines : Start -->
+    <html>
+        <head>
+            <meta name="robots" content="noindex" />
+        </head>
+    </html>
+    <!-- It disables indexing for search engines : End -->
+    <!-- Create the Lightning web component "d2C_VTO_Screensaver" within the specified div with id "lightning" : Start -->
+    <apex:includeLightning />
+    <div id="lightning" />
+    <!-- Create the Lightning web component "d2C_VTO_Screensaver" within the specified div with id "lightning" : End -->
+    <!-- Load the Lightning application and initialize the Lightning component : Start -->
+    <script>
+        $Lightning.use('c:D2C_VTO_ScreensaverApp', function () {
+            $Lightning.createComponent('c:d2C_VTO_Screensaver', {}, 'lightning');
+        });
+    </script>
+    <!-- Load the Lightning application and initialize the Lightning component : End -->
+    <!-- DVM20-9: Creation of a screensaver page for VTO/POS  : End -->
+</apex:page>
